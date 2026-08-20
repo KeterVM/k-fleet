@@ -9,7 +9,7 @@ distance-based maintenance scheduling, before `kf-delegate-specialist` was added
 
 | Skill | Result | Evidence |
 | --- | --- | --- |
-| `kf-setup-project` | Pass | Audited the real project and installed skills before editing, then updated only relevant guidance. |
+| `kf-setup-project` | Pass | Audited real project facts, documentation locations, the harness-only Fleet contract, and installed skills before editing, then updated only evidence-backed guidance. |
 | `kf-implement-feature` | Pass | Added maintenance plans and due reporting; the initial targeted suite passed 4/4. |
 | `kf-fix-bug` | Pass | Reproduced the exact-threshold defect and retained a passing regression after the minimal fix. |
 | `kf-investigate-issue` | Pass | Diagnosed whitespace-padded odometer keys without changing product code. |

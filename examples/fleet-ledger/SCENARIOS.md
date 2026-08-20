@@ -7,11 +7,28 @@ test workflow decisions and concrete outcomes rather than matching skill wording
 
 **Prompt:** Set this repository up so Codex understands the project.
 
-**Exercise:** Inspect the package configuration, source modules, and tests, then
-create a concise root `AGENTS.md` using only observed paths and commands.
+**Exercise:** Inspect the package configuration, source modules, tests, and root
+documentation, then create a concise root `AGENTS.md` using only observed paths
+and commands.
 
 **Evidence:** `AGENTS.md` identifies the real source boundaries, built-in Node.js
-test commands, conventions demonstrated by the code, and canonical examples.
+test commands, conventions demonstrated by the code, canonical examples, and the
+root-level documentation layout and destinations. It also keeps project guidance,
+detailed knowledge, and reusable skill workflows in their intended layers and
+provides a harness-only baseline contract without imposing generic code layout.
+It keeps concise navigation in `AGENTS.md` and would extract substantial verified
+project knowledge into purpose-labelled documents only when the project needs them.
+
+**Empty-project branch:** When no stack, source, tests, or tooling exist, setup
+creates only a light guide with the known purpose, documentation destination, and
+rerun trigger. It skips unsupported architecture, commands, conventions, examples,
+and directory rules without scaffolding sample code or empty directories.
+
+**Monorepo branch:** When verified workspace or project boundaries exist, setup
+keeps shared navigation and constraints at the root and creates nested guidance only
+for materially different subtrees. Commands, documentation ownership, dependencies,
+and instruction scopes follow repository evidence; identical or empty members are
+skipped rather than receiving duplicated files.
 
 ## `kf-implement-feature`
 

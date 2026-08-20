@@ -16,6 +16,31 @@
 - `SPECIALIST_SCENARIO.md` tests bounded specialist-delegation routing.
 - `SPECIALIST_TEST_REPORT.md` records the eighth skill's validation results.
 
+## Documentation
+
+Canonical project documentation lives at the repository root; this example has no
+separate `docs/` directory. Keep general usage in `README.md`, workflow exercises
+in the matching `*_SCENARIOS.md` file, and verified results in the matching
+`*_TEST_REPORT.md` file. Add new exercise documentation beside those files unless
+the project deliberately adopts a dedicated documentation directory.
+
+If architecture, data-model, or convention guidance grows beyond a concise map,
+move the verified detail into a focused document under `docs/` and add a short,
+purpose-labelled link here. Do not expand this file into a project manual or create
+empty documentation files in advance.
+
+## K Fleet baseline contract
+
+- Keep verified project paths, commands, architecture, and constraints in this
+  file.
+- Keep detailed project knowledge in `README.md` and the scenario/report files;
+  link to it here instead of duplicating it.
+- Keep reusable procedures in `.agents/skills/`, not as long workflows here.
+- Treat `.agents/skills/` as generated installation output; update source skills in
+  `../../skills/` and refresh them with the documented `bunx skills` command.
+- Add a new rule only when repeated repository evidence or an explicit maintainer
+  correction supports it.
+
 ## Development commands
 
 - Run all tests: `npm test`

@@ -7,13 +7,13 @@ distance-based maintenance scheduling to Fleet Ledger.
 
 **Prompt:** Audit the example before adding maintenance scheduling.
 
-**Exercise:** Inspect `package.json`, `AGENTS.md`, three source modules, two test
-files, and `bunx skills list --agent codex --json` before editing.
+**Exercise:** Inspect `package.json`, `AGENTS.md`, root documentation, three source
+modules, two test files, and `bunx skills list --agent codex --json` before editing.
 
 **Evidence:** The audit established a 9-test dependency-free baseline, confirmed
 all seven original project-installed skills, and identified the immutable factory, shared
-validation, pure calculation, and built-in test patterns. `AGENTS.md` was updated
-only after the new maintenance module existed.
+validation, pure calculation, built-in test patterns, and root-level documentation
+destinations. `AGENTS.md` was updated only after the new maintenance module existed.
 
 ## `kf-implement-feature`
 
