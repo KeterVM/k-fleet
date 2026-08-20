@@ -108,6 +108,16 @@ Ask a transport-regulations researcher to verify how these current rules affect 
 
 ## Philosophy
 
+K Fleet is grounded in four complementary ideas:
+
+- **First-principles reasoning** determines the task's objective, verified facts,
+  and constraints.
+- **Methodology** determines how each class of task should be performed.
+- **Control theory** connects those methods into a closed feedback loop that can
+  detect deviations and correct its course.
+- **Double-loop learning** determines when evidence justifies changing the methods
+  or guidance themselves, rather than only correcting the current result.
+
 K Fleet follows a compact context hierarchy:
 
 ```text
