@@ -13,8 +13,8 @@ documentation, or a large catalog of technology-specific skills.
 
 | Intent | Skill | Boundary |
 | --- | --- | --- |
-| Initialize repository guidance | `kf-setup-project` | Creates or completes missing project context; it does not maintain established guidance or implement ordinary features and fixes. |
-| Maintain existing repository guidance | `kf-maintain-guidance` | Audits, consolidates, relocates, rewrites, or removes guidance while protecting explicit learned intent. |
+| Initialize repository guidance | `kf-setup-project` | Creates the smallest verified routing and constraint layer; it does not summarize every project or maintain established guidance. |
+| Maintain existing repository guidance | `kf-maintain-guidance` | Reduces always-loaded context by deleting, consolidating, or relocating guidance while protecting explicit learned intent. |
 | Add or modify behavior | `kf-implement-feature` | Handles capabilities, not known defects, behavior-preserving refactors, investigations, or verification-only requests. |
 | Correct a known defect | `kf-fix-bug` | Diagnoses and implements a root-cause fix; feedback that revises the current task stays in that task's workflow. |
 | Explain unclear behavior | `kf-investigate-issue` | Reports evidence and likely causes; it does not modify code unless requested or needed for safe instrumentation. |
@@ -130,8 +130,8 @@ Its working principles are:
   caused failures, and review the final diff.
 - **Controlled learning:** persist only reusable, evidence-backed lessons in the
   narrowest appropriate location.
-- **Progressive disclosure:** keep global guidance small and load repository facts
-  close to the work that needs them.
+- **Progressive disclosure:** keep global and repository-root guidance small; load
+  detailed facts from their canonical documents or narrowest applicable scope.
 - **Focused delegation:** isolate separable specialist work so it can use an
   appropriate domain method and evidence base while authority, integration, and
   final verification remain with the parent agent.
