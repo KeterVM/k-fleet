@@ -15,6 +15,9 @@ Before changing production behavior:
 
 1. State the smallest observable behavior to add or correct, its acceptance source,
    and relevant constraints. Separate verified facts from assumptions.
+   When the primary workflow follows an accepted design, derive this target from
+   its revalidated acceptance evidence and constraints; do not use TDD to replace
+   or silently redesign that contract.
 2. Inspect applicable guidance, existing tests, public interfaces, and actual test
    commands. Run the narrow useful baseline and distinguish pre-existing failures.
 3. Choose the most stable seam that can demonstrate the behavior. Infer it from

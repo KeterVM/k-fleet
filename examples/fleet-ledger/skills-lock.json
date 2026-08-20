@@ -4,17 +4,17 @@
     "kf-design-change": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "5322bd8be8633c0a4de2bcc84fe2c592d74b318fc0ff90b14323a2f97236a231"
+      "computedHash": "c4d3000b2629d8c60aa7f77636663b15e4becbd606ce234a381112505657c08d"
     },
     "kf-fix-bug": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "cbe25d7dcc35191434db17f665c0832249b8f044e839c3c3040deeea707b7b9f"
+      "computedHash": "329395aa40f499c3c83076d21120e9c74caf91814029ef69d194a994ceddddeb"
     },
     "kf-implement-feature": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "d806c67115b99e6bcd7815ab18e23804a9eb9129ef254d12e575f5b95f5a3254"
+      "computedHash": "9b007c32c4fd82f5a05a2b2234cde1dd2c0b3763ab93659288fb393504f4fed5"
     },
     "kf-investigate-issue": {
       "source": "../../skills",
@@ -34,17 +34,17 @@
     "kf-refactor-code": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "d7fa6284de71a7a006ca14103ff383908c51386ab44dac53e30a7ed0f0431c39"
+      "computedHash": "cff9b03d617d50f704eafbab3cf8b1e85c6fb5e8c9005626aa3d1069b26c482e"
     },
     "kf-test-driven-change": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "1d55c5cb4be81c34d109024679a05e002b2b29d83886a15e22bbd92388c2ebd4"
+      "computedHash": "955c43d1874d9e695c984250fbf5c034f857c3bbe52584a33d5338f50006f5f6"
     },
     "kf-verify-change": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "b02eaf576241ffe1774c11091a6489791f1d2f72cb46f4437bb5d194b07aa9e5"
+      "computedHash": "20e992e54a439d2e70c8aadabf7ad27ce1dce74575fe927870a08c652203aaf3"
     }
   }
 }

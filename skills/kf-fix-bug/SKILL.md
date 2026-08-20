@@ -11,23 +11,29 @@ behavior.
 ## Workflow
 
 1. Identify the reported symptom, expected behavior, scope, and available evidence.
-2. Reproduce the defect when practical, or establish the strongest observable
+2. When an accepted design governs the correction, extract its target, decisions,
+   constraints, non-goals, acceptance evidence, unresolved assumptions, and
+   affected boundaries. Revalidate material repository facts and return to
+   `kf-design-change` if drift changes the correction architecture.
+3. Reproduce the defect when practical, or establish the strongest observable
    proxy when the original environment is unavailable.
-3. Trace the relevant execution and data paths. Compare nearby working paths and
+4. Trace the relevant execution and data paths. Compare nearby working paths and
    analogous implementations.
-4. Form and test hypotheses until the evidence distinguishes root cause from
+5. Form and test hypotheses until the evidence distinguishes root cause from
    downstream symptoms.
-5. When the user or repository requires TDD, combine this workflow with
+6. When the user or repository requires TDD, combine this workflow with
    `kf-test-driven-change`; this skill retains ownership of the symptom, root cause,
    and correction scope. Require the regression test to demonstrate valid Red
    before the production fix.
-6. Add or update focused regression coverage when practical and proportionate.
-7. Implement the smallest root-cause fix that follows repository conventions.
-8. Run targeted validation, then broader checks only when risk or repository
+7. Add or update focused regression coverage when practical and proportionate.
+8. Implement the smallest root-cause fix that follows repository conventions.
+9. Run targeted validation, then broader checks only when risk or repository
    practice justifies them.
-9. Inspect failures and the final diff. Fix failures caused by the change; disclose
+10. Inspect failures and the final diff. Fix failures caused by the change; disclose
    unrelated or unrun checks.
-10. If verified evidence indicates a recurring defect in the reusable method,
+11. Report material deviations from an accepted design and whether its acceptance
+    evidence was satisfied.
+12. If verified evidence indicates a recurring defect in the reusable method,
     routing, or guidance rather than the current bug result, hand the signal to
     `kf-learn-from-evidence`; do not persist a lesson in this workflow.
 

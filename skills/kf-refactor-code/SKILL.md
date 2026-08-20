@@ -11,19 +11,26 @@ Make a focused structural improvement with behavior preservation as the default.
 
 1. Establish current observable behavior, compatibility constraints, and the
    specific structural problem to solve.
-2. Inspect repository patterns and define a narrow refactor boundary. Do not expand
+2. When an accepted design governs the refactor, extract its target, decisions,
+   constraints, non-goals, acceptance evidence, unresolved assumptions, and
+   affected boundaries. Revalidate material repository facts and return to
+   `kf-design-change` if drift changes the intended structure or compatibility
+   boundary.
+3. Inspect repository patterns and define a narrow refactor boundary. Do not expand
    scope merely because nearby code is imperfect.
-3. Identify available verification before editing: focused tests, types, lint,
+4. Identify available verification before editing: focused tests, types, lint,
    builds, snapshots, or stable runtime checks.
-4. Plan reversible, incremental changes that keep review and failure diagnosis
+5. Plan reversible, incremental changes that keep review and failure diagnosis
    straightforward.
-5. Refactor consistently with the repository, favoring simplification over new
+6. Refactor consistently with the repository, favoring simplification over new
    architectural ceremony.
-6. Run meaningful behavior-preservation checks after each risky step and at the
+7. Run meaningful behavior-preservation checks after each risky step and at the
    end.
-7. Inspect the final diff for accidental behavior changes, compatibility breaks,
+8. Inspect the final diff for accidental behavior changes, compatibility breaks,
    unrelated formatting, and unnecessary abstractions.
-8. If verified evidence indicates a recurring defect in the reusable refactoring
+9. Report material deviations from an accepted design and whether its acceptance
+   evidence was satisfied.
+10. If verified evidence indicates a recurring defect in the reusable refactoring
    method, routing, or guidance rather than the current structure alone, hand the
    signal to `kf-learn-from-evidence`; do not persist a lesson in this workflow.
 

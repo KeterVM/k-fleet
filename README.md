@@ -34,6 +34,34 @@ canonical examples.
 All skill names use the compact `kf-` namespace to distinguish K Fleet skills from
 similarly named global or third-party skills.
 
+## Harness flow
+
+K Fleet uses one primary workflow for the requested result and composes method
+skills only when their discipline is relevant:
+
+```text
+request
+-> primary workflow
+-> optional test-driven method
+-> internal feedback and result evidence
+-> optional independent verification
+-> authorized correction owner when a finding exists
+-> re-verification when correction was requested
+-> optional evidence-based learning
+```
+
+Verification does not repair its own findings. When the user authorizes both
+verification and repair, `kf-verify-change` reports the first verdict, the
+applicable execution skill performs correction, and verification runs again
+against the original target. The loop stops on readiness, an evidence-backed
+blocker, a repeated unresolved failure, or an authorization boundary.
+
+An implementation-ready design hands feature, bug, or refactor work a compact
+contract: target state, accepted decisions, constraints and non-goals, acceptance
+evidence, unresolved assumptions, and affected boundaries. Execution and
+verification revalidate material repository facts rather than treating the design
+as immutable or as authorization to implement.
+
 ## Installation
 
 ### Project-local with `bunx skills`
@@ -167,6 +195,12 @@ exercises cover accumulated guidance maintenance in
 ready design in `DESIGN_CHANGE_SCENARIO.md`. `TDD_SCENARIO.md` exercises the
 composable test-driven method. Their corresponding `*_TEST_REPORT.md` files record
 installation, routing, and validation results.
+
+The machine-readable cases under [`evals`](evals) cover primary routing, method
+composition, correction and re-verification, design handoff, learning gates, and
+maintenance delegation boundaries. Repository validation checks the corpus shape
+and coverage; behavioral scoring should be performed by an independent evaluator
+that receives prompts without their expected answers.
 
 ## Contributing and security
 

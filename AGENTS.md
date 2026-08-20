@@ -49,6 +49,14 @@ when the request or repository guidance requires that discipline:
 - Use only supported `name` and `description` frontmatter unless a verified need
   requires optional metadata.
 - Make descriptions discriminating enough for implicit routing.
+- Preserve separate correction and verification ownership. When a request
+  authorizes both, close the loop by re-verifying the corrected artifact against
+  the original target.
+- Pass designs to execution as a compact contract and revalidate material facts
+  before implementation; do not treat a design as immutable or as authorization.
+- Keep machine-readable harness eval cases focused on observable routing,
+  composition, handoff, stopping, and authority decisions rather than skill
+  wording.
 - Keep detailed project facts in the target project's guidance, not in K Fleet.
 - Do not add dependencies, build tooling, generated files, or scripts without a
   concrete deterministic benefit.

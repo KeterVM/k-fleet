@@ -39,6 +39,21 @@ or update a design document only when the user requests or authorizes that write
    routing, or guidance rather than this design alone, hand the signal to
    `kf-learn-from-evidence`; do not revise guidance within this workflow.
 
+## Implementation handoff
+
+When implementation is expected to follow, end with a compact contract containing:
+
+- target state;
+- accepted decisions;
+- constraints and non-goals;
+- observable acceptance evidence;
+- unresolved assumptions or decisions; and
+- affected boundaries.
+
+This contract preserves decisions without turning the design into immutable
+instructions. The execution workflow must revalidate material repository facts and
+return here when drift or an unresolved decision would change the architecture.
+
 ## Constraints
 
 - Do not edit production code, start implementation, or treat a plan request as
@@ -52,6 +67,8 @@ or update a design document only when the user requests or authorizes that write
   a compatibility-sensitive, destructive, or cross-boundary migration.
 - Do not claim implementation readiness while a decision that materially changes
   the design remains unresolved.
+- A design does not authorize implementation and is not evidence that repository
+  facts will remain unchanged.
 
 The design is complete when its decisions, sequence, evidence, and remaining
 uncertainty are explicit enough for implementation to proceed without repeating

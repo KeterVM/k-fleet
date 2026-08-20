@@ -93,6 +93,83 @@ if (existsSync(installedSkillRoot)) {
   }
 }
 
+const evalPath = join(root, "evals/harness-routing.jsonl");
+if (!existsSync(evalPath)) {
+  fail(`Missing ${relative(root, evalPath)}`);
+} else {
+  const evalCases = [];
+  const ids = new Set();
+  for (const [index, line] of read(evalPath).split("\n").entries()) {
+    if (!line.trim()) continue;
+    let entry;
+    try {
+      entry = JSON.parse(line);
+    } catch (error) {
+      fail(`${relative(root, evalPath)}:${index + 1} is invalid JSON: ${error.message}`);
+      continue;
+    }
+
+    evalCases.push(entry);
+    if (typeof entry.id !== "string" || !entry.id) {
+      fail(`${relative(root, evalPath)}:${index + 1} must have an id`);
+    } else if (ids.has(entry.id)) {
+      fail(`${relative(root, evalPath)} has duplicate id ${entry.id}`);
+    } else {
+      ids.add(entry.id);
+    }
+    if (typeof entry.mode !== "string" || !entry.mode) {
+      fail(`${entry.id ?? `line ${index + 1}`} must have a mode`);
+    }
+    if (typeof entry.prompt !== "string" || !entry.prompt) {
+      fail(`${entry.id ?? `line ${index + 1}`} must have a prompt`);
+    }
+
+    const expected = entry.expected;
+    if (!expected || typeof expected !== "object") {
+      fail(`${entry.id ?? `line ${index + 1}`} must have expected results`);
+      continue;
+    }
+    if (!expectedSkills.includes(expected.primary)) {
+      fail(`${entry.id} has unknown primary skill ${expected.primary}`);
+    }
+    for (const field of ["composed", "forbidden", "sequence", "invariants"]) {
+      if (!Array.isArray(expected[field])) fail(`${entry.id} expected.${field} must be an array`);
+    }
+    for (const field of ["composed", "forbidden", "sequence"]) {
+      for (const skill of expected[field] ?? []) {
+        if (!expectedSkills.includes(skill)) fail(`${entry.id} ${field} has unknown skill ${skill}`);
+      }
+    }
+    if (!(expected.invariants ?? []).length) fail(`${entry.id} must define observable invariants`);
+    if ((expected.composed ?? []).includes(expected.primary)) {
+      fail(`${entry.id} repeats its primary skill as a composed method`);
+    }
+    if ((expected.forbidden ?? []).includes(expected.primary)) {
+      fail(`${entry.id} forbids its primary skill`);
+    }
+  }
+
+  const modes = new Set(evalCases.map((entry) => entry.mode));
+  for (const mode of ["routing", "composition", "sequence", "handoff", "learning", "delegation"]) {
+    if (!modes.has(mode)) fail(`Harness evals do not cover ${mode}`);
+  }
+  const primarySkills = new Set(evalCases.map((entry) => entry.expected?.primary));
+  for (const skill of expectedSkills.filter((skill) => skill !== "kf-test-driven-change")) {
+    if (!primarySkills.has(skill)) fail(`Harness evals do not route a primary case to ${skill}`);
+  }
+  if (!evalCases.some((entry) => entry.expected?.composed?.includes("kf-test-driven-change"))) {
+    fail("Harness evals do not cover TDD composition");
+  }
+  if (!evalCases.some((entry) => {
+    const sequence = entry.expected?.sequence ?? [];
+    return sequence.length >= 3
+      && sequence[0] === "kf-verify-change"
+      && sequence.at(-1) === "kf-verify-change";
+  })) {
+    fail("Harness evals do not cover correction followed by re-verification");
+  }
+}
+
 const placeholderPattern = /\b(?:TODO|TBD|PLACEHOLDER)\b|\[insert\b/i;
 for (const path of markdownFiles(root)) {
   const content = read(path);

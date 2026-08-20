@@ -11,23 +11,30 @@ Deliver the smallest complete behavior change that fits the repository.
 
 1. Clarify the observable outcome, constraints, compatibility expectations, and
    acceptance evidence from the request and repository context.
-2. Inspect the relevant area before editing. Find analogous implementations and
+2. When following a supplied or previously accepted design, extract its target,
+   decisions, constraints, non-goals, acceptance evidence, unresolved assumptions,
+   and affected boundaries. Revalidate material repository facts before editing;
+   return to `kf-design-change` if drift or an unresolved decision would change the
+   architecture instead of improvising a new design inside implementation.
+3. Inspect the relevant area before editing. Find analogous implementations and
    sample multiple examples when practical.
-3. Trace affected components and boundaries, including UI, application logic,
+4. Trace affected components and boundaries, including UI, application logic,
    persistence, infrastructure, tests, and documentation only where relevant.
-4. Infer repository conventions from repeated evidence. Prefer the established
+5. Infer repository conventions from repeated evidence. Prefer the established
    architecture over a generic textbook design.
-5. When the user or repository requires TDD, combine this workflow with
+6. When the user or repository requires TDD, combine this workflow with
    `kf-test-driven-change`; this skill retains ownership of the feature outcome,
    scope, and compatibility. If that method skill is unavailable, do not claim TDD
    without demonstrating a focused test that fails before production edits.
-6. Choose the smallest complete change. Include every layer needed for the feature,
+7. Choose the smallest complete change. Include every layer needed for the feature,
    but avoid speculative extensibility and unrelated cleanup.
-7. Implement consistently while preserving public behavior that the request does
+8. Implement consistently while preserving public behavior that the request does
    not intentionally change.
-8. Inspect changed code, run the smallest relevant validation supported by actual
+9. Inspect changed code, run the smallest relevant validation supported by actual
    project tooling, fix failures caused by the work, and inspect the final diff.
-9. If verified evidence indicates a recurring defect in the reusable method,
+10. Report material deviations from an accepted design and whether its acceptance
+    evidence was satisfied.
+11. If verified evidence indicates a recurring defect in the reusable method,
    routing, or guidance rather than the current implementation, hand the signal to
    `kf-learn-from-evidence`; do not persist a lesson in this workflow.
 
