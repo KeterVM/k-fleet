@@ -20,7 +20,7 @@ documentation, or a large catalog of technology-specific skills.
 | Improve structure without changing behavior | `kf-refactor-code` | Preserves externally observable behavior by default. |
 | Validate existing changes | `kf-verify-change` | Reviews and runs appropriate checks; it is not the primary implementation workflow. |
 | Extract durable lessons from manual corrections | `kf-learn-from-correction` | Suggests carefully scoped guidance; it does not turn every edit into a rule. |
-| Delegate a bounded specialist subtask | `kf-delegate-specialist` | Uses a focused sub-agent when separation adds value; the parent retains verification and authority. |
+| Apply a specialist domain perspective | `kf-delegate-specialist` | Delegates bounded analysis, research, independent review, or authorized execution while the parent retains verification and authority. |
 
 Skills are split by workflow and user intent, not by frontend, backend, database,
 language, or framework. Technology-specific behavior should come from the target
@@ -101,7 +101,7 @@ Investigate why reconnect sometimes happens twice.
 Refactor this service without changing behavior.
 Verify these changes.
 I rewrote the code you generated. Analyze what I changed and improve future behavior.
-Ask a database migration specialist to independently review this plan.
+Ask a transport-regulations researcher to verify how these current rules affect our maintenance reports.
 ```
 
 ## Philosophy
@@ -130,8 +130,9 @@ Its working principles are:
   narrowest appropriate location.
 - **Progressive disclosure:** keep global guidance small and load repository facts
   close to the work that needs them.
-- **Focused delegation:** use bounded specialist sub-agents for separable work while
-  keeping authority, integration, and final verification with the parent agent.
+- **Focused delegation:** isolate separable specialist work so it can use an
+  appropriate domain method and evidence base while authority, integration, and
+  final verification remain with the parent agent.
 
 K Fleet should evolve through real use: observe repeated mistakes, correct them,
 use `kf-learn-from-correction` to evaluate the pattern, and update global or project
