@@ -36,7 +36,7 @@ similarly named global or third-party skills.
 From a target repository, install all K Fleet skills for Codex with:
 
 ```sh
-bunx skills add /absolute/path/to/k-fleet/skills \
+bunx skills add KeterVM/k-fleet \
   --agent codex \
   --skill '*' \
   --yes
@@ -49,9 +49,8 @@ in `skills-lock.json`. Review an installation with:
 bunx skills list --agent codex
 ```
 
-Use an absolute source path when the target project is outside the K Fleet
-repository. Re-run the add command after updating K Fleet to refresh the installed
-copies.
+This resolves the public repository on GitHub, so no local K Fleet clone is
+required. Re-run the command to refresh the installed copies.
 
 ### Global manual installation
 
