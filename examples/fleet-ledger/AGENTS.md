@@ -15,6 +15,8 @@
 - `MAINTENANCE_TEST_REPORT.md` records its verified results.
 - `SPECIALIST_SCENARIO.md` tests bounded specialist-delegation routing.
 - `SPECIALIST_TEST_REPORT.md` records the eighth skill's validation results.
+- `GUIDANCE_MAINTENANCE_SCENARIO.md` tests maintenance of accumulated guidance.
+- `GUIDANCE_MAINTENANCE_TEST_REPORT.md` records the ninth skill's validation results.
 
 ## Documentation
 

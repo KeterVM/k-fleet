@@ -2,8 +2,8 @@
 
 K Fleet is a small, reusable collection of Codex workflow skills. It acts as a
 lightweight personal engineering harness: repository evidence supplies the local
-context, while the skills supply consistent ways to implement, debug, investigate,
-refactor, verify, and learn from corrections.
+context, while the skills supply consistent ways to set up and maintain guidance,
+implement, debug, investigate, refactor, verify, and learn from corrections.
 
 K Fleet is intentionally not a generic prompt library, a framework-specific
 ruleset, an agent orchestration framework, a replacement for project
@@ -13,7 +13,8 @@ documentation, or a large catalog of technology-specific skills.
 
 | Intent | Skill | Boundary |
 | --- | --- | --- |
-| Initialize or audit repository guidance | `kf-setup-project` | Maintains project context; it does not implement ordinary features or fixes. |
+| Initialize repository guidance | `kf-setup-project` | Creates or completes missing project context; it does not maintain established guidance or implement ordinary features and fixes. |
+| Maintain existing repository guidance | `kf-maintain-guidance` | Audits, consolidates, relocates, rewrites, or removes guidance while protecting explicit learned intent. |
 | Add or modify behavior | `kf-implement-feature` | Handles capabilities, not known defects, behavior-preserving refactors, investigations, or verification-only requests. |
 | Correct a known defect | `kf-fix-bug` | Diagnoses and implements a root-cause fix. |
 | Explain unclear behavior | `kf-investigate-issue` | Reports evidence and likely causes; it does not modify code unless requested or needed for safe instrumentation. |
@@ -95,6 +96,7 @@ For example:
 
 ```text
 Initialize this project for Codex.
+Clean up and update this repository's existing AGENTS.md guidance.
 Implement invoice export.
 Fix the reconnect bug.
 Investigate why reconnect sometimes happens twice.
@@ -150,6 +152,9 @@ The same example also includes a second full exercise in
 original seven workflows with results in `MAINTENANCE_TEST_REPORT.md`. A bounded
 delegation example for the eighth skill is in `SPECIALIST_SCENARIO.md`.
 Its installation and routing checks are recorded in `SPECIALIST_TEST_REPORT.md`.
+The ninth workflow is exercised against accumulated project guidance in
+`GUIDANCE_MAINTENANCE_SCENARIO.md`, with results in
+`GUIDANCE_MAINTENANCE_TEST_REPORT.md`.
 
 ## Contributing and security
 

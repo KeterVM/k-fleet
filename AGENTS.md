@@ -2,7 +2,7 @@
 
 ## Purpose
 
-K Fleet is a source repository for eight portable Codex workflow skills. Keep it
+K Fleet is a source repository for nine portable Codex workflow skills. Keep it
 small, readable as Markdown, workflow-based, and independent of any language or
 framework.
 
@@ -17,9 +17,27 @@ framework.
   automation, and vulnerability-reporting workflows.
 - `LICENSE` and `NOTICE` contain the Apache-2.0 terms and attribution.
 
+## Skill responsibilities
+
+Route by the user's primary intent:
+
+- `kf-setup-project` creates or completes missing repository guidance.
+- `kf-maintain-guidance` audits and maintains established guidance, including
+  merging, moving, rewriting, or removing rules within the user's authority.
+- `kf-implement-feature` adds or changes observable behavior.
+- `kf-fix-bug` diagnoses and corrects a known defect with regression validation.
+- `kf-investigate-issue` explains unclear behavior without implementing a fix
+  unless correction is also requested.
+- `kf-refactor-code` improves internal structure while preserving behavior.
+- `kf-verify-change` reviews existing changes and runs proportionate checks.
+- `kf-learn-from-correction` decides whether user corrections justify a new durable
+  lesson and where it belongs.
+- `kf-delegate-specialist` assigns bounded specialist work while the parent retains
+  authority, integration, and final verification.
+
 ## Conventions
 
-- Keep exactly the eight core skills documented in the README unless real usage
+- Keep exactly the nine core skills documented in the README unless real usage
   justifies a deliberate scope change.
 - Prefix every skill directory and matching frontmatter name with `kf-`.
 - Split skills by user intent, not by technology layer.

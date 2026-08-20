@@ -1,6 +1,6 @@
 ---
 name: kf-implement-feature
-description: Add or modify a non-trivial capability in an existing codebase. Use for requested behavior changes that may span application layers. Do not use for a known defect, investigation-only work, behavior-preserving refactoring, or verification of existing changes.
+description: Add or modify a capability in an existing codebase. Use for requested behavior changes, including work that may span application layers. Do not use for a known defect, investigation-only work, behavior-preserving refactoring, or verification of existing changes.
 ---
 
 # Implement Feature

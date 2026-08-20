@@ -1,6 +1,6 @@
 ---
 name: kf-setup-project
-description: Initialize or maintain repository-level Codex guidance, especially AGENTS.md. Use when entering a repository, bootstrapping or auditing its guidance, or revisiting context after material architectural change. Do not use for ordinary feature implementation or bug fixing.
+description: Initialize or complete repository-level Codex guidance, especially AGENTS.md. Use when the user asks to set up a repository whose guidance is missing or substantially incomplete. Use kf-maintain-guidance to audit, clean up, reorganize, or update established guidance. Do not use merely because work begins in a repository, or for ordinary feature implementation or bug fixing.
 ---
 
 # Setup Project
@@ -10,35 +10,20 @@ in the repository.
 
 ## Workflow
 
-1. Resolve the repository root and inspect existing `AGENTS.md`, nested guidance,
-   `AGENTS.override.md`, `.codex/`, README, contributing, architecture, testing,
-   and project-skill documentation before editing.
-2. Map major applications, services, packages, source areas, shared libraries,
-   data/schema, tests, infrastructure, scripts, generated code, and docs. Record
-   only areas that materially help navigation.
-3. Identify the canonical documentation locations and record them in repository
-   guidance, including where architecture, API, development, and test documentation
-   live when present and where new project documentation should go. If documentation
-   lives at the repository root or is split across locations, state that explicitly
-   instead of assuming a `docs/` directory.
-4. Detect actual tooling from repository configuration: package manager, runtime,
-   workspace and build systems, formatting, linting, type checking, tests,
-   migrations, containers, and CI. Never invent commands.
-5. Inspect two or three representative implementations when practical. Compare
-   organization, boundaries, validation, error handling, data access, UI/state,
-   configuration, background work, and tests.
-6. Identify real canonical examples future agents can imitate. Prefer file
-   references over lengthy restatements of the code.
-7. Separate repository facts, strong repeated conventions, and weak observations.
-   Do not promote weak observations into requirements.
-8. Place context at the narrowest durable layer: project maps and verified
-   constraints in repository `AGENTS.md`, detailed project knowledge in README or
-   docs, reusable procedures in skills, and cross-project personal preferences in
-   user-level guidance. Link to another layer when useful instead of duplicating it.
-9. Create or update repository guidance with only useful sections, such as map,
-   commands, architecture, conventions, examples, validation, and doc links.
-10. Validate every referenced path and command, remove speculation and duplicated
-   global guidance, check for contradictions, and inspect the final diff.
+1. Resolve the repository root and inspect existing guidance, core documentation,
+   and project configuration before editing.
+2. Map only the major boundaries, canonical documentation locations, and verified
+   development commands that help future work. Never invent commands or assume a
+   standard documentation layout.
+3. Inspect representative implementations when practical. Identify canonical
+   examples and repeated conventions, separating them from weak observations.
+4. Place context at the narrowest durable layer. Keep maps and constraints in
+   `AGENTS.md`, detailed project knowledge in documentation, and reusable procedures
+   in skills; link across layers instead of duplicating content.
+5. Create or complete concise guidance covering the useful map, commands,
+   boundaries, examples, validation, and links.
+6. Validate referenced paths and commands, account for nested guidance, and inspect
+   the final diff for speculation, contradictions, or unrelated changes.
 
 ## Fleet baseline contract
 
@@ -173,7 +158,7 @@ examples, development commands, validation commands, nested guidance, and a
 ## Editing rules
 
 - Never replace an existing `AGENTS.md` wholesale. Preserve intentional content
-  and make targeted, evidence-backed additions.
+  and make targeted, evidence-backed additions or corrections.
 - Prefer one root `AGENTS.md`. Add nested guidance only when a subtree has
   materially different architecture, tooling, commands, conventions, or workflows.
 - Keep `AGENTS.md` a map and constraint set, not a complete project manual.
@@ -189,6 +174,9 @@ examples, development commands, validation commands, nested guidance, and a
 - For a very young repository, follow the empty-repository branch rather than
   filling speculative sections with guesses.
 - Do not modify user-level Codex configuration or global skills.
+- Route cleanup of established, conflicting, stale, duplicated, or mis-scoped
+  guidance to `kf-maintain-guidance` rather than expanding initial setup into
+  ongoing rule governance.
 
 Success means a fresh session and every downstream K Fleet skill can locate code,
 choose examples, place documentation, run verified commands, and preserve the

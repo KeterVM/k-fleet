@@ -9,6 +9,7 @@ const expectedSkills = [
   "kf-implement-feature",
   "kf-investigate-issue",
   "kf-learn-from-correction",
+  "kf-maintain-guidance",
   "kf-refactor-code",
   "kf-setup-project",
   "kf-verify-change",
@@ -74,7 +75,22 @@ for (const skill of expectedSkills) {
 const lock = JSON.parse(read(join(root, "examples/fleet-ledger/skills-lock.json")));
 const lockedSkills = Object.keys(lock.skills ?? {}).sort();
 if (JSON.stringify(lockedSkills) !== JSON.stringify(expectedSkills)) {
-  fail(`skills-lock.json does not contain exactly the eight source skills`);
+  fail(`skills-lock.json does not contain exactly the expected source skills`);
+}
+
+const installedSkillRoot = join(root, "examples/fleet-ledger/.agents/skills");
+if (existsSync(installedSkillRoot)) {
+  for (const skill of expectedSkills) {
+    const sourcePath = join(skillRoot, skill, "SKILL.md");
+    const installedPath = join(installedSkillRoot, skill, "SKILL.md");
+    if (!existsSync(installedPath)) {
+      fail(`Installed example is missing ${relative(root, installedPath)}`);
+      continue;
+    }
+    if (read(sourcePath) !== read(installedPath)) {
+      fail(`Installed example is stale for ${skill}; rerun bunx skills add`);
+    }
+  }
 }
 
 const placeholderPattern = /\b(?:TODO|TBD|PLACEHOLDER)\b|\[insert\b/i;
