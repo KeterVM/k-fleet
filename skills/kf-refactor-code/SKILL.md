@@ -23,6 +23,9 @@ Make a focused structural improvement with behavior preservation as the default.
    end.
 7. Inspect the final diff for accidental behavior changes, compatibility breaks,
    unrelated formatting, and unnecessary abstractions.
+8. If verified evidence indicates a recurring defect in the reusable refactoring
+   method, routing, or guidance rather than the current structure alone, hand the
+   signal to `kf-learn-from-evidence`; do not persist a lesson in this workflow.
 
 ## Constraints
 

@@ -4,25 +4,24 @@ Date: 2026-08-20
 
 ## Result
 
-The second exercise passed the seven original K Fleet workflows while adding
-distance-based maintenance scheduling, before `kf-delegate-specialist` was added.
+The second exercise passed the six original K Fleet workflows while adding
+distance-based maintenance scheduling.
 
 | Skill | Result | Evidence |
 | --- | --- | --- |
-| `kf-setup-project` | Pass | Audited real project facts, documentation locations, the harness-only Fleet contract, and installed skills before editing, then updated only evidence-backed guidance. |
 | `kf-implement-feature` | Pass | Added maintenance plans and due reporting; the initial targeted suite passed 4/4. |
 | `kf-fix-bug` | Pass | Reproduced the exact-threshold defect and retained a passing regression after the minimal fix. |
 | `kf-investigate-issue` | Pass | Diagnosed whitespace-padded odometer keys without changing product code. |
 | `kf-refactor-code` | Pass | Consolidated duplicate ID normalization with 14/14 tests passing before and after. |
-| `kf-learn-from-correction` | Pass | Captured deterministic tie ordering as a project regression, not a global rule. |
+| `kf-learn-from-evidence` | Pass | Automatically assessed deterministic tie ordering and kept it as a project regression, not a global rule. |
 | `kf-verify-change` | Pass | Full project, skill, copy-integrity, and documentation checks passed. |
 
 ## Verification results
 
 ```text
 Project tests:                 15 passed, 0 failed
-Source skills:                 7
-Installed project skills:      7
+Source skills:                 6
+Installed project skills:      6
 Source validator failures:     0
 Installed validator failures:  0
 Installed/source mismatches:   0

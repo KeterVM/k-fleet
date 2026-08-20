@@ -1,7 +1,7 @@
 # Guidance Maintenance Skill Scenario
 
-This exercise forward-tests the ninth K Fleet workflow against guidance accumulated
-through the original feature, maintenance, and specialist exercises.
+This exercise forward-tests the seventh K Fleet workflow against guidance accumulated
+through the original feature and maintenance exercises.
 
 ## `kf-maintain-guidance`
 
@@ -11,12 +11,12 @@ validation without leaving stale skill-count claims.
 
 **Exercise:** Inspect the root and example `AGENTS.md` files, README routing,
 historical scenario reports, installed skill copies, lock data, and repository
-validator. Separate historical statements from current instructions; narrow
-`kf-setup-project` to initial setup; add maintenance routing; replace the hard-coded
+validator. Separate historical statements from current instructions; add
+maintenance routing; replace the hard-coded
 validator error count; and refresh the project-installed skills.
 
-**Evidence:** Historical reports still describe the seven original workflows and
-the eighth specialist workflow. Current README routing distinguishes initial setup
-from maintenance, the validator and lock recognize all nine skills, installed skill
+**Evidence:** Historical reports still describe the six original workflows.
+Current README routing distinguishes guidance maintenance from other work, the
+validator and lock recognize all seven skills, installed skill
 copies match their sources, and the example guidance links this scenario and its
 test report.

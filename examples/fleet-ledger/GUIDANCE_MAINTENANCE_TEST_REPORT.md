@@ -4,12 +4,12 @@ Date: 2026-08-20
 
 ## Result
 
-The ninth workflow maintained accumulated repository guidance without rewriting
+The seventh workflow maintained accumulated repository guidance without rewriting
 historical reports or weakening explicit project conventions.
 
 | Skill | Result | Evidence |
 | --- | --- | --- |
-| `kf-maintain-guidance` | Pass | Split initial setup from ongoing maintenance, preserved historical facts, updated current routing and validation, and refreshed installed copies. |
+| `kf-maintain-guidance` | Pass | Isolated guidance maintenance from other workflows, preserved historical facts, updated current routing and validation, and refreshed installed copies. |
 
 ## Verification results
 
@@ -22,6 +22,6 @@ Skill validator failures:      0
 Installed/source mismatches:   0
 ```
 
-The maintenance preserved unrelated source changes and kept the original seven-
-workflow and eighth-skill reports as historical evidence rather than rewriting
-them to imply they had tested the new workflow.
+The maintenance preserved unrelated source changes and kept the original
+six-workflow reports as historical evidence rather than rewriting them to imply
+they had tested the new workflow.

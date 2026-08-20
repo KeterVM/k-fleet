@@ -64,7 +64,9 @@ Treat every Red or Green result as feedback about both the code and the current
 model of the problem. If repeated evidence contradicts the acceptance behavior,
 test seam, or design, pause the cycle and return to the primary workflow or
 `kf-design-change` instead of forcing the current test to pass. Do not silently
-turn one difficult cycle into permanent repository guidance.
+turn one difficult cycle into permanent repository guidance. When independent or
+repeated evidence instead indicates a defect in the reusable method, routing, or
+guidance, hand the signal to `kf-learn-from-evidence` for separate evaluation.
 
 Report the behavior slices, focused Red and Green commands and outcomes,
 refactoring performed, broader checks, pre-existing or unrun failures, and residual

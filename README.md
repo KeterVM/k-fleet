@@ -2,8 +2,8 @@
 
 K Fleet is a small, reusable collection of Codex workflow skills. It acts as a
 lightweight personal engineering harness: repository evidence supplies the local
-context, while the skills supply consistent ways to set up and maintain guidance,
-implement, debug, investigate, refactor, verify, and learn from corrections.
+context, while the skills supply consistent ways to maintain guidance,
+implement, debug, investigate, refactor, verify, and learn from evidence.
 
 K Fleet is intentionally not a generic prompt library, a framework-specific
 ruleset, an agent orchestration framework, a replacement for project
@@ -13,7 +13,6 @@ documentation, or a large catalog of technology-specific skills.
 
 | Intent | Skill | Boundary |
 | --- | --- | --- |
-| Initialize repository guidance | `kf-setup-project` | Creates the smallest verified routing and constraint layer; it does not summarize every project or maintain established guidance. |
 | Maintain existing repository guidance | `kf-maintain-guidance` | Reduces always-loaded context by deleting, consolidating, or relocating guidance while protecting explicit learned intent. |
 | Design a code change before implementation | `kf-design-change` | Produces an evidence-based, implementation-ready technical design; it does not modify production code unless implementation is separately requested and routed. |
 | Add or modify behavior | `kf-implement-feature` | Handles capabilities, not known defects, behavior-preserving refactors, investigations, or verification-only requests. |
@@ -22,14 +21,15 @@ documentation, or a large catalog of technology-specific skills.
 | Explain unclear behavior | `kf-investigate-issue` | Reports evidence and likely causes; it does not modify code unless requested or needed for safe instrumentation. |
 | Improve structure without changing behavior | `kf-refactor-code` | Preserves externally observable behavior by default. |
 | Validate existing changes | `kf-verify-change` | Measures readiness and reports evidence, findings, and residual risk without modifying the reviewed artifact or fixing failures. |
-| Extract durable lessons from manual corrections | `kf-learn-from-correction` | Suggests carefully scoped guidance; it does not turn every edit into a rule. |
-| Apply a specialist domain perspective | `kf-delegate-specialist` | Delegates bounded analysis, research, independent review, or authorized execution while the parent retains verification and authority. |
+| Evaluate evidence for durable learning | `kf-learn-from-evidence` | Automatically detects and assesses signals that a method, route, or guidance should change; persistence remains authorization-gated. |
 
 Primary skills are split by workflow and user intent, not by frontend, backend,
-database, language, or framework. `kf-test-driven-change` is a composable method
-skill: the feature or bug workflow owns what changes, while TDD owns the test-first
-feedback loop. Technology-specific behavior should come from the target repository's
-code, `AGENTS.md`, documentation, and canonical examples.
+database, language, or framework. `kf-test-driven-change` and
+`kf-learn-from-evidence` are composable method skills: the primary workflow owns
+the current result, TDD owns its test-first loop, and learning evaluates whether
+evidence justifies changing the reusable controller. Technology-specific behavior
+should come from the target repository's code, `AGENTS.md`, documentation, and
+canonical examples.
 
 All skill names use the compact `kf-` namespace to distinguish K Fleet skills from
 similarly named global or third-party skills.
@@ -99,7 +99,6 @@ Codex can route to these skills from intent; naming a skill explicitly is option
 For example:
 
 ```text
-Initialize this project for Codex.
 Clean up and update this repository's existing AGENTS.md guidance.
 Design the durable-storage migration, but do not implement it.
 Implement invoice export.
@@ -108,8 +107,7 @@ Fix the reconnect bug.
 Investigate why reconnect sometimes happens twice.
 Refactor this service without changing behavior.
 Verify these changes.
-I rewrote the code you generated. Analyze what I changed and improve future behavior.
-Ask a transport-regulations researcher to verify how these current rules affect our maintenance reports.
+I rewrote the code you generated; evaluate automatically whether the evidence justifies a durable lesson.
 ```
 
 ## Philosophy
@@ -148,13 +146,11 @@ Its working principles are:
   narrowest appropriate location.
 - **Progressive disclosure:** keep global and repository-root guidance small; load
   detailed facts from their canonical documents or narrowest applicable scope.
-- **Focused delegation:** isolate separable specialist work so it can use an
-  appropriate domain method and evidence base while authority, integration, and
-  final verification remain with the parent agent.
 
-K Fleet should evolve through real use: observe repeated mistakes, correct them,
-use `kf-learn-from-correction` to evaluate the pattern, and update global or project
-guidance only when the evidence supports it.
+K Fleet should evolve through real use: observe repeated mistakes, correct the
+current result, and let `kf-learn-from-evidence` automatically evaluate whether the
+pattern justifies a durable proposal. Update global, project, or skill guidance
+only with authority and supporting evidence.
 
 ## Example project
 
@@ -165,9 +161,9 @@ project with K Fleet skills installed project-locally through `bunx skills`. Its
 
 The same example also includes a second full exercise in
 `MAINTENANCE_SCENARIOS.md`, which adds maintenance scheduling and reruns the
-original seven workflows with results in `MAINTENANCE_TEST_REPORT.md`. Dedicated
-exercises cover bounded delegation in `SPECIALIST_SCENARIO.md`, accumulated
-guidance maintenance in `GUIDANCE_MAINTENANCE_SCENARIO.md`, and implementation-
+original six workflows with results in `MAINTENANCE_TEST_REPORT.md`. Dedicated
+exercises cover accumulated guidance maintenance in
+`GUIDANCE_MAINTENANCE_SCENARIO.md` and implementation-
 ready design in `DESIGN_CHANGE_SCENARIO.md`. `TDD_SCENARIO.md` exercises the
 composable test-driven method. Their corresponding `*_TEST_REPORT.md` files record
 installation, routing, and validation results.

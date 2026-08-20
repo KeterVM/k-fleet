@@ -9,18 +9,16 @@
 - `test/*.test.js` uses the Node.js built-in test runner.
 - `.agents/skills/` contains project-scoped K Fleet skills installed for Codex.
 - `skills-lock.json` records the local K Fleet source for those installations.
-- `SCENARIOS.md` records the seven K Fleet behavioral exercises.
-- `TEST_REPORT.md` records the initial seven-skill exercise results.
-- `MAINTENANCE_SCENARIOS.md` records the second seven-skill exercise.
+- `SCENARIOS.md` records the six original K Fleet behavioral exercises.
+- `TEST_REPORT.md` records the initial six-skill exercise results.
+- `MAINTENANCE_SCENARIOS.md` records the second six-skill exercise.
 - `MAINTENANCE_TEST_REPORT.md` records its verified results.
-- `SPECIALIST_SCENARIO.md` tests bounded specialist-delegation routing.
-- `SPECIALIST_TEST_REPORT.md` records the eighth skill's validation results.
 - `GUIDANCE_MAINTENANCE_SCENARIO.md` tests maintenance of accumulated guidance.
-- `GUIDANCE_MAINTENANCE_TEST_REPORT.md` records the ninth skill's validation results.
+- `GUIDANCE_MAINTENANCE_TEST_REPORT.md` records the seventh skill's validation results.
 - `DESIGN_CHANGE_SCENARIO.md` tests implementation-ready design routing.
-- `DESIGN_CHANGE_TEST_REPORT.md` records the tenth skill's validation results.
+- `DESIGN_CHANGE_TEST_REPORT.md` records the eighth skill's validation results.
 - `TDD_SCENARIO.md` tests composable test-driven implementation routing.
-- `TDD_TEST_REPORT.md` records the eleventh skill's validation results.
+- `TDD_TEST_REPORT.md` records the ninth skill's validation results.
 
 ## Documentation
 

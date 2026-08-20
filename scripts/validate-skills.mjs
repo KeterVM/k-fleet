@@ -4,15 +4,13 @@ import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const expectedSkills = [
-  "kf-delegate-specialist",
   "kf-design-change",
   "kf-fix-bug",
   "kf-implement-feature",
   "kf-investigate-issue",
-  "kf-learn-from-correction",
+  "kf-learn-from-evidence",
   "kf-maintain-guidance",
   "kf-refactor-code",
-  "kf-setup-project",
   "kf-test-driven-change",
   "kf-verify-change",
 ];

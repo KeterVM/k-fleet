@@ -4,20 +4,19 @@ Date: 2026-08-20
 
 ## Result
 
-At the time of this initial exercise, all seven original K Fleet skills were
+At the time of this initial exercise, all six original K Fleet skills were
 installed project-locally for Codex, passed
 structural validation, and produced the intended workflow outcome in the Fleet
 Ledger example.
 
 | Skill | Result | Behavioral evidence |
 | --- | --- | --- |
-| `kf-setup-project` | Pass | `AGENTS.md` contains verified project facts and a harness-only contract; monorepo setup scopes to the current target and keeps sibling details out of root guidance. |
 | `kf-implement-feature` | Pass | Fuel-cost reporting was added as a focused pure function with targeted validation and tests. |
 | `kf-fix-bug` | Pass | The 61-second duration regression failed with actual `1` versus expected `2`, then passed after the one-line root-cause fix. |
 | `kf-investigate-issue` | Pass | The duplicate-ID symptom was reproduced and explained without modifying product code. |
 | `kf-refactor-code` | Pass | Shared positive-number validation was extracted; all 8 pre-existing tests passed before and after. |
 | `kf-verify-change` | Pass | Full tests, skill validation, naming, placeholders, and local links were checked without modifying artifacts or repairing findings. |
-| `kf-learn-from-correction` | Pass | A rounding correction became a project regression example, not an unsupported global rule. |
+| `kf-learn-from-evidence` | Pass | A correction automatically triggered evidence assessment and remained a project regression rather than becoming an unsupported global rule. |
 
 ## Commands and checks
 
@@ -38,7 +37,7 @@ The example installed the local K Fleet source with:
 bunx skills add ../../skills --agent codex --skill '*' --yes
 ```
 
-At that time, `bunx skills list --agent codex --json` reported seven project-scoped Codex skills
+At that time, `bunx skills list --agent codex --json` reported six project-scoped Codex skills
 under `.agents/skills/`. SHA-256 comparisons confirmed that every installed
 `SKILL.md` matched its source under `../../skills/`.
 
@@ -49,17 +48,16 @@ Each directory under `../../skills/` was checked with Codex's installed
 kf-fix-bug: pass
 kf-implement-feature: pass
 kf-investigate-issue: pass
-kf-learn-from-correction: pass
+kf-learn-from-evidence: pass
 kf-refactor-code: pass
-kf-setup-project: pass
 kf-verify-change: pass
 ```
 
 Additional checks found:
 
-- 7 skill directories and 7 matching frontmatter names
-- 7 project-installed skills recorded in `skills-lock.json`
-- 7 installed copies matching their K Fleet sources
+- 6 skill directories and 6 matching frontmatter names
+- 6 project-installed skills recorded in `skills-lock.json`
+- 6 installed copies matching their K Fleet sources
 - 0 validator failures
 - 0 unfinished placeholders
 - 0 broken local Markdown links
@@ -69,16 +67,15 @@ Additional checks found:
 
 | Example request | Expected route |
 | --- | --- |
-| “Set this repository up so Codex understands the project.” | `kf-setup-project` |
 | “Add estimated fuel-cost reporting.” | `kf-implement-feature` |
 | “Fix duration billing for partial minutes.” | `kf-fix-bug` |
 | “Find out why duplicate vehicles are reported sometimes.” | `kf-investigate-issue` |
 | “Remove duplicated validation without changing behavior.” | `kf-refactor-code` |
 | “Check this project and run the right validation.” | `kf-verify-change` |
-| “Learn from my fuel-cost rounding rewrite.” | `kf-learn-from-correction` |
+| “I changed the calculation to preserve intermediate precision.” | `kf-learn-from-evidence` (automatic signal) |
 
 The descriptions distinguish implementation, correction, investigation,
-behavior-preserving refactoring, verification, setup, and correction learning for
+behavior-preserving refactoring, verification, and evidence-driven learning for
 these representative requests.
 
 ## Limits

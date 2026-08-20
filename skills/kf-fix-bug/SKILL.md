@@ -27,6 +27,9 @@ behavior.
    practice justifies them.
 9. Inspect failures and the final diff. Fix failures caused by the change; disclose
    unrelated or unrun checks.
+10. If verified evidence indicates a recurring defect in the reusable method,
+    routing, or guidance rather than the current bug result, hand the signal to
+    `kf-learn-from-evidence`; do not persist a lesson in this workflow.
 
 ## Constraints
 

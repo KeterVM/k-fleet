@@ -3,35 +3,6 @@
 These exercises forward-test each K Fleet skill against one small project. They
 test workflow decisions and concrete outcomes rather than matching skill wording.
 
-## `kf-setup-project`
-
-**Prompt:** Set this repository up so Codex understands the project.
-
-**Exercise:** Inspect the package configuration, source modules, tests, and root
-documentation, then create a concise root `AGENTS.md` using only observed paths
-and commands.
-
-**Evidence:** `AGENTS.md` identifies the real source boundaries, built-in Node.js
-test commands, conventions demonstrated by the code, canonical examples, and the
-root-level documentation layout and destinations. It also keeps project guidance,
-detailed knowledge, and reusable skill workflows in their intended layers and
-provides a harness-only baseline contract without imposing generic code layout.
-It keeps concise navigation in `AGENTS.md` and would extract substantial verified
-project knowledge into purpose-labelled documents only when the project needs them.
-
-**Empty-project branch:** When no stack, source, tests, or tooling exist, setup
-creates only a light guide with the known purpose, documentation destination, and
-rerun trigger. It skips unsupported architecture, commands, conventions, examples,
-and directory rules without scaffolding sample code or empty directories.
-
-**Monorepo branch:** When verified workspace or project boundaries exist, setup
-defaults to the current or user-named subtree instead of scanning the whole
-workspace. Root setup records only repository-wide guidance; member details stay in
-the closest evidence-backed nested file. Whole-monorepo setup evaluates members
-independently without aggregating their content into the root, and identical or
-empty members are skipped. Root and member discovery are verified from their actual
-working directories when the Codex CLI is available.
-
 ## `kf-implement-feature`
 
 **Prompt:** Add estimated fuel-cost reporting for a set of trips.
@@ -82,7 +53,7 @@ and messages remain unchanged.
 **Prompt:** Check the example project and run the right validation.
 
 **Exercise:** Inspect all example files, run the complete project suite, validate
-the seven original K Fleet skills with Codex's installed validator, check skill directory and
+the six original K Fleet skills with Codex's installed validator, check skill directory and
 frontmatter agreement, and scan documentation for broken local paths and
 placeholders. Do not edit any artifact while verifying; classify and report any
 failure, its evidence, and the workflow that should own correction.
@@ -90,9 +61,9 @@ failure, its evidence, and the workflow that should own correction.
 **Evidence:** See `TEST_REPORT.md` for the checks, readiness result, and remaining
 limits. Verification leaves correction to an execution workflow.
 
-## `kf-learn-from-correction`
+## `kf-learn-from-evidence`
 
-**Prompt:** I changed the generated fuel-cost calculation. Learn from my rewrite.
+**Prompt:** I changed the generated fuel-cost calculation to preserve intermediate precision.
 
 **Prior agent version:**
 
@@ -108,6 +79,10 @@ const liters = distanceKm / efficiencyKmPerLiter;
 return Math.round(liters * fuelPricePerLiter * 100) / 100;
 ```
 
+**Automatic signal:** The explicit rewrite plus its behavioral regression is
+automatically evaluated after the current result is corrected; the user does not
+need to invoke learning separately.
+
 **Observed pattern:** Preserve precision through intermediate calculations and
 round the final monetary result to cents.
 
@@ -120,5 +95,6 @@ round the final monetary result to cents.
 **Suggested wording:** “Round only the final reported fuel cost; do not round
 intermediate liters.”
 
-**Confidence:** Medium. The correction is explicit and behaviorally demonstrated,
-but it is one project-specific example rather than a repeated global preference.
+**Decision:** Preserve the project regression, but do not create global or K Fleet
+guidance. Confidence is medium because the correction is explicit and demonstrated,
+but it remains one project-specific event.

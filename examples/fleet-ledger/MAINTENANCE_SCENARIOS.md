@@ -1,19 +1,7 @@
 # Maintenance Feature Skill Scenarios
 
-This second forward-test uses the seven original project-installed K Fleet skills to add
+This second forward-test uses the six original project-installed K Fleet skills to add
 distance-based maintenance scheduling to Fleet Ledger.
-
-## `kf-setup-project`
-
-**Prompt:** Audit the example before adding maintenance scheduling.
-
-**Exercise:** Inspect `package.json`, `AGENTS.md`, root documentation, three source
-modules, two test files, and `bunx skills list --agent codex --json` before editing.
-
-**Evidence:** The audit established a 9-test dependency-free baseline, confirmed
-all seven original project-installed skills, and identified the immutable factory, shared
-validation, pure calculation, built-in test patterns, and root-level documentation
-destinations. `AGENTS.md` was updated only after the new maintenance module existed.
 
 ## `kf-implement-feature`
 
@@ -63,16 +51,18 @@ and rerun all tests.
 **Evidence:** The same 14 tests passed before and after. Public APIs, returned data,
 error types, and error messages were preserved.
 
-## `kf-learn-from-correction`
+## `kf-learn-from-evidence`
 
 **Prompt:** I changed equal-overdue maintenance results to sort by vehicle ID.
-Learn from my rewrite.
 
 **Prior behavior:** Equal-overdue results retained input order, producing
 `['van-b', 'van-a']`.
 
 **User behavior:** Equal-overdue results use normalized vehicle ID as a secondary
 sort key, producing `['van-a', 'van-b']`.
+
+**Automatic signal:** The explicit behavior rewrite and failing regression trigger
+evidence assessment without a separate learning request.
 
 **Observed pattern:** Give maintenance output a deterministic secondary order when
 the primary overdue distance is equal.
@@ -86,8 +76,9 @@ not global guidance or a K Fleet skill.
 **Suggested wording:** “Sort due maintenance by overdue distance descending, then
 normalized vehicle ID ascending.”
 
-**Confidence:** Medium. The behavior is explicit and verified, but it remains one
-project-domain correction rather than a repeated global preference.
+**Decision:** Keep the project regression without creating a global or K Fleet
+rule. Confidence is medium because the behavior is explicit and verified, but it
+remains one project-domain event.
 
 ## `kf-verify-change`
 

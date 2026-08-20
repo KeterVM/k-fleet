@@ -23,5 +23,4 @@ dependencies.
 
 See `SCENARIOS.md` and `TEST_REPORT.md` for the initial exercise. The maintenance
 feature rerun is documented in `MAINTENANCE_SCENARIOS.md` and
-`MAINTENANCE_TEST_REPORT.md`. `SPECIALIST_SCENARIO.md` exercises the bounded
-specialist-delegation workflow, with validation in `SPECIALIST_TEST_REPORT.md`.
+`MAINTENANCE_TEST_REPORT.md`.

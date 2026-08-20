@@ -44,6 +44,9 @@ hand off. Verification measures and reports; it does not correct.
 - An unexplained failure or uncertain cause returns to `kf-investigate-issue`.
 - An unresolved acceptance contract, interface, migration, or architecture decision
   returns to `kf-design-change`.
+- A verified recurring contradiction in workflow method, routing, or guidance is
+  reported as a learning signal for `kf-learn-from-evidence`; verification does
+  not persist the lesson.
 
 If the user asks to verify and repair in one request, complete and report the
 verification first, then hand the findings to the applicable execution workflow.

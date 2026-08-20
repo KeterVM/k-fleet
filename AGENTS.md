@@ -2,7 +2,7 @@
 
 ## Purpose
 
-K Fleet is a source repository for eleven portable Codex workflow skills. Keep it
+K Fleet is a source repository for nine portable Codex workflow skills. Keep it
 small, readable as Markdown, workflow-based, and independent of any language or
 framework.
 
@@ -22,7 +22,6 @@ framework.
 Route the primary workflow by the user's intent, then compose a method skill only
 when the request or repository guidance requires that discipline:
 
-- `kf-setup-project` creates or completes missing repository guidance.
 - `kf-maintain-guidance` audits and maintains established guidance, including
   merging, moving, rewriting, or removing rules within the user's authority.
 - `kf-design-change` produces an implementation-ready technical design without
@@ -36,14 +35,12 @@ when the request or repository guidance requires that discipline:
 - `kf-refactor-code` improves internal structure while preserving behavior.
 - `kf-verify-change` verifies existing changes without modifying them and routes
   correction to the applicable execution workflow.
-- `kf-learn-from-correction` decides whether user corrections justify a new durable
-  lesson and where it belongs.
-- `kf-delegate-specialist` assigns bounded specialist work while the parent retains
-  authority, integration, and final verification.
+- `kf-learn-from-evidence` automatically evaluates credible learning signals and
+  proposes durable changes without persisting them unless authorized.
 
 ## Conventions
 
-- Keep exactly the eleven core skills documented in the README unless real usage
+- Keep exactly the nine core skills documented in the README unless real usage
   justifies a deliberate scope change.
 - Prefix every skill directory and matching frontmatter name with `kf-`.
 - Split primary workflow skills by user intent, not by technology layer. Add a
@@ -79,5 +76,11 @@ cd examples/fleet-ledger && npm test
   feature and bug workflows retain ownership of outcome and scope.
 - Keep `kf-verify-change` verification-only; it reports readiness and routes
   findings without editing the reviewed artifact or fixing failures.
+- Keep double-loop learning automatic for signal detection, evidence assessment,
+  and proposals; require authority before `kf-learn-from-evidence` persists any
+  guidance or method change.
+- Keep delegation outside the K Fleet harness skill set; workflows may use
+  available sub-agents as a bounded runtime mechanism while retaining ownership of
+  scope, writes, integration, and verification.
 
 <!-- self-reflect:end -->

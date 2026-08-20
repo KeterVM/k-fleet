@@ -22,6 +22,9 @@ the system.
    contributing factors, and evidence gaps.
 6. Report findings, confidence, and the next useful action. State clearly when the
    evidence supports only a hypothesis.
+7. If the investigation verifies a recurring contradiction in reusable method,
+   routing, or guidance, hand that evidence to `kf-learn-from-evidence`; do not
+   persist a lesson in this workflow.
 
 ## Constraints
 

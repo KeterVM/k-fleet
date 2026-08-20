@@ -35,6 +35,9 @@ or update a design document only when the user requests or authorizes that write
 8. Report the current and target states, recommended design, alternatives and
    tradeoffs, implementation sequence, validation strategy, unresolved decisions,
    and residual risk.
+9. If verified evidence indicates a recurring defect in the reusable design method,
+   routing, or guidance rather than this design alone, hand the signal to
+   `kf-learn-from-evidence`; do not revise guidance within this workflow.
 
 ## Constraints
 

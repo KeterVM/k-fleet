@@ -27,6 +27,9 @@ Deliver the smallest complete behavior change that fits the repository.
    not intentionally change.
 8. Inspect changed code, run the smallest relevant validation supported by actual
    project tooling, fix failures caused by the work, and inspect the final diff.
+9. If verified evidence indicates a recurring defect in the reusable method,
+   routing, or guidance rather than the current implementation, hand the signal to
+   `kf-learn-from-evidence`; do not persist a lesson in this workflow.
 
 ## Constraints
 
