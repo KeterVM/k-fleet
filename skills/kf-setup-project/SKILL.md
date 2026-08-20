@@ -93,15 +93,23 @@ Use this branch only when workspace configuration, build tooling, repository
 documentation, or clear package boundaries show that the repository contains
 multiple projects. Do not infer a monorepo from directory names alone.
 
-- Discover the actual workspace root, members, ownership boundaries, shared areas,
-  and package relationships from repository evidence.
-- Keep the root `AGENTS.md` focused on shared navigation, shared constraints, and
-  links to project-specific guidance.
+- Resolve the setup target before inspecting members. Default to the current
+  working directory or the subtree named by the user, not the entire workspace.
+  Running setup at the workspace root updates shared root guidance only unless the
+  user explicitly requests setup for the whole monorepo.
+- Discover the actual workspace root and only the member boundaries needed to
+  orient the requested scope.
+- Keep the root `AGENTS.md` limited to genuinely repository-wide guidance. It may
+  identify how members are discovered and where shared tooling or documentation
+  lives, but it must not summarize every member's architecture, commands,
+  conventions, examples, or detailed documentation.
 - Add nested `AGENTS.md` only where a subtree has materially different commands,
   architecture, tooling, conventions, or operational boundaries. Packages that
   inherit the root contract need no local file.
 - Make nested guidance additive: state only scoped differences and rely on inherited
   root guidance rather than copying it.
+- Put member-specific guidance in the closest directory that governs that code.
+  Do not copy sibling-app facts into the root or into another member's file.
 - Record root and project-specific commands with their required working directory
   or workspace selector only when they are verified.
 - Place shared and project-specific documentation according to actual ownership and
@@ -113,6 +121,31 @@ multiple projects. Do not infer a monorepo from directory names alone.
   a navigation warning or a distinct constraint.
 - Validate nested instruction scope, inherited-rule compatibility, links, and
   commands from the locations where future agents will use them.
+
+Codex builds project instructions from the repository root down to the session's
+current working directory, with closer files taking precedence. For member-specific
+work, start Codex in that member or use `codex --cd <member>`. For a change spanning
+siblings, inspect the applicable guidance in every affected subtree; do not solve
+cross-scope work by expanding the root file with all member details.
+
+When setup is explicitly requested for the whole monorepo, update the root contract
+and then evaluate members independently. Create or update a nested file only for a
+member that has evidence-backed differences. Never aggregate the resulting member
+content back into root guidance.
+
+When the CLI is available, verify discovery from both scopes:
+
+```sh
+codex --ask-for-approval never "Summarize the current instructions."
+codex --cd <member> --ask-for-approval never "Show which instruction files are active."
+```
+
+Codex concatenates applicable instruction files and stops at its configured project
+documentation size limit, which is 32 KiB by default. Treat size pressure as a
+reason to narrow scope, remove duplication, or move detailed knowledge into linked
+docs rather than increasing root coverage. Do not create `AGENTS.override.md` for
+ordinary member guidance; preserve it for an existing or explicitly requested
+override use case.
 
 Do not prescribe workspace tools, root folders, package naming, documentation
 layout, or one `AGENTS.md` per member. Every recorded boundary must come from the

@@ -25,10 +25,12 @@ rerun trigger. It skips unsupported architecture, commands, conventions, example
 and directory rules without scaffolding sample code or empty directories.
 
 **Monorepo branch:** When verified workspace or project boundaries exist, setup
-keeps shared navigation and constraints at the root and creates nested guidance only
-for materially different subtrees. Commands, documentation ownership, dependencies,
-and instruction scopes follow repository evidence; identical or empty members are
-skipped rather than receiving duplicated files.
+defaults to the current or user-named subtree instead of scanning the whole
+workspace. Root setup records only repository-wide guidance; member details stay in
+the closest evidence-backed nested file. Whole-monorepo setup evaluates members
+independently without aggregating their content into the root, and identical or
+empty members are skipped. Root and member discovery are verified from their actual
+working directories when the Codex CLI is available.
 
 ## `kf-implement-feature`
 
