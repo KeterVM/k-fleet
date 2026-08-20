@@ -23,3 +23,5 @@ coverage, but it does not claim that Codex executed these prompts correctly.
 See [`FORWARD_EVAL_REPORT.md`](FORWARD_EVAL_REPORT.md) for the independent
 decision-level run and [`ARTIFACT_EVAL_REPORT.md`](ARTIFACT_EVAL_REPORT.md) for
 isolated implementation, repair, and design-drift execution.
+[`VARIANCE_EVAL_REPORT.md`](VARIANCE_EVAL_REPORT.md) records repeated independent
+runs of the highest-risk decision boundaries.
