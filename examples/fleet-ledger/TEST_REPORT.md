@@ -11,7 +11,7 @@ Ledger example.
 
 | Skill | Result | Behavioral evidence |
 | --- | --- | --- |
-| `kf-setup-project` | Pass | `AGENTS.md` contains verified project facts and a harness-only contract; progressive docs, empty-project, and evidence-driven monorepo branches avoid unsupported or duplicated guidance. |
+| `kf-setup-project` | Pass | `AGENTS.md` contains verified project facts and a harness-only contract; monorepo setup scopes to the current target and keeps sibling details out of root guidance. |
 | `kf-implement-feature` | Pass | Fuel-cost reporting was added as a focused pure function with targeted validation and tests. |
 | `kf-fix-bug` | Pass | The 61-second duration regression failed with actual `1` versus expected `2`, then passed after the one-line root-cause fix. |
 | `kf-investigate-issue` | Pass | The duplicate-ID symptom was reproduced and explained without modifying product code. |
