@@ -34,7 +34,7 @@
     "kf-setup-project": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "62833c789331ee62c8792c7d5836adc95299694dbb9af1e6dfbfdc64fd19e1a9"
+      "computedHash": "bf2302411c54e4dbbbb4bd47399f4020cc2833da0709306b6d11d52c8f9decaf"
     },
     "kf-verify-change": {
       "source": "../../skills",
