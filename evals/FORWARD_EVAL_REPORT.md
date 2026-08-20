@@ -61,3 +61,6 @@ ordering, authority, handoff, and stopping behavior without executing the produc
 changes described by the prompts. It does not replace isolated artifact-level
 exercises for implementation correctness, actual Red-Green evidence, migration
 behavior, or generated-file side effects.
+
+Those execution boundaries are sampled separately in
+[`ARTIFACT_EVAL_REPORT.md`](ARTIFACT_EVAL_REPORT.md).
