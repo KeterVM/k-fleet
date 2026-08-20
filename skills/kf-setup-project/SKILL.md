@@ -56,6 +56,10 @@ documents or narrower guidance.
   conventions, and examples with that member.
 - Add a nested `AGENTS.md` only when a subtree has material differences. Make it
   additive and do not copy inherited root rules.
+- A nested guide may retain member commands, security invariants, generated-file
+  rules, naming boundaries, and canonical patterns that repeatedly guide work in
+  that subtree. Put explanations and broad architecture descriptions in member
+  documentation.
 - Record cross-member coordination only when it changes how work must be performed;
   put substantial explanation in canonical documentation.
 
@@ -73,6 +77,13 @@ setup after representative implementation exists.
   `kf-maintain-guidance` when established guidance needs cleanup or relocation.
 - Prefer concise positive directions and canonical links. Add prohibitions only for
   a concrete recurring risk and name the safe alternative or exception.
+- Describe an established implementation as the preferred current pattern, not as
+  an exhaustive ban on alternative designs. Make a design absolute only when
+  explicit maintainer intent or a concrete safety or compatibility boundary
+  requires it.
+- Omit temporary statements about missing infrastructure, tests, or features.
+  When the absence changes current work, express the durable action or authorization
+  boundary instead of recording "not implemented yet" status.
 - Do not create one nested file per member, a standard document set, or a new
   layout merely for uniformity.
 - Do not modify user-level Codex configuration or global skills.

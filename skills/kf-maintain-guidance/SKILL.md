@@ -42,11 +42,26 @@ root should usually contain only navigation, workspace mechanics, shared command
 cross-cutting constraints, and pointers that tell agents when to load deeper
 documentation or nested guidance.
 
-Move or remove content such as member inventories, member-specific commands or
-architecture, detailed product requirements, explanations of accepted decisions,
-historical context, and temporary statements about what does not exist yet. Keep
-an exceptional root-level detail only when omitting it creates a concrete
-cross-repository failure mode that a link cannot prevent.
+Nested guidance may be denser when member-specific commands, security invariants,
+generated-file rules, naming boundaries, or canonical implementation patterns
+repeatedly affect work in that subtree. It must still omit inherited root rules and
+detail that belongs in member documentation.
+
+Move or remove member inventories, detailed product requirements, explanations of
+accepted decisions, historical context, and temporary statements about what does
+not exist yet. Keep an exceptional root-level detail only when omitting it creates
+a concrete cross-repository failure mode that a link cannot prevent.
+
+Treat an existing implementation pattern as a preferred example unless evidence
+establishes it as a durable constraint. Rewrite catalogs of forbidden abstractions
+or designs as the current preferred pattern plus the concrete condition that would
+justify diverging. Do not require an explicit user request for an ordinary design
+choice unless that authority boundary is itself explicit maintainer intent.
+
+Delete temporary negative status when it does not change an action. When it does,
+rewrite it as durable operational guidance, such as which validation is safe to
+run or what authorization is required, rather than preserving "not implemented
+yet" commentary.
 
 ## Editing constraints
 
@@ -57,6 +72,8 @@ cross-repository failure mode that a link cannot prevent.
   another managed learned-rule section.
 - Prefer relocation or deletion over polished duplication. Do not summarize every
   linked document in the root file.
+- Split or shorten compound rules that mix independent decisions; preserve the
+  actual invariant rather than every currently rejected alternative.
 - Do not create nested guidance or supporting documents solely to make the root
   shorter; create them only where the content has a real owner and future reader.
 - Do not modify user-level Codex configuration or global skills.
