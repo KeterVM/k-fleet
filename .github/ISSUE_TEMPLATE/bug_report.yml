@@ -1,0 +1,38 @@
+name: Bug report
+description: Report incorrect or unsafe K Fleet behavior
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping improve K Fleet. Do not include security-sensitive details here; follow SECURITY.md instead.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What happened, and what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Provide a minimal prompt, project context, and steps that reproduce the behavior.
+    validations:
+      required: true
+  - type: input
+    id: skill
+    attributes:
+      label: Affected skill
+      placeholder: kf-implement-feature
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include the Codex version or interface and relevant operating system details.
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Add logs or screenshots after removing secrets and personal data.

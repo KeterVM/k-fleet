@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# Dependencies
+node_modules/
+
+# Build and test output
+coverage/
+dist/
+*.log
+
+# Local environment
+.env
+.env.*
+!.env.example
+
+# Generated project-local skill copies
+examples/fleet-ledger/.agents/skills/
