@@ -15,6 +15,7 @@ documentation, or a large catalog of technology-specific skills.
 | --- | --- | --- |
 | Initialize repository guidance | `kf-setup-project` | Creates the smallest verified routing and constraint layer; it does not summarize every project or maintain established guidance. |
 | Maintain existing repository guidance | `kf-maintain-guidance` | Reduces always-loaded context by deleting, consolidating, or relocating guidance while protecting explicit learned intent. |
+| Design a code change before implementation | `kf-design-change` | Produces an evidence-based, implementation-ready technical design; it does not modify production code unless implementation is separately requested and routed. |
 | Add or modify behavior | `kf-implement-feature` | Handles capabilities, not known defects, behavior-preserving refactors, investigations, or verification-only requests. |
 | Correct a known defect | `kf-fix-bug` | Diagnoses and implements a root-cause fix; feedback that revises the current task stays in that task's workflow. |
 | Explain unclear behavior | `kf-investigate-issue` | Reports evidence and likely causes; it does not modify code unless requested or needed for safe instrumentation. |
@@ -97,6 +98,7 @@ For example:
 ```text
 Initialize this project for Codex.
 Clean up and update this repository's existing AGENTS.md guidance.
+Design the durable-storage migration, but do not implement it.
 Implement invoice export.
 Fix the reconnect bug.
 Investigate why reconnect sometimes happens twice.
@@ -159,12 +161,11 @@ project with K Fleet skills installed project-locally through `bunx skills`. Its
 
 The same example also includes a second full exercise in
 `MAINTENANCE_SCENARIOS.md`, which adds maintenance scheduling and reruns the
-original seven workflows with results in `MAINTENANCE_TEST_REPORT.md`. A bounded
-delegation example for the eighth skill is in `SPECIALIST_SCENARIO.md`.
-Its installation and routing checks are recorded in `SPECIALIST_TEST_REPORT.md`.
-The ninth workflow is exercised against accumulated project guidance in
-`GUIDANCE_MAINTENANCE_SCENARIO.md`, with results in
-`GUIDANCE_MAINTENANCE_TEST_REPORT.md`.
+original seven workflows with results in `MAINTENANCE_TEST_REPORT.md`. Dedicated
+exercises cover bounded delegation in `SPECIALIST_SCENARIO.md`, accumulated
+guidance maintenance in `GUIDANCE_MAINTENANCE_SCENARIO.md`, and implementation-
+ready design in `DESIGN_CHANGE_SCENARIO.md`; their corresponding `*_TEST_REPORT.md`
+files record installation, routing, and validation results.
 
 ## Contributing and security
 

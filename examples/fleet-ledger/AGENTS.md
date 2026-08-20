@@ -17,6 +17,8 @@
 - `SPECIALIST_TEST_REPORT.md` records the eighth skill's validation results.
 - `GUIDANCE_MAINTENANCE_SCENARIO.md` tests maintenance of accumulated guidance.
 - `GUIDANCE_MAINTENANCE_TEST_REPORT.md` records the ninth skill's validation results.
+- `DESIGN_CHANGE_SCENARIO.md` tests implementation-ready design routing.
+- `DESIGN_CHANGE_TEST_REPORT.md` records the tenth skill's validation results.
 
 ## Documentation
 

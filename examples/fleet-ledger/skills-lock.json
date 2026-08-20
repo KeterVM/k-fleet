@@ -6,6 +6,11 @@
       "sourceType": "local",
       "computedHash": "1c44d8ab051008e6f667cef1554748ff1b1bc2f0d1f371f96ebb930076d4026c"
     },
+    "kf-design-change": {
+      "source": "../../skills",
+      "sourceType": "local",
+      "computedHash": "57030650530d56123ec73ab435622af7c1833d3c87b644ce2af15214a1257827"
+    },
     "kf-fix-bug": {
       "source": "../../skills",
       "sourceType": "local",
