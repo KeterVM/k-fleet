@@ -19,6 +19,8 @@
 - `GUIDANCE_MAINTENANCE_TEST_REPORT.md` records the ninth skill's validation results.
 - `DESIGN_CHANGE_SCENARIO.md` tests implementation-ready design routing.
 - `DESIGN_CHANGE_TEST_REPORT.md` records the tenth skill's validation results.
+- `TDD_SCENARIO.md` tests composable test-driven implementation routing.
+- `TDD_TEST_REPORT.md` records the eleventh skill's validation results.
 
 ## Documentation
 

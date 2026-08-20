@@ -18,15 +18,18 @@ documentation, or a large catalog of technology-specific skills.
 | Design a code change before implementation | `kf-design-change` | Produces an evidence-based, implementation-ready technical design; it does not modify production code unless implementation is separately requested and routed. |
 | Add or modify behavior | `kf-implement-feature` | Handles capabilities, not known defects, behavior-preserving refactors, investigations, or verification-only requests. |
 | Correct a known defect | `kf-fix-bug` | Diagnoses and implements a root-cause fix; feedback that revises the current task stays in that task's workflow. |
+| Drive a feature or fix test-first | `kf-test-driven-change` | Composes with the feature or bug workflow to enforce vertical Red-Green-Refactor cycles and evidence; it does not own product scope. |
 | Explain unclear behavior | `kf-investigate-issue` | Reports evidence and likely causes; it does not modify code unless requested or needed for safe instrumentation. |
 | Improve structure without changing behavior | `kf-refactor-code` | Preserves externally observable behavior by default. |
-| Validate existing changes | `kf-verify-change` | Reviews and runs appropriate checks; it is not the primary implementation workflow. |
+| Validate existing changes | `kf-verify-change` | Measures readiness and reports evidence, findings, and residual risk without modifying the reviewed artifact or fixing failures. |
 | Extract durable lessons from manual corrections | `kf-learn-from-correction` | Suggests carefully scoped guidance; it does not turn every edit into a rule. |
 | Apply a specialist domain perspective | `kf-delegate-specialist` | Delegates bounded analysis, research, independent review, or authorized execution while the parent retains verification and authority. |
 
-Skills are split by workflow and user intent, not by frontend, backend, database,
-language, or framework. Technology-specific behavior should come from the target
-repository's code, `AGENTS.md`, documentation, and canonical examples.
+Primary skills are split by workflow and user intent, not by frontend, backend,
+database, language, or framework. `kf-test-driven-change` is a composable method
+skill: the feature or bug workflow owns what changes, while TDD owns the test-first
+feedback loop. Technology-specific behavior should come from the target repository's
+code, `AGENTS.md`, documentation, and canonical examples.
 
 All skill names use the compact `kf-` namespace to distinguish K Fleet skills from
 similarly named global or third-party skills.
@@ -100,6 +103,7 @@ Initialize this project for Codex.
 Clean up and update this repository's existing AGENTS.md guidance.
 Design the durable-storage migration, but do not implement it.
 Implement invoice export.
+Implement invoice export with TDD and show each Red-Green cycle.
 Fix the reconnect bug.
 Investigate why reconnect sometimes happens twice.
 Refactor this service without changing behavior.
@@ -164,8 +168,9 @@ The same example also includes a second full exercise in
 original seven workflows with results in `MAINTENANCE_TEST_REPORT.md`. Dedicated
 exercises cover bounded delegation in `SPECIALIST_SCENARIO.md`, accumulated
 guidance maintenance in `GUIDANCE_MAINTENANCE_SCENARIO.md`, and implementation-
-ready design in `DESIGN_CHANGE_SCENARIO.md`; their corresponding `*_TEST_REPORT.md`
-files record installation, routing, and validation results.
+ready design in `DESIGN_CHANGE_SCENARIO.md`. `TDD_SCENARIO.md` exercises the
+composable test-driven method. Their corresponding `*_TEST_REPORT.md` files record
+installation, routing, and validation results.
 
 ## Contributing and security
 

@@ -14,12 +14,12 @@
     "kf-fix-bug": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "5c36450e55c9ad8e30348547c8048f04af5373c76ce0164ac3c2b8aaca7b35fb"
+      "computedHash": "fecb7c833ed446922b47d7c96f791b97c67e67dda8d24b77017b6d1c3e9773e0"
     },
     "kf-implement-feature": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "9783e2aee7573d8e160faeff8c10f64e8ddd104b0de9d35310d0cdff4b540edc"
+      "computedHash": "080933411408b03a589bea6a1d6fa83579d3cfb7bf3e4adfe99690b54ef856ff"
     },
     "kf-investigate-issue": {
       "source": "../../skills",
@@ -46,10 +46,15 @@
       "sourceType": "local",
       "computedHash": "335e246f6f12b69acfcfece2f37606d23d311413e9812835ea17311bbc790026"
     },
+    "kf-test-driven-change": {
+      "source": "../../skills",
+      "sourceType": "local",
+      "computedHash": "57e14ef0fe73dbaafe5c65f26b29724094d5473ba6ce36c0b1e020f63f5baf81"
+    },
     "kf-verify-change": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "affbab3880e05c339803c08ac4d7c779030a16704ff5f25d6cc5f585ad8d2674"
+      "computedHash": "2c2f600ab1e1bfd85f9258e61bd288182bd40a584fb5c9abdac259b22f3b8831"
     }
   }
 }

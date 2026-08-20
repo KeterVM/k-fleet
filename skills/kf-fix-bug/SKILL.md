@@ -17,11 +17,15 @@ behavior.
    analogous implementations.
 4. Form and test hypotheses until the evidence distinguishes root cause from
    downstream symptoms.
-5. Implement the smallest root-cause fix that follows repository conventions.
+5. When the user or repository requires TDD, combine this workflow with
+   `kf-test-driven-change`; this skill retains ownership of the symptom, root cause,
+   and correction scope. Require the regression test to demonstrate valid Red
+   before the production fix.
 6. Add or update focused regression coverage when practical and proportionate.
-7. Run targeted validation, then broader checks only when risk or repository
+7. Implement the smallest root-cause fix that follows repository conventions.
+8. Run targeted validation, then broader checks only when risk or repository
    practice justifies them.
-8. Inspect failures and the final diff. Fix failures caused by the change; disclose
+9. Inspect failures and the final diff. Fix failures caused by the change; disclose
    unrelated or unrun checks.
 
 ## Constraints

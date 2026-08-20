@@ -2,7 +2,7 @@
 
 ## Purpose
 
-K Fleet is a source repository for ten portable Codex workflow skills. Keep it
+K Fleet is a source repository for eleven portable Codex workflow skills. Keep it
 small, readable as Markdown, workflow-based, and independent of any language or
 framework.
 
@@ -19,7 +19,8 @@ framework.
 
 ## Skill responsibilities
 
-Route by the user's primary intent:
+Route the primary workflow by the user's intent, then compose a method skill only
+when the request or repository guidance requires that discipline:
 
 - `kf-setup-project` creates or completes missing repository guidance.
 - `kf-maintain-guidance` audits and maintains established guidance, including
@@ -28,10 +29,13 @@ Route by the user's primary intent:
   modifying production code.
 - `kf-implement-feature` adds or changes observable behavior.
 - `kf-fix-bug` diagnoses and corrects a known defect with regression validation.
+- `kf-test-driven-change` drives an already-scoped feature or bug fix through
+  vertical Red-Green-Refactor cycles without taking ownership of its scope.
 - `kf-investigate-issue` explains unclear behavior without implementing a fix
   unless correction is also requested.
 - `kf-refactor-code` improves internal structure while preserving behavior.
-- `kf-verify-change` reviews existing changes and runs proportionate checks.
+- `kf-verify-change` verifies existing changes without modifying them and routes
+  correction to the applicable execution workflow.
 - `kf-learn-from-correction` decides whether user corrections justify a new durable
   lesson and where it belongs.
 - `kf-delegate-specialist` assigns bounded specialist work while the parent retains
@@ -39,10 +43,12 @@ Route by the user's primary intent:
 
 ## Conventions
 
-- Keep exactly the ten core skills documented in the README unless real usage
+- Keep exactly the eleven core skills documented in the README unless real usage
   justifies a deliberate scope change.
 - Prefix every skill directory and matching frontmatter name with `kf-`.
-- Split skills by user intent, not by technology layer.
+- Split primary workflow skills by user intent, not by technology layer. Add a
+  composable method skill only for a reusable discipline that crosses intents
+  without taking ownership of their outcomes.
 - Use only supported `name` and `description` frontmatter unless a verified need
   requires optional metadata.
 - Make descriptions discriminating enough for implicit routing.
@@ -69,5 +75,9 @@ cd examples/fleet-ledger && npm test
 
 - Commit and push authorized repository changes directly to `main` by default;
   create a feature branch only when the user explicitly requests one.
+- Keep TDD as the dedicated composable `kf-test-driven-change` method skill;
+  feature and bug workflows retain ownership of outcome and scope.
+- Keep `kf-verify-change` verification-only; it reports readiness and routes
+  findings without editing the reviewed artifact or fixing failures.
 
 <!-- self-reflect:end -->

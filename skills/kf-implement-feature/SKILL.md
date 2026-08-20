@@ -17,11 +17,15 @@ Deliver the smallest complete behavior change that fits the repository.
    persistence, infrastructure, tests, and documentation only where relevant.
 4. Infer repository conventions from repeated evidence. Prefer the established
    architecture over a generic textbook design.
-5. Choose the smallest complete change. Include every layer needed for the feature,
+5. When the user or repository requires TDD, combine this workflow with
+   `kf-test-driven-change`; this skill retains ownership of the feature outcome,
+   scope, and compatibility. If that method skill is unavailable, do not claim TDD
+   without demonstrating a focused test that fails before production edits.
+6. Choose the smallest complete change. Include every layer needed for the feature,
    but avoid speculative extensibility and unrelated cleanup.
-6. Implement consistently while preserving public behavior that the request does
+7. Implement consistently while preserving public behavior that the request does
    not intentionally change.
-7. Inspect changed code, run the smallest relevant validation supported by actual
+8. Inspect changed code, run the smallest relevant validation supported by actual
    project tooling, fix failures caused by the work, and inspect the final diff.
 
 ## Constraints

@@ -13,6 +13,7 @@ const expectedSkills = [
   "kf-maintain-guidance",
   "kf-refactor-code",
   "kf-setup-project",
+  "kf-test-driven-change",
   "kf-verify-change",
 ];
 const failures = [];

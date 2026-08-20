@@ -84,9 +84,11 @@ and messages remain unchanged.
 **Exercise:** Inspect all example files, run the complete project suite, validate
 the seven original K Fleet skills with Codex's installed validator, check skill directory and
 frontmatter agreement, and scan documentation for broken local paths and
-placeholders.
+placeholders. Do not edit any artifact while verifying; classify and report any
+failure, its evidence, and the workflow that should own correction.
 
-**Evidence:** See `TEST_REPORT.md` for the latest results and remaining limits.
+**Evidence:** See `TEST_REPORT.md` for the checks, readiness result, and remaining
+limits. Verification leaves correction to an execution workflow.
 
 ## `kf-learn-from-correction`
 

@@ -1,30 +1,68 @@
 ---
 name: kf-verify-change
-description: Review and validate existing changes before completion or merge using repository-appropriate checks. Use when the user asks to check a diff, test work, or confirm readiness. Do not use as the primary workflow for implementing a new feature, diagnosing an unknown issue, or performing a behavior-preserving refactor.
+description: Verify existing changes without modifying them. Use when the user asks to review a diff or artifact, run checks, confirm readiness, or validate an existing implementation or design. Report evidence, actionable findings, and residual risk. Do not fix findings or act as the primary feature, bug, investigation, refactor, or design workflow.
 ---
 
 # Verify Change
 
-Determine whether existing changes solve the task safely and are ready to hand off.
+Determine whether an existing change satisfies its intended outcome and is ready to
+hand off. Verification measures and reports; it does not correct.
 
 ## Workflow
 
-1. Read the requested outcome, repository guidance, current status, changed files,
-   and complete diff before selecting checks.
-2. Inspect actual tooling and risk. Choose targeted tests, type checking, linting,
-   formatting checks, builds, schema or migration validation, compatibility checks,
-   and broader suites only when relevant.
-3. Review the implementation against nearby repository patterns and the task's
-   observable acceptance criteria.
-4. Run the smallest checks that provide meaningful confidence. Inspect complete
-   failures rather than relying only on exit codes.
-5. When modification is authorized, fix problems caused by the changes and rerun
-   affected checks. Do not conceal or relabel failures.
-6. Inspect the final diff and status for unintended files, generated artifacts,
-   unrelated formatting, dead code, dependencies, and compatibility changes.
-7. Report checks run, results, fixes made, checks not run, and remaining risk.
+1. Establish the verification target: requested outcome, observable acceptance
+   criteria, artifact or diff scope, compatibility constraints, and relevant
+   baseline. Separate verified facts, assumptions, and unknowns.
+2. Read applicable repository guidance, current status, the complete in-scope diff
+   or artifact, and affected code paths before selecting checks.
+3. Assess impact and risk. Choose the smallest meaningful combination of focused
+   tests, type checking, linting, formatting checks, builds, schema or migration
+   validation, compatibility checks, and broader suites supported by actual
+   tooling.
+4. Review the change against its acceptance criteria, repeated repository patterns,
+   public contracts, and unaffected behavior. Trace important boundaries rather
+   than validating filenames or exit codes alone.
+5. Run the selected checks and inspect their complete relevant results. Prefer
+   check, dry-run, or non-mutating modes when available, and inspect status again
+   for artifacts produced by verification commands.
+6. Classify each failure as change-caused, pre-existing, environmental, or
+   unresolved only when evidence supports that classification. Do not attribute a
+   failure by timing or proximity alone.
+7. Report only actionable findings, ordered by severity. For each finding, state
+   the evidence, violated outcome or invariant, impact, confidence, and the
+   execution workflow that should own correction.
+8. Give a readiness result of **ready**, **not ready**, or **indeterminate**. Report
+   checks run and their results, critical checks not run, produced artifacts,
+   assumptions, and residual risk.
 
-## Final review questions
+## Correction routing
+
+- Missing or incorrect requested behavior returns to `kf-implement-feature`.
+- A demonstrated violation of an existing contract returns to `kf-fix-bug`.
+- A structural problem whose correction must preserve behavior returns to
+  `kf-refactor-code`.
+- An unexplained failure or uncertain cause returns to `kf-investigate-issue`.
+- An unresolved acceptance contract, interface, migration, or architecture decision
+  returns to `kf-design-change`.
+
+If the user asks to verify and repair in one request, complete and report the
+verification first, then hand the findings to the applicable execution workflow.
+Do not perform the repair while operating under this skill.
+
+## Constraints
+
+- Do not edit source, tests, documentation, configuration, snapshots, generated
+  artifacts, or the reviewed design. Running checks is allowed; intentional
+  correction is not.
+- Do not weaken, disable, update, or reinterpret a check to make the result pass.
+- Do not hide contradictory evidence, existing failures, incomplete coverage, or
+  commands that could not run.
+- Do not claim readiness while a blocking finding remains or a critical risk lacks
+  meaningful evidence.
+- Do not run every expensive check by default. Match verification depth to the
+  change's impact, reversibility, and repository practice.
+
+## Completion questions
 
 - Does the change solve the requested task?
 - Does it follow repeated repository patterns?
@@ -33,5 +71,8 @@ Determine whether existing changes solve the task safely and are ready to hand o
 - Does it touch unrelated code or formatting?
 - Is a simpler complete implementation available?
 - Were the relevant checks actually run?
+- Is every failure classification supported by evidence?
+- Are correction and verification still owned by separate workflows?
 
-Verification is evidence, not ceremony. Do not blindly run every expensive check.
+Verification is complete when the readiness result, material findings, supporting
+evidence, unrun critical checks, and residual risk are explicit.

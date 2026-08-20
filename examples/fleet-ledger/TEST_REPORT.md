@@ -16,7 +16,7 @@ Ledger example.
 | `kf-fix-bug` | Pass | The 61-second duration regression failed with actual `1` versus expected `2`, then passed after the one-line root-cause fix. |
 | `kf-investigate-issue` | Pass | The duplicate-ID symptom was reproduced and explained without modifying product code. |
 | `kf-refactor-code` | Pass | Shared positive-number validation was extracted; all 8 pre-existing tests passed before and after. |
-| `kf-verify-change` | Pass | Full tests, skill validation, naming, placeholders, and local links were checked. |
+| `kf-verify-change` | Pass | Full tests, skill validation, naming, placeholders, and local links were checked without modifying artifacts or repairing findings. |
 | `kf-learn-from-correction` | Pass | A rounding correction became a project regression example, not an unsupported global rule. |
 
 ## Commands and checks
