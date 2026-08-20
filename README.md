@@ -3,7 +3,8 @@
 K Fleet is a small, reusable collection of Codex workflow skills. It acts as a
 lightweight personal engineering harness: repository evidence supplies the local
 context, while the skills supply consistent ways to maintain guidance,
-implement, debug, investigate, refactor, verify, and learn from evidence.
+add test coverage, implement, debug, investigate, refactor, verify, and learn from
+evidence.
 
 K Fleet is intentionally not a generic prompt library, a framework-specific
 ruleset, an agent orchestration framework, a replacement for project
@@ -13,6 +14,7 @@ documentation, or a large catalog of technology-specific skills.
 
 | Intent | Skill | Boundary |
 | --- | --- | --- |
+| Add tests for existing behavior | `kf-add-test-coverage` | Makes a test-only change for retrospective or characterization coverage; it does not claim TDD or modify production behavior. |
 | Maintain existing repository guidance | `kf-maintain-guidance` | Reduces always-loaded context by deleting, consolidating, or relocating guidance while protecting explicit learned intent. |
 | Design a code change before implementation | `kf-design-change` | Produces an evidence-based, implementation-ready technical design; it does not modify production code unless implementation is separately requested and routed. |
 | Add or modify behavior | `kf-implement-feature` | Handles capabilities, not known defects, behavior-preserving refactors, investigations, or verification-only requests. |
@@ -131,6 +133,7 @@ Clean up and update this repository's existing AGENTS.md guidance.
 Design the durable-storage migration, but do not implement it.
 Implement invoice export.
 Implement invoice export with TDD and show each Red-Green cycle.
+Add missing tests for the already-implemented invoice totals without changing production behavior.
 Fix the reconnect bug.
 Investigate why reconnect sometimes happens twice.
 Refactor this service without changing behavior.
@@ -193,8 +196,9 @@ original six workflows with results in `MAINTENANCE_TEST_REPORT.md`. Dedicated
 exercises cover accumulated guidance maintenance in
 `GUIDANCE_MAINTENANCE_SCENARIO.md` and implementation-
 ready design in `DESIGN_CHANGE_SCENARIO.md`. `TDD_SCENARIO.md` exercises the
-composable test-driven method. Their corresponding `*_TEST_REPORT.md` files record
-installation, routing, and validation results.
+composable test-driven method, and `TEST_COVERAGE_SCENARIO.md` exercises
+retrospective test-only ownership. Their corresponding `*_TEST_REPORT.md` files
+record installation, routing, and validation results.
 
 The machine-readable cases under [`evals`](evals) cover primary routing, method
 composition, correction and re-verification, design handoff, learning gates, and

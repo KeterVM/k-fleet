@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const expectedSkills = [
+  "kf-add-test-coverage",
   "kf-design-change",
   "kf-fix-bug",
   "kf-implement-feature",

@@ -1,6 +1,11 @@
 {
   "version": 1,
   "skills": {
+    "kf-add-test-coverage": {
+      "source": "../../skills",
+      "sourceType": "local",
+      "computedHash": "d4fb3518d398363c6bdc48e0bdb6ad84fcb3a1fe7e5bf4ebdc2046b1bde2a470"
+    },
     "kf-design-change": {
       "source": "../../skills",
       "sourceType": "local",
@@ -24,12 +29,12 @@
     "kf-learn-from-evidence": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "499f684e45b8bda16c5ab0cbb3a09a6ce3ba410b48a5647b3177af84d6d91286"
+      "computedHash": "ac36143c5877045581c17654920daa933f3b87a898a0f1de67d7c3a5bc3df40c"
     },
     "kf-maintain-guidance": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "f238c067508c3ec48ed5d991610c6c49588b5420b3c68181ec09e5d8d01d9bb6"
+      "computedHash": "cc523e92a45abb8c5c816f2c7160b91cb2606e2112b6639aaaf8c1041f3a4001"
     },
     "kf-refactor-code": {
       "source": "../../skills",

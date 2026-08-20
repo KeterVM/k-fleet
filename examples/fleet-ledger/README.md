@@ -23,4 +23,6 @@ dependencies.
 
 See `SCENARIOS.md` and `TEST_REPORT.md` for the initial exercise. The maintenance
 feature rerun is documented in `MAINTENANCE_SCENARIOS.md` and
-`MAINTENANCE_TEST_REPORT.md`.
+`MAINTENANCE_TEST_REPORT.md`. Dedicated design, TDD, guidance-maintenance, and
+retrospective test-coverage exercises use their matching `*_SCENARIO.md` and
+`*_TEST_REPORT.md` files.

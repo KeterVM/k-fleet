@@ -1,6 +1,6 @@
 ---
 name: kf-maintain-guidance
-description: Audit and maintain established repository guidance, especially AGENTS.md, within the user-requested files, subtree, or repository scope. Remove duplication and stale facts, move detail to narrower owners, and preserve explicit learned intent. Supports monoliths and monorepos, using read-only sub-agents only when independent boundaries make delegation worthwhile. Do not create missing guidance, implement features, or fix bugs.
+description: Audit and maintain established repository guidance, especially AGENTS.md, within the user-requested files, subtree, or repository scope. Remove duplication and stale facts, move detail to narrower owners, and preserve explicit learned intent. Supports monoliths and monorepos, using read-only sub-agents only when independent boundaries make delegation worthwhile. Do not decide or persist a new durable lesson, create missing guidance, implement features, or fix bugs.
 ---
 
 # Maintain Guidance
@@ -89,7 +89,7 @@ failure.
   a generic template, or modify user-level Codex settings and global skills.
 - Evidence that may justify a new durable rule or a change to this method is a
   learning signal for `kf-learn-from-evidence`; maintenance does not decide that
-  lesson during cleanup.
+  lesson during cleanup or act merely as the writer for its narrow persistence.
 
 ## Regression
 

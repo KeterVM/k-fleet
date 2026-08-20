@@ -25,3 +25,5 @@ decision-level run and [`ARTIFACT_EVAL_REPORT.md`](ARTIFACT_EVAL_REPORT.md) for
 isolated implementation, repair, and design-drift execution.
 [`VARIANCE_EVAL_REPORT.md`](VARIANCE_EVAL_REPORT.md) records repeated independent
 runs of the highest-risk decision boundaries.
+[`ADVERSARIAL_EVAL_REPORT.md`](ADVERSARIAL_EVAL_REPORT.md) records mixed-intent,
+mislabelled, authority-seeking, and intentionally unsupported prompts.

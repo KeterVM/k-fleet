@@ -19,6 +19,8 @@
 - `DESIGN_CHANGE_TEST_REPORT.md` records the eighth skill's validation results.
 - `TDD_SCENARIO.md` tests composable test-driven implementation routing.
 - `TDD_TEST_REPORT.md` records the ninth skill's validation results.
+- `TEST_COVERAGE_SCENARIO.md` tests retrospective test-only routing.
+- `TEST_COVERAGE_TEST_REPORT.md` records the tenth skill's validation results.
 
 ## Documentation
 

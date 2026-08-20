@@ -49,8 +49,10 @@ the active task workflow.
    analysis, and proposal only; it does not authorize persistence.
 7. Persist only when the user has already authorized that destination and scope or
    explicitly approves the proposal. Preserve managed sections and existing
-   authority boundaries. Route broad cleanup of established guidance to
-   `kf-maintain-guidance`.
+   authority boundaries. This workflow owns the narrow authorized persistence;
+   do not add `kf-maintain-guidance` merely to perform the file edit. Route broad
+   cleanup, consolidation, relocation, or rewriting of established guidance to
+   `kf-maintain-guidance` as a separate task.
 8. Verify an authorized persistence change independently from the evidence that
    motivated it. Confirm that the new rule is discoverable, narrowly scoped,
    non-duplicative, and does not contradict stronger guidance.
