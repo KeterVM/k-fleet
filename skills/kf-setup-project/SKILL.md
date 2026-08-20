@@ -16,7 +16,8 @@ act, and validate safely.
 2. Identify only the boundaries, canonical destinations, commands, and constraints
    that materially change future decisions. Never invent commands or layouts.
 3. Separate weak observations from established conventions supported by repeated
-   code, configuration, documentation, or explicit maintainer direction.
+   code, accepted decisions, or explicit maintainer direction. Treat a current
+   status section or one implementation as an example rather than a mandate.
 4. Put each fact at its narrowest durable owner: root guidance for shared routing
    and constraints, nested guidance for subtree differences, documentation for
    substantial knowledge, and skills for reusable procedures.
@@ -56,6 +57,8 @@ documents or narrower guidance.
   conventions, and examples with that member.
 - Add a nested `AGENTS.md` only when a subtree has material differences. Make it
   additive and do not copy inherited root rules.
+- Compare ancestor and nested guidance semantically. When a more specific nested
+  rule covers a concern that matters only there, omit the generic root version.
 - A nested guide may retain member commands, security invariants, generated-file
   rules, naming boundaries, and canonical patterns that repeatedly guide work in
   that subtree. Put explanations and broad architecture descriptions in member
@@ -81,6 +84,10 @@ setup after representative implementation exists.
   an exhaustive ban on alternative designs. Make a design absolute only when
   explicit maintainer intent or a concrete safety or compatibility boundary
   requires it.
+- Trace workspace commands through root scripts, task runners, and member scripts.
+  State the verified invocation location separately from task ownership; a root
+  proxy does not make a task root-owned, and a member-owned task may still have a
+  root command.
 - Omit temporary statements about missing infrastructure, tests, or features.
   When the absence changes current work, express the durable action or authorization
   boundary instead of recording "not implemented yet" status.

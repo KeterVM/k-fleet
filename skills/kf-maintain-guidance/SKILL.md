@@ -15,9 +15,11 @@ materially improves future decisions.
    facts.
 2. Map inheritance and major repository boundaries before judging scope. A root
    rule reaches every subtree; a nested rule should contain only differences that
-   matter within that subtree.
+   matter within that subtree. Compare ancestor and descendant rules semantically,
+   not only as exact text.
 3. Verify commands, paths, architecture claims, and other factual guidance against
-   current evidence. Treat managed learned rules as explicit user intent, not as
+   current evidence. Distinguish accepted decisions from current-status notes and
+   isolated examples. Treat managed learned rules as explicit user intent, not as
    facts that implementation drift can silently replace.
 4. Apply the retention test below to every material instruction. Classify it as
    keep, rewrite, move, merge, delete, or verify.
@@ -47,6 +49,10 @@ generated-file rules, naming boundaries, or canonical implementation patterns
 repeatedly affect work in that subtree. It must still omit inherited root rules and
 detail that belongs in member documentation.
 
+When a specialized nested rule fully covers a concern that matters only in that
+subtree, remove the generic ancestor version. Different wording or added local
+detail does not make both copies valuable.
+
 Move or remove member inventories, detailed product requirements, explanations of
 accepted decisions, historical context, and temporary statements about what does
 not exist yet. Keep an exceptional root-level detail only when omitting it creates
@@ -57,6 +63,15 @@ establishes it as a durable constraint. Rewrite catalogs of forbidden abstractio
 or designs as the current preferred pattern plus the concrete condition that would
 justify diverging. Do not require an explicit user request for an ordinary design
 choice unless that authority boundary is itself explicit maintainer intent.
+
+A single implementation or a document section labelled current status supports a
+discoverable example, not a repository convention. Require an explicit accepted
+decision, repeated independent examples, or maintainer direction before turning
+its file layout or composition into a mandatory rule.
+
+Trace commands through root proxies, task runners, and member scripts. Describe
+where a command is invoked separately from which member owns the task; do not use
+vague labels such as "member-level command" when a verified root entry point exists.
 
 Delete temporary negative status when it does not change an action. When it does,
 rewrite it as durable operational guidance, such as which validation is safe to
