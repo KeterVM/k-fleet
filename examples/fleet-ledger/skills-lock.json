@@ -29,7 +29,7 @@
     "kf-maintain-guidance": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "acc05fc8691938d4dedc0baf1a1abfd83dbc909d79462578b229ffe964de7d5c"
+      "computedHash": "44f373a49aa5a4cc1c3c503ac19beb04cb2a92523fe1e2c7510150aea81d1cbd"
     },
     "kf-refactor-code": {
       "source": "../../skills",
