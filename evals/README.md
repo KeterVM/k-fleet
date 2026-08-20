@@ -19,3 +19,6 @@ For an independent behavioral run:
 Use a fresh task or independent agent when practical so prior conclusions do not
 leak into selection. The repository validator checks corpus syntax and required
 coverage, but it does not claim that Codex executed these prompts correctly.
+
+See [`FORWARD_EVAL_REPORT.md`](FORWARD_EVAL_REPORT.md) for the latest independent
+decision-level run.
