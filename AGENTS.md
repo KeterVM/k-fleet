@@ -60,3 +60,12 @@ Run the repository checks with:
 node scripts/validate-skills.mjs
 cd examples/fleet-ledger && npm test
 ```
+
+<!-- self-reflect:start -->
+
+## Learned Rules
+
+- Commit and push authorized repository changes directly to `main` by default;
+  create a feature branch only when the user explicitly requests one.
+
+<!-- self-reflect:end -->
