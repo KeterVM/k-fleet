@@ -206,6 +206,12 @@ maintenance delegation boundaries. Repository validation checks the corpus shape
 and coverage; behavioral scoring should be performed by an independent evaluator
 that receives prompts without their expected answers.
 
+## Releases
+
+The current stable release is `v1.0.0`. See [CHANGELOG.md](CHANGELOG.md) for the
+release history. After this baseline, K Fleet evolves from evidence gathered in
+real use rather than by expanding the skill catalog speculatively.
+
 ## Contributing and security
 
 Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the focused
