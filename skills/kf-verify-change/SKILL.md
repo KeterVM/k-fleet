@@ -1,6 +1,6 @@
 ---
 name: kf-verify-change
-description: Verify existing changes without modifying them. Use when the user asks to review a diff or artifact, run checks, confirm readiness, or validate an existing implementation or design. Report evidence, actionable findings, and residual risk. Do not fix findings or act as the primary feature, bug, investigation, refactor, or design workflow.
+description: Verify existing changes without modifying them. Use when the user asks to review a pull request, commit, branch, diff, patch, or other artifact; run checks; confirm merge or handoff readiness; or validate an existing implementation or design. Report evidence, actionable findings, and residual risk. Do not fix findings or act as the primary feature, bug, investigation, refactor, or design workflow.
 ---
 
 # Verify Change
@@ -38,6 +38,43 @@ hand off. Verification measures and reports; it does not correct.
 9. Give a readiness result of **ready**, **not ready**, or **indeterminate**. Report
    checks run and their results, critical checks not run, produced artifacts,
    assumptions, and residual risk.
+
+## Diff review profile
+
+Use this profile in addition to the workflow when the target is a pull request,
+commit, branch, patch, or working-tree diff.
+
+1. Review the complete in-scope diff and the affected execution paths for defects
+   in correctness, security, performance, and maintainability. Inspect unchanged
+   dependencies when they are needed to prove or disprove an impact.
+2. Scope findings to problems introduced by the change or made newly reachable by
+   it. Treat unrelated pre-existing problems as baseline or residual-risk evidence,
+   not findings against the change, unless the change worsens them.
+3. Require a concrete trigger or reachable state, the violated contract or
+   invariant, and a material impact. Do not report style preferences, speculative
+   concerns, or issues already enforced by a check that passes.
+4. Calibrate severity from reachability, likelihood, blast radius, and
+   recoverability:
+   - **P0 — Critical:** catastrophic security impact, widespread data loss or
+     corruption, or an immediate production outage.
+   - **P1 — High:** a serious security, correctness, or availability failure on a
+     common or important path that should block merging.
+   - **P2 — Medium:** a concrete defect under narrower but plausible conditions
+     that should normally be fixed before merging.
+   - **P3 — Low:** a limited-scope but actionable defect with modest impact; never
+     use P3 for cosmetic preferences.
+5. Lead with findings ordered by severity. Give each a `[P0]` through `[P3]`
+   title, the tightest useful file and line reference, and one concise explanation
+   of the trigger, impact, evidence, and remediation direction. State confidence
+   when it is less than high.
+6. When inline review comments are supported, attach each finding to the smallest
+   relevant changed-line range and do not duplicate it in the summary. If there
+   are no actionable findings, say so explicitly and report only meaningful
+   residual risks or validation gaps.
+
+Severity informs prioritization but does not replace the readiness decision. A
+finding that violates the requested outcome or a blocking invariant prevents a
+**ready** result regardless of its label.
 
 ## Correction routing
 

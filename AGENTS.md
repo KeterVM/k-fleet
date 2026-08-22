@@ -95,5 +95,9 @@ cd examples/fleet-ledger && npm test
 - Keep specialist delegation in the dedicated composable
   `kf-delegate-specialist` method skill; specialists remain read-only while the
   primary workflow retains scope, writes, integration, and verification.
+- For new or materially changed skills, supplement structural validation with
+  independent read-only forward tests on isolated realistic fixtures. Withhold
+  expected answers, cover material success and failure branches, verify that
+  evaluators made no writes, and discard and rerun contaminated scenarios.
 
 <!-- self-reflect:end -->

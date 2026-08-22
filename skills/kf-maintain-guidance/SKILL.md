@@ -1,6 +1,6 @@
 ---
 name: kf-maintain-guidance
-description: Audit and maintain established repository guidance, especially AGENTS.md, within the user-requested files, subtree, or repository scope. Remove duplication and stale facts, move detail to narrower owners, and preserve explicit learned intent. Supports monoliths and monorepos, using read-only sub-agents only when independent boundaries make delegation worthwhile. Do not decide or persist a new durable lesson, create missing guidance, implement features, or fix bugs.
+description: Audit and maintain established repository guidance, especially AGENTS.md, within the user-requested files, subtree, or repository scope. Use for one-time or periodic audits that remove duplication and stale facts, move detail to narrower owners, and preserve explicit learned intent. Supports monoliths and monorepos, using read-only sub-agents only when independent boundaries make delegation worthwhile. Do not decide or persist a new durable lesson, create missing guidance, implement features, or fix bugs.
 ---
 
 # Maintain Guidance
@@ -18,6 +18,8 @@ decisions, all edits, integration, and final verification.
    its applicable ancestors.
 2. Discover guidance inheritance from the target outward: applicable root files,
    overrides, nested files, and canonical documents that own referenced claims.
+   Exclude dependencies, generated output, caches, and unrelated worktrees unless
+   the requested guidance explicitly governs them.
 3. Determine topology from verified workspace configuration and actual ownership,
    not folder names:
    - treat a monolith as one default maintenance unit, splitting only at genuinely
@@ -26,6 +28,9 @@ decisions, all edits, integration, and final verification.
      and preserve member ownership.
 4. State the effective scope, excluded siblings or subtrees, topology assumptions,
    authorization, and audit-only or edit mode before applying changes.
+   For periodic or unattended runs, remain audit-only unless the saved request
+   explicitly authorizes edits, and report only material findings so unchanged
+   runs stay quiet.
 
 ## Delegation gate
 
@@ -56,7 +61,8 @@ For every in-scope instruction:
    is the narrowest durable owner.
 2. Compare ancestor and nested guidance semantically, not only as exact text.
    Remove an ancestor version when a narrower rule fully owns the concern; nested
-   guidance must not repeat inherited rules.
+   guidance must not repeat inherited rules. Resolve contradictory effective rules
+   rather than retaining both formulations.
 3. Calibrate mandates to evidence, strongest first:
    - current explicit user direction or a protected learned rule;
    - an accepted decision or documented invariant;
@@ -67,7 +73,11 @@ For every in-scope instruction:
 5. Trace commands through root proxies, task runners, and member scripts. Verify
    invocation location, task ownership, generated-file ownership, protected paths,
    links, and working directories against current evidence.
-6. Record each material item as `keep`, `rewrite`, `move`, `merge`, `delete`, or
+6. Reject secrets, credentials, personal data, raw logs, conversation excerpts,
+   and other sensitive or transient payloads from always-loaded guidance. Report
+   exposed sensitive data without reproducing it, and do not move it into another
+   guidance file as a cleanup shortcut.
+7. Record each material item as `keep`, `rewrite`, `move`, `merge`, `delete`, or
    `verify`, with its evidence and owner. Keep unresolved ambiguity as `verify`
    rather than promoting it to a rule.
 
