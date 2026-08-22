@@ -2,9 +2,9 @@
 
 K Fleet is a small, reusable collection of Codex workflow skills. It acts as a
 lightweight personal engineering harness: repository evidence supplies the local
-context, while the skills supply consistent ways to maintain guidance,
-add test coverage, implement, debug, investigate, refactor, verify, and learn from
-evidence.
+context, while the skills supply consistent ways to maintain guidance, add test
+coverage, delegate specialist questions, implement, debug, investigate, refactor,
+verify, and learn from evidence.
 
 K Fleet is intentionally not a generic prompt library, a framework-specific
 ruleset, an agent orchestration framework, a replacement for project
@@ -15,6 +15,7 @@ documentation, or a large catalog of technology-specific skills.
 | Intent | Skill | Boundary |
 | --- | --- | --- |
 | Add tests for existing behavior | `kf-add-test-coverage` | Makes a test-only change for retrospective or characterization coverage; it does not claim TDD or modify production behavior. |
+| Obtain bounded specialist evidence | `kf-delegate-specialist` | Selects and briefs a read-only specialist sub-agent, then returns advisory evidence to the owning workflow; it does not transfer scope, writes, integration, or verification. |
 | Maintain existing repository guidance | `kf-maintain-guidance` | Reduces always-loaded context by deleting, consolidating, or relocating guidance while protecting explicit learned intent. |
 | Design a code change before implementation | `kf-design-change` | Produces an evidence-based, implementation-ready technical design; it does not modify production code unless implementation is separately requested and routed. |
 | Add or modify behavior | `kf-implement-feature` | Handles capabilities, not known defects, behavior-preserving refactors, investigations, or verification-only requests. |
@@ -26,12 +27,13 @@ documentation, or a large catalog of technology-specific skills.
 | Evaluate evidence for durable learning | `kf-learn-from-evidence` | Automatically detects and assesses signals that a method, route, or guidance should change; persistence remains authorization-gated. |
 
 Primary skills are split by workflow and user intent, not by frontend, backend,
-database, language, or framework. `kf-test-driven-change` and
-`kf-learn-from-evidence` are composable method skills: the primary workflow owns
-the current result, TDD owns its test-first loop, and learning evaluates whether
-evidence justifies changing the reusable controller. Technology-specific behavior
-should come from the target repository's code, `AGENTS.md`, documentation, and
-canonical examples.
+database, language, or framework. `kf-delegate-specialist`,
+`kf-test-driven-change`, and `kf-learn-from-evidence` are composable method skills:
+the primary workflow owns the current result, delegation obtains bounded expert
+evidence, TDD owns its test-first loop, and learning evaluates whether evidence
+justifies changing the reusable controller. Technology-specific behavior should
+come from the target repository's code, `AGENTS.md`, documentation, canonical
+examples, and purpose-built specialists when their evidence is needed.
 
 All skill names use the compact `kf-` namespace to distinguish K Fleet skills from
 similarly named global or third-party skills.
@@ -44,6 +46,7 @@ skills only when their discipline is relevant:
 ```text
 request
 -> primary workflow
+-> optional specialist evidence
 -> optional test-driven method
 -> internal feedback and result evidence
 -> optional independent verification
@@ -63,6 +66,11 @@ contract: target state, accepted decisions, constraints and non-goals, acceptanc
 evidence, unresolved assumptions, and affected boundaries. Execution and
 verification revalidate material repository facts rather than treating the design
 as immutable or as authorization to implement.
+
+Specialist delegation is read-only and evidence-seeking by default. It is used
+when the user asks for expert assistance or a concrete domain question would
+materially reduce risk. The specialist does not own the task, authorize changes,
+or replace the parent's integration and verification responsibilities.
 
 ## Installation
 
@@ -131,6 +139,7 @@ For example:
 ```text
 Clean up and update this repository's existing AGENTS.md guidance.
 Design the durable-storage migration, but do not implement it.
+Ask a PostgreSQL specialist to review the migration's locking risks, then use that evidence in the design.
 Implement invoice export.
 Implement invoice export with TDD and show each Red-Green cycle.
 Add missing tests for the already-implemented invoice totals without changing production behavior.
@@ -201,16 +210,18 @@ retrospective test-only ownership. Their corresponding `*_TEST_REPORT.md` files
 record installation, routing, and validation results.
 
 The machine-readable cases under [`evals`](evals) cover primary routing, method
-composition, correction and re-verification, design handoff, learning gates, and
-maintenance delegation boundaries. Repository validation checks the corpus shape
-and coverage; behavioral scoring should be performed by an independent evaluator
-that receives prompts without their expected answers.
+composition, specialist delegation, correction and re-verification, design
+handoff, learning gates, and maintenance delegation boundaries. Repository
+validation checks the corpus shape and coverage; behavioral scoring should be
+performed by an independent evaluator that receives prompts without their
+expected answers.
 
 ## Releases
 
-The current stable release is `v1.0.0`. See [CHANGELOG.md](CHANGELOG.md) for the
-release history. After this baseline, K Fleet evolves from evidence gathered in
-real use rather than by expanding the skill catalog speculatively.
+The latest tagged stable release is `v1.0.0`; `main` may contain unreleased
+evidence-backed improvements. See [CHANGELOG.md](CHANGELOG.md) for the release
+history. After the stable baseline, K Fleet evolves from evidence gathered in real
+use rather than by expanding the skill catalog speculatively.
 
 ## Contributing and security
 

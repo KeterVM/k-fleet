@@ -2,6 +2,19 @@
 
 Notable changes to K Fleet are recorded here.
 
+## [Unreleased]
+
+### Added
+
+- `kf-delegate-specialist`, a composable method skill for obtaining bounded,
+  read-only specialist evidence without transferring task ownership, write
+  authority, integration, or final verification.
+
+### Validated
+
+- An independent forward evaluator loaded the skill, spawned a bounded read-only
+  specialist, integrated evidence, preserved parent ownership, and made no edit.
+
 ## [1.0.0] - 2026-08-20
 
 Initial stable release of the K Fleet engineering harness.

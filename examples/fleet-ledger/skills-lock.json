@@ -6,6 +6,11 @@
       "sourceType": "local",
       "computedHash": "d4fb3518d398363c6bdc48e0bdb6ad84fcb3a1fe7e5bf4ebdc2046b1bde2a470"
     },
+    "kf-delegate-specialist": {
+      "source": "../../skills",
+      "sourceType": "local",
+      "computedHash": "b2c4bb674bf239c5d930bc94faee0b7feae8a7b0152c0696cff19f8c86fee37c"
+    },
     "kf-design-change": {
       "source": "../../skills",
       "sourceType": "local",

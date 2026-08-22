@@ -27,3 +27,5 @@ isolated implementation, repair, and design-drift execution.
 runs of the highest-risk decision boundaries.
 [`ADVERSARIAL_EVAL_REPORT.md`](ADVERSARIAL_EVAL_REPORT.md) records mixed-intent,
 mislabelled, authority-seeking, and intentionally unsupported prompts.
+[`DELEGATE_SPECIALIST_EVAL_REPORT.md`](DELEGATE_SPECIALIST_EVAL_REPORT.md) records
+an actual parent-to-specialist read-only handoff and integration run.

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-K Fleet is a source repository for ten portable Codex workflow skills. Keep it
+K Fleet is a source repository for eleven portable Codex workflow skills. Keep it
 small, readable as Markdown, workflow-based, and independent of any language or
 framework.
 
@@ -24,6 +24,9 @@ when the request or repository guidance requires that discipline:
 
 - `kf-add-test-coverage` adds retrospective tests for already-implemented intended
   behavior without changing production behavior or claiming TDD.
+- `kf-delegate-specialist` obtains bounded, read-only specialist evidence while
+  the primary workflow retains task ownership, writes, integration, and final
+  verification.
 - `kf-maintain-guidance` audits and maintains established guidance, including
   merging, moving, rewriting, or removing rules within the user's authority.
 - `kf-design-change` produces an implementation-ready technical design without
@@ -42,7 +45,7 @@ when the request or repository guidance requires that discipline:
 
 ## Conventions
 
-- Keep exactly the ten core skills documented in the README unless real usage
+- Keep exactly the eleven core skills documented in the README unless real usage
   justifies a deliberate scope change.
 - Prefix every skill directory and matching frontmatter name with `kf-`.
 - Split primary workflow skills by user intent, not by technology layer. Add a
@@ -89,8 +92,8 @@ cd examples/fleet-ledger && npm test
 - Keep double-loop learning automatic for signal detection, evidence assessment,
   and proposals; require authority before `kf-learn-from-evidence` persists any
   guidance or method change.
-- Keep delegation outside the K Fleet harness skill set; workflows may use
-  available sub-agents as a bounded runtime mechanism while retaining ownership of
-  scope, writes, integration, and verification.
+- Keep specialist delegation in the dedicated composable
+  `kf-delegate-specialist` method skill; specialists remain read-only while the
+  primary workflow retains scope, writes, integration, and verification.
 
 <!-- self-reflect:end -->
