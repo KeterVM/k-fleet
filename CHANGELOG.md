@@ -2,6 +2,26 @@
 
 Notable changes to K Fleet are recorded here.
 
+## [1.2.0] - 2026-08-22
+
+### Changed
+
+- `kf-maintain-guidance` now covers periodic and unattended audits, contradictory
+  effective rules, generated and cache exclusions, and sensitive or transient
+  content in always-loaded guidance.
+- `kf-verify-change` now provides a defect-first diff review profile with P0-P3
+  severity calibration, inline finding guidance, merge readiness, and explicit
+  correction ownership.
+- Repository guidance now requires independent read-only forward tests on isolated
+  realistic fixtures for new or materially changed skills.
+
+### Validated
+
+- Independent forward evaluators exercised audit-only guidance maintenance, a
+  finding-free ready review, and an authorization-bypass P1/not-ready review.
+- Fixture hashes and repository status confirmed that evaluators made no writes;
+  a contaminated scenario was discarded and rerun in isolation.
+
 ## [1.1.0] - 2026-08-22
 
 ### Added

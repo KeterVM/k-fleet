@@ -218,7 +218,7 @@ expected answers.
 
 ## Releases
 
-The latest tagged stable release is `v1.1.0`; `main` may contain unreleased
+The latest tagged stable release is `v1.2.0`; `main` may contain unreleased
 evidence-backed improvements. See [CHANGELOG.md](CHANGELOG.md) for the release
 history. K Fleet evolves from evidence gathered in real use rather than by
 expanding the skill catalog speculatively.
