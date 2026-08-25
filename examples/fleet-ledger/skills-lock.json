@@ -29,17 +29,17 @@
     "kf-investigate-issue": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "1df77b2094caa312b685a4dd976122877c6311debe963f4e08cfba7bcbb13f99"
+      "computedHash": "31eeb32c837ab535e6db3e2199159c0bc451bd5188bb9c039cb137e6aa2bb5b9"
     },
     "kf-learn-from-evidence": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "ac36143c5877045581c17654920daa933f3b87a898a0f1de67d7c3a5bc3df40c"
+      "computedHash": "089718ce0b23d7e6639e803c4bf62b8cd8f0457b6e1289af1eab6f19cf311988"
     },
-    "kf-maintain-guidance": {
+    "kf-maintain-context": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "701b2525e791314324cd3b09048d05088be50b4feaf3c0f858309b358be48fd1"
+      "computedHash": "a65fe1777bd6ede890cca747528df354d5af52b06acf194d870f395039ba3932"
     },
     "kf-refactor-code": {
       "source": "../../skills",

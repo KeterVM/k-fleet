@@ -2,7 +2,7 @@
 
 K Fleet is a small, reusable collection of Codex workflow skills. It acts as a
 lightweight personal engineering harness: repository evidence supplies the local
-context, while the skills supply consistent ways to maintain guidance, add test
+context, while the skills supply consistent ways to maintain that context, add test
 coverage, delegate specialist questions, implement, debug, investigate, refactor,
 verify, and learn from evidence.
 
@@ -16,7 +16,7 @@ documentation, or a large catalog of technology-specific skills.
 | --- | --- | --- |
 | Add tests for existing behavior | `kf-add-test-coverage` | Makes a test-only change for retrospective or characterization coverage; it does not claim TDD or modify production behavior. |
 | Obtain bounded specialist evidence | `kf-delegate-specialist` | Selects and briefs a read-only specialist sub-agent, then returns advisory evidence to the owning workflow; it does not transfer scope, writes, integration, or verification. |
-| Maintain existing repository guidance | `kf-maintain-guidance` | Reduces always-loaded context by deleting, consolidating, or relocating guidance while protecting explicit learned intent. |
+| Initialize or maintain repository context | `kf-maintain-context` | Creates missing `AGENTS.md` guidance when useful and authorized, then keeps the effective instruction chain scoped, compact, discoverable, and verified. |
 | Design a code change before implementation | `kf-design-change` | Produces an evidence-based, implementation-ready technical design; it does not modify production code unless implementation is separately requested and routed. |
 | Add or modify behavior | `kf-implement-feature` | Handles capabilities, not known defects, behavior-preserving refactors, investigations, or verification-only requests. |
 | Correct a known defect | `kf-fix-bug` | Diagnoses and implements a root-cause fix; feedback that revises the current task stays in that task's workflow. |
@@ -54,6 +54,16 @@ request
 -> re-verification when correction was requested
 -> optional evidence-based learning
 ```
+
+This is a routing contract, not a requirement to invoke every skill. Each active
+workflow performs its own proportionate validation. Independent verification runs
+only when requested or required by applicable guidance; when correction is also
+authorized, `kf-verify-change` owns the fresh verdict before and after the
+applicable execution workflow mutates the artifact. Investigation similarly
+reports its diagnosis before handing an authorized correction to its execution
+owner. Durable behavioral rules go through `kf-learn-from-evidence`; verified
+facts, discovery structure, and already-decided policy placement belong to
+`kf-maintain-context`.
 
 Verification does not repair its own findings. When the user authorizes both
 verification and repair, `kf-verify-change` reports the first verdict, the
@@ -137,7 +147,7 @@ Codex can route to these skills from intent; naming a skill explicitly is option
 For example:
 
 ```text
-Clean up and update this repository's existing AGENTS.md guidance.
+Initialize or maintain this repository's effective Codex context.
 Design the durable-storage migration, but do not implement it.
 Ask a PostgreSQL specialist to review the migration's locking risks, then use that evidence in the design.
 Implement invoice export.
@@ -202,8 +212,10 @@ project with K Fleet skills installed project-locally through `bunx skills`. Its
 The same example also includes a second full exercise in
 `MAINTENANCE_SCENARIOS.md`, which adds maintenance scheduling and reruns the
 original six workflows with results in `MAINTENANCE_TEST_REPORT.md`. Dedicated
-exercises cover accumulated guidance maintenance in
-`GUIDANCE_MAINTENANCE_SCENARIO.md` and implementation-
+exercises preserve the historical guidance-maintenance exercise in
+`GUIDANCE_MAINTENANCE_SCENARIO.md`; `CONTEXT_MAINTENANCE_SCENARIO.md` covers
+current initialization, discovery, precedence, size, and verification behavior;
+and `DESIGN_CHANGE_SCENARIO.md` covers implementation-
 ready design in `DESIGN_CHANGE_SCENARIO.md`. `TDD_SCENARIO.md` exercises the
 composable test-driven method, and `TEST_COVERAGE_SCENARIO.md` exercises
 retrospective test-only ownership. Their corresponding `*_TEST_REPORT.md` files
@@ -211,8 +223,9 @@ record installation, routing, and validation results.
 
 The machine-readable cases under [`evals`](evals) cover primary routing, method
 composition, specialist delegation, correction and re-verification, design
-handoff, learning gates, and maintenance delegation boundaries. Repository
-validation checks the corpus shape and coverage; behavioral scoring should be
+handoff, learning gates, context-maintenance delegation boundaries, and the full
+design-to-learning closure sequence. Repository validation checks the corpus shape
+and coverage; behavioral scoring should be
 performed by an independent evaluator that receives prompts without their
 expected answers.
 

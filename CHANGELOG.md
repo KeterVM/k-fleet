@@ -2,6 +2,20 @@
 
 Notable changes to K Fleet are recorded here.
 
+## Unreleased
+
+### Changed
+
+- Replaced `kf-maintain-guidance` with `kf-maintain-context`, expanding maintenance
+  from cleanup of existing guidance to authorized context initialization, exact
+  Codex instruction-chain discovery, precedence and byte-limit checks, routed
+  documentation review, and representative-directory runtime verification.
+- Added explicit investigation-to-correction-to-verification handoff coverage,
+  restored bounded read-only delegation rules, and separated verified context facts
+  from newly learned behavioral policy.
+- Corrected project instruction discovery for empty higher-precedence files and
+  clarified that `project_doc_max_bytes` applies to the combined project chain.
+
 ## [1.2.0] - 2026-08-22
 
 ### Changed

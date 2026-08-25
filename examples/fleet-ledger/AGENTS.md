@@ -15,6 +15,8 @@
 - `MAINTENANCE_TEST_REPORT.md` records its verified results.
 - `GUIDANCE_MAINTENANCE_SCENARIO.md` tests maintenance of accumulated guidance.
 - `GUIDANCE_MAINTENANCE_TEST_REPORT.md` records the seventh skill's validation results.
+- `CONTEXT_MAINTENANCE_SCENARIO.md` tests current context initialization and discovery.
+- `CONTEXT_MAINTENANCE_TEST_REPORT.md` records its independent validation results.
 - `DESIGN_CHANGE_SCENARIO.md` tests implementation-ready design routing.
 - `DESIGN_CHANGE_TEST_REPORT.md` records the eighth skill's validation results.
 - `TDD_SCENARIO.md` tests composable test-driven implementation routing.

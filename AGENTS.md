@@ -27,8 +27,9 @@ when the request or repository guidance requires that discipline:
 - `kf-delegate-specialist` obtains bounded, read-only specialist evidence while
   the primary workflow retains task ownership, writes, integration, and final
   verification.
-- `kf-maintain-guidance` audits and maintains established guidance, including
-  merging, moving, rewriting, or removing rules within the user's authority.
+- `kf-maintain-context` initializes and maintains effective Codex context,
+  including `AGENTS.md` discovery, precedence, scope, size, routed documents, and
+  runtime verification within the user's authority.
 - `kf-design-change` produces an implementation-ready technical design without
   modifying production code.
 - `kf-implement-feature` adds or changes observable behavior.
@@ -95,6 +96,10 @@ cd examples/fleet-ledger && npm test
 - Keep specialist delegation in the dedicated composable
   `kf-delegate-specialist` method skill; specialists remain read-only while the
   primary workflow retains scope, writes, integration, and verification.
+- Keep cross-workflow closure portable: investigation reports evidence before an
+  authorized correction handoff, verification owns fresh pre- and post-correction
+  verdicts, and context maintenance places facts or already-decided policy without
+  inventing durable behavioral rules.
 - For new or materially changed skills, supplement structural validation with
   independent read-only forward tests on isolated realistic fixtures. Withhold
   expected answers, cover material success and failure branches, verify that

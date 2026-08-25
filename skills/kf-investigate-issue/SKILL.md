@@ -26,6 +26,20 @@ the system.
    routing, or guidance, hand that evidence to `kf-learn-from-evidence`; do not
    persist a lesson in this workflow.
 
+## Correction routing
+
+Investigation owns diagnosis, not product mutation. When the same request also
+authorizes correction, report the diagnosis and evidence first, then hand a
+demonstrated existing-contract defect to `kf-fix-bug`, a new expectation to
+`kf-implement-feature`, a behavior-preserving structural correction to
+`kf-refactor-code`, or an unresolved architectural decision to `kf-design-change`.
+
+When independent verification is also requested, pass the original symptom,
+expected behavior, diagnosis, and corrected artifact to `kf-verify-change`. A
+failed verification returns to its applicable correction owner and then re-enters
+verification under that skill's stopping rules. Do not silently switch from an
+investigation-only request into implementation.
+
 ## Constraints
 
 - Prefer direct observations and reproducible checks over intuition.
@@ -35,4 +49,5 @@ the system.
 - Do not hide contradictory evidence or overstate confidence.
 - Keep investigation focused on the reported issue; avoid opportunistic refactors.
 
-Use `kf-fix-bug` when the user wants the diagnosed defect corrected in the same task.
+The investigation is complete when the evidence, calibrated confidence, remaining
+unknowns, and authorized next owner are explicit.

@@ -11,7 +11,7 @@ const expectedSkills = [
   "kf-implement-feature",
   "kf-investigate-issue",
   "kf-learn-from-evidence",
-  "kf-maintain-guidance",
+  "kf-maintain-context",
   "kf-refactor-code",
   "kf-test-driven-change",
   "kf-verify-change",
@@ -169,6 +169,29 @@ if (!existsSync(evalPath)) {
       && sequence.at(-1) === "kf-verify-change";
   })) {
     fail("Harness evals do not cover correction followed by re-verification");
+  }
+  if (!evalCases.some((entry) => {
+    const sequence = entry.expected?.sequence ?? [];
+    return sequence[0] === "kf-investigate-issue"
+      && sequence.includes("kf-fix-bug")
+      && sequence.at(-1) === "kf-verify-change";
+  })) {
+    fail("Harness evals do not cover investigation, correction, and verification");
+  }
+  if (!evalCases.some((entry) => entry.expected?.primary === "kf-maintain-context"
+    && (entry.expected?.forbidden ?? []).includes("kf-learn-from-evidence")
+    && (entry.expected?.invariants ?? []).some((value) => value.includes("no new behavioral policy")))) {
+    fail("Harness evals do not separate context facts from new behavioral policy");
+  }
+  if (!evalCases.some((entry) => JSON.stringify(entry.expected?.sequence) === JSON.stringify([
+    "kf-design-change",
+    "kf-implement-feature",
+    "kf-verify-change",
+    "kf-fix-bug",
+    "kf-verify-change",
+    "kf-learn-from-evidence",
+  ]))) {
+    fail("Harness evals do not cover the full design-to-learning closure sequence");
   }
 }
 
