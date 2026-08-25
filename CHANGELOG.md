@@ -6,6 +6,10 @@ Notable changes to K Fleet are recorded here.
 
 ### Changed
 
+- Separated durable learning decisions from Context persistence:
+  `kf-learn-from-evidence` now produces an authorization-gated persistence contract,
+  while `kf-maintain-context` is the sole Context writer and verifies effective
+  discovery after the change.
 - Replaced `kf-maintain-guidance` with `kf-maintain-context`, expanding maintenance
   from cleanup of existing guidance to authorized context initialization, exact
   Codex instruction-chain discovery, precedence and byte-limit checks, routed
@@ -15,6 +19,12 @@ Notable changes to K Fleet are recorded here.
   from newly learned behavioral policy.
 - Corrected project instruction discovery for empty higher-precedence files and
   clarified that `project_doc_max_bytes` applies to the combined project chain.
+
+### Validated
+
+- Independent blind evaluators passed direct-policy, proposal-only, authorized
+  Learning-to-Context, unavailable-peer, verification-independence, and full
+  design-to-Context closure paths after ambiguity-driven reruns.
 
 ## [1.2.0] - 2026-08-22
 

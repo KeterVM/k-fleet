@@ -24,7 +24,7 @@ documentation, or a large catalog of technology-specific skills.
 | Explain unclear behavior | `kf-investigate-issue` | Reports evidence and likely causes; it does not modify code unless requested or needed for safe instrumentation. |
 | Improve structure without changing behavior | `kf-refactor-code` | Preserves externally observable behavior by default. |
 | Validate existing changes | `kf-verify-change` | Measures readiness and reports evidence, findings, and residual risk without modifying the reviewed artifact or fixing failures. |
-| Evaluate evidence for durable learning | `kf-learn-from-evidence` | Automatically detects and assesses signals that a method, route, or guidance should change; persistence remains authorization-gated. |
+| Evaluate evidence for durable learning | `kf-learn-from-evidence` | Detects and assesses signals that a method, route, or guidance should change, then emits an authorization-gated persistence contract without editing the durable artifact. |
 
 Primary skills are split by workflow and user intent, not by frontend, backend,
 database, language, or framework. `kf-delegate-specialist`,
@@ -53,6 +53,8 @@ request
 -> authorized correction owner when a finding exists
 -> re-verification when correction was requested
 -> optional evidence-based learning
+-> authorized persistence owner
+-> persisted-artifact verification
 ```
 
 This is a routing contract, not a requirement to invoke every skill. Each active
@@ -61,9 +63,11 @@ only when requested or required by applicable guidance; when correction is also
 authorized, `kf-verify-change` owns the fresh verdict before and after the
 applicable execution workflow mutates the artifact. Investigation similarly
 reports its diagnosis before handing an authorized correction to its execution
-owner. Durable behavioral rules go through `kf-learn-from-evidence`; verified
-facts, discovery structure, and already-decided policy placement belong to
-`kf-maintain-context`.
+owner. Durable behavioral rules that still need a decision go through
+`kf-learn-from-evidence`, which produces a persistence contract but never edits the
+durable artifact. Direct already-decided policy and authorized learning contracts
+go to `kf-maintain-context`, the sole Context writer, for placement and
+effective-context verification.
 
 Verification does not repair its own findings. When the user authorizes both
 verification and repair, `kf-verify-change` reports the first verdict, the
@@ -192,15 +196,16 @@ Its working principles are:
   not a single file.
 - **Verification:** inspect changed code, run the smallest meaningful checks, fix
   caused failures, and review the final diff.
-- **Controlled learning:** persist only reusable, evidence-backed lessons in the
-  narrowest appropriate location.
+- **Controlled learning:** decide reusable lessons from evidence, then let the
+  authorized artifact owner persist and verify them in the narrowest location.
 - **Progressive disclosure:** keep global and repository-root guidance small; load
   detailed facts from their canonical documents or narrowest applicable scope.
 
 K Fleet should evolve through real use: observe repeated mistakes, correct the
 current result, and let `kf-learn-from-evidence` automatically evaluate whether the
-pattern justifies a durable proposal. Update global, project, or skill guidance
-only with authority and supporting evidence.
+pattern justifies a durable proposal. It does not write the result: the authorized
+artifact owner applies and verifies it, with `kf-maintain-context` owning Context
+destinations.
 
 ## Example project
 
@@ -224,10 +229,12 @@ record installation, routing, and validation results.
 The machine-readable cases under [`evals`](evals) cover primary routing, method
 composition, specialist delegation, correction and re-verification, design
 handoff, learning gates, context-maintenance delegation boundaries, and the full
-design-to-learning closure sequence. Repository validation checks the corpus shape
+design-to-Context closure sequence. Repository validation checks the corpus shape
 and coverage; behavioral scoring should be
 performed by an independent evaluator that receives prompts without their
 expected answers.
+The current blind ownership and full-loop evidence is recorded in
+[`evals/CLOSURE_EVAL_REPORT.md`](evals/CLOSURE_EVAL_REPORT.md).
 
 ## Releases
 

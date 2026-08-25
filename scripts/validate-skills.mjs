@@ -183,6 +183,22 @@ if (!existsSync(evalPath)) {
     && (entry.expected?.invariants ?? []).some((value) => value.includes("no new behavioral policy")))) {
     fail("Harness evals do not separate context facts from new behavioral policy");
   }
+  if (!evalCases.some((entry) => entry.id === "durable-rule-then-feature"
+    && entry.expected?.primary === "kf-maintain-context"
+    && (entry.expected?.forbidden ?? []).includes("kf-learn-from-evidence"))) {
+    fail("Harness evals do not route direct authorized policy to context maintenance");
+  }
+  if (!evalCases.some((entry) => entry.id === "repeated-independent-learning-signal"
+    && entry.expected?.primary === "kf-learn-from-evidence"
+    && (entry.expected?.forbidden ?? []).includes("kf-maintain-context"))) {
+    fail("Harness evals do not stop unauthorized learning before Context persistence");
+  }
+  if (!evalCases.some((entry) => JSON.stringify(entry.expected?.sequence) === JSON.stringify([
+    "kf-learn-from-evidence",
+    "kf-maintain-context",
+  ]))) {
+    fail("Harness evals do not cover authorized learning-to-Context persistence");
+  }
   if (!evalCases.some((entry) => JSON.stringify(entry.expected?.sequence) === JSON.stringify([
     "kf-design-change",
     "kf-implement-feature",
@@ -190,8 +206,9 @@ if (!existsSync(evalPath)) {
     "kf-fix-bug",
     "kf-verify-change",
     "kf-learn-from-evidence",
+    "kf-maintain-context",
   ]))) {
-    fail("Harness evals do not cover the full design-to-learning closure sequence");
+    fail("Harness evals do not cover the full design-to-context closure sequence");
   }
 }
 

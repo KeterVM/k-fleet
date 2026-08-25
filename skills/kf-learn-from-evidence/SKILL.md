@@ -1,6 +1,6 @@
 ---
 name: kf-learn-from-evidence
-description: Evaluate verified evidence that a workflow, routing rule, method, or repository guidance may need a durable change. Invoke automatically when an explicit lasting correction, repeated independent failure, verified guidance contradiction, or recurring routing mismatch appears, and explicitly when the user asks the harness to learn. Detect, assess, and propose automatically; do not persist changes without authority. Do not use for ordinary task failures, incomplete work, or one-off preferences.
+description: Evaluate verified evidence that a workflow, routing rule, method, or repository guidance may need a durable change. Invoke automatically for lasting corrections, repeated independent failures, verified guidance contradictions, or recurring routing mismatches, and explicitly when the user asks the harness to learn. Produce a reviewable persistence contract but do not edit durable artifacts. Do not use for ordinary task failures, incomplete work, direct already-decided policy placement, or one-off preferences.
 ---
 
 # Learn From Evidence
@@ -42,20 +42,28 @@ the active task workflow.
 4. Derive the narrowest behavioral lesson that would have prevented the repeated
    failure without constraining unrelated work. Prefer the underlying decision
    boundary over the wording of one example.
-5. Choose the narrowest owner: project or nested `AGENTS.md`, an existing K Fleet
-   skill, canonical project documentation or regression evidence, user-level
+5. Choose the narrowest destination: project or nested `AGENTS.md`, an existing K
+   Fleet skill, canonical project documentation or regression evidence, user-level
    guidance, or nowhere. Check for semantic duplicates and conflicts.
 6. Produce a reviewable proposal. Automatic invocation authorizes detection,
    analysis, and proposal only; it does not authorize persistence.
-7. Persist only when the user has already authorized that destination and scope or
-   explicitly approves the proposal. Preserve managed sections and existing
-   authority boundaries. This workflow owns the narrow authorized persistence;
-   do not add `kf-maintain-context` merely to perform the file edit. Route context
-   initialization or broad cleanup, consolidation, relocation, precedence repair,
-   and effective-chain verification to `kf-maintain-context` as a separate task.
-8. Verify an authorized persistence change independently from the evidence that
-   motivated it. Confirm that the new rule is discoverable, narrowly scoped,
-   non-duplicative, and does not contradict stronger guidance.
+7. If the exact intended behavior, destination, or scope is not authorized, stop
+   after the proposal. Prior authorization is valid only when it already names
+   those three elements; approval of an unspecified future or "approved" proposal
+   is not authority to persist it. Do not edit a durable artifact, invoke a writer,
+   or treat proposal approval as implied.
+8. When the exact proposal, destination, and scope are authorized, produce a
+   persistence contract containing the lesson, evidence, exact intended behavior,
+   destination and scope, known conflicts, authority, and verification target.
+   Hand Context destinations to `kf-maintain-context`; hand other artifacts to the
+   workflow that owns their modification. Confirm that owner is available before
+   handoff. If it is unavailable, stop with the contract ready, persistence
+   incomplete, and no verification claim. Learning never performs the write or
+   substitutes a generic writer.
+9. After the owner reports completion, compare the persisted outcome with the
+   contract and record the owner's fresh verification result. Reopen learning only
+   when the implementation materially changes the proposed lesson; do not duplicate
+   the owner's artifact or effective-context verification.
 
 ## Proposal format
 
@@ -69,12 +77,15 @@ Destination and scope
 Suggested change
 Confidence
 Persistence authority
+Persistence owner
+Verification target
 ```
 
 ## Constraints
 
-- Do not silently modify repository, global, or K Fleet guidance during automatic
-  evaluation.
+- Do not modify repository, global, or K Fleet guidance under this skill, even
+  after approval. Authorization enables a handoff to the artifact owner, not a
+  hidden change of workflow ownership.
 - Do not infer recurrence by counting several symptoms from the same underlying
   event as independent evidence.
 - Do not turn implementation details, formatting, temporary constraints, or
@@ -87,4 +98,6 @@ Persistence authority
 
 Learning is complete when the signal has been classified, the current correction
 has an owner, and any durable proposal has explicit evidence, scope, destination,
-confidence, and persistence authority.
+confidence, persistence authority, persistence owner, and verification target. If
+persistence is authorized, completion also requires the owner handoff and its
+reported verification result.

@@ -1,5 +1,8 @@
 # K Fleet Forward Eval Report
 
+> Historical report: this run covers the 15-case corpus that existed on the date
+> below. It is preserved as evidence, not as a claim about the current corpus.
+
 Date: 2026-08-20
 
 ## Result

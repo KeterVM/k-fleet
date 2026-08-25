@@ -10,6 +10,14 @@ hand off. Verification measures and reports; it does not correct.
 
 ## Workflow
 
+Verification independence means a fresh, non-mutating assessment against the
+target and current artifact, separated from the workflow that owns correction. It
+does not imply a different agent unless the user or applicable guidance explicitly
+requires actor-level independence. When a separate evaluator is required, use an
+available permitted read-only mechanism and report its evidence and limitations;
+if none is available, report that requirement as unverified rather than claiming
+independence.
+
 1. Establish the verification target: requested outcome, observable acceptance
    criteria, artifact or diff scope, compatibility constraints, and relevant
    baseline. Separate verified facts, assumptions, and unknowns.

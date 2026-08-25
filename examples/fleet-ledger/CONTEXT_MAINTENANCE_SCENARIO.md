@@ -23,6 +23,9 @@ Cover these independent cases:
    former is respected and the latter is evaluated before persistence.
 7. A Codex configuration containing unrelated sensitive values. Confirm that only
    discovery and size keys are queried and the full configuration is never output.
+8. An authorized persistence contract produced by `kf-learn-from-evidence`.
+   Confirm that Context maintenance owns the only write, preserves the contract's
+   meaning, verifies effective loading, and returns the result to learning.
 
 For each case, record the selected workflow, writes or lack of writes, effective
 instruction-chain reasoning, authority handling, verification evidence, and any

@@ -1,5 +1,8 @@
 # K Fleet Adversarial Eval Report
 
+> Historical report: its learning-owned persistence conclusion was superseded by
+> the current Learning-decision and Context-persistence ownership boundary.
+
 Date: 2026-08-20
 
 ## Method

@@ -23,6 +23,10 @@ coverage, but it does not claim that Codex executed these prompts correctly.
 See [`FORWARD_EVAL_REPORT.md`](FORWARD_EVAL_REPORT.md) for the independent
 decision-level run and [`ARTIFACT_EVAL_REPORT.md`](ARTIFACT_EVAL_REPORT.md) for
 isolated implementation, repair, and design-drift execution.
+[`CLOSURE_EVAL_REPORT.md`](CLOSURE_EVAL_REPORT.md) records the current blind tests
+of direct policy, authorization stopping, Learning-to-Context handoff, missing-peer
+degradation, and the full design-to-Context sequence. Older dated reports remain
+historical evidence for the corpus and contracts they name.
 [`VARIANCE_EVAL_REPORT.md`](VARIANCE_EVAL_REPORT.md) records repeated independent
 runs of the highest-risk decision boundaries.
 [`ADVERSARIAL_EVAL_REPORT.md`](ADVERSARIAL_EVAL_REPORT.md) records mixed-intent,

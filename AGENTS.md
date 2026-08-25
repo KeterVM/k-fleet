@@ -42,7 +42,8 @@ when the request or repository guidance requires that discipline:
 - `kf-verify-change` verifies existing changes without modifying them and routes
   correction to the applicable execution workflow.
 - `kf-learn-from-evidence` automatically evaluates credible learning signals and
-  proposes durable changes without persisting them unless authorized.
+  produces reviewable proposals and authorized persistence contracts without
+  editing durable artifacts.
 
 ## Conventions
 
@@ -91,15 +92,16 @@ cd examples/fleet-ledger && npm test
 - Keep `kf-verify-change` verification-only; it reports readiness and routes
   findings without editing the reviewed artifact or fixing failures.
 - Keep double-loop learning automatic for signal detection, evidence assessment,
-  and proposals; require authority before `kf-learn-from-evidence` persists any
-  guidance or method change.
+  and proposals, but non-writing. Authorized proposals become persistence contracts
+  for the workflow that owns the destination; `kf-maintain-context` is the sole
+  writer and effective-chain verifier for Context artifacts.
 - Keep specialist delegation in the dedicated composable
   `kf-delegate-specialist` method skill; specialists remain read-only while the
   primary workflow retains scope, writes, integration, and verification.
 - Keep cross-workflow closure portable: investigation reports evidence before an
   authorized correction handoff, verification owns fresh pre- and post-correction
-  verdicts, and context maintenance places facts or already-decided policy without
-  inventing durable behavioral rules.
+  verdicts, learning decides evidence-backed durable changes, and context
+  maintenance places direct or authorized policy without inventing it.
 - For new or materially changed skills, supplement structural validation with
   independent read-only forward tests on isolated realistic fixtures. Withhold
   expected answers, cover material success and failure branches, verify that

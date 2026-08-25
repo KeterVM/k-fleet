@@ -1,5 +1,8 @@
 # K Fleet Variance Eval Report
 
+> Historical report: this run predates `kf-maintain-context` and is preserved as
+> evidence for the earlier workflow contract, not current routing proof.
+
 Date: 2026-08-20
 
 ## Result
