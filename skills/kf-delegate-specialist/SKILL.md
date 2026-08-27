@@ -12,6 +12,14 @@ handoff.
 
 ## Entry gate
 
+Resolve the request's substantive intent to its primary workflow before
+delegating. Reviewing an existing artifact belongs to `kf-verify-change`, designing
+a target belongs to `kf-design-change`, and explaining unclear behavior belongs to
+`kf-investigate-issue`; an explicit request for a specialist does not make this
+method the primary result owner. When a request genuinely asks only for bounded
+specialist evidence and no K Fleet primary result, the parent task remains the
+owner outside this method.
+
 Delegate when sub-agents are available and either:
 
 - the user explicitly requests a specialist or sub-agent; or

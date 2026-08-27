@@ -4,12 +4,12 @@
     "kf-add-test-coverage": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "2517de556fc686d1b8f60febff6237077a111fd7cbd8b1694c61974a69c19fd6"
+      "computedHash": "8505079686f94babaae546415c411dd91f58f4d0bd186fb1298b5856f1100017"
     },
     "kf-delegate-specialist": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "b2c4bb674bf239c5d930bc94faee0b7feae8a7b0152c0696cff19f8c86fee37c"
+      "computedHash": "7606feac3759a0ffd47b3bb1116eef43f9ffbd5a5c57baa24fed91a05d2cc982"
     },
     "kf-design-change": {
       "source": "../../skills",

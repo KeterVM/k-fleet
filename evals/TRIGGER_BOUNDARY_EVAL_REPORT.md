@@ -2,19 +2,19 @@
 
 Date: 2026-08-27
 
-Repository base: `124b044d74a6d1fe26952feeb3094ebe67b0aec5` with the
+Repository base: `251d6bd54357d73a7c9a92bdb7e373be4b6e21e0` with the
 working-tree skill changes described below.
 
-Skill source SHA-256: `766069471ef35df3b662d7dc1360ab6d9a2cf928143c4dd061cdf0e620d5efb4`
+Skill source SHA-256: `9cc8336a873269749de51fcd8bdd6c07c72d9d46fa053b69532445cf8fdcda72`
 
 Evaluator mode: independent, blind, read-only
 
 ## Scope
 
-Two fresh sub-agent evaluators each received an isolated copy of the current eleven
+Three fresh sub-agent evaluators each received an isolated copy of the current eleven
 Skill sources and raw prompts without harness expectations. They were instructed
 not to inspect repository guidance, eval reports, Git history, or other agents.
-Both evaluators reported no contamination or mutations.
+All evaluators reported no contamination or mutations.
 
 The run exercised these trigger and authority boundaries:
 
@@ -25,7 +25,14 @@ The run exercised these trigger and authority boundaries:
 - `tdd-red-does-not-own-architecture`;
 - `tdd-no-credible-seam`;
 - `tdd-valid-production-abstraction`; and
-- `tdd-test-conflicts-with-accepted-design`.
+- `tdd-test-conflicts-with-accepted-design`;
+- `delegate-explicit-specialist`;
+- `coverage-authorized-correction-reentry`; and
+- `coverage-correction-blocked`.
+
+Adjacent delegation cases also exercised a pure bounded-evidence request owned by
+the parent task, unavailable specialist degradation, and conflicting specialist
+evidence.
 
 ## Fresh results
 
@@ -39,13 +46,16 @@ The run exercised these trigger and authority boundaries:
 | Known bug has no credible automated seam | Pass | `kf-fix-bug + kf-test-driven-change` at the seam gate | The evaluator rejects a test-only dependency-injection layer, reports that TDD cannot be demonstrated, and uses the strongest available feedback loop without claiming false Red evidence. |
 | Accepted design and repeated repository evidence require an adapter | Pass | `kf-implement-feature + kf-test-driven-change` | The adapter remains valid because non-test evidence requires it; the guardrail does not become a blanket ban on abstractions. |
 | First Red conflicts with the accepted production boundary | Pass | `kf-implement-feature + kf-test-driven-change` | The invalid test is replaced with one observing the accepted service boundary, or the TDD loop stops if no credible seam exists; production is not reshaped to satisfy the test. |
+| Explicit specialist review of an existing migration plan | Pass | `kf-verify-change → kf-delegate-specialist → kf-verify-change` | Verification owns the artifact verdict and reconciles advisory specialist evidence; delegation remains a read-only method. |
+| Authorized correction discovered during retrospective coverage | Pass | `kf-add-test-coverage → kf-fix-bug → kf-add-test-coverage` | Coverage owns test-only changes, the bug workflow owns production correction, and coverage reruns its original focused and broader checks before a fresh completion. |
+| Authorized correction is blocked | Pass | `kf-add-test-coverage → kf-fix-bug` | No repair or fresh coverage success is claimed; the original coverage request stops incomplete without broader authority. |
+| Pure bounded specialist evidence | Pass | parent task + `kf-delegate-specialist` | No substantive K Fleet primary is invented; the parent validates and returns only the bounded evidence result. |
+| Specialist unavailable or contradicted | Pass | substantive primary + conditional `kf-delegate-specialist` | The primary reports the unavailable or conflicting evidence, never fabricates expertise, and stops indeterminate when the gap blocks a defensible result. |
 
 ## Evidence limits
 
 This was a decision-level routing and method-boundary evaluation, not an
-implementation fixture. It demonstrates that the current instructions keep
-production-structure ownership with the primary workflow while retaining valid
-Red-Green evidence. It does not measure real production diff complexity; an
-isolated implementation comparison remains useful if future evidence again shows
-test-shaped architecture. Repository structure checks, eval-corpus lint, and Fleet
-Ledger tests remain separate evidence.
+implementation fixture. It demonstrates ownership and stopping decisions for TDD,
+coverage correction, and delegation, but does not execute real cross-workflow
+mutations or measure production diff complexity. Repository structure checks,
+eval-corpus lint, and Fleet Ledger tests remain separate evidence.

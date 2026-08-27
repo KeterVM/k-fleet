@@ -106,10 +106,12 @@ cd examples/fleet-ledger && npm test
   writer and effective-chain verifier for Context artifacts.
 - Keep specialist delegation in the dedicated composable
   `kf-delegate-specialist` method skill; specialists remain read-only while the
-  primary workflow retains scope, writes, integration, and verification.
+  substantive primary workflow retains scope, writes, integration, and
+  verification. An explicit specialist request does not make the method primary.
 - Keep cross-workflow closure portable: investigation reports evidence before an
   authorized correction handoff, verification owns fresh pre- and post-correction
-  verdicts, learning decides evidence-backed durable changes, and context
+  verdicts, retrospective coverage re-enters after its authorized correction,
+  learning decides evidence-backed durable changes, and context
   maintenance places direct or authorized policy without inventing it.
 - For new or materially changed skills, supplement structural validation with
   independent read-only forward tests on isolated realistic fixtures. Withhold

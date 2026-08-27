@@ -32,9 +32,12 @@ database, language, or framework. `kf-delegate-specialist`,
 the primary workflow owns the current result, delegation obtains bounded expert
 evidence, TDD owns its test-first loop, and learning evaluates whether evidence
 justifies changing the reusable controller. Tests provide feedback about behavior;
-they do not define production architecture. Technology-specific behavior should
-come from the target repository's code, `AGENTS.md`, documentation, canonical
-examples, and purpose-built specialists when their evidence is needed.
+they do not define production architecture. An explicit specialist request still
+routes by its substantive design, investigation, verification, or execution
+intent; delegation does not become the primary workflow. Technology-specific
+behavior should come from the target repository's code, `AGENTS.md`,
+documentation, canonical examples, and purpose-built specialists when their
+evidence is needed.
 
 All skill names use the compact `kf-` namespace to distinguish K Fleet skills from
 similarly named global or third-party skills.
@@ -52,7 +55,7 @@ request
 -> internal feedback and result evidence
 -> optional independent verification
 -> authorized correction owner when a finding exists
--> re-verification when correction was requested
+-> original verification or coverage owner for fresh closeout when correction began there
 -> optional evidence-based learning
 -> authorized persistence owner
 -> persisted-artifact verification

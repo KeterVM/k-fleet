@@ -101,7 +101,10 @@ for (const mode of ["routing", "composition", "sequence", "handoff", "learning",
 }
 
 const primarySkills = new Set(evalCases.map((entry) => entry.expected?.primary));
-for (const skill of expectedSkills.filter((skill) => skill !== "kf-test-driven-change")) {
+for (const skill of expectedSkills.filter((skill) => ![
+  "kf-delegate-specialist",
+  "kf-test-driven-change",
+].includes(skill))) {
   if (!primarySkills.has(skill)) fail(`Harness evals do not route a primary case to ${skill}`);
 }
 
@@ -113,6 +116,12 @@ for (const id of [
   "tdd-no-credible-seam",
   "tdd-valid-production-abstraction",
   "tdd-test-conflicts-with-accepted-design",
+]) {
+  if (!ids.has(id)) fail(`Harness evals do not cover ${id}`);
+}
+for (const id of [
+  "coverage-authorized-correction-reentry",
+  "coverage-correction-blocked",
 ]) {
   if (!ids.has(id)) fail(`Harness evals do not cover ${id}`);
 }

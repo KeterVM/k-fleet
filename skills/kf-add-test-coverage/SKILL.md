@@ -35,10 +35,15 @@ Protect already-existing intended behavior with a focused test-only change.
    - identify an unclear cause or contract as a `kf-investigate-issue` candidate.
    When the current request does not authorize product correction, report the
    mismatch and recommended owner, then stop without invoking it. Hand off only
-   when the same request explicitly authorizes that next workflow.
+   when the same request explicitly authorizes that next workflow. After an
+   authorized correction owner reports completion, re-enter this workflow against
+   the current artifact, rerun the original focused test and proportionate broader
+   checks, and publish a fresh coverage result. If correction is blocked or
+   incomplete, stop with coverage incomplete rather than claiming success.
 8. Report the behavior protected, acceptance source, tests added or changed,
    commands and results, coverage limits, discovered mismatches, and confirmation
-   that production behavior was not modified.
+   that this workflow's own changes remained test-only. Report separately any
+   production changes made by an authorized correction owner.
 9. If repeated evidence indicates a defect in this reusable method, routing, or
    guidance rather than the current tests alone, hand the signal to
    `kf-learn-from-evidence`.
@@ -61,6 +66,7 @@ Protect already-existing intended behavior with a focused test-only change.
   diff.
 
 This workflow is complete when the intended existing behavior has focused,
-credible protection; relevant checks pass or are honestly classified; the diff is
-test-only; and any product mismatch has an explicit recommended next owner without
-an unauthorized handoff.
+credible protection; relevant checks pass or are honestly classified; this
+workflow's own changes are test-only; and any product mismatch either has an
+explicit recommended next owner without an unauthorized handoff or has completed
+an authorized correction followed by a fresh coverage result.
