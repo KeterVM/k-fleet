@@ -42,6 +42,9 @@ Deliver the smallest complete behavior change that fits the repository.
 
 - Do not introduce helpers, wrappers, repositories, factories, abstractions, or
   dependencies without a concrete need or established pattern.
+- A Red test is not by itself a concrete need for a production seam or abstraction;
+  justify structural changes from the feature, an accepted design, or repeated
+  repository evidence.
 - Do not format or refactor unrelated files.
 - Do not treat one existing example as a repository-wide rule.
 - Keep type safety, validation, error handling, and tests consistent with nearby

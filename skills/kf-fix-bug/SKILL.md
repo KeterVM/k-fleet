@@ -40,6 +40,9 @@ behavior.
 ## Constraints
 
 - Do not begin with a refactor unless it is necessary to make the correction safe.
+- Do not introduce a production seam solely to obtain regression Red evidence. A
+  preparatory structural change must be necessary for a safe correction and
+  supported by repository evidence.
 - Treat feedback that asks Codex to undo or revise its current-task changes as a
   continuation of that task, not as a newly discovered product defect.
 - Do not suppress exceptions, weaken assertions, disable checks, or patch output

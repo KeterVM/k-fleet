@@ -39,7 +39,8 @@ when the request or repository guidance requires that discipline:
 - `kf-implement-feature` adds or changes observable behavior.
 - `kf-fix-bug` diagnoses and corrects a known defect with regression validation.
 - `kf-test-driven-change` drives an already-scoped feature or bug fix through
-  vertical Red-Green-Refactor cycles without taking ownership of its scope.
+  vertical Red-Green-Refactor cycles without taking ownership of its scope or
+  production structure.
 - `kf-investigate-issue` explains unclear behavior, then hands any separately
   authorized correction to the applicable execution workflow.
 - `kf-refactor-code` improves internal structure while preserving behavior.
@@ -95,7 +96,8 @@ cd examples/fleet-ledger && npm test
 - Commit and push authorized repository changes directly to `main` by default;
   create a feature branch only when the user explicitly requests one.
 - Keep TDD as the dedicated composable `kf-test-driven-change` method skill;
-  feature and bug workflows retain ownership of outcome and scope.
+  feature and bug workflows retain ownership of outcome, scope, compatibility,
+  and production structure while TDD owns test-first order and evidence.
 - Keep `kf-verify-change` verification-only; it reports readiness and routes
   findings without editing the reviewed artifact or fixing failures.
 - Keep double-loop learning automatic for signal detection, evidence assessment,

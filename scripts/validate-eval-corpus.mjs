@@ -108,6 +108,14 @@ for (const skill of expectedSkills.filter((skill) => skill !== "kf-test-driven-c
 if (!evalCases.some((entry) => entry.expected?.composed?.includes("kf-test-driven-change"))) {
   fail("Harness evals do not cover TDD composition");
 }
+for (const id of [
+  "tdd-red-does-not-own-architecture",
+  "tdd-no-credible-seam",
+  "tdd-valid-production-abstraction",
+  "tdd-test-conflicts-with-accepted-design",
+]) {
+  if (!ids.has(id)) fail(`Harness evals do not cover ${id}`);
+}
 if (!evalCases.some((entry) => {
   const sequence = entry.expected?.sequence ?? [];
   return sequence.length >= 3

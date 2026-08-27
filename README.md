@@ -20,7 +20,7 @@ documentation, or a large catalog of technology-specific skills.
 | Design a code change before implementation | `kf-design-change` | Produces an evidence-based implementation contract without modifying production code; combined requests hand authorized implementation to its execution owner. |
 | Add or modify behavior | `kf-implement-feature` | Handles capabilities, not known defects, behavior-preserving refactors, investigations, or verification-only requests. |
 | Correct a known defect | `kf-fix-bug` | Diagnoses and implements a root-cause fix; feedback that revises the current task stays in that task's workflow. |
-| Drive a feature or fix test-first | `kf-test-driven-change` | Composes with the feature or bug workflow to enforce vertical Red-Green-Refactor cycles and evidence; it does not own product scope. |
+| Drive a feature or fix test-first | `kf-test-driven-change` | Composes with the feature or bug workflow to enforce vertical Red-Green-Refactor sequencing and evidence; the primary workflow retains product scope and production structure. |
 | Explain unclear behavior | `kf-investigate-issue` | Owns diagnosis rather than product mutation; separately authorized correction is handed to its execution owner, and temporary instrumentation requires explicit authority. |
 | Improve structure without changing behavior | `kf-refactor-code` | Preserves externally observable behavior by default. |
 | Validate existing changes | `kf-verify-change` | Owns a distinct review, readiness, or independent-verification phase without modifying the reviewed artifact; execution workflows retain their own routine validation. |
@@ -31,7 +31,8 @@ database, language, or framework. `kf-delegate-specialist`,
 `kf-test-driven-change`, and `kf-learn-from-evidence` are composable method skills:
 the primary workflow owns the current result, delegation obtains bounded expert
 evidence, TDD owns its test-first loop, and learning evaluates whether evidence
-justifies changing the reusable controller. Technology-specific behavior should
+justifies changing the reusable controller. Tests provide feedback about behavior;
+they do not define production architecture. Technology-specific behavior should
 come from the target repository's code, `AGENTS.md`, documentation, canonical
 examples, and purpose-built specialists when their evidence is needed.
 
