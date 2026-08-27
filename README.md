@@ -14,16 +14,16 @@ documentation, or a large catalog of technology-specific skills.
 
 | Intent | Skill | Boundary |
 | --- | --- | --- |
-| Add tests for existing behavior | `kf-add-test-coverage` | Makes a test-only change for retrospective or characterization coverage; it does not claim TDD or modify production behavior. |
+| Add tests for existing behavior | `kf-add-test-coverage` | Makes a test-only change for retrospective or characterization coverage; a discovered product mismatch is reported with a recommended owner and is not handed off without correction authority. |
 | Obtain bounded specialist evidence | `kf-delegate-specialist` | Selects and briefs a read-only specialist sub-agent, then returns advisory evidence to the owning workflow; it does not transfer scope, writes, integration, or verification. |
 | Initialize or maintain repository context | `kf-maintain-context` | Creates missing `AGENTS.md` guidance when useful and authorized, then keeps the effective instruction chain scoped, compact, discoverable, and verified. |
-| Design a code change before implementation | `kf-design-change` | Produces an evidence-based, implementation-ready technical design; it does not modify production code unless implementation is separately requested and routed. |
+| Design a code change before implementation | `kf-design-change` | Produces an evidence-based implementation contract without modifying production code; combined requests hand authorized implementation to its execution owner. |
 | Add or modify behavior | `kf-implement-feature` | Handles capabilities, not known defects, behavior-preserving refactors, investigations, or verification-only requests. |
 | Correct a known defect | `kf-fix-bug` | Diagnoses and implements a root-cause fix; feedback that revises the current task stays in that task's workflow. |
 | Drive a feature or fix test-first | `kf-test-driven-change` | Composes with the feature or bug workflow to enforce vertical Red-Green-Refactor cycles and evidence; it does not own product scope. |
-| Explain unclear behavior | `kf-investigate-issue` | Reports evidence and likely causes; it does not modify code unless requested or needed for safe instrumentation. |
+| Explain unclear behavior | `kf-investigate-issue` | Owns diagnosis rather than product mutation; separately authorized correction is handed to its execution owner, and temporary instrumentation requires explicit authority. |
 | Improve structure without changing behavior | `kf-refactor-code` | Preserves externally observable behavior by default. |
-| Validate existing changes | `kf-verify-change` | Measures readiness and reports evidence, findings, and residual risk without modifying the reviewed artifact or fixing failures. |
+| Validate existing changes | `kf-verify-change` | Owns a distinct review, readiness, or independent-verification phase without modifying the reviewed artifact; execution workflows retain their own routine validation. |
 | Evaluate evidence for durable learning | `kf-learn-from-evidence` | Detects and assesses signals that a method, route, or guidance should change, then emits an authorization-gated persistence contract without editing the durable artifact. |
 
 Primary skills are split by workflow and user intent, not by frontend, backend,
@@ -229,12 +229,14 @@ record installation, routing, and validation results.
 The machine-readable cases under [`evals`](evals) cover primary routing, method
 composition, specialist delegation, correction and re-verification, design
 handoff, learning gates, context-maintenance delegation boundaries, and the full
-design-to-Context closure sequence. Repository validation checks the corpus shape
-and coverage; behavioral scoring should be
-performed by an independent evaluator that receives prompts without their
-expected answers.
-The current blind ownership and full-loop evidence is recorded in
-[`evals/CLOSURE_EVAL_REPORT.md`](evals/CLOSURE_EVAL_REPORT.md).
+design-to-Context closure sequence. Eval-corpus lint checks only syntax, referenced
+skills, expected coverage, and evidence freshness; it does not execute prompts or
+prove routing behavior. Behavioral scoring must be performed by an independent,
+blind, read-only evaluator that receives prompts without their expected answers.
+Historical full-loop evidence is recorded in
+[`evals/CLOSURE_EVAL_REPORT.md`](evals/CLOSURE_EVAL_REPORT.md); the current
+source-hashed trigger-boundary evidence is recorded in
+[`evals/TRIGGER_BOUNDARY_EVAL_REPORT.md`](evals/TRIGGER_BOUNDARY_EVAL_REPORT.md).
 
 ## Releases
 
@@ -249,12 +251,18 @@ Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the focuse
 development workflow and pull request expectations. Report vulnerabilities using
 the private process in [SECURITY.md](SECURITY.md), not a public issue.
 
-Repository validation is available without installing dependencies:
+Dependency-free checks are split by responsibility:
 
 ```sh
-node scripts/validate-skills.mjs
+node scripts/validate-repository-structure.mjs
+node scripts/validate-eval-corpus.mjs
 cd examples/fleet-ledger && npm test
 ```
+
+The first command validates packaging and documentation, the second lints the eval
+specification and checks the current behavioral-evidence hash, and the fixture test
+exercises the example application. None substitutes for an independent behavioral
+run of the harness prompts.
 
 ## License
 

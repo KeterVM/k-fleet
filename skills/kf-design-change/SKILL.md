@@ -1,6 +1,6 @@
 ---
 name: kf-design-change
-description: Design an implementation-ready code change without modifying production code. Use when the user asks for a technical design, architecture or migration plan, implementation plan, or comparison of approaches before coding. Do not use for investigation-only explanations, authorized implementation, defect correction, behavior-preserving refactors, or verification of existing changes.
+description: Design an implementation-ready code change without modifying production code. Use when the user asks for a technical design, architecture or migration plan, implementation plan, comparison of approaches before coding, or a combined request that explicitly requires design before implementation. This skill owns the design phase only and hands authorized implementation to the applicable feature, bug, or refactor workflow. Do not use for investigation-only explanations, implementation-only requests, defect correction without design work, behavior-preserving refactors, or verification of existing changes.
 ---
 
 # Design Change

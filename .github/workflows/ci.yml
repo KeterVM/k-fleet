@@ -20,8 +20,10 @@ jobs:
         with:
           node-version: 24
           package-manager-cache: false
-      - name: Validate skills and documentation
-        run: node scripts/validate-skills.mjs
+      - name: Validate repository structure
+        run: node scripts/validate-repository-structure.mjs
+      - name: Lint eval corpus and evidence metadata
+        run: node scripts/validate-eval-corpus.mjs
       - name: Test Fleet Ledger example
         working-directory: examples/fleet-ledger
         run: npm test

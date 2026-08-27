@@ -1,6 +1,6 @@
 ---
 name: kf-learn-from-evidence
-description: Evaluate verified evidence that a workflow, routing rule, method, or repository guidance may need a durable change. Invoke automatically for lasting corrections, repeated independent failures, verified guidance contradictions, or recurring routing mismatches, and explicitly when the user asks the harness to learn. Produce a reviewable persistence contract but do not edit durable artifacts. Do not use for ordinary task failures, incomplete work, direct already-decided policy placement, or one-off preferences.
+description: Evaluate verified evidence that a workflow, routing rule, method, or repository guidance may need a durable change. Invoke automatically when the user explicitly corrects reusable method, routing, or guidance; the same failure recurs across independent tasks; verified repository facts contradict active guidance; routing mismatches recur; or a method repeatedly cannot produce its intended evidence. Also use when the user explicitly asks the harness to learn. Produce a reviewable persistence contract but do not edit durable artifacts. Do not use for ordinary task failures, current-task corrections, incomplete work, direct already-decided policy placement, or one-off preferences.
 ---
 
 # Learn From Evidence

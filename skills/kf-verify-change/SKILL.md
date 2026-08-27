@@ -1,6 +1,6 @@
 ---
 name: kf-verify-change
-description: Verify existing changes without modifying them. Use when the user asks to review a pull request, commit, branch, diff, patch, or other artifact; run checks; confirm merge or handoff readiness; or validate an existing implementation or design. Report evidence, actionable findings, and residual risk. Do not fix findings or act as the primary feature, bug, investigation, refactor, or design workflow.
+description: Verify existing changes without modifying them. Use when the user asks for a distinct review, readiness verdict, or independent verification of an already-existing pull request, commit, branch, diff, patch, implementation, or design, or when applicable guidance requires that separate verification phase. Report evidence, actionable findings, and residual risk. Do not trigger merely because an execution workflow must test or validate its own work, and do not fix findings or act as the primary feature, bug, investigation, refactor, or design workflow.
 ---
 
 # Verify Change

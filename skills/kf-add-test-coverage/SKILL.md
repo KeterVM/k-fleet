@@ -29,10 +29,13 @@ Protect already-existing intended behavior with a focused test-only change.
    brittle coupling.
 7. Classify a meaningful failure before proceeding:
    - correct an invalid expectation, fixture, or test helper within this workflow;
-   - route a demonstrated existing-contract violation to `kf-fix-bug` without
-     correcting production code here;
-   - route a newly requested expectation to `kf-implement-feature`;
-   - route an unclear cause or contract to `kf-investigate-issue`.
+   - identify a demonstrated existing-contract violation as a `kf-fix-bug`
+     candidate without correcting production code here;
+   - identify a newly requested expectation as a `kf-implement-feature` candidate;
+   - identify an unclear cause or contract as a `kf-investigate-issue` candidate.
+   When the current request does not authorize product correction, report the
+   mismatch and recommended owner, then stop without invoking it. Hand off only
+   when the same request explicitly authorizes that next workflow.
 8. Report the behavior protected, acceptance source, tests added or changed,
    commands and results, coverage limits, discovered mismatches, and confirmation
    that production behavior was not modified.
@@ -59,4 +62,5 @@ Protect already-existing intended behavior with a focused test-only change.
 
 This workflow is complete when the intended existing behavior has focused,
 credible protection; relevant checks pass or are honestly classified; the diff is
-test-only; and any product mismatch has a separate correction owner.
+test-only; and any product mismatch has an explicit recommended next owner without
+an unauthorized handoff.

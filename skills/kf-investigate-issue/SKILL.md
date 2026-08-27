@@ -1,6 +1,6 @@
 ---
 name: kf-investigate-issue
-description: Investigate unclear, intermittent, unexpected, or performance-related behavior and report an evidence-backed cause and next action. Use for requests asking why something happens. Do not implement a fix unless the user also requests correction or safe diagnostic instrumentation requires a change.
+description: Investigate unclear, intermittent, unexpected, or performance-related behavior and report an evidence-backed cause and next action. Use for requests asking why something happens. This skill owns diagnosis, not product mutation. When the same request authorizes correction, report the diagnosis first and hand it to the applicable execution workflow. Add temporary diagnostic instrumentation only when the task explicitly authorizes it and it is safe.
 ---
 
 # Investigate Issue

@@ -9,7 +9,8 @@ remains distinct from the other skills.
 
 ## Validation
 
-- [ ] `node scripts/validate-skills.mjs`
+- [ ] `node scripts/validate-repository-structure.mjs`
+- [ ] `node scripts/validate-eval-corpus.mjs`
 - [ ] `npm test` from `examples/fleet-ledger` when relevant
 - [ ] README, examples, and scenario reports are accurate
 - [ ] No project-specific facts, placeholders, or unrelated changes were added

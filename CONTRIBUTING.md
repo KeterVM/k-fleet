@@ -14,7 +14,8 @@ small, portable, and organized by workflow intent rather than technology.
 
 1. Fork the repository and create a focused branch.
 2. Make the smallest complete change.
-3. Run `node scripts/validate-skills.mjs`.
+3. Run `node scripts/validate-repository-structure.mjs` and
+   `node scripts/validate-eval-corpus.mjs`.
 4. Run `npm test` from `examples/fleet-ledger` when behavior or examples change.
 5. Update the README and scenario reports when routing or demonstrated behavior
    changes.

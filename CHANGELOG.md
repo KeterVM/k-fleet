@@ -2,6 +2,26 @@
 
 Notable changes to K Fleet are recorded here.
 
+## Unreleased
+
+### Changed
+
+- Tightened investigation and retrospective-coverage authority so diagnosis and
+  test-only work cannot silently start product correction.
+- Clarified design-first combined requests, current-task feedback, durable-learning
+  signals, and the boundary between execution validation and independent
+  verification.
+- Split repository structure validation from eval-corpus lint; behavioral evidence
+  now records and validates the exact skill-source SHA-256 instead of being implied
+  by structural checks.
+
+### Validated
+
+- Four independent blind read-only evaluators passed the new trigger-boundary cases
+  on fresh reruns, with copied skill sources unchanged before and after evaluation.
+- Repository structure, eval-corpus metadata, and the Fleet Ledger fixture remain
+  separately verifiable.
+
 ## [1.3.0] - 2026-08-25
 
 ### Changed
