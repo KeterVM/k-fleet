@@ -1,63 +1,60 @@
 # K Fleet Closure Eval Report
 
-Date: 2026-08-25
+Date: 2026-08-27
+
+Repository base: `058c073823252acb096b7baa31610b549688ce71`
+
+Skill source SHA-256: `715a3d171331ea4a240d4f200bc5923dddd017937887eea1c08c0300ce188ec9`
+
+Evaluator mode: independent, blind, read-only
 
 ## Scope
 
-Three independent evaluators received only the current source Skill instructions
-and raw prompts. They could not read harness expectations, repository guidance,
-earlier reports, changelog, or Git history. They made no K Fleet changes; isolated
-temporary fixtures were removed after use.
+Three independent evaluators each received one isolated copy of the current eleven
+Skill sources and raw prompts without harness expectations. They were instructed
+not to inspect repository guidance, eval reports, Git history, or any file outside
+their copied `skills/` directory.
 
-The run targeted the ownership boundaries changed by the current redesign:
+The run exercised these corpus cases and adjacent degradation scenarios:
 
-- direct exact policy followed by feature work;
-- repeated evidence with proposal-only authority;
-- evidence evaluation with an exact pre-authorized Context rule, destination, and
-  scope;
-- the complete design, implementation, verification, correction,
-  re-verification, learning, Context persistence, and learning-closeout sequence;
-- standalone Learning when its required Context persistence owner is unavailable;
-  and standalone Context placement of a direct authorized policy.
+- `full-closure-sequence`;
+- `repeated-independent-learning-signal`;
+- `authorized-learning-context-persistence`;
+- `direct-authorized-policy`; and
+- `learning-context-owner-unavailable`.
 
-## Initial findings
+The repository source and all three evaluator copies had the recorded Skill source
+hash before and after evaluation. No evaluator modified its copy or the repository.
 
-The first blind pass found three ambiguities:
-
-1. generic authorization of a future "approved proposal" did not identify the
-   exact behavior, destination, and scope needed for safe persistence;
-2. Learning's response to an unavailable persistence owner was implied rather than
-   explicit; and
-3. independent verification did not state whether independence meant a fresh
-   workflow assessment or a different actor.
-
-The contracts and prompts were narrowed. Prior authorization now requires exact
-behavior, destination, and scope; unavailable owners cause an explicit
-contract-ready but persistence-incomplete stop; and verification defines its
-default as fresh non-mutating workflow independence while reporting unmet
-actor-level requirements.
-
-## Fresh rerun result
-
-All affected decisions passed on fresh reads of the corrected source:
+## Fresh results
 
 | Boundary | Result |
 | --- | --- |
-| Direct exact policy | `kf-maintain-context` owns Context placement and verification; Learning is not invoked. |
-| Proposal only | `kf-learn-from-evidence` evaluates and proposes, then stops without invoking a writer. |
-| Exact authorized learning contract | Learning decides without writing, then hands Context persistence to `kf-maintain-context`. |
-| Missing Context owner | Learning stops with the contract ready, persistence incomplete, and no verification claim. |
-| Full closure | `design → implement → verify → fix → verify → learn → maintain context`, followed by Learning contract closeout. |
-| Verification independence | A fresh non-mutating workflow verdict is sufficient by default; explicit actor-level requirements are fulfilled or reported unavailable. |
+| Full closure | Selected `design -> implement -> verify -> fix -> verify -> learn -> maintain context`, with Learning closeout after the Context owner reports fresh effective-scope verification. |
+| Design drift | Implementation must revalidate material design facts and return to design when drift changes an accepted boundary. |
+| Verification independence | A fresh non-mutating verification phase owns both readiness verdicts; correction remains with the applicable execution workflow. |
+| Proposal only | Learning evaluates recurrence and produces a reviewable proposal, then stops without a writer handoff or mutation. |
+| Exact authorized learning contract | Learning remains non-writing and hands an evidence-backed exact contract to `kf-maintain-context`, the sole Context writer and effective-scope verifier. |
+| Direct exact policy | Already-decided policy routes directly to `kf-maintain-context`; Learning is not invoked. |
+| Missing Context owner | Learning stops with the contract ready, persistence incomplete, and no mutation or verification claim. |
 
-The evaluators retained evidence gates: summarized recurrence does not substitute
-for accessible independent evidence, an exact pre-authorized rule is persisted only
-when that full rule is supported, semantic conflicts stop rather than rewrite the
-lesson, and unavailable runtime loading is reported rather than claimed.
+The evaluators retained the material evidence gates. An implementation contract is
+not treated as immutable or as authorization. The initial and post-correction
+verdicts are fresh assessments against the original target. Stated recurrence is
+not accepted as verified recurrence without accessible independent task evidence,
+and semantic conflicts stop persistence rather than silently changing the rule.
+
+For `full-closure-sequence`, the prompt did not supply the underlying artifacts
+from the three earlier tasks. The evaluator therefore selected the complete
+conditional phase order but correctly withheld the Context write until those
+records establish independence, the same failure class, material impact, and no
+disqualifying counterevidence. This is the expected evidence boundary, not a
+routing failure.
 
 ## Verdict
 
-The redesigned Learning-decision and Context-persistence boundary is behaviorally
-closed for the evaluated success, refusal, authorization, unavailable-peer, and
-full-sequence paths. Product artifacts and historical task evidence were not
-fabricated; those remain required inputs when executing a real request.
+The current Skill sources are behaviorally closed for the evaluated complete
+success sequence, proposal-only refusal, exact authorization, direct-policy, and
+missing-owner degradation paths. This was a decision-level evaluation: it does not
+claim that hypothetical product changes, historical task evidence, or runtime
+Context loading existed. Those remain required execution evidence in a real task.

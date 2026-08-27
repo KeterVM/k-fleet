@@ -233,7 +233,7 @@ design-to-Context closure sequence. Eval-corpus lint checks only syntax, referen
 skills, expected coverage, and evidence freshness; it does not execute prompts or
 prove routing behavior. Behavioral scoring must be performed by an independent,
 blind, read-only evaluator that receives prompts without their expected answers.
-Historical full-loop evidence is recorded in
+Current source-hashed full-loop evidence is recorded in
 [`evals/CLOSURE_EVAL_REPORT.md`](evals/CLOSURE_EVAL_REPORT.md); the current
 source-hashed trigger-boundary evidence is recorded in
 [`evals/TRIGGER_BOUNDARY_EVAL_REPORT.md`](evals/TRIGGER_BOUNDARY_EVAL_REPORT.md).

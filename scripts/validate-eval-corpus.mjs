@@ -196,6 +196,36 @@ if (!existsSync(currentEvidencePath)) {
   }
 }
 
+const closureEvidencePath = join(root, "evals/CLOSURE_EVAL_REPORT.md");
+if (!existsSync(closureEvidencePath)) {
+  fail(`Missing ${relative(root, closureEvidencePath)}`);
+} else {
+  const evidence = read(closureEvidencePath);
+  const recordedHash = evidence.match(/^Skill source SHA-256:\s*`([a-f0-9]{64})`$/m)?.[1];
+  if (!recordedHash) {
+    fail(`${relative(root, closureEvidencePath)} must record Skill source SHA-256`);
+  } else if (recordedHash !== sourceHash) {
+    fail(`${relative(root, closureEvidencePath)} is stale for the current skill sources`);
+  }
+  if (!/^Evaluator mode:\s*independent, blind, read-only$/m.test(evidence)) {
+    fail(`${relative(root, closureEvidencePath)} must record independent blind read-only evaluation`);
+  }
+  if (!/^Repository base:\s*`[a-f0-9]{40}`/m.test(evidence)) {
+    fail(`${relative(root, closureEvidencePath)} must record the repository base revision`);
+  }
+  for (const id of [
+    "full-closure-sequence",
+    "repeated-independent-learning-signal",
+    "authorized-learning-context-persistence",
+    "direct-authorized-policy",
+    "learning-context-owner-unavailable",
+  ]) {
+    if (!evidence.includes(`\`${id}\``)) {
+      fail(`${relative(root, closureEvidencePath)} does not record evaluated case ${id}`);
+    }
+  }
+}
+
 if (failures.length) {
   for (const failure of failures) console.error(`FAIL: ${failure}`);
   process.exit(1);

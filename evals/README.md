@@ -25,9 +25,9 @@ Every new current behavioral report must record:
   fresh results.
 
 Run `node scripts/validate-eval-corpus.mjs` to print the current source hash and
-confirm that `TRIGGER_BOUNDARY_EVAL_REPORT.md` matches it. This command lints the
-specification and evidence metadata only; it deliberately does not execute or
-score a model.
+confirm that `TRIGGER_BOUNDARY_EVAL_REPORT.md` and `CLOSURE_EVAL_REPORT.md` match
+it. This command lints the specification and evidence metadata only; it
+deliberately does not execute or score a model.
 
 Use a fresh task or independent agent so prior conclusions and expected answers do
 not leak into selection. The eval-corpus lint checks syntax and required coverage,
@@ -36,10 +36,11 @@ but it does not claim that Codex executed these prompts correctly.
 See [`FORWARD_EVAL_REPORT.md`](FORWARD_EVAL_REPORT.md) for the independent
 decision-level run and [`ARTIFACT_EVAL_REPORT.md`](ARTIFACT_EVAL_REPORT.md) for
 isolated implementation, repair, and design-drift execution.
-[`CLOSURE_EVAL_REPORT.md`](CLOSURE_EVAL_REPORT.md) records the 2026-08-25 blind
-tests of direct policy, authorization stopping, Learning-to-Context handoff,
-missing-peer degradation, and the full design-to-Context sequence. Older dated
-reports remain historical evidence for the corpus and contracts they name.
+[`CLOSURE_EVAL_REPORT.md`](CLOSURE_EVAL_REPORT.md) records the current
+source-hashed blind tests of direct policy, authorization stopping,
+Learning-to-Context handoff, missing-peer degradation, and the full
+design-to-Context sequence. Older dated reports remain historical evidence for
+the corpus and contracts they name.
 [`TRIGGER_BOUNDARY_EVAL_REPORT.md`](TRIGGER_BOUNDARY_EVAL_REPORT.md) records the
 current source-hashed blind rerun of investigation mutation, retrospective coverage
 authority, design-to-implementation routing, current-task feedback, and execution
