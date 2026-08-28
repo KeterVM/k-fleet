@@ -4,6 +4,38 @@ Notable changes to K Fleet are recorded here.
 
 ## Unreleased
 
+## [1.4.1] - 2026-08-29
+
+### Added
+
+- Added an isolated three-arm bounded-quality experiment comparing the current
+  workflow, a stronger single-owner quality contract, and an experimental
+  sole-writing expert supported by read-only evidence and independent verification.
+- Added four artifact scenarios, hidden behavioral checks, eight quality-routing
+  cases, a sanitized executor bundle, and a protocol-v2 experiment runner.
+
+### Changed
+
+- Kept the eleven-skill public contract unchanged after the first non-promotional
+  smoke run showed that agent topology should be selected by concrete risk rather
+  than task size or agent count.
+- Tightened the candidate entry gate so direct local fixes, mechanical helper
+  reuse, existing mutation-sensitive coverage, and other routine work stay with
+  the primary workflow.
+- Hardened experiment scoring against fixture leakage, baseline and arm drift,
+  hidden-test mutation, stale protocol identities, duplicate runs, result
+  tampering, and whole-file structural-signal false positives.
+
+### Validated
+
+- All feature, bug, refactor, and test-only smoke arms passed their hidden checks
+  with no unexpected file changes; the report classifies them as instruction-blind
+  observations rather than formal promotion evidence.
+- The candidate skill, 11-skill repository structure, 51-case existing eval
+  corpus, protocol-v2 harness, and all 22 Fleet Ledger tests pass validation.
+- An independent final review found no remaining actionable harness or evidence
+  issues.
+
 ## [1.4.0] - 2026-08-29
 
 ### Changed
