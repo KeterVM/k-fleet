@@ -54,6 +54,74 @@ test('marks maintenance due at the exact service threshold', () => {
   });
 });
 
+test('normalizes decimal rounding noise at service thresholds', () => {
+  for (const [lastServiceKm, serviceIntervalKm, currentOdometerKm] of [
+    [0.1, 0.2, 0.3],
+    [0.1, 16.1, 16.2],
+    [0.7, 0.2, 0.9],
+    [1e-7, 2e-7, 3e-7],
+    [Number.MIN_VALUE, Number.MIN_VALUE, 1e-323],
+    [1e307, 1e307, 2e307],
+  ]) {
+    const plan = createMaintenancePlan({
+      vehicleId: 'van-1',
+      serviceIntervalKm,
+      lastServiceKm,
+    });
+    const status = maintenanceStatus(plan, currentOdometerKm);
+
+    assert.equal(status.due, true);
+    assert.equal(status.remainingKm, 0);
+    assert.equal(status.overdueKm, 0);
+  }
+});
+
+test('does not treat meaningful small distances as rounding noise', () => {
+  const plan = createMaintenancePlan({
+    vehicleId: 'van-1',
+    serviceIntervalKm: 1e-12,
+    lastServiceKm: 0,
+  });
+
+  assert.deepEqual(maintenanceStatus(plan, 0.5e-12), {
+    vehicleId: 'van-1',
+    due: false,
+    nextServiceKm: 1e-12,
+    remainingKm: 0.5e-12,
+    overdueKm: 0,
+  });
+});
+
+test('preserves meaningful threshold differences at large magnitudes', () => {
+  const plan = createMaintenancePlan({
+    vehicleId: 'van-1',
+    serviceIntervalKm: 100,
+    lastServiceKm: 1e16,
+  });
+
+  const status = maintenanceStatus(plan, 1e16 + 98);
+
+  assert.equal(status.due, false);
+  assert.equal(status.remainingKm, 2);
+  assert.equal(status.overdueKm, 0);
+});
+
+test('preserves the smallest positive maintenance interval', () => {
+  const plan = createMaintenancePlan({
+    vehicleId: 'van-1',
+    serviceIntervalKm: Number.MIN_VALUE,
+    lastServiceKm: 0,
+  });
+
+  assert.deepEqual(maintenanceStatus(plan, 0), {
+    vehicleId: 'van-1',
+    due: false,
+    nextServiceKm: Number.MIN_VALUE,
+    remainingKm: Number.MIN_VALUE,
+    overdueKm: 0,
+  });
+});
+
 test('lists the most overdue maintenance first', () => {
   const plans = [
     createMaintenancePlan({
@@ -121,5 +189,44 @@ test('rejects an odometer reading before the last service', () => {
   assert.throws(
     () => maintenanceStatus(plan, 19_999),
     /current odometer cannot be before last service/,
+  );
+});
+
+test('rejects a representable odometer rollback at large magnitudes', () => {
+  const plan = createMaintenancePlan({
+    vehicleId: 'van-1',
+    serviceIntervalKm: 100,
+    lastServiceKm: 1e16,
+  });
+
+  assert.throws(
+    () => maintenanceStatus(plan, 1e16 - 2),
+    /current odometer cannot be before last service/,
+  );
+});
+
+test('rejects a positive interval absorbed by floating-point precision', () => {
+  const plan = createMaintenancePlan({
+    vehicleId: 'van-1',
+    serviceIntervalKm: 1,
+    lastServiceKm: 1e16,
+  });
+
+  assert.throws(
+    () => maintenanceStatus(plan, 1e16),
+    /next service must advance beyond last service/,
+  );
+});
+
+test('rejects a maintenance threshold that overflows', () => {
+  const plan = createMaintenancePlan({
+    vehicleId: 'van-1',
+    serviceIntervalKm: Number.MAX_VALUE,
+    lastServiceKm: Number.MAX_VALUE,
+  });
+
+  assert.throws(
+    () => maintenanceStatus(plan, Number.MAX_VALUE),
+    /next service must be a finite number/,
   );
 });
