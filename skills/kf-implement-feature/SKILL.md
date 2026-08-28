@@ -35,8 +35,16 @@ Deliver the smallest complete behavior change that fits the repository.
 10. Report material deviations from an accepted design and whether its acceptance
     evidence was satisfied.
 11. If verified evidence indicates a recurring defect in the reusable method,
-   routing, or guidance rather than the current implementation, hand the signal to
-   `kf-learn-from-evidence`; do not persist a lesson in this workflow.
+    routing, or guidance rather than the current implementation, hand the signal to
+    `kf-learn-from-evidence`; do not persist a lesson in this workflow.
+
+Report the observable outcome, changed boundaries, checks and results, checks not
+run, residual uncertainty, and material deviations from an accepted design.
+
+This workflow is complete when the requested observable behavior is implemented,
+available acceptance evidence is satisfied, unavailable acceptance evidence is
+explicitly classified, change-caused failures are resolved, and final scope and
+residual uncertainty are explicit. Otherwise stop as incomplete or blocked.
 
 ## Constraints
 

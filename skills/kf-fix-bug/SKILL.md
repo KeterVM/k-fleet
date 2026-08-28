@@ -37,6 +37,15 @@ behavior.
     routing, or guidance rather than the current bug result, hand the signal to
     `kf-learn-from-evidence`; do not persist a lesson in this workflow.
 
+Report the symptom, demonstrated root cause and confidence, correction, regression
+evidence, validation results, unrun checks, residual uncertainty, and material
+deviations from an accepted design.
+
+This workflow is complete when the demonstrated root cause is corrected, expected
+behavior has proportionate regression evidence or an explicit testability limit,
+change-caused failures are resolved, and final scope and residual uncertainty are
+explicit. Otherwise stop as incomplete or blocked.
+
 ## Constraints
 
 - Do not begin with a refactor unless it is necessary to make the correction safe.

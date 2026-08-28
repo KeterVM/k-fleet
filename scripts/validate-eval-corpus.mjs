@@ -1,22 +1,16 @@
-import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  evalHashes,
+  expectedSkills,
+  protocolVersion,
+  rawObservationHash,
+  resultsHash,
+  scoreResults,
+} from "./eval-corpus-support.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const expectedSkills = [
-  "kf-add-test-coverage",
-  "kf-delegate-specialist",
-  "kf-design-change",
-  "kf-fix-bug",
-  "kf-implement-feature",
-  "kf-investigate-issue",
-  "kf-learn-from-evidence",
-  "kf-maintain-context",
-  "kf-refactor-code",
-  "kf-test-driven-change",
-  "kf-verify-change",
-];
 const failures = [];
 
 function fail(message) {
@@ -25,16 +19,6 @@ function fail(message) {
 
 function read(path) {
   return readFileSync(path, "utf8");
-}
-
-function skillSourceHash() {
-  const hash = createHash("sha256");
-  for (const skill of expectedSkills) {
-    hash.update(`${skill}\0`);
-    hash.update(read(join(root, "skills", skill, "SKILL.md")));
-    hash.update("\0");
-  }
-  return hash.digest("hex");
 }
 
 const evalPath = join(root, "evals/harness-routing.jsonl");
@@ -122,16 +106,25 @@ for (const id of [
 for (const id of [
   "coverage-authorized-correction-reentry",
   "coverage-correction-blocked",
+  "coverage-feature-correction-reentry",
 ]) {
   if (!ids.has(id)) fail(`Harness evals do not cover ${id}`);
 }
-if (!evalCases.some((entry) => {
-  const sequence = entry.expected?.sequence ?? [];
-  return sequence.length >= 3
-    && sequence[0] === "kf-verify-change"
-    && sequence.at(-1) === "kf-verify-change";
+for (const [id, sequence] of Object.entries({
+  "verify-repair-reverify": ["kf-verify-change", "kf-fix-bug", "kf-verify-change"],
+  "verify-feature-reverify": ["kf-verify-change", "kf-implement-feature", "kf-verify-change"],
+  "verify-refactor-reverify": ["kf-verify-change", "kf-refactor-code", "kf-verify-change"],
+  "verify-design-decision-boundary": ["kf-verify-change", "kf-design-change"],
+  "investigate-feature-verify": ["kf-investigate-issue", "kf-implement-feature", "kf-verify-change"],
+  "investigate-refactor-verify": ["kf-investigate-issue", "kf-refactor-code", "kf-verify-change"],
+  "verify-correction-blocked": ["kf-verify-change", "kf-fix-bug"],
 })) {
-  fail("Harness evals do not cover correction followed by re-verification");
+  const entry = evalCases.find((candidate) => candidate.id === id);
+  if (!entry) {
+    fail(`Harness evals do not cover ${id}`);
+  } else if (JSON.stringify(entry.expected?.sequence) !== JSON.stringify(sequence)) {
+    fail(`${id} does not preserve its required owner and re-entry sequence`);
+  }
 }
 if (!evalCases.some((entry) => {
   const sequence = entry.expected?.sequence ?? [];
@@ -159,6 +152,7 @@ if (!evalCases.some((entry) => entry.id === "repeated-independent-learning-signa
 if (!evalCases.some((entry) => JSON.stringify(entry.expected?.sequence) === JSON.stringify([
   "kf-learn-from-evidence",
   "kf-maintain-context",
+  "kf-learn-from-evidence",
 ]))) {
   fail("Harness evals do not cover authorized learning-to-Context persistence");
 }
@@ -170,6 +164,7 @@ if (!evalCases.some((entry) => JSON.stringify(entry.expected?.sequence) === JSON
   "kf-verify-change",
   "kf-learn-from-evidence",
   "kf-maintain-context",
+  "kf-learn-from-evidence",
 ]))) {
   fail("Harness evals do not cover the full design-to-context closure sequence");
 }
@@ -179,22 +174,67 @@ for (const id of [
   "coverage-mismatch-no-correction",
   "design-then-implement",
   "current-task-correction-no-learning",
+  "direct-authorized-policy",
+  "learning-context-owner-unavailable",
+  "learning-context-owner-resume",
+  "learning-defect-persistence-owner",
+  "learning-feature-persistence-owner",
+  "learning-refactor-persistence-owner",
+  "learning-regression-evidence-owner",
+  "learning-documentation-parent-owner-unavailable",
 ]) {
   if (!ids.has(id)) fail(`Harness evals do not cover trigger boundary ${id}`);
 }
 
-const sourceHash = skillSourceHash();
+const hashes = evalHashes(root, evalCases);
+const sourceHash = hashes.skillSourceHash;
+const currentResultsPath = join(root, "evals/current-results.json");
+let currentResultsDigest;
+let currentRawObservationDigest;
+if (!existsSync(currentResultsPath)) {
+  fail(`Missing ${relative(root, currentResultsPath)}`);
+} else {
+  try {
+    const results = JSON.parse(read(currentResultsPath));
+    currentResultsDigest = resultsHash(results);
+    currentRawObservationDigest = rawObservationHash(results.runs ?? []);
+    for (const resultFailure of scoreResults(evalCases, results, hashes)) {
+      fail(`${relative(root, currentResultsPath)}: ${resultFailure}`);
+    }
+  } catch (error) {
+    fail(`${relative(root, currentResultsPath)} is invalid: ${error.message}`);
+  }
+}
+
+function validateEvidenceMetadata(evidence, path) {
+  const recordedSourceHash = evidence.match(/^Skill source SHA-256:\s*`([a-f0-9]{64})`$/m)?.[1];
+  const recordedCorpusHash = evidence.match(/^Eval corpus SHA-256:\s*`([a-f0-9]{64})`$/m)?.[1];
+  const recordedBlindHash = evidence.match(/^Blind input SHA-256:\s*`([a-f0-9]{64})`$/m)?.[1];
+  const recordedToolingHash = evidence.match(/^Eval tooling SHA-256:\s*`([a-f0-9]{64})`$/m)?.[1];
+  const recordedRawObservationHash = evidence.match(/^Raw observation SHA-256:\s*`([a-f0-9]{64})`$/m)?.[1];
+  const recordedProtocol = Number(evidence.match(/^Eval protocol version:\s*`([0-9]+)`$/m)?.[1]);
+  const recordedResultsHash = evidence.match(/^Results SHA-256:\s*`([a-f0-9]{64})`$/m)?.[1];
+  if (!recordedSourceHash) fail(`${relative(root, path)} must record Skill source SHA-256`);
+  else if (recordedSourceHash !== hashes.skillSourceHash) fail(`${relative(root, path)} is stale for the current skill sources`);
+  if (!recordedCorpusHash) fail(`${relative(root, path)} must record Eval corpus SHA-256`);
+  else if (recordedCorpusHash !== hashes.corpusHash) fail(`${relative(root, path)} is stale for the current eval corpus`);
+  if (!recordedBlindHash) fail(`${relative(root, path)} must record Blind input SHA-256`);
+  else if (recordedBlindHash !== hashes.blindInputHash) fail(`${relative(root, path)} is stale for the current blind inputs`);
+  if (!recordedToolingHash) fail(`${relative(root, path)} must record Eval tooling SHA-256`);
+  else if (recordedToolingHash !== hashes.toolingHash) fail(`${relative(root, path)} is stale for the current eval tooling`);
+  if (!recordedRawObservationHash) fail(`${relative(root, path)} must record Raw observation SHA-256`);
+  else if (recordedRawObservationHash !== currentRawObservationDigest) fail(`${relative(root, path)} is stale for current raw observations`);
+  if (recordedProtocol !== protocolVersion) fail(`${relative(root, path)} must record eval protocol version ${protocolVersion}`);
+  if (!recordedResultsHash) fail(`${relative(root, path)} must record Results SHA-256`);
+  else if (recordedResultsHash !== currentResultsDigest) fail(`${relative(root, path)} is stale for current structured results`);
+}
+
 const currentEvidencePath = join(root, "evals/TRIGGER_BOUNDARY_EVAL_REPORT.md");
 if (!existsSync(currentEvidencePath)) {
   fail(`Missing ${relative(root, currentEvidencePath)}`);
 } else {
   const evidence = read(currentEvidencePath);
-  const recordedHash = evidence.match(/^Skill source SHA-256:\s*`([a-f0-9]{64})`$/m)?.[1];
-  if (!recordedHash) {
-    fail(`${relative(root, currentEvidencePath)} must record Skill source SHA-256`);
-  } else if (recordedHash !== sourceHash) {
-    fail(`${relative(root, currentEvidencePath)} is stale for the current skill sources`);
-  }
+  validateEvidenceMetadata(evidence, currentEvidencePath);
   if (!/^Evaluator mode:\s*independent, blind, read-only$/m.test(evidence)) {
     fail(`${relative(root, currentEvidencePath)} must record independent blind read-only evaluation`);
   }
@@ -218,12 +258,7 @@ if (!existsSync(closureEvidencePath)) {
   fail(`Missing ${relative(root, closureEvidencePath)}`);
 } else {
   const evidence = read(closureEvidencePath);
-  const recordedHash = evidence.match(/^Skill source SHA-256:\s*`([a-f0-9]{64})`$/m)?.[1];
-  if (!recordedHash) {
-    fail(`${relative(root, closureEvidencePath)} must record Skill source SHA-256`);
-  } else if (recordedHash !== sourceHash) {
-    fail(`${relative(root, closureEvidencePath)} is stale for the current skill sources`);
-  }
+  validateEvidenceMetadata(evidence, closureEvidencePath);
   if (!/^Evaluator mode:\s*independent, blind, read-only$/m.test(evidence)) {
     fail(`${relative(root, closureEvidencePath)} must record independent blind read-only evaluation`);
   }
@@ -250,3 +285,6 @@ if (failures.length) {
 
 console.log(`Linted ${evalCases.length} harness eval cases; expectations were not executed.`);
 console.log(`Current skill source SHA-256: ${sourceHash}`);
+console.log(`Current eval corpus SHA-256: ${hashes.corpusHash}`);
+console.log(`Current blind input SHA-256: ${hashes.blindInputHash}`);
+console.log(`Eval protocol version: ${protocolVersion}`);

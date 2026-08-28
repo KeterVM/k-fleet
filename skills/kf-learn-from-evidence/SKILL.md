@@ -60,10 +60,21 @@ the active task workflow.
    handoff. If it is unavailable, stop with the contract ready, persistence
    incomplete, and no verification claim. Learning never performs the write or
    substitutes a generic writer.
-9. After the owner reports completion, compare the persisted outcome with the
-   contract and record the owner's fresh verification result. Reopen learning only
-   when the implementation materially changes the proposed lesson; do not duplicate
-   the owner's artifact or effective-context verification.
+   For a non-Context destination, name the exact owner before handoff and choose it
+   by intended mutation rather than filename: a demonstrated defect routes to
+   `kf-fix-bug`; new or changed behavior to `kf-implement-feature`;
+   behavior-preserving structure to `kf-refactor-code`; and test-only regression
+   evidence to `kf-add-test-coverage`. For documentation or another artifact not
+   owned by a K Fleet workflow, return the contract to the already-authorized
+   parent workflow; if none exists, stop with persistence incomplete. Do not use
+   `kf-maintain-context` merely because documentation is involved unless the
+   artifact participates in effective Codex context.
+9. Re-enter this learning workflow after the owner reports completion. Compare the
+   persisted outcome with the contract and record the owner's fresh verification
+   result. The owner's verification does not close learning by itself; authorized
+   persistence closes as `learning -> artifact owner -> learning`. Reopen the
+   proposal decision only when implementation materially changes the lesson, and
+   do not duplicate the owner's artifact or effective-context verification.
 
 ## Proposal format
 
@@ -99,5 +110,6 @@ Verification target
 Learning is complete when the signal has been classified, the current correction
 has an owner, and any durable proposal has explicit evidence, scope, destination,
 confidence, persistence authority, persistence owner, and verification target. If
-persistence is authorized, completion also requires the owner handoff and its
-reported verification result.
+persistence is authorized, completion also requires the owner handoff, the owner's
+reported verification result, and Learning's post-handoff comparison of the
+persisted outcome with the contract.

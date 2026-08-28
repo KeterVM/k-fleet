@@ -1,0 +1,2205 @@
+{
+  "protocolVersion": 2,
+  "skillSourceHash": "9b1ba8f26023df757fdf9e17e76192e778a5c69134a829b240099fa208d4ef1b",
+  "toolingHash": "6750e95e095c4279e43dc69294a7615646d747a88c2960515635d828d1e3c5a7",
+  "corpusHash": "3f0f3a7f0bc18a373fcdf5629fee03c5656bb0f2fe61f74b7a0b58e5027df8d0",
+  "blindInputHash": "da12aface73fcaa2d56b7dd9adc6d8090c04f6ff10abf9f039076881613a6a42",
+  "rawObservationHash": "b58c26e4a099b83965bd1f1e0d91e904f377e932c1be9561360db91c56e76c1e",
+  "runs": [
+    {
+      "runId": "raw-v2-a-2026-08-28",
+      "model": "identifier-unavailable",
+      "reasoningConfig": "exact-effort-unavailable",
+      "blindInputHash": "da12aface73fcaa2d56b7dd9adc6d8090c04f6ff10abf9f039076881613a6a42",
+      "evaluatorMode": "independent-blind-read-only",
+      "observations": [
+        {
+          "caseRef": "case-001",
+          "observedPrimary": "kf-maintain-context",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-maintain-context"
+          ],
+          "observedStopping": "complete: duplication is cleaned up only in the named context file, with ancestors inspected read-only only when needed to compute effective scope",
+          "rationale": "The target is AGENTS.md context maintenance with an explicitly narrow edit boundary. The Context workflow owns deduplication, scope, precedence, writes, and effective-context verification without authorizing sibling-package changes.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-002",
+          "observedPrimary": "kf-maintain-context",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-maintain-context"
+          ],
+          "observedStopping": "complete: a useful evidence-backed repository entry is created and verified, while global Codex context remains unchanged",
+          "rationale": "Initializing missing repository guidance is owned by Context maintenance. The prompt authorizes a narrow project-level creation, requires repository support for every fact, and explicitly excludes the global profile.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-003",
+          "observedPrimary": "kf-maintain-context",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-maintain-context"
+          ],
+          "observedStopping": "complete: the effective instruction-chain audit reports precedence, empty suppression, fallback configuration, byte-limit effects, and runtime-loaded sources without edits",
+          "rationale": "This is a read-only diagnosis of Codex instruction discovery under a subtree. The Context workflow explicitly models overrides, empty candidates, configured fallbacks, byte limits, and actual runtime source loading.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-004",
+          "observedPrimary": "kf-verify-change",
+          "observedComposed": [
+            "kf-delegate-specialist"
+          ],
+          "observedSequence": [
+            "kf-verify-change",
+            "kf-delegate-specialist",
+            "kf-verify-change"
+          ],
+          "observedStopping": "ready, not ready, or indeterminate: verification owns the final fresh readiness verdict after reconciling bounded read-only PostgreSQL evidence, with no plan or code edits",
+          "rationale": "The requested result is verification of an existing migration plan, so verification remains primary. The explicitly requested PostgreSQL specialist supplies advisory locking and rollback evidence and returns it to verification for integration.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-005",
+          "observedPrimary": "kf-design-change",
+          "observedComposed": [
+            "kf-delegate-specialist"
+          ],
+          "observedSequence": [
+            "kf-design-change",
+            "kf-delegate-specialist",
+            "kf-design-change"
+          ],
+          "observedStopping": "complete or incomplete: the design closes only when locking, rollback, rollout, acceptance evidence, and material decisions are implementation-ready; production remains unmodified",
+          "rationale": "The substantive result is a zero-downtime migration design. The database specialist is a bounded read-only method whose evidence is checked and integrated by the design owner rather than becoming a separate owner.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-006",
+          "observedPrimary": "kf-implement-feature",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-implement-feature"
+          ],
+          "observedStopping": "complete: the established field behavior is implemented through the local serializer and its focused test passes",
+          "rationale": "Adding a status field changes observable serializer behavior and is therefore feature implementation. Existing matching examples guide the smallest local change; running a focused test is the owner's normal validation, not a separate verification workflow.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-007",
+          "observedPrimary": "kf-design-change",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-design-change"
+          ],
+          "observedStopping": "complete: an implementation-ready durable-storage migration design includes rollout, rollback, acceptance evidence, and residual decisions without implementation",
+          "rationale": "The prompt asks only for a migration design and explicitly excludes implementation. Design owns the target architecture and operational sequence while remaining read-only with respect to production code.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-008",
+          "observedPrimary": "kf-implement-feature",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-implement-feature"
+          ],
+          "observedStopping": "complete: CSV invoice export is implemented and its observable output is validated",
+          "rationale": "CSV export is new observable capability, so feature implementation owns the result. Validation of the feature's own output is part of implementation completion and does not by itself invoke independent verification.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-009",
+          "observedPrimary": "kf-implement-feature",
+          "observedComposed": [
+            "kf-test-driven-change"
+          ],
+          "observedSequence": [
+            "kf-implement-feature",
+            "kf-test-driven-change",
+            "kf-implement-feature"
+          ],
+          "observedStopping": "complete: export behavior is implemented with credible focused Red for missing behavior, Green after the production change, and proportionate final validation",
+          "rationale": "Feature implementation owns the CSV behavior and compatibility. The explicit TDD request composes the test-driven method for Red-Green-Refactor sequencing and returns evidence to the feature owner for closeout.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-010",
+          "observedPrimary": "kf-fix-bug",
+          "observedComposed": [
+            "kf-test-driven-change"
+          ],
+          "observedSequence": [
+            "kf-fix-bug",
+            "kf-test-driven-change",
+            "kf-fix-bug"
+          ],
+          "observedStopping": "complete: the demonstrated reconnect root cause is corrected, a valid regression Red becomes Green, and unaffected reconnect behavior remains protected",
+          "rationale": "A known duplication defect is a bug-fix outcome. TDD is explicitly requested as the method, while the bug workflow retains ownership of diagnosis, correction scope, and preservation of unaffected reconnect behavior.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-011",
+          "observedPrimary": "kf-implement-feature",
+          "observedComposed": [
+            "kf-test-driven-change"
+          ],
+          "observedSequence": [
+            "kf-implement-feature",
+            "kf-test-driven-change",
+            "kf-implement-feature"
+          ],
+          "observedStopping": "complete: invoice export is implemented test-first through the established billing boundary, without a private formatter exposure or test-only repository interface",
+          "rationale": "The requested outcome is new behavior with explicit TDD. Repeated repository architecture and the existing service boundary govern production structure; a convenient Red test cannot authorize new public or repository seams.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-012",
+          "observedPrimary": "kf-fix-bug",
+          "observedComposed": [
+            "kf-test-driven-change"
+          ],
+          "observedSequence": [
+            "kf-fix-bug",
+            "kf-test-driven-change",
+            "kf-fix-bug"
+          ],
+          "observedStopping": "complete with an explicit testability limitation if the root-cause defect is safely corrected and proportionately validated; TDD is not claimed when credible Red cannot be observed",
+          "rationale": "The known duplicate-charge defect remains owned by bug fixing and the TDD method is requested. The method must reject unrelated failures and test-only dependency injection, report that credible Red is unavailable, and use the strongest safe feedback loop without fabricating TDD evidence.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-013",
+          "observedPrimary": "kf-implement-feature",
+          "observedComposed": [
+            "kf-test-driven-change"
+          ],
+          "observedSequence": [
+            "kf-implement-feature",
+            "kf-test-driven-change",
+            "kf-implement-feature"
+          ],
+          "observedStopping": "complete: the provider feature follows the accepted adapter interface and has credible focused Red and Green evidence plus final validation",
+          "rationale": "This is an authorized feature with an accepted design and repeated adapter architecture. TDD controls sequencing, while feature implementation revalidates and preserves the accepted interface rather than deriving structure from the first test.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-014",
+          "observedPrimary": "kf-implement-feature",
+          "observedComposed": [
+            "kf-test-driven-change"
+          ],
+          "observedSequence": [
+            "kf-implement-feature",
+            "kf-test-driven-change",
+            "kf-implement-feature"
+          ],
+          "observedStopping": "complete when a revised focused Red observes behavior through the accepted service boundary and the design is implemented and validated; the contradictory test does not reshape production",
+          "rationale": "Implementation owns the accepted storage outcome and TDD owns test-first order. Because the proposed first test contradicts an already accepted boundary, it must be rejected or rewritten; a Red test is not authority for a new public repository API.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-015",
+          "observedPrimary": "kf-investigate-issue",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-investigate-issue"
+          ],
+          "observedStopping": "complete: the likely reconnect cause, evidence, confidence, gaps, and recommended next owner are reported without product mutation",
+          "rationale": "The user asks why intermittent duplication occurs and explicitly forbids a fix. Investigation owns evidence-backed diagnosis and must stop before any product correction workflow.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-016",
+          "observedPrimary": "kf-investigate-issue",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-investigate-issue",
+            "kf-fix-bug",
+            "kf-verify-change"
+          ],
+          "observedStopping": "ready, not ready, or indeterminate: diagnosis is reported first, a demonstrated existing-contract defect is corrected, and independent verification gives a fresh verdict against the original symptom",
+          "rationale": "The request begins with an unclear symptom, so investigation owns the primary result and diagnosis. Conditional authority then routes a demonstrated old-contract defect to bug fixing and the corrected artifact to distinct verification.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-017",
+          "observedPrimary": "kf-refactor-code",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-refactor-code"
+          ],
+          "observedStopping": "complete: duplicated validation structure is removed with proportionate evidence that public behavior is preserved",
+          "rationale": "The requested change has a concrete structural goal and explicitly preserves externally observable behavior, which is the refactor workflow's boundary.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-018",
+          "observedPrimary": "kf-verify-change",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-verify-change"
+          ],
+          "observedStopping": "ready, not ready, or indeterminate: a non-mutating review of the complete current diff and proportionate checks yields the readiness verdict",
+          "rationale": "The prompt requests review and readiness of an existing diff and forbids modifications. Verification owns the evidence, actionable findings, residual risk, and final verdict.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-019",
+          "observedPrimary": "kf-verify-change",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-verify-change",
+            "kf-fix-bug",
+            "kf-verify-change"
+          ],
+          "observedStopping": "ready, not ready, or indeterminate: an initial 61-second finding is fixed under explicit authority and the corrected artifact receives a fresh readiness verdict against the original billing target",
+          "rationale": "The requested result begins and ends as verification. A demonstrated regression against an existing contract routes to bug fixing, after which verification must re-enter rather than reuse its earlier verdict.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-020",
+          "observedPrimary": "kf-implement-feature",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-implement-feature"
+          ],
+          "observedStopping": "complete: the accepted design is revalidated, implemented, and checked, with every material deviation reported",
+          "rationale": "The user authorizes implementation of an accepted design. Feature implementation owns revalidation of current repository facts, the production change, acceptance evidence, and disclosure of deviations.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-021",
+          "observedPrimary": "kf-implement-feature",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-implement-feature",
+            "kf-design-change"
+          ],
+          "observedStopping": "blocked: repository drift invalidates the accepted persistence boundary, and implementation cannot invent a replacement architecture without resolving the material design decision",
+          "rationale": "Implementation must revalidate an accepted design before editing. A different live persistence boundary is material architectural drift, so the execution owner returns the decision to design and stops rather than improvising production structure.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-022",
+          "observedPrimary": "kf-learn-from-evidence",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-learn-from-evidence"
+          ],
+          "observedStopping": "complete: the one-off environmental failure is classified as insufficient evidence and no durable harness guidance is persisted",
+          "rationale": "The user asks whether an incident should become durable guidance, so Learning evaluates the signal. A single unavailable local database is explicitly an ordinary environment failure, not independent repeated evidence of a reusable-method defect.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-023",
+          "observedPrimary": "kf-learn-from-evidence",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-learn-from-evidence"
+          ],
+          "observedStopping": "proposal-only: repeated independent routing failures support a narrow durable correction proposal, but the prompt forbids persistence",
+          "rationale": "Three independent tasks show a reusable routing boundary repeatedly preventing authorized fixes, which passes the learning gate. Learning evaluates counterevidence and proposes the narrowest lesson but never writes durable artifacts here.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-024",
+          "observedPrimary": "kf-learn-from-evidence",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-learn-from-evidence",
+            "kf-maintain-context",
+            "kf-learn-from-evidence"
+          ],
+          "observedStopping": "complete if the independent evidence supports the exact authorized rule: Context places and verifies it in root AGENTS.md, then Learning compares the persisted result with its contract; otherwise complete without persistence",
+          "rationale": "The request asks Learning to evaluate repeated evidence and conditionally authorizes exact behavior, destination, and scope. If supported, Learning produces a persistence contract, Context is the sole writer and effective-chain verifier, and Learning must re-enter for closure.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-025",
+          "observedPrimary": "kf-maintain-context",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-maintain-context"
+          ],
+          "observedStopping": "complete: a read-only root AGENTS.md audit reports evidence-backed findings within that single-file scope",
+          "rationale": "Auditing an AGENTS.md file is Context maintenance in audit mode. The ordinary monolith and one-file scope do not satisfy the delegation gate, and no edits are authorized.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-026",
+          "observedPrimary": "kf-maintain-context",
+          "observedComposed": [
+            "kf-delegate-specialist"
+          ],
+          "observedSequence": [
+            "kf-maintain-context",
+            "kf-delegate-specialist",
+            "kf-delegate-specialist",
+            "kf-maintain-context"
+          ],
+          "observedStopping": "complete: two bounded read-only member audits are reconciled by the parent into the monorepo context audit, while all writes and readiness remain with Context maintenance",
+          "rationale": "Verified workspace configuration establishes two independent context boundaries and policy permits sub-agents, satisfying Context's delegation gate. Each bounded evaluator supplies advisory evidence only; the parent retains root scope, conflict resolution, integration, and the final audit result.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        }
+      ]
+    },
+    {
+      "runId": "raw-v2-b-2026-08-28",
+      "model": "identifier-unavailable",
+      "reasoningConfig": "exact-effort-unavailable",
+      "blindInputHash": "da12aface73fcaa2d56b7dd9adc6d8090c04f6ff10abf9f039076881613a6a42",
+      "evaluatorMode": "independent-blind-read-only",
+      "observations": [
+        {
+          "caseRef": "case-027",
+          "observedPrimary": "kf-add-test-coverage",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-add-test-coverage"
+          ],
+          "observedStopping": "complete when focused retrospective tests credibly protect the already-implemented behavior, proportionate checks pass or are classified, and this workflow makes no production changes",
+          "rationale": "The prompt explicitly asks for missing tests for already-implemented behavior and limits the work to coverage without production behavior changes. The coverage workflow owns retrospective test-only protection and does not manufacture TDD evidence.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-028",
+          "observedPrimary": "kf-add-test-coverage",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-add-test-coverage",
+            "kf-fix-bug",
+            "kf-add-test-coverage"
+          ],
+          "observedStopping": "complete only after any demonstrated existing-contract defect is corrected by the bug owner and the coverage workflow re-enters against the corrected artifact for fresh focused and broader results",
+          "rationale": "The original result is retrospective coverage, while the same request expressly authorizes correction of a demonstrated violation of the documented reconnect contract. Coverage must hand that correction to the bug workflow and then resume ownership of the original coverage result.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-029",
+          "observedPrimary": "kf-add-test-coverage",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-add-test-coverage",
+            "kf-fix-bug"
+          ],
+          "observedStopping": "blocked with the original coverage request incomplete because the authorized correction environment is unavailable; no repair, coverage re-entry, or broadened authority may be claimed",
+          "rationale": "The prompt authorizes correction of a demonstrated contract defect but explicitly states that its required environment is unavailable. The coverage contract permits re-entry only after correction completion and otherwise requires an honest incomplete coverage result.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-030",
+          "observedPrimary": "kf-maintain-context",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-maintain-context",
+            "kf-implement-feature"
+          ],
+          "observedStopping": "complete after the exact authorized root context rule is placed and effectively verified, then the endpoint is implemented and validated within the decided GraphQL constraint",
+          "rationale": "The user has already decided the exact permanent rule, destination, and repository scope, so Context places it without Learning reassessment. Implementing an endpoint is a separate authorized behavior change owned by the feature workflow after the ordered context placement.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-031",
+          "observedPrimary": "kf-maintain-context",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-maintain-context"
+          ],
+          "observedStopping": "complete when the verified test command and ownership facts are placed in effective root context and discovery, scope, precedence, links, and byte usage are checked without inventing policy",
+          "rationale": "Verified commands and an ownership map are repository facts that Context may maintain. The prompt expressly forbids converting nearby examples into a new coding policy, so there is no Learning or product workflow.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-032",
+          "observedPrimary": "kf-design-change",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-design-change",
+            "kf-implement-feature",
+            "kf-verify-change",
+            "kf-fix-bug",
+            "kf-verify-change",
+            "kf-learn-from-evidence",
+            "kf-maintain-context",
+            "kf-learn-from-evidence"
+          ],
+          "observedStopping": "complete only after the design and implementation are independently verified, any demonstrated existing-contract regression is fixed and freshly re-verified, and the supported authorized rule is placed by Context, effectively verified, and closed by Learning",
+          "rationale": "The request expressly orders design, implementation, independent verification, conditional correction of an existing-contract regression, and re-verification. Three independent rollout failures create a durable learning signal; the exact authorized root AGENTS.md rule routes through Context and must return to Learning for contract closeout.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-033",
+          "observedPrimary": "kf-investigate-issue",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-investigate-issue"
+          ],
+          "observedStopping": "complete with an evidence-backed diagnosis, calibrated confidence, unknowns, and recommended next owner, with any necessary authorized temporary logging removed and no product-behavior correction",
+          "rationale": "The prompt asks why an intermittent symptom occurs and prohibits a fix. Investigation owns diagnosis and allows temporary instrumentation only because it is expressly authorized, necessary and safe, and removed afterward.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-034",
+          "observedPrimary": "kf-add-test-coverage",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-add-test-coverage"
+          ],
+          "observedStopping": "incomplete if the retrospective test demonstrates a product mismatch: report the existing-contract violation and kf-fix-bug as recommended owner, but stop without production correction or handoff",
+          "rationale": "The request is retrospective coverage, but it expressly withholds production changes and even starting a correction workflow. The coverage workflow classifies a documented-contract violation and recommends the bug owner without invoking it or claiming successful protection.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-035",
+          "observedPrimary": "kf-design-change",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-design-change",
+            "kf-implement-feature"
+          ],
+          "observedStopping": "complete after an implementation-ready CSV boundary design is handed off, material facts are revalidated, the authorized feature is implemented, and its observable output is validated",
+          "rationale": "The request explicitly requires design before implementation. Design owns the boundary and compact handoff contract; feature implementation then owns the observable CSV behavior and its ordinary validation, which is not a separate verification workflow.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-036",
+          "observedPrimary": "kf-implement-feature",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-implement-feature"
+          ],
+          "observedStopping": "complete when the current feature result uses the corrected status heading and the focused test passes",
+          "rationale": "The requested rename is explicit feedback correcting the feature being implemented in the current task. The feature workflow continues directly; the prompt explicitly says this is not a reusable rule, and the bug contract also excludes revisions to current-task changes.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-037",
+          "observedPrimary": "kf-verify-change",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-verify-change",
+            "kf-implement-feature",
+            "kf-verify-change"
+          ],
+          "observedStopping": "ready only after the newly accepted audit-column behavior is implemented by the feature owner and a fresh independent verification assesses the current artifact against both the original target and accepted addition",
+          "rationale": "Verification owns the requested readiness result. A missing newly accepted behavior is a feature rather than an old-contract bug; the same request authorizes its implementation, after which verification must re-enter and publish a new verdict.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-038",
+          "observedPrimary": "kf-verify-change",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-verify-change",
+            "kf-refactor-code",
+            "kf-verify-change"
+          ],
+          "observedStopping": "ready only after the authorized behavior-preserving deduplication is completed by the refactor owner and fresh verification confirms readiness and unaffected behavior",
+          "rationale": "The primary result is a readiness verdict. The sole stated finding is a structural duplication whose correction must preserve behavior, so verification routes it to refactoring and then re-enters rather than editing while verifying.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-039",
+          "observedPrimary": "kf-verify-change",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-verify-change",
+            "kf-design-change"
+          ],
+          "observedStopping": "not ready at the authority boundary because compatibility-window and rollback decisions materially affect the migration design; no implementation or readiness claim is authorized until those decisions are resolved",
+          "rationale": "The request starts with verification, but the acceptance contract contains unresolved migration and authority decisions. Verification routes unresolved architecture to design, whose contract forbids implementation and a claim of implementation readiness while material decisions remain open.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-040",
+          "observedPrimary": "kf-investigate-issue",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-investigate-issue",
+            "kf-implement-feature",
+            "kf-verify-change"
+          ],
+          "observedStopping": "ready after diagnosis establishes a newly accepted expectation, the feature owner implements it under the stated authorization, and independent verification assesses the corrected artifact against the symptom and accepted target",
+          "rationale": "The unclear missing audit column starts as diagnosis. If evidence classifies it as new behavior, investigation routes to feature rather than bug correction; the prompt separately requires independent verification afterward.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-041",
+          "observedPrimary": "kf-investigate-issue",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-investigate-issue",
+            "kf-refactor-code",
+            "kf-verify-change"
+          ],
+          "observedStopping": "ready after the cause is diagnosed, the authorized structural correction is completed without public behavior change, and independent verification confirms both the structural target and behavior preservation",
+          "rationale": "The prompt first asks why two paths diverge. It expressly classifies the authorized correction as purely structural when demonstrated, which investigation routes to refactoring, followed by the separately requested independent verification.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-042",
+          "observedPrimary": "kf-add-test-coverage",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-add-test-coverage",
+            "kf-implement-feature",
+            "kf-add-test-coverage"
+          ],
+          "observedStopping": "complete only after the newly accepted audit-column feature is implemented and the coverage workflow re-enters to finish retrospective protection against the current artifact",
+          "rationale": "Retrospective export coverage owns the original result, but a confirmed newly accepted expectation belongs to feature implementation and is explicitly authorized. The coverage contract requires re-entry after that owner completes so the original request receives a fresh coverage result.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-043",
+          "observedPrimary": "kf-verify-change",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-verify-change",
+            "kf-fix-bug"
+          ],
+          "observedStopping": "blocked and not ready because the demonstrated existing-contract defect cannot be repaired in the unavailable correction environment; no repair or re-verification may be claimed",
+          "rationale": "Verification owns readiness and the request authorizes a demonstrated old-contract correction through the bug workflow. Because the required correction environment is explicitly unavailable, correction cannot complete and verification cannot re-enter with a corrected artifact.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-044",
+          "observedPrimary": "kf-learn-from-evidence",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-learn-from-evidence",
+            "kf-maintain-context",
+            "kf-learn-from-evidence"
+          ],
+          "observedStopping": "complete when the initially preserved authorized contract is handed unchanged to the available Context owner, placement and effective-context verification finish, and Learning compares the persisted outcome with the contract",
+          "rationale": "Independent evidence and exact authorization support a Context persistence contract. Learning must not substitute a writer while Context is unavailable, but the prompt says the owner later becomes available in this task, enabling the required Learning-to-Context-to-Learning closeout.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-045",
+          "observedPrimary": "kf-maintain-context",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-maintain-context"
+          ],
+          "observedStopping": "complete when the exact decided rule is placed in root AGENTS.md and its discovery, effective scope, precedence, and byte usage are verified",
+          "rationale": "The user directly supplies an exact already-decided repository rule, destination, and scope and authorizes placement. Context accepts direct policy authority without reopening Learning and owns both the effective-context write and verification.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-046",
+          "observedPrimary": "kf-learn-from-evidence",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-learn-from-evidence"
+          ],
+          "observedStopping": "authority-boundary with an authorized persistence contract ready but persistence and verification incomplete because no Context writer is available",
+          "rationale": "Three independent incidents satisfy the learning gate and the exact root context rule is authorized. Learning produces the contract but cannot write AGENTS.md or substitute a generic writer, so absence of the Context owner is the required stopping boundary.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-047",
+          "observedPrimary": "kf-learn-from-evidence",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-learn-from-evidence",
+            "kf-fix-bug",
+            "kf-learn-from-evidence"
+          ],
+          "observedStopping": "complete after the supported scorer defect is corrected and freshly verified by the bug owner, then Learning compares that persisted outcome with the authorized contract and closes it",
+          "rationale": "Independent runs establish a durable signal and a demonstrated defect in existing scorer behavior. The exact root-cause correction and verification are authorized, so Learning routes the non-Context defect to kf-fix-bug and must re-enter after the owner's verified result.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-048",
+          "observedPrimary": "kf-learn-from-evidence",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-learn-from-evidence",
+            "kf-implement-feature",
+            "kf-learn-from-evidence"
+          ],
+          "observedStopping": "complete after the supported machine-readable stopping-result behavior is implemented and verified by the feature owner, then Learning closes the persistence contract against that outcome",
+          "rationale": "Three independent tasks establish a durable signal, while adding a scorer field is explicitly new behavior rather than a repair or Context change. Learning chooses the feature workflow as artifact owner and re-enters for required contract closeout.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-049",
+          "observedPrimary": "kf-learn-from-evidence",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-learn-from-evidence",
+            "kf-refactor-code",
+            "kf-learn-from-evidence"
+          ],
+          "observedStopping": "complete after the supported canonical hashing consolidation preserves behavior under fresh owner verification and Learning closes the persistence contract against the verified structural outcome",
+          "rationale": "Repeated reviews support a durable signal, and the exact authorized mutation consolidates duplicated structure while requiring unchanged behavior. Learning therefore hands the non-Context artifact to refactoring and re-enters after its verification.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-050",
+          "observedPrimary": "kf-learn-from-evidence",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-learn-from-evidence",
+            "kf-add-test-coverage",
+            "kf-learn-from-evidence"
+          ],
+          "observedStopping": "complete after focused test-only stale-corpus-hash protection is added and verified without production changes, then Learning closes the persistence contract against that evidence",
+          "rationale": "Independent incidents support durable regression evidence, but production behavior is already correct and the exact authorized artifact is test-only. Learning routes to retrospective coverage rather than feature or bug work and re-enters for contract closeout.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-051",
+          "observedPrimary": "kf-learn-from-evidence",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-learn-from-evidence"
+          ],
+          "observedStopping": "authority-boundary with a persistence contract only; persistence remains incomplete because no already-authorized parent workflow owns the non-Context contributor documentation",
+          "rationale": "Independent evidence supports an exact canonical documentation update, but Learning never performs writes. The document is not effective Codex context and no authorized parent owner exists, so it must neither misuse Context nor invent a writer or verification claim.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        }
+      ]
+    },
+    {
+      "runId": "raw-v2-risk-2026-08-28",
+      "model": "inherited-parent-model-identifier-unavailable",
+      "reasoningConfig": "inherited-default-exact-effort-unavailable",
+      "blindInputHash": "da12aface73fcaa2d56b7dd9adc6d8090c04f6ff10abf9f039076881613a6a42",
+      "evaluatorMode": "independent-blind-read-only",
+      "observations": [
+        {
+          "caseRef": "case-004",
+          "observedPrimary": "kf-verify-change",
+          "observedComposed": [
+            "kf-delegate-specialist"
+          ],
+          "observedSequence": [
+            "kf-verify-change",
+            "kf-delegate-specialist",
+            "kf-verify-change"
+          ],
+          "observedStopping": "Stop with an evidence-backed ready, not ready, or indeterminate verdict after the verification owner reconciles the PostgreSQL specialist's locking and rollback evidence; do not edit the plan or code.",
+          "rationale": "The request is a distinct readiness review of an existing migration plan, so kf-verify-change owns the result. The expressly requested bounded read-only PostgreSQL review composes kf-delegate-specialist, whose advisory evidence returns to the verification owner for reconciliation and final judgment.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-024",
+          "observedPrimary": "kf-learn-from-evidence",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-learn-from-evidence",
+            "kf-maintain-context",
+            "kf-learn-from-evidence"
+          ],
+          "observedStopping": "Complete only after Learning confirms the repeated evidence supports the exact authorized rule, Context places it in root AGENTS.md and verifies effective loading, and Learning compares the persisted outcome and verification result with the contract.",
+          "rationale": "Three independent failures are a durable learning signal, while the prompt supplies exact intended behavior, destination, scope, and authority. Learning must issue the persistence contract; kf-maintain-context is the sole writer and effective-context verifier for AGENTS.md; Learning must re-enter for closeout.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-026",
+          "observedPrimary": "kf-maintain-context",
+          "observedComposed": [
+            "kf-delegate-specialist"
+          ],
+          "observedSequence": [
+            "kf-maintain-context",
+            "kf-delegate-specialist",
+            "kf-maintain-context"
+          ],
+          "observedStopping": "Complete the audit after the parent reconciles both bounded read-only member audits into a repository-wide context result; stop without writes because the request authorizes an audit, and do not transfer integration or readiness to specialists.",
+          "rationale": "The substantive request is an effective-context audit, owned by kf-maintain-context. Verified independent apps/api and apps/web boundaries plus permitted sub-agents satisfy its delegation gate, so kf-delegate-specialist is composed for the two bounded audits and returns evidence to the parent owner.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-032",
+          "observedPrimary": "kf-design-change",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-design-change",
+            "kf-implement-feature",
+            "kf-verify-change",
+            "kf-fix-bug",
+            "kf-verify-change",
+            "kf-learn-from-evidence",
+            "kf-maintain-context",
+            "kf-learn-from-evidence"
+          ],
+          "observedStopping": "Complete only after the design is finalized, the authorized feature is implemented, verification reaches a fresh final verdict after any demonstrated existing-contract regression is fixed and re-verified, and the supported authorized storage rule is placed, scope-verified, and closed by Learning. Stop earlier as incomplete, not ready, or indeterminate if any required owner cannot complete its phase.",
+          "rationale": "The request explicitly begins with a design phase, which hands its compact contract to feature implementation. Independent verification owns readiness; a demonstrated old-contract regression routes to kf-fix-bug and then back to verification. The three independent rollout failures create a separate durable learning signal whose exact authorized Context rule must flow Learning to Context and back to Learning.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-037",
+          "observedPrimary": "kf-verify-change",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-verify-change",
+            "kf-implement-feature",
+            "kf-verify-change"
+          ],
+          "observedStopping": "Stop with a fresh ready, not ready, or indeterminate verdict on the current artifact after the newly accepted audit-column feature is implemented when missing and independently re-verified against both the original target and accepted addition.",
+          "rationale": "A readiness review of an existing export change belongs to kf-verify-change. The prompt classifies the conditional finding as missing newly accepted behavior rather than an old-contract defect, so correction belongs to kf-implement-feature, followed by re-entry into verification rather than a reused verdict.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-038",
+          "observedPrimary": "kf-verify-change",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-verify-change",
+            "kf-refactor-code",
+            "kf-verify-change"
+          ],
+          "observedStopping": "Stop with a fresh ready, not ready, or indeterminate verdict after the authorized behavior-preserving deduplication is completed when demonstrated and the current artifact is independently re-verified for readiness and unaffected behavior.",
+          "rationale": "The initial and final result is readiness verification. Duplicated internal validation whose removal must preserve behavior is a structural correction owned by kf-refactor-code, not a method composed inside verification; correction then returns to kf-verify-change for a new verdict.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-042",
+          "observedPrimary": "kf-add-test-coverage",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-add-test-coverage",
+            "kf-implement-feature",
+            "kf-add-test-coverage"
+          ],
+          "observedStopping": "Complete the original coverage request only after the newly accepted audit-column feature is implemented when confirmed and the coverage owner re-enters against the current artifact, reruns the focused and proportionate checks, and reports test-only scope separately from the authorized production change.",
+          "rationale": "The requested result is retrospective protection of existing documented behavior, owned by kf-add-test-coverage. A confirmed audit column that is newly accepted behavior routes to kf-implement-feature under the same authorization, then returns to the coverage workflow for fresh closeout rather than being treated as a bug or TDD.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        },
+        {
+          "caseRef": "case-044",
+          "observedPrimary": "kf-learn-from-evidence",
+          "observedComposed": [],
+          "observedSequence": [
+            "kf-learn-from-evidence",
+            "kf-maintain-context",
+            "kf-learn-from-evidence"
+          ],
+          "observedStopping": "While the Context owner is unavailable, stop at the authority boundary with the unchanged persistence contract ready and persistence incomplete. When that owner becomes available in this task, complete only after the same contract is placed and discovery, scope, precedence, and byte usage are verified, then Learning compares the persisted result with the contract.",
+          "rationale": "The supplied exact authorized persistence contract remains governed by Learning's owner-handoff and closeout rules. Learning cannot write or substitute a generic writer while kf-maintain-context is unavailable; once available, Context is the sole effective-context writer and verifier, and the result must return to Learning.",
+          "mutationObserved": false,
+          "contaminationObserved": false
+        }
+      ]
+    }
+  ],
+  "judgeRuns": [
+    {
+      "judgeRunId": "judge-v2-2026-08-28",
+      "model": "inherited-parent-model-identifier-unavailable",
+      "evaluatorMode": "independent-post-hoc-read-only",
+      "judgments": [
+        {
+          "caseRef": "case-001",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The run confines editing to the named billing instruction file, consults ancestors only for inheritance, verifies loading, and ends without entering sibling packages.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The stated action boundary is services/billing/AGENTS.md and its inherited chain."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The rationale expressly rejects expansion into neighboring packages."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-002",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The run creates a narrowly useful repository entry from checked facts, validates discovery and size behavior, and leaves user-level configuration alone.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Initialization is tied to verified repository evidence and a useful project entry."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The rationale explicitly rejects boilerplate-only initialization."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The stop condition excludes changes to the user's global profile."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-003",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The audit ends after reporting selected, hidden, empty, fallback, clipped, and runtime-loaded sources, with no edit phase.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The rationale evaluates override selection and fallback discovery using the effective instruction chain."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "Empty candidates are treated as selection-affecting rather than skipped as harmless."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The result calls out both hidden fallback content and byte-limit clipping."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "Runtime-loaded sources are part of the report, with limitations reportable if direct confirmation is unavailable."
+            },
+            {
+              "index": 4,
+              "pass": true,
+              "evidence": "The observation records no mutation and the stopping statement forbids edits."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-004",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28",
+            "raw-v2-risk-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "Both runs return the bounded database review to the verifier, reconcile it into a fresh readiness outcome, and stop without changing the plan or code.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The verifier remains responsible for the migration-plan assessment and final verdict."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The PostgreSQL reviewer is restricted to advisory locking and rollback analysis with no write authority."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "Each sequence returns to verification after delegation so the specialist material is integrated before reporting."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-005",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The database evidence is returned to the design owner, incorporated into rollout and rollback decisions, and the work ends before any implementation.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Design keeps responsibility for alternatives, constraints, decisions, and the final migration contract."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The specialist contributes bounded locking and rollback findings without making changes."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The stop statement explicitly ends ahead of production editing."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-006",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The run makes the small serializer addition from established examples, executes the focused check, and ends without delegation or structural expansion.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Repeated local examples are sufficient for the feature owner to perform the work directly."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The rationale refuses to treat a small routine task as grounds for a specialist handoff."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-007",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The deliverable ends at a detailed migration plan covering operations, reversibility, evidence, decisions, and risk, with production untouched.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The observation explicitly stops before production edits."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The planned output includes the decisions and acceptance material needed by a later implementation owner."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-008",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The run delivers the smallest complete export, checks its emitted behavior with real tooling, reports limits, and does not transfer ownership.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "CSV export is classified as a new capability under the feature owner's control."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The stopping statement requires actual observable-output checks scaled to the change."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-009",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "After focused failing and passing slices, control returns to feature implementation for wider validation and a completion report containing the test evidence.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Feature implementation retains decisions about the CSV capability and its integration."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The composed method is limited to test-first Red-Green-Refactor order and proof."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-010",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The run requires a genuine failing regression before correction, returns to the bug owner for compatibility checks, and permits an honest incomplete result.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Bug fixing retains responsibility for cause, repair boundaries, and unaffected reconnect semantics."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "A credible pre-fix failure and post-fix pass are required before completion."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-011",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The run uses the established billing-service surface for the test cycle, rejects test-convenience API changes, then returns to the feature owner.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Production structure remains a feature-level decision rather than a test-method decision."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The proposed public interface and formatter exposure are rejected because they serve only the first test."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "Failing and passing checks are placed at the existing observable service boundary or a test-side harness."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "The stopping rule still demands credible focused before-and-after test evidence."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-012",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The run refuses fabricated failure evidence and a test-only injection layer, reports the missing seam, and returns the structural decision to the bug owner.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The bug workflow, not the testing method, retains control over production boundaries."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "No dependency-injection layer is accepted merely to enable a test."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The seam limitation and best available feedback mechanism are required in the result."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "A consequential unresolved boundary causes a stop or return to the owning bug workflow."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-013",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The accepted adapter boundary is used for focused test cycles, then feature implementation completes integration and checks conformance.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The adapter is supported by the accepted design and three analogous integrations."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "Its usefulness for testing does not negate its independent architectural justification."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The feature owner keeps authority over the provider architecture."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "Focused failing and passing results remain a required part of completion."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-014",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The unsupported public-API test seam is rejected; the test must be repaired against the accepted service boundary or unresolved conflict must go back to design.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The incompatible first test is not allowed to drive production edits and must be replaced or escalated."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The accepted service boundary survives instead of being silently displaced."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "Feature implementation remains the production-structure owner throughout the alternating sequence."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "Any material conflict with the accepted design is surfaced to design rather than concealed."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-015",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The run ends with cause, supporting material, alternatives, unknowns, confidence, and a recommended next owner, without correcting the product.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The observation records no product mutation and explicitly stops before a fix."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The diagnosis report includes confidence, alternatives, and unknowns tied to available evidence."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-016",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "Diagnosis is published first; only a demonstrated contract defect enters bug repair, followed by a separate verdict against the original reconnect symptom.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The sequence and stop statement place the evidence-backed diagnosis ahead of any correction."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "A proven old-behavior defect is handed to the dedicated bug workflow."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The final verifier receives the original symptom, intended behavior, diagnosis, and corrected current state."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-017",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The run narrows the duplication cleanup, requires meaningful equivalence checks and final-diff inspection, and reports anything still unproven.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Public behavior is protected by explicit before-and-after validation evidence."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The rationale keeps the task purely structural and excludes new behavior or incidental repairs."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-018",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The run reviews the complete in-scope change, performs non-writing checks, reports findings and risk, and ends with a calibrated readiness category.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The measurement-only review records no intentional artifact edits."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The required conclusion is one of three explicit readiness states, including uncertainty when evidence is insufficient."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-019",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "An initial verdict precedes conditional bug repair, and verification then starts anew on the corrected billing artifact and original 61-second target.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The stopping language publishes the first assessment before any handoff."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "Only bug fixing mutates the demonstrated old-contract regression."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "Post-repair assessment is recomputed from the original billing expectation and current code."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-020",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The accepted plan is unpacked and checked against current repository facts before the smallest complete storage change is made and validated.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The rationale requires extracting the design's decisions, limits, exclusions, evidence needs, unknowns, and affected interfaces."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "Material assumptions are checked against the present repository prior to editing."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The plan guides implementation but does not itself grant or replace execution authority."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-021",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "Implementation halts when the persistence boundary no longer matches the design and returns the architectural choice to design without inventing a substitute.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The changed persistence boundary is explicitly surfaced as consequential drift."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The sequence returns to design before any replacement architecture can be chosen or built."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-022",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The isolated database outage is classified as weak environmental evidence, and the run ends without proposing or writing lasting guidance.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "A solitary infrastructure failure is rejected as proof of a reusable workflow lesson."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "No persistence owner is invoked and no durable artifact is changed."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-023",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The run assesses repeated misrouting and contrary evidence, produces a bounded proposal with ownership and verification details, and stops before any writer handoff.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Three separate routing failures are evaluated together with possible contrary cases."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The proposed lesson includes its boundary, artifact destination, confidence, authority status, responsible writer, and later check."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The stop statement leaves the proposal unpersisted and does not dispatch an artifact owner."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-024",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28",
+            "raw-v2-risk-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "Both runs condition placement on supporting evidence, reserve the AGENTS.md edit and effective-chain checks for Context, then return to Learning for contract closure.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Learning evaluates the three incidents and emits the already-authorized exact lesson as a handoff, without writing it."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The root instruction-file mutation is assigned solely to Context maintenance."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "After placement, Context checks selection, intended reach, precedence interactions, and remaining instruction budget."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "The final Learning phase compares the actual persisted outcome and Context's new evidence to the original contract."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-025",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The root instruction audit is performed directly, limited to necessary inheritance evidence, and ends without edits, delegation, or monolith-wide expansion.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Context maintenance itself performs the named-file review."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The rationale explicitly rejects spawning helpers merely because the repository is a monolith."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-026",
+          "observationRunIds": [
+            "raw-v2-a-2026-08-28",
+            "raw-v2-risk-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The two proven workspace members receive separate advisory audits, after which the parent reconciles inherited context and produces the sole completion result.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Delegated evidence contracts cover only apps/api and apps/web, whose independence was established."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "Both runs explicitly bar evaluator writes and keep delegated work advisory."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The parent retains cross-boundary reconciliation, conflicts, possible writes, integration, and the final audit claim."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-027",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The run ends only after focused retrospective tests and broader checks pass, with changes restricted to tests and limitations disclosed.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The rationale derives assertions from already-established behavior rather than the current implementation alone."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "This is explicitly retrospective coverage, so an immediate pass is not presented as a test-first failure."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The stop rule limits this workflow's diff to test artifacts."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "A product disagreement is classified and sent to a different workflow instead of repaired by coverage."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-028",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "A demonstrated reconnect-contract failure is handed to bug fixing; coverage resumes only after repair and publishes new results on the corrected artifact.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Coverage owns the protection outcome, while the bug phase alone owns the product repair."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The coverage phase's own modifications stay confined to tests despite the separately authorized production change."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "On re-entry, the original focused regression and wider relevant checks are run again."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "Completion is freshly issued after correction rather than inherited from the first attempt."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-029",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The unavailable repair environment leaves both correction and original coverage unfinished; the run neither resumes coverage nor claims success.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The mismatch and the environment preventing its repair are both retained in the report."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "No completed repair or post-repair passing result is asserted."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The coverage outcome remains explicitly incomplete because its prerequisite correction did not finish."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "The stop language refuses any authority expansion to work around the unavailable environment."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-030",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The exact GraphQL instruction is placed and checked first, then the endpoint is implemented and validated, with policy reconsideration excluded.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The pre-decided mandate goes straight to Context rather than a learning assessment."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The endpoint's observable behavior is assigned to feature implementation."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "Any unresolved endpoint architecture would leave implementation and return to design."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-031",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "Only the checked command and ownership facts are added, followed by effective-context checks, and the run ends without deriving a mandate from examples.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Repository commands and ownership details are placed at the smallest useful instruction scope after verification."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The rationale distinguishes factual documentation from a newly inferred behavioral rule."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-032",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28",
+            "raw-v2-risk-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "Both runs preserve the full conditional chain, name honest early-stop conditions, and avoid claiming downstream phases when design, repair, evidence, ownership, or verification blocks progress.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Design emits a compact execution contract and feature implementation checks current facts before applying it."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "Verification independently assesses readiness before correction and recomputes it afterward."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "Each write is assigned to feature, bug, or Context according to the artifact being changed."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "Learning assesses the supplied exact lesson and creates a contract while remaining non-writing."
+            },
+            {
+              "index": 4,
+              "pass": true,
+              "evidence": "Context alone places the root rule and checks that the effective instruction chain loads it correctly."
+            },
+            {
+              "index": 5,
+              "pass": true,
+              "evidence": "The terminal Learning phase compares placement and owner evidence back to its original contract."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-033",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The run stops at a calibrated diagnosis and next-owner recommendation; any necessary logging must be safe, temporary, and removed.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The workflow is diagnosis-led and bars changes to product behavior."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "Instrumentation is allowed only under the stated necessity and safety constraints and must not remain accidentally."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The single investigation sequence contains no repair phase."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-034",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "A contract mismatch is reported with bug fixing as the recommendation, but the run stops without handing off correction and can report coverage incomplete.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The workflow's edits are limited to tests and do not touch production artifacts."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "A proven disagreement is surfaced together with the appropriate future owner."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "Because repair permission is withheld, no correction workflow is entered."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-035",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The CSV boundary is designed first, handed to feature implementation, checked against current facts, built, and validated at the observable output.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The initial design phase produces the concrete contract consumed by implementation."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "Only the feature phase makes the product behavior change."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "Implementation confirms relevant repository assumptions before editing."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-036",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The active feature owner changes the heading to status, reruns its focused check, and ends without creating a reusable lesson or switching workflows.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The requested revision remains within the ongoing CSV feature task."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The current output is updated and the relevant focused test is rerun."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The rationale excludes durable-learning treatment for this one-task correction."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-037",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28",
+            "raw-v2-risk-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "Both runs require classification and an initial verdict before the authorized feature addition, then a new readiness assessment against both the initial target and accepted column.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The missing audit behavior is reported by verification before any product edit."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "Feature implementation alone adds the newly accepted column."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "Final assessment uses the original review target, the accepted extension, and the current post-change artifact."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "The verifier publishes a newly computed outcome rather than carrying forward the first one."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-038",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28",
+            "raw-v2-risk-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The structural finding is reported first, refactoring conditionally removes duplication, and verification then independently checks readiness and behavior preservation.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The initial verifier records the duplicated validation before mutation begins."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The refactor owner exclusively performs the internal behavior-neutral cleanup."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The post-change check covers the original readiness target and unchanged external behavior."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "A fresh verdict is required after refactoring; the prior assessment cannot be reused."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-039",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "Readiness is withheld while compatibility duration and rollback authority remain undecided; those choices go to design and execution does not begin.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Verification explicitly identifies the missing acceptance and migration decisions."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "Design receives only decision ownership and no permission to implement."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The stop condition forbids a successful readiness claim before authorized execution and later reassessment."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-040",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The diagnosis is reported before any write; a newly accepted audit-column expectation goes to feature implementation, followed by independent assessment of the resulting artifact.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Evidence and classification precede the conditional correction sequence."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "A new expectation is routed as feature work and not mislabeled as an old-contract bug."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "Feature implementation is the sole product mutation owner."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "Verification receives the initial symptom, accepted target, diagnosis, and current implemented state."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-041",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The run first establishes why the paths diverge, then assigns a purely structural correction to refactoring and separately verifies consolidation and unchanged behavior.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The evidence-backed cause is reported ahead of edits."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "A correction defined by structural consolidation with unchanged public semantics is sent to refactoring."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The refactor phase alone performs the mutation."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "The terminal verifier freshly checks both the internal target and unaffected observable behavior."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-042",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28",
+            "raw-v2-risk-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "Coverage remains primary, conditionally hands the new audit-column behavior to feature implementation, then resumes only to run new focused and broader results on the current artifact.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Coverage's own diff stays in tests while feature implementation exclusively changes production."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The accepted addition is classified as a new capability and therefore avoids bug routing."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "After feature completion, the original regression and relevant wider suite are executed again."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "The first coverage outcome is discarded in favor of results from the updated artifact."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-043",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "After the failing assessment and bug handoff, the unavailable environment halts the chain with a not-ready or uncertain result and no repair or reassessment claim.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The original failing assessment remains the operative result when correction cannot run."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The missing correction environment is explicitly named as the blocking condition."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The run does not assert either a completed repair or a post-repair verification."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "Readiness remains adverse or uncertain, and no extra authority is invented."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-044",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28",
+            "raw-v2-risk-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "Both observations preserve the unchanged contract during owner absence, resume with the actual Context owner, require effective-chain checks, and return to Learning for closure.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "While Context is unavailable, the state remains unfinished and no alternate writer is installed."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The same authorized contract, not a rewritten policy, is handed off when the owner returns."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "Context maintenance alone performs the instruction-file edit."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "Owner verification covers selection, intended reach, precedence effects, and instruction-budget use."
+            },
+            {
+              "index": 4,
+              "pass": true,
+              "evidence": "Learning's final phase compares the placed rule and newly produced Context evidence to the preserved contract."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-045",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "Context places the exact pre-decided generation rule, validates its effective behavior and content, and ends without reopening the policy question.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The directly authorized mandate proceeds without a Learning phase."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The root AGENTS.md placement is owned by Context maintenance."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The run checks file selection, intended reach, precedence, and remaining byte capacity after placement."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-046",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "Learning evaluates the incidents and can emit the authorized contract, but stops unfinished because the sole Context writer is unavailable.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The evidence decision and exact handoff contract are produced without an AGENTS.md edit."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "Owner unavailability leaves durable placement explicitly unfinished."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "No replacement writer, mutation, or effective-context check is claimed."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-047",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "A supported stale-hash lesson is contracted to bug fixing, which supplies the repair and regression evidence before Learning compares the result and closes.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Learning specifies the authorized scorer correction but does not edit the scorer."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "Accepting stale hashes is treated as a proven defect in existing behavior and sent to bug fixing."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The bug owner must report the causal correction and a focused regression result."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "Learning re-enters to compare the repaired scorer and owner-produced validation with its contract."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-048",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "A supported need for the new stopping field is handed to feature implementation for validated delivery, after which Learning compares the implementation to its contract.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Learning defines the authorized behavior contract without coding the field."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "The additional machine-readable capability is correctly assigned to feature implementation."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The feature owner is required to supply acceptance checks and state remaining uncertainty."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "The last Learning phase compares owner-verified behavior to the original contract."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-049",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "A supported consolidation contract goes to the refactor owner, which must preserve hashing behavior and provide evidence before Learning closes.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Learning describes the authorized consolidation but performs no structural edit itself."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "Unchanged-behavior deduplication is assigned to refactoring."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "The owner must demonstrate equivalence and disclose validation limitations."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "Learning compares the resulting canonical structure and owner checks to the contract."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-050",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The supported stale-corpus regression contract is handed to retrospective coverage for test-only validation, then returned to Learning for comparison and closure.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "Learning defines the authorized evidence artifact without adding the test."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "Because product behavior is already right, the regression is assigned to the coverage owner."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "Coverage is constrained to tests and must report focused plus relevant broader results."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "Learning's final comparison uses the resulting regression evidence and the owner's verification."
+            }
+          ]
+        },
+        {
+          "caseRef": "case-051",
+          "observationRunIds": [
+            "raw-v2-b-2026-08-28"
+          ],
+          "stoppingPass": true,
+          "stoppingEvidence": "The run produces only the contributor-documentation contract and stops unfinished because no authorized owning workflow exists, without choosing a substitute.",
+          "invariants": [
+            {
+              "index": 0,
+              "pass": true,
+              "evidence": "The contract identifies the canonical contributor document and confines the proposed update to its stated boundary."
+            },
+            {
+              "index": 1,
+              "pass": true,
+              "evidence": "A Markdown extension alone does not trigger Context maintenance or another K Fleet writer."
+            },
+            {
+              "index": 2,
+              "pass": true,
+              "evidence": "With no authorized parent workflow for that document, placement remains unfinished."
+            },
+            {
+              "index": 3,
+              "pass": true,
+              "evidence": "No alternate writer, document edit, or post-write verification is asserted."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

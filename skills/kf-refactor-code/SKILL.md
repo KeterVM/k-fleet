@@ -31,8 +31,17 @@ Make a focused structural improvement with behavior preservation as the default.
 9. Report material deviations from an accepted design and whether its acceptance
    evidence was satisfied.
 10. If verified evidence indicates a recurring defect in the reusable refactoring
-   method, routing, or guidance rather than the current structure alone, hand the
-   signal to `kf-learn-from-evidence`; do not persist a lesson in this workflow.
+    method, routing, or guidance rather than the current structure alone, hand the
+    signal to `kf-learn-from-evidence`; do not persist a lesson in this workflow.
+
+Report the structural goal and outcome, behavior-preservation evidence, checks and
+results, validation limits, unproven equivalence, and material deviations from an
+accepted design.
+
+This workflow is complete when the concrete structural goal is achieved,
+observable behavior is preserved to the available evidence, change-caused
+failures are resolved, and validation limits are explicit. Otherwise stop as
+incomplete or blocked.
 
 ## Constraints
 

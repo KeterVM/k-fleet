@@ -234,9 +234,13 @@ The machine-readable cases under [`evals`](evals) cover primary routing, method
 composition, specialist delegation, correction and re-verification, design
 handoff, learning gates, context-maintenance delegation boundaries, and the full
 design-to-Context closure sequence. Eval-corpus lint checks only syntax, referenced
-skills, expected coverage, and evidence freshness; it does not execute prompts or
-prove routing behavior. Behavioral scoring must be performed by an independent,
-blind, read-only evaluator that receives prompts without their expected answers.
+skills, expected coverage, structured observations, and evidence freshness; it
+does not execute prompts or prove routing behavior by itself. Independent, blind,
+read-only evaluators receive anonymous prompts and a neutral rubric without
+semantic IDs, modes, or expected answers. Their frozen raw rationale and stopping
+results are hashed before a separate judge maps hidden invariants, while
+deterministic scoring binds the complete result to source, corpus, blind-input,
+evaluation-tooling, raw-observation, result, and protocol hashes.
 Current source-hashed full-loop evidence is recorded in
 [`evals/CLOSURE_EVAL_REPORT.md`](evals/CLOSURE_EVAL_REPORT.md); the current
 source-hashed trigger-boundary evidence is recorded in
@@ -264,9 +268,9 @@ cd examples/fleet-ledger && npm test
 ```
 
 The first command validates packaging and documentation, the second lints the eval
-specification and checks the current behavioral-evidence hash, and the fixture test
-exercises the example application. None substitutes for an independent behavioral
-run of the harness prompts.
+specification, scores current structured observations, and checks all behavioral-
+evidence hashes, and the fixture test exercises the example application. None
+substitutes for an independent behavioral run of the harness prompts.
 
 ## License
 
