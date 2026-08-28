@@ -62,3 +62,17 @@ runs of the highest-risk decision boundaries.
 mislabelled, authority-seeking, and intentionally unsupported prompts.
 [`DELEGATE_SPECIALIST_EVAL_REPORT.md`](DELEGATE_SPECIALIST_EVAL_REPORT.md) records
 an actual parent-to-specialist read-only handoff and integration run.
+
+The isolated [`bounded-quality`](bounded-quality) experiment compares the current
+single-owner workflows, a stronger single-owner quality contract, and an
+experimental sole-writing-expert topology. Its candidate skill is intentionally
+outside `skills/` and the installed fixture: it does not change the eleven-skill
+public contract or count as behavioral evidence until blind artifact runs satisfy
+its promotion gate. [`BOUNDED_QUALITY_PILOT_REPORT.md`](BOUNDED_QUALITY_PILOT_REPORT.md)
+records the first instruction-blind smoke run, the detected fixture contamination,
+the later isolation limitations, and the decision not to promote. Validate the
+experiment specification with:
+
+```sh
+node scripts/bounded-quality-experiment.mjs validate
+```

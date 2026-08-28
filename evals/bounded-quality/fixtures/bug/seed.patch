@@ -1,0 +1,10 @@
+diff --git a/src/fleet-ledger.js b/src/fleet-ledger.js
+--- a/src/fleet-ledger.js
++++ b/src/fleet-ledger.js
+@@ -35,5 +35,5 @@ export function tripDurationMinutes(trip) {
+   const milliseconds =
+     new Date(trip.endedAt).getTime() - new Date(trip.startedAt).getTime();
+ 
+-  return Math.ceil(milliseconds / 60_000);
++  return Math.floor(milliseconds / 60_000);
+ }

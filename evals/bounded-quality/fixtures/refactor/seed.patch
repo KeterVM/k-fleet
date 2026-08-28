@@ -1,0 +1,28 @@
+diff --git a/src/fleet-ledger.js b/src/fleet-ledger.js
+--- a/src/fleet-ledger.js
++++ b/src/fleet-ledger.js
+@@ -1,2 +1,10 @@
+-import { normalizeId, requirePositiveNumber } from './validation.js';
++import { normalizeId } from './validation.js';
++
++function requirePositiveNumber(value, label) {
++  if (typeof value !== 'number' || !Number.isFinite(value) || value <= 0) {
++    throw new TypeError(`${label} must be a positive number`);
++  }
++
++  return value;
++}
+ 
+diff --git a/src/reporting.js b/src/reporting.js
+--- a/src/reporting.js
++++ b/src/reporting.js
+@@ -1,2 +1,8 @@
+-import { requirePositiveNumber } from './validation.js';
++function requirePositiveNumber(value, label) {
++  if (typeof value !== 'number' || !Number.isFinite(value) || value <= 0) {
++    throw new TypeError(`${label} must be a positive number`);
++  }
++
++  return value;
++}
+ 

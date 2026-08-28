@@ -1,0 +1,108 @@
+{
+  "protocolVersion": 2,
+  "fixture": "examples/fleet-ledger",
+  "arms": ["A", "B", "C"],
+  "scenarios": [
+    {
+      "id": "feature-csv-export",
+      "family": "feature",
+      "primarySkill": "skills/kf-implement-feature/SKILL.md",
+      "prompt": "Add exportTripSummaryCsv(trips) to the existing reporting module. Return CSV with the exact header vehicleId,totalDistanceKm, sort rows by normalized vehicle id, group distances by vehicle, return only the header for an empty array, and reject a non-array with TypeError: trips must be an array. Match the existing pure reporting style and add focused behavioral tests. Do not add dependencies or unrelated extension points.",
+      "seedPatch": null,
+      "allowedPaths": [
+        "src/reporting.js",
+        "test/reporting.test.js"
+      ],
+      "hiddenTest": "hidden-tests/feature-csv-export.test.js",
+      "mandatoryBehaviors": [
+        "exact header and empty result",
+        "normalized vehicle grouping",
+        "summed distance per vehicle",
+        "deterministic vehicle-id ordering",
+        "non-array TypeError"
+      ],
+      "slopTraps": [
+        "CSV dependency",
+        "exporter or repository class",
+        "new service directory",
+        "generic formatting framework",
+        "unrequested quoting or schema surface"
+      ]
+    },
+    {
+      "id": "bug-partial-minute",
+      "family": "bug",
+      "primarySkill": "skills/kf-fix-bug/SKILL.md",
+      "prompt": "Fix the known defect where a 61-second trip is reported as one minute instead of two. Preserve exact whole-minute behavior and all other trip behavior. Reproduce the defect, identify the calculation error, add focused regression coverage, and make the smallest root-cause correction.",
+      "seedPatch": "fixtures/bug/seed.patch",
+      "allowedPaths": [
+        "src/fleet-ledger.js",
+        "test/fleet-ledger.test.js"
+      ],
+      "hiddenTest": "hidden-tests/bug-partial-minute.test.js",
+      "mandatoryBehaviors": [
+        "60 seconds is one minute",
+        "61 seconds is two minutes",
+        "119 seconds is two minutes",
+        "120 seconds is two minutes",
+        "trip validation and immutability remain intact"
+      ],
+      "slopTraps": [
+        "new date utility module",
+        "cross-module time refactor",
+        "public API addition",
+        "error-message drift"
+      ]
+    },
+    {
+      "id": "refactor-positive-validation",
+      "family": "refactor",
+      "primarySkill": "skills/kf-refactor-code/SKILL.md",
+      "prompt": "Remove the duplicated positive-number validation without changing any public behavior. Establish a passing baseline first, reuse the existing validation module, keep the change reversible, and avoid unrelated cleanup or new dependencies.",
+      "seedPatch": "fixtures/refactor/seed.patch",
+      "allowedPaths": [
+        "src/fleet-ledger.js",
+        "src/reporting.js",
+        "src/validation.js"
+      ],
+      "hiddenTest": "hidden-tests/refactor-positive-validation.test.js",
+      "mandatoryBehaviors": [
+        "vehicle efficiency validation unchanged",
+        "trip distance validation unchanged",
+        "fuel price validation unchanged",
+        "error types and messages unchanged",
+        "public exports unchanged"
+      ],
+      "slopTraps": [
+        "validator class",
+        "schema framework",
+        "new validation dependency",
+        "public validator API expansion",
+        "opportunistic renaming"
+      ]
+    },
+    {
+      "id": "test-only-maintenance-order",
+      "family": "test-only",
+      "primarySkill": "skills/kf-add-test-coverage/SKILL.md",
+      "prompt": "Add retrospective coverage for the existing rule that equally overdue maintenance items are ordered by vehicle id. Production behavior is already intended to be correct. Use the public listDueMaintenance boundary, keep the change test-only, and report the expected immediate pass honestly.",
+      "seedPatch": null,
+      "allowedPaths": [
+        "test/maintenance.test.js"
+      ],
+      "hiddenTest": "hidden-tests/test-only-maintenance-order.test.js",
+      "mandatoryBehaviors": [
+        "equal overdue values sort by vehicle id",
+        "test uses the public maintenance boundary",
+        "test fails when the tie-break is removed",
+        "production files remain unchanged"
+      ],
+      "slopTraps": [
+        "production comparator edit",
+        "private comparator export",
+        "sorting algorithm copied into the test",
+        "unrelated coverage cleanup"
+      ]
+    }
+  ]
+}

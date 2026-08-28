@@ -245,6 +245,11 @@ Current source-hashed full-loop evidence is recorded in
 [`evals/CLOSURE_EVAL_REPORT.md`](evals/CLOSURE_EVAL_REPORT.md); the current
 source-hashed trigger-boundary evidence is recorded in
 [`evals/TRIGGER_BOUNDARY_EVAL_REPORT.md`](evals/TRIGGER_BOUNDARY_EVAL_REPORT.md).
+An isolated [`evals/bounded-quality`](evals/bounded-quality) experiment evaluates
+whether a sole writing expert plus read-only quality roles improves real artifacts
+beyond a stronger single-owner contract. The candidate remains outside the core
+skill catalog until its correctness, authority, and anti-slop promotion gates are
+demonstrated.
 
 ## Releases
 
