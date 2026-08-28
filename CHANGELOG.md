@@ -4,6 +4,8 @@ Notable changes to K Fleet are recorded here.
 
 ## Unreleased
 
+## [1.4.0] - 2026-08-29
+
 ### Changed
 
 - Tightened investigation and retrospective-coverage authority so diagnosis and
@@ -11,16 +13,27 @@ Notable changes to K Fleet are recorded here.
 - Clarified design-first combined requests, current-task feedback, durable-learning
   signals, and the boundary between execution validation and independent
   verification.
-- Split repository structure validation from eval-corpus lint; behavioral evidence
-  now records and validates the exact skill-source SHA-256 instead of being implied
-  by structural checks.
+- Kept TDD as a composable method while feature and bug workflows retain production
+  design, compatibility, and final closeout ownership.
+- Added explicit completion contracts to feature, bug, and refactor workflows, and
+  deterministic non-Context persistence ownership with Learning re-entry.
+- Split repository structure validation from eval-corpus lint and introduced a
+  versioned anonymous two-stage evaluation protocol with frozen raw observations,
+  an independent post-hoc judge, repeat coverage for high-risk cases, and source,
+  tooling, corpus, blind-input, raw-observation, and result hashes.
+- Corrected Fleet Ledger maintenance thresholds so canonical decimal equality is
+  preserved without epsilon ambiguity, while non-representable and overflowing
+  plans fail explicitly.
 
 ### Validated
 
-- Four independent blind read-only evaluators passed the new trigger-boundary cases
-  on fresh reruns, with copied skill sources unchanged before and after evaluation.
-- Repository structure, eval-corpus metadata, and the Fleet Ledger fixture remain
-  separately verifiable.
+- Fifty-one anonymous routing and closure cases produced 59 observations, including
+  repeated high-risk cases, and passed deterministic scoring by a separate judge.
+- Isolated execution tests exercised feature, bug, verification-only, specialist
+  delegation, and Learning-to-Context-to-Learning workflows with hidden assertions
+  and mutation checks.
+- Three read-only specialists independently reviewed the final maintenance fix;
+  the 11-skill structure, evaluation metadata, and all 22 Fleet Ledger tests pass.
 
 ## [1.3.0] - 2026-08-25
 
