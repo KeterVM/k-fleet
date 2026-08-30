@@ -7,6 +7,18 @@ description: Add or strengthen automated coverage for already-implemented intend
 
 Protect already-existing intended behavior with a focused test-only change.
 
+## Delegation gate
+
+Compose `kf-delegate-subtask` when a bounded role materially improves test quality
+or cost. Use a quality-first read-only reasoner or reviewer when the intended
+contract, oracle independence, concurrency, security, or boundary fidelity is
+difficult. Use an efficient worker only for a repetitive, well-specified test-only
+slice with exact ownership of test paths and stable commands. The worker receives
+no production-write authority. Keep small local tests with the parent, do not
+parallelize shared fixtures or snapshots, and independently inspect non-trivial
+delegated coverage before completion when that separation materially improves
+confidence. This workflow retains the test-only boundary and coverage result.
+
 ## Workflow
 
 1. Establish the behavior to protect, its acceptance source, the test-only scope,

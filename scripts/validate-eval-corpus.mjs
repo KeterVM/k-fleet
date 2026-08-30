@@ -86,7 +86,7 @@ for (const mode of ["routing", "composition", "sequence", "handoff", "learning",
 
 const primarySkills = new Set(evalCases.map((entry) => entry.expected?.primary));
 for (const skill of expectedSkills.filter((skill) => ![
-  "kf-delegate-specialist",
+  "kf-delegate-subtask",
   "kf-test-driven-change",
 ].includes(skill))) {
   if (!primarySkills.has(skill)) fail(`Harness evals do not route a primary case to ${skill}`);
@@ -139,10 +139,18 @@ if (!evalCases.some((entry) => entry.expected?.primary === "kf-maintain-context"
   && (entry.expected?.invariants ?? []).some((value) => value.includes("no new behavioral policy")))) {
   fail("Harness evals do not separate context facts from new behavioral policy");
 }
-if (!evalCases.some((entry) => entry.id === "durable-rule-then-feature"
+if (!evalCases.some((entry) => entry.id === "direct-authorized-policy"
   && entry.expected?.primary === "kf-maintain-context"
   && (entry.expected?.forbidden ?? []).includes("kf-learn-from-evidence"))) {
   fail("Harness evals do not route direct authorized policy to context maintenance");
+}
+if (!evalCases.some((entry) => entry.id === "durable-rule-then-feature"
+  && entry.expected?.primary === "kf-maintain-context"
+  && JSON.stringify(entry.expected?.sequence) === JSON.stringify([
+    "kf-maintain-context",
+    "kf-implement-feature",
+  ]))) {
+  fail("Harness evals do not preserve direct policy placement before the later feature outcome");
 }
 if (!evalCases.some((entry) => entry.id === "repeated-independent-learning-signal"
   && entry.expected?.primary === "kf-learn-from-evidence"
@@ -182,6 +190,9 @@ for (const id of [
   "learning-refactor-persistence-owner",
   "learning-regression-evidence-owner",
   "learning-documentation-parent-owner-unavailable",
+  "delegate-hard-review-quality-first",
+  "delegate-efficient-worker-then-review",
+  "delegate-read-parallel-write-serial",
 ]) {
   if (!ids.has(id)) fail(`Harness evals do not cover trigger boundary ${id}`);
 }

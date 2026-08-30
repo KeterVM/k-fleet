@@ -1,78 +1,40 @@
 # K Fleet Closure Eval Report
 
-Date: 2026-08-28
+Date: 2026-08-30
 
-Repository base: `4c477fe616ec8e3bf8498760814008678873d9fc` with the
-working-tree Skill, corpus, and evaluation-tooling changes described below.
+Repository base: `75eff05de514251121d9020b0be3edb75f532746`
 
-Skill source SHA-256: `9b1ba8f26023df757fdf9e17e76192e778a5c69134a829b240099fa208d4ef1b`
+Skill source SHA-256: `2027fbc26d821c0d75ee694a889c605db244a1afc69f7cdc4134e86c3a1d3926`
 
-Eval corpus SHA-256: `3f0f3a7f0bc18a373fcdf5629fee03c5656bb0f2fe61f74b7a0b58e5027df8d0`
+Eval corpus SHA-256: `0ecd71b80948ff435aae55ae59d8904f77dd148ce71f0382590857b2c0daa674`
 
-Blind input SHA-256: `da12aface73fcaa2d56b7dd9adc6d8090c04f6ff10abf9f039076881613a6a42`
+Blind input SHA-256: `c0d0c34c8a938f70bcc711bf72fdcb844a12ad0ea4e4d07ba24b1718ef6c49ce`
 
-Eval tooling SHA-256: `6750e95e095c4279e43dc69294a7615646d747a88c2960515635d828d1e3c5a7`
+Eval tooling SHA-256: `fe6645f5ab6246c42d6da016ecab16555cfa72e281f1c737dccb269e331b50a8`
 
-Raw observation SHA-256: `b58c26e4a099b83965bd1f1e0d91e904f377e932c1be9561360db91c56e76c1e`
+Raw observation SHA-256: `35642d4b36d990d7905074de0e43519e412910d4f7d72291b50bc341ffe78f72`
 
-Results SHA-256: `6e7b04270c80c36395199b9fa1cc9a928e0d5a7b9b529a676da6751b85129ab2`
+Results SHA-256: `deffc7ef900e346c97d091b84e989772685fa83d4221da16884f32bbcd619363`
 
 Eval protocol version: `2`
 
 Evaluator mode: independent, blind, read-only
 
-## Scope
+## Fresh evaluation
 
-Two fresh sub-agent evaluators received the current eleven Skill sources, a neutral
-field rubric, and anonymous `case-NNN` prompts without semantic IDs, modes, or
-expectations. They froze raw routing, stopping, and rationale. A third fresh
-evaluator repeated eight highest-risk cases, and a separate post-hoc judge mapped
-the frozen evidence to hidden invariants. All reported no contamination or
-mutations; raw observations and judgments are recorded separately in
-`current-results.json`.
+Two fresh `gpt-5.6-sol/high` blind evaluators produced 64 read-only observations across 54 cases. A separate `gpt-5.6-sol/xhigh` post-hoc judge passed all 179 invariants. Contaminated/superseded earlier runs were excluded; raw observations and judgments are preserved in `current-results.json`.
 
-The run exercised these corpus cases and adjacent degradation scenarios:
+The required closure boundaries all pass:
 
-- `full-closure-sequence`;
-- `repeated-independent-learning-signal`;
-- `authorized-learning-context-persistence`;
-- `direct-authorized-policy`; and
-- `learning-context-owner-unavailable`;
-- `learning-context-owner-resume`;
-- `verify-feature-reverify`;
-- `verify-refactor-reverify`; and
-- `coverage-feature-correction-reentry`.
-- `learning-defect-persistence-owner`;
-- `learning-feature-persistence-owner`;
-- `learning-refactor-persistence-owner`;
-- `learning-regression-evidence-owner`; and
-- `learning-documentation-parent-owner-unavailable`.
-
-## Fresh results
-
-| Boundary | Result |
+| Case ID | Outcome |
 | --- | --- |
-| Full closure | Selected `design → implement → verify → fix → verify → learn → maintain context → learn`; the final Learning re-entry compares persistence with the contract and records the owner's verification. |
-| Proposal only | Learning evaluates recurrence and counterevidence, emits the narrow proposal, and stops without persistence. |
-| Exact authorized learning contract | Learning remains non-writing and conditionally hands the exact evidence-backed contract to `kf-maintain-context`, which owns the Context write and effective-scope verification. |
-| Direct exact policy | An already-decided exact root policy routes directly to `kf-maintain-context`, followed by the separately authorized feature; Learning is not invoked. |
-| Missing Context owner | Learning emits the authorized persistence contract but stops with persistence incomplete, no substitute writer, no mutation, and no verification claim. |
-| Context owner resumes | Learning preserves the exact contract while the owner is unavailable, hands the same contract to Context maintenance when available, then re-enters to close the contract. |
-| Correction-owner coverage | Fresh cases select `verify → feature → verify`, `verify → refactor → verify`, and `coverage → feature → coverage` with mutation and closeout retained by their owners. |
-| Non-Context persistence owners | Fresh anonymous cases select bug, feature, refactor, and coverage owners by intended mutation, return to Learning for contract closeout, and stop incomplete when no authorized parent owns ordinary documentation. |
+| `full-closure-sequence` | The complete sequence returns through verification and Learning, then Context maintenance, and closes the persistence contract. |
+| `repeated-independent-learning-signal` | Repetition plus independent evidence is required before a durable proposal or persistence contract. |
+| `authorized-learning-context-persistence` | Learning remains non-writing and hands the exact authorized contract to `kf-maintain-context`, which writes and verifies scope. |
+| `direct-authorized-policy` | An already-decided exact policy routes directly to Context maintenance; Learning is not invented. |
+| `learning-context-owner-unavailable` | Persistence stops incomplete when the authorized Context owner is unavailable; no substitute writer or verification claim is made. |
+| `learning-context-owner-resume` | The exact contract survives owner unavailability, then re-enters Learning for closeout after Context writes and verifies it. |
 
-The evaluator retained the material evidence gates. An implementation contract is
-not treated as immutable or as authorization. Initial and post-correction
-verification are fresh assessments against the original target. Stated recurrence
-still requires accessible independent evidence before persistence, and unavailable
-artifact ownership stops the write rather than broadening authority.
+Verification re-entry remains verification-only: `verify-feature-reverify` and `verify-refactor-reverify` route correction to the applicable owner and require a fresh verdict against the original target. TDD remains a composable sequencing method under the substantive feature/bug owner and does not own architecture; retrospective coverage re-enters after an authorized correction. Non-Context persistence owners are selected by intended mutation, while an unavailable or unauthorized owner stops the contract without broadening authority.
 
-## Verdict
-
-The current Skill sources remain behaviorally closed for the evaluated complete
-sequence, correction-owner re-entry, proposal-only refusal, exact authorization,
-direct-policy routing, Context and non-Context owner selection, missing-owner
-degradation, and owner recovery. Exact model and reasoning identifiers were not
-available to the evaluator runtime and are recorded as such in the structured
-results. This was a decision-level evaluation; it does not claim that hypothetical
-product changes, historical incident evidence, or runtime Context loading occurred.
+This is decision-level evidence; it does not claim hypothetical product changes, historical incident evidence, or runtime Context loading occurred.

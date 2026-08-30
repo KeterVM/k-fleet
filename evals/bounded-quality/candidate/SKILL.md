@@ -47,7 +47,7 @@ already mutation-sensitive test, or another direct local edit does not qualify.
 
 Do not enter merely because work is large, slow, difficult, unfamiliar, or could
 be parallelized. Keep routine local edits in the primary workflow. Use
-`kf-delegate-specialist` for bounded read-only domain evidence,
+`kf-delegate-subtask` for bounded read-only domain evidence,
 `kf-design-change` for unresolved structure, `kf-investigate-issue` for an
 unclear cause, and `kf-verify-change` for an existing artifact that only needs
 assessment.
@@ -154,7 +154,7 @@ alone is not a readiness verdict.
 
 - Use exactly one delegated writer. Scout, critic, and verifier are read-only.
 - Version one workers are only repository scout and test-risk critic. Domain or
-  security evidence remains `kf-delegate-specialist` when independently justified.
+  security evidence remains `kf-delegate-subtask` when independently justified.
 - Do not create agent trees by file, architectural layer, or test and
   implementation phase.
 - Do not treat persona labels as evidence of expertise.

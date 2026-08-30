@@ -6,7 +6,7 @@ export const protocolVersion = 2;
 
 export const expectedSkills = [
   "kf-add-test-coverage",
-  "kf-delegate-specialist",
+  "kf-delegate-subtask",
   "kf-design-change",
   "kf-fix-bug",
   "kf-implement-feature",
@@ -19,7 +19,7 @@ export const expectedSkills = [
 ];
 
 export const blindRubric = {
-  observedPrimary: "The single substantive workflow that owns the requested result.",
+  observedPrimary: "The first substantive workflow entered from the request. Later substantive owners belong in observedSequence, not observedComposed.",
   observedComposed: "Only reusable method skills composed inside the primary workflow; sequential correction, verification, persistence, and re-entry owners belong only in observedSequence.",
   observedSequence: "Every workflow and method phase in execution order, including returns to an owner for closeout.",
   observedStopping: "The final ready, complete, incomplete, blocked, indeterminate, proposal-only, or authority-boundary state and why it stops there.",
@@ -107,6 +107,8 @@ export function scoreResults(evalCases, results, hashes) {
   const runIds = new Set();
   const requiredRepeatIds = new Set([
     "delegate-explicit-specialist",
+    "delegate-hard-review-quality-first",
+    "delegate-efficient-worker-then-review",
     "verify-feature-reverify",
     "verify-refactor-reverify",
     "coverage-feature-correction-reentry",
@@ -217,6 +219,9 @@ export function scoreResults(evalCases, results, hashes) {
       failures.push(`${prefix} duplicates judgeRunId`);
     } else judgeRunIds.add(judgeRun.judgeRunId);
     if (typeof judgeRun.model !== "string" || !judgeRun.model) failures.push(`${prefix} must name model`);
+    if (typeof judgeRun.reasoningConfig !== "string" || !judgeRun.reasoningConfig) {
+      failures.push(`${prefix} must record reasoningConfig`);
+    }
     if (judgeRun.evaluatorMode !== "independent-post-hoc-read-only") {
       failures.push(`${prefix} must use independent-post-hoc-read-only evaluatorMode`);
     }

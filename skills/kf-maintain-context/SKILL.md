@@ -28,19 +28,21 @@ integration, and final verification.
 
 ## Delegation gate
 
-Delegation is optional and must not broaden the maintenance scope. Use read-only
-sub-agents only when current policy permits and at least two non-overlapping,
-independently owned context boundaries can be audited with less coordination cost
-than direct work.
+Compose `kf-delegate-subtask` without broadening the maintenance scope when current
+policy permits and at least two non-overlapping, independently owned context
+boundaries can be audited with less coordination cost than direct work. Use
+read-only explorer or reviewer roles; select a quality-first reviewer only for
+difficult precedence, conflict, or policy reasoning and a balanced or efficient
+explorer for clear subtree inventory.
 
 - Keep ordinary monolith maintenance with the parent. Size or unfamiliarity alone
   does not justify delegation.
 - In a repository-wide monorepo audit, the parent owns root and cross-member
   context; evaluators may inspect separate members or subtrees.
-- Give each evaluator one explicit boundary and require inherited instructions,
+- Give each sub-agent one explicit boundary and require inherited instructions,
   local instructions, evidence-backed candidates, conflicts outside its boundary,
   and unknowns.
-- Evaluators do not edit. The parent resolves duplicates and conflicts, performs
+- Sub-agents do not edit. The parent resolves duplicates and conflicts, performs
   every write, integrates the result, and owns final verification.
 - Do not delegate overlapping scopes or work smaller than the handoff overhead.
 

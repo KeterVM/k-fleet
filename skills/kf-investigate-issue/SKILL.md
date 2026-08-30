@@ -8,6 +8,17 @@ description: Investigate unclear, intermittent, unexpected, or performance-relat
 Turn an unclear symptom into a calibrated diagnosis without prematurely changing
 the system.
 
+## Delegation gate
+
+Compose `kf-delegate-subtask` when independent evidence materially improves the
+diagnosis. Use a quality-first read-only reasoner for difficult causal analysis,
+security, concurrency, data corruption, or conflicting hypotheses; use balanced
+or efficient explorers for non-overlapping logs, services, or reproduction paths;
+use a specialist for a concrete domain question. Parallelize only evidence tracks
+that do not depend on one another. Sub-agents do not mutate product behavior or
+choose the correction owner. This workflow reconciles contradictions and owns the
+diagnosis, confidence, and authorized handoff.
+
 ## Workflow
 
 1. Define the observed behavior, expected behavior, frequency, environment,

@@ -7,6 +7,20 @@ description: Add or modify a capability in an existing codebase. Use for request
 
 Deliver the smallest complete behavior change that fits the repository.
 
+## Delegation gate
+
+Compose `kf-delegate-subtask` after the outcome and boundaries are stable when a
+bounded subtask materially improves quality, speed, context isolation, or model
+cost. Use a quality-first read-only reasoner for difficult architecture, algorithm,
+concurrency, migration, or edge-case questions. Use an efficient or balanced
+worker only for a deterministic implementation slice with exact write ownership
+and objective checks. Keep routine local edits with the parent, keep shared
+integration surfaces under one writer, and never split overlapping production and
+test writes across agents. After non-trivial delegated writes are integrated,
+obtain a fresh read-only review when actor-level independence would materially
+improve confidence or applicable guidance requires it; this workflow still owns
+correction and completion.
+
 ## Workflow
 
 1. Clarify the observable outcome, constraints, compatibility expectations, and

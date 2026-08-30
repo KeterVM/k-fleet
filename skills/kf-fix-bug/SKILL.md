@@ -8,6 +8,19 @@ description: Diagnose and correct a known defect, including a root-cause change 
 Correct the root cause with the smallest safe change while preserving unaffected
 behavior.
 
+## Delegation gate
+
+Compose `kf-delegate-subtask` when a bounded role materially improves the
+correction. Use a quality-first read-only reasoner for difficult diagnosis,
+concurrency, security, data-integrity, or cross-boundary hypotheses; use an
+efficient or balanced worker only after root cause and the exact correction slice
+are stable. Do not delegate symptom patching before diagnosis, run competing
+writers over the same fix, or let a worker broaden the demonstrated defect. After
+non-trivial delegated writes are integrated, obtain a fresh read-only review when
+actor-level independence would materially improve confidence or applicable
+guidance requires it. This workflow owns root cause, correction, regression
+evidence, and final completion.
+
 ## Workflow
 
 1. Identify the reported symptom, expected behavior, scope, and available evidence.

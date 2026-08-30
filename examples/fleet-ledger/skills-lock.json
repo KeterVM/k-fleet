@@ -4,47 +4,47 @@
     "kf-add-test-coverage": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "8505079686f94babaae546415c411dd91f58f4d0bd186fb1298b5856f1100017"
+      "computedHash": "c8ff2fc1b0fb83bd1b7696b6a9e6afdc2f0b7e9cd77e00cc7b232730fc94a6d3"
     },
-    "kf-delegate-specialist": {
+    "kf-delegate-subtask": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "7606feac3759a0ffd47b3bb1116eef43f9ffbd5a5c57baa24fed91a05d2cc982"
+      "computedHash": "55f479016d8d9bda4f658035c9120a7505510df1eb5764e7e8ffb5b580a89052"
     },
     "kf-design-change": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "dae74ebe360db2f62491cf4f4c47a031b4cc793b5ead54f72b0ae9c65434b8f1"
+      "computedHash": "50c8730ba0d952a1d215a69a599fe58bc46855aaf4049fb5581b5414f85071f7"
     },
     "kf-fix-bug": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "141bd4d1c5e57c54c7599d639a9af6e735fd40dea16dce3d14a3a260aa325ea9"
+      "computedHash": "68b628c2b7e83ea2d172f32d631d73622c0347b73b50c2572e7a63fe613a720d"
     },
     "kf-implement-feature": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "1735b2640b9e2cb1ca0cdf09c1ba67148aff44392efc98a740dfef9104b766c8"
+      "computedHash": "c97fbc2ea78ad7a544095c3a82d999a6de60b2f369b58ccbc6cc6a01478a86c2"
     },
     "kf-investigate-issue": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "c0f5804661a03afb7cbaea68dd97fa35edc8c8069e1c6758de498e7aa62bf292"
+      "computedHash": "3643627f7ee03c707912f87f2db14554da7acc6cb9afb884cb0ff1e97d42f621"
     },
     "kf-learn-from-evidence": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "b9b54777afefa569deb9f44fd2dfc36a2099865b36c6e59eddef9d2c89e630a3"
+      "computedHash": "c3ceb100d9308e67e457a78c19463f0247320e7ab926d87a88bed9c712ad8092"
     },
     "kf-maintain-context": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "a2aac735c0682d45b505b1c06aa39a3a4cc9c5335fa7cd24598d31e485070ce8"
+      "computedHash": "063ebedb9d997837a804da3c013867dcce68afeef7becd152e30275ec936e8d9"
     },
     "kf-refactor-code": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "f422d587046c6f27c1eb627245976b7944c32139901445ce916aaeda65b7a764"
+      "computedHash": "c002dd4fb40ecf3be95f7bfbe2c3d7b2f591c2ee37e5daf2629516dccbbf3200"
     },
     "kf-report-skill-usage": {
       "source": "../../skills",
@@ -54,12 +54,12 @@
     "kf-test-driven-change": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "8ccaf3968f8a9e217405a059b082cb5e96258deccda3f1ee1d657c12d8806515"
+      "computedHash": "e11cefd1417de500b742557330a5b25eaab4b8ff553dd12b85473f7164d39977"
     },
     "kf-verify-change": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "a44c42d5c19ca0bc584b4e97d9dce793d53c05b7c94602284e3607b59471b3c9"
+      "computedHash": "97d4068818880f7b5739b4965adedefd8256c594cece432b26a8d82c99592af5"
     }
   }
 }

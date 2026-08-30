@@ -16,12 +16,27 @@ Notable changes to K Fleet are recorded here.
 
 - Kept the eleven core workflow skills and their source-hashed behavioral evidence
   distinct from the new feedback-reporting boundary.
+- Replaced the specialist-only delegation method with `kf-delegate-subtask`, which
+  treats reviewer, verifier, reasoner, explorer, worker, and specialist as distinct
+  roles, selects model capability by difficulty, and enforces exclusive write
+  ownership plus fresh post-integration review for non-trivial delegated changes.
+- Added proportional delegation gates to design, implementation, bug fixing,
+  investigation, refactoring, test coverage, TDD, Context maintenance, and
+  verification while keeping routine local work with the primary workflow.
+- Clarified that an existing-contract violation remains bug-owned during durable
+  persistence, that unavailable TDD Red evidence returns control to the owning
+  feature or bug workflow, and that multi-stage evals name their first substantive
+  workflow as primary.
 
 ### Validated
 
 - Independent isolated forward runs passed inline reporting, ordinary-summary
   non-trigger, unknown-provenance, sanitization, and single-report-artifact
   boundaries without modifying the K Fleet worktree.
+- Two fresh strong-model blind evaluators produced 64 read-only observations over
+  54 routing cases, including strong reviewer, efficient worker, and
+  read-parallel/write-serial delegation. A separate high-reasoning judge passed
+  all 179 hidden invariants without repository mutation.
 
 ## [1.4.1] - 2026-08-29
 

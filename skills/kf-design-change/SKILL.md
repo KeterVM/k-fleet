@@ -9,6 +9,17 @@ Produce an evidence-based design that another engineer or agent can implement
 without rediscovering its material decisions. Default to read-only analysis; create
 or update a design document only when the user requests or authorizes that write.
 
+## Delegation gate
+
+Compose `kf-delegate-subtask` when a bounded independent question materially
+improves the design. Use a quality-first read-only reasoner, reviewer, or specialist
+for difficult architecture, migration, security, data, concurrency, or operational
+tradeoffs. Use balanced read-only explorers for proven non-overlapping repository
+boundaries when parallel evidence collection saves meaningful time. Do not
+delegate product decisions, run overlapping design writers, or let an agent's
+recommendation replace repository evidence and user authority. This workflow owns
+the alternatives, tradeoffs, final recommendation, and implementation contract.
+
 ## Workflow
 
 1. Define the observable target state, acceptance evidence, scope, non-goals, and

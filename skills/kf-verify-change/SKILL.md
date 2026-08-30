@@ -12,11 +12,17 @@ hand off. Verification measures and reports; it does not correct.
 
 Verification independence means a fresh, non-mutating assessment against the
 target and current artifact, separated from the workflow that owns correction. It
-does not imply a different agent unless the user or applicable guidance explicitly
-requires actor-level independence. When a separate evaluator is required, use an
-available permitted read-only mechanism and report its evidence and limitations;
-if none is available, report that requirement as unverified rather than claiming
-independence.
+does not always require a different actor for small, low-risk checks. For a
+non-trivial or high-risk review, compose `kf-delegate-subtask` when a permitted
+sub-agent can materially improve independence or quality: use a fresh quality-first
+read-only reviewer or verifier with the strongest suitable available model and
+high or `xhigh` reasoning for difficult correctness, security, migration,
+concurrency, or edge-case analysis. Give it the original target and current
+artifact without the implementer's conclusion as an expected answer. Keep direct
+verification with the parent when the change is routine and delegation overhead is
+not justified. This workflow reconciles all evidence and owns the readiness
+verdict. When required actor-level independence is unavailable, report it as an
+unverified requirement rather than claiming it occurred.
 
 1. Establish the verification target: requested outcome, observable acceptance
    criteria, artifact or diff scope, compatibility constraints, and relevant

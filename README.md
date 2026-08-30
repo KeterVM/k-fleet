@@ -3,8 +3,8 @@
 K Fleet is a small, reusable collection of eleven core Codex workflow skills plus
 one feedback-reporting skill. It acts as a lightweight personal engineering
 harness: repository evidence supplies the local context, while the skills supply
-consistent ways to maintain that context, add test coverage, delegate specialist
-questions, implement, debug, investigate, refactor, verify, learn from evidence,
+consistent ways to maintain that context, delegate bounded sub-agent work, add
+test coverage, implement, debug, investigate, refactor, verify, learn from evidence,
 and export real-use feedback for K Fleet maintainers.
 
 K Fleet is intentionally not a generic prompt library, a framework-specific
@@ -16,7 +16,7 @@ documentation, or a large catalog of technology-specific skills.
 | Intent | Skill | Boundary |
 | --- | --- | --- |
 | Add tests for existing behavior | `kf-add-test-coverage` | Makes a test-only change for retrospective or characterization coverage; a discovered product mismatch is reported with a recommended owner and is not handed off without correction authority. |
-| Obtain bounded specialist evidence | `kf-delegate-specialist` | Selects and briefs a read-only specialist sub-agent, then returns advisory evidence to the owning workflow; it does not transfer scope, writes, integration, or verification. |
+| Delegate a bounded subtask | `kf-delegate-subtask` | Selects a reviewer, verifier, reasoner, explorer, worker, or specialist; matches model capability to difficulty, isolates writes, and returns evidence to the owning workflow without transferring scope, integration, or final authority. |
 | Initialize or maintain repository context | `kf-maintain-context` | Creates missing `AGENTS.md` guidance when useful and authorized, then keeps the effective instruction chain scoped, compact, discoverable, and verified. |
 | Design a code change before implementation | `kf-design-change` | Produces an evidence-based implementation contract without modifying production code; combined requests hand authorized implementation to its execution owner. |
 | Add or modify behavior | `kf-implement-feature` | Handles capabilities, not known defects, behavior-preserving refactors, investigations, or verification-only requests. |
@@ -28,14 +28,14 @@ documentation, or a large catalog of technology-specific skills.
 | Evaluate evidence for durable learning | `kf-learn-from-evidence` | Detects and assesses signals that a method, route, or guidance should change, then emits an authorization-gated persistence contract without editing the durable artifact. |
 
 Primary skills are split by workflow and user intent, not by frontend, backend,
-database, language, or framework. `kf-delegate-specialist`,
+database, language, or framework. `kf-delegate-subtask`,
 `kf-test-driven-change`, and `kf-learn-from-evidence` are composable method skills:
-the primary workflow owns the current result, delegation obtains bounded expert
-evidence, TDD owns its test-first loop, and learning evaluates whether evidence
+the primary workflow owns the current result, delegation obtains bounded
+collaboration, TDD owns its test-first loop, and learning evaluates whether evidence
 justifies changing the reusable controller. Tests provide feedback about behavior;
-they do not define production architecture. An explicit specialist request still
-routes by its substantive design, investigation, verification, or execution
-intent; delegation does not become the primary workflow. Technology-specific
+they do not define production architecture. An explicit sub-agent or specialist
+request still routes by its substantive design, investigation, verification, or
+execution intent; delegation does not become the primary workflow. Technology-specific
 behavior should come from the target repository's code, `AGENTS.md`,
 documentation, canonical examples, and purpose-built specialists when their
 evidence is needed.
@@ -70,7 +70,7 @@ skills only when their discipline is relevant:
 ```text
 request
 -> primary workflow
--> optional specialist evidence
+-> optional bounded subtask delegation
 -> optional test-driven method
 -> internal feedback and result evidence
 -> optional independent verification
@@ -82,9 +82,10 @@ request
 ```
 
 This is a routing contract, not a requirement to invoke every skill. Each active
-workflow performs its own proportionate validation. Independent verification runs
-only when requested or required by applicable guidance; when correction is also
-authorized, `kf-verify-change` owns the fresh verdict before and after the
+workflow performs its own proportionate validation. A fresh read-only sub-agent is
+preferred for non-trivial or high-risk review when its independence and quality
+justify the handoff; routine local checks remain with the parent. When correction
+is also authorized, `kf-verify-change` owns the fresh verdict before and after the
 applicable execution workflow mutates the artifact. Investigation similarly
 reports its diagnosis before handing an authorized correction to its execution
 owner. Durable behavioral rules that still need a decision go through
@@ -105,10 +106,13 @@ evidence, unresolved assumptions, and affected boundaries. Execution and
 verification revalidate material repository facts rather than treating the design
 as immutable or as authorization to implement.
 
-Specialist delegation is read-only and evidence-seeking by default. It is used
-when the user asks for expert assistance or a concrete domain question would
-materially reduce risk. The specialist does not own the task, authorize changes,
-or replace the parent's integration and verification responsibilities.
+Sub-agent delegation is role-based rather than specialist-only. Difficult review,
+verification, and reasoning use the strongest suitable available model with
+proportionate reasoning effort; clear repeatable work may use a cost-efficient
+worker. Read-heavy independent work may run in parallel. Writes require exact
+exclusive ownership, default to one writer per coherent slice, and stop before a
+fresh reviewer starts. The parent always retains scope, authorization, integration,
+conflict resolution, shared surfaces, and user-facing completion.
 
 Separately from this flow, explicit post-work feedback follows:
 

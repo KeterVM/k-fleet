@@ -64,7 +64,11 @@ the active task workflow.
    by intended mutation rather than filename: a demonstrated defect routes to
    `kf-fix-bug`; new or changed behavior to `kf-implement-feature`;
    behavior-preserving structure to `kf-refactor-code`; and test-only regression
-   evidence to `kf-add-test-coverage`. For documentation or another artifact not
+   evidence to `kf-add-test-coverage`. Classify against the artifact's established
+   contract before the durable lesson: behavior that already violates that
+   contract remains a bug correction even though fixing it changes output; use
+   feature ownership only for an accepted new capability or changed expectation.
+   For documentation or another artifact not
    owned by a K Fleet workflow, return the contract to the already-authorized
    parent workflow; if none exists, stop with persistence incomplete. Do not use
    `kf-maintain-context` merely because documentation is involved unless the

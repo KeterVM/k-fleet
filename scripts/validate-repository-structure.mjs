@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const coreSkills = [
   "kf-add-test-coverage",
-  "kf-delegate-specialist",
+  "kf-delegate-subtask",
   "kf-design-change",
   "kf-fix-bug",
   "kf-implement-feature",

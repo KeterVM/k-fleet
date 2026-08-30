@@ -11,6 +11,17 @@ structure, and authorization. This skill owns only test-first sequencing and
 Red-Green-Refactor evidence. A test demonstrates behavior; it does not authorize a
 production interface, directory, dependency boundary, or abstraction.
 
+## Delegation boundary
+
+When the primary workflow composes `kf-delegate-subtask`, preserve each
+Red-Green-Refactor cycle as one ordered reasoning and write chain. A bounded worker
+may own an entire stable vertical slice with exact test and production path
+ownership, but do not assign Red, Green, and Refactor to competing agents or let
+the parent edit the same slice concurrently. Read-only exploration and a fresh
+post-integration review may use separate agents when their value exceeds the
+handoff cost. Model choice follows the subtask's difficulty; TDD ordering does not
+by itself justify a strong model or an agent tree.
+
 ## Entry gate
 
 Before changing production behavior:
@@ -29,7 +40,10 @@ Before changing production behavior:
    dependency-injection layer, or public surface, the primary workflow must
    justify that structure from product or repository evidence; test convenience
    alone is insufficient. Return to the primary workflow or `kf-design-change`
-   when the material boundary is undecided.
+   when the material boundary is undecided. If no credible Red seam exists and no
+   design decision is required, report that TDD cannot be demonstrated and return
+   control to the primary workflow so it can use the strongest available feedback
+   loop without claiming TDD.
 4. Split the change into vertical slices that each deliver one observable behavior.
    Slice behavior, not production architecture: the first slice does not gain
    authority over the final module or directory structure. Do not write every

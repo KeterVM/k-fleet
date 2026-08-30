@@ -7,6 +7,19 @@ description: Improve internal code structure while preserving externally observa
 
 Make a focused structural improvement with behavior preservation as the default.
 
+## Delegation gate
+
+Compose `kf-delegate-subtask` when a bounded role materially improves behavior
+preservation or cost. Use a quality-first read-only reviewer or reasoner for a
+complex equivalence argument, compatibility boundary, or counterexample search.
+Use an efficient or balanced worker only for a reversible, well-specified slice
+with exact write ownership and stable pre-existing checks. Keep one writer for a
+coherent restructuring boundary and do not parallelize callers, public interfaces,
+or generated integration surfaces that can conflict. After non-trivial delegated
+writes are integrated, obtain a fresh read-only review when actor-level
+independence would materially improve confidence or applicable guidance requires
+it. This workflow owns the structural result and equivalence claim.
+
 ## Workflow
 
 1. Establish current observable behavior, compatibility constraints, and the

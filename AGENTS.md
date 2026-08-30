@@ -30,9 +30,10 @@ when the request or repository guidance requires that discipline:
 
 - `kf-add-test-coverage` adds retrospective tests for already-implemented intended
   behavior without changing production behavior or claiming TDD.
-- `kf-delegate-specialist` obtains bounded, read-only specialist evidence while
-  the primary workflow retains task ownership, writes, integration, and final
-  verification.
+- `kf-delegate-subtask` assigns bounded reviewer, verifier, reasoner, explorer,
+  worker, or specialist roles; matches model capability to difficulty, isolates
+  writes, and returns evidence while the primary workflow retains outcome and
+  integration ownership.
 - `kf-maintain-context` initializes and maintains effective Codex context,
   including `AGENTS.md` discovery, precedence, scope, size, routed documents, and
   runtime verification within the user's authority.
@@ -117,10 +118,12 @@ cd examples/fleet-ledger && npm test
   and proposals, but non-writing. Authorized proposals become persistence contracts
   for the workflow that owns the destination; `kf-maintain-context` is the sole
   writer and effective-chain verifier for Context artifacts.
-- Keep specialist delegation in the dedicated composable
-  `kf-delegate-specialist` method skill; specialists remain read-only while the
-  substantive primary workflow retains scope, writes, integration, and
-  verification. An explicit specialist request does not make the method primary.
+- Keep role-based sub-agent delegation in the dedicated composable
+  `kf-delegate-subtask` method skill. Use quality-first read-only agents for hard
+  review, verification, and reasoning; use efficient workers only for stable
+  bounded slices with exclusive write ownership. The substantive primary workflow
+  retains scope, authorization, integration, shared writes, and final completion;
+  an explicit sub-agent or specialist request does not make the method primary.
 - Keep cross-workflow closure portable: investigation reports evidence before an
   authorized correction handoff, verification owns fresh pre- and post-correction
   verdicts, retrospective coverage re-enters after its authorized correction,
