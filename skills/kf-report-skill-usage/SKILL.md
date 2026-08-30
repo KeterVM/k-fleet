@@ -25,8 +25,12 @@ another clearly delimited text format that an agent can consume reliably.
    guidance. Do not search unrelated project content merely to make the packet look
    complete.
 3. Record provenance when available. Prefer `skills-lock.json` source and hashes,
-   then accessible installed `SKILL.md` hashes or repository revision. Mark missing
-   provenance as `unknown`; never invent a version from the current K Fleet release.
+   then accessible installed `SKILL.md` hashes or repository revision. Record each
+   hash with its known algorithm and scope, and compare only values produced over
+   the same material by the same algorithm. Treat an undocumented lock
+   `computedHash` as an opaque identifier: a difference from a raw `SKILL.md`
+   SHA-256 is not drift evidence. Mark missing or incomparable provenance as
+   `unknown`; never invent a version from the current K Fleet release.
 4. Reconstruct the ordered skill trace. Distinguish:
    - skills observed as selected or loaded;
    - workflow phases explicitly handed off or re-entered;
@@ -46,7 +50,9 @@ another clearly delimited text format that an agent can consume reliably.
 7. Remove or generalize secrets, credentials, personal data, proprietary
    identifiers, raw logs, large code excerpts, and unrelated project detail. Keep
    only the smallest evidence needed to explain the observed skill behavior.
-8. Emit one self-contained feedback packet following the contract. Return it
+8. Emit one self-contained feedback packet following the contract. Before
+   returning it, confirm that the first and last non-empty lines are the exact
+   required envelope markers and that every required section is present. Return it
    inline by default. Write exactly one report artifact only when the user requests
    a file or supplies a destination. Do not send or submit it anywhere; the user
    transfers it to the K Fleet maintainer.

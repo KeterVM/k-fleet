@@ -64,6 +64,8 @@ for (const id of [
   "ongoing-work-not-reportable",
   "unknown-provenance-report",
   "sanitized-file-report",
+  "opaque-lock-hash-no-drift",
+  "yaml-envelope-required",
 ]) {
   if (!ids.has(id)) fail(`Feedback corpus does not cover ${id}`);
 }
@@ -97,6 +99,8 @@ if (!existsSync(reportPath)) {
     "unknown-provenance",
     "sanitization",
     "single-report-artifact",
+    "opaque-hash-domain",
+    "envelope self-check",
   ]) {
     if (!report.includes(boundary)) {
       fail(`${relative(root, reportPath)} does not record ${boundary}`);

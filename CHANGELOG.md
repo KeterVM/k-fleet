@@ -16,6 +16,9 @@ Notable changes to K Fleet are recorded here.
 
 - Kept the eleven core workflow skills and their source-hashed behavioral evidence
   distinct from the new feedback-reporting boundary.
+- Hardened feedback provenance so hashes are compared only when their algorithm
+  and material scope match, and added a final envelope self-check that rejects
+  markerless JSON or YAML as an incomplete portable packet.
 - Replaced the specialist-only delegation method with `kf-delegate-subtask`, which
   treats reviewer, verifier, reasoner, explorer, worker, and specialist as distinct
   roles, selects model capability by difficulty, and enforces exclusive write
@@ -30,9 +33,10 @@ Notable changes to K Fleet are recorded here.
 
 ### Validated
 
-- Independent isolated forward runs passed inline reporting, ordinary-summary
-  non-trigger, unknown-provenance, sanitization, and single-report-artifact
-  boundaries without modifying the K Fleet worktree.
+- A fresh independent isolated evaluator passed seven reporting scenarios,
+  including inline and file output, ordinary and ongoing-task non-triggers,
+  unknown provenance, opaque lock-hash domains, sanitization, and JSON/YAML
+  envelope boundaries, without modifying the K Fleet worktree.
 - Two fresh strong-model blind evaluators produced 64 read-only observations over
   54 routing cases, including strong reviewer, efficient worker, and
   read-parallel/write-serial delegation. A separate high-reasoning judge passed

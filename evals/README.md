@@ -48,10 +48,11 @@ but it does not claim that Codex executed these prompts correctly.
 
 `feedback-reporting.jsonl` separately specifies the explicit post-work trigger,
 ordinary-summary and ongoing-work non-triggers, unknown-provenance behavior,
-sanitization, agent-oriented packet fields, and report-only write boundary for
-`kf-report-skill-usage`. Run `node scripts/validate-feedback-reporting.mjs` to lint
-that specification. It is deliberately excluded from core-loop result hashes and
-does not claim behavioral execution.
+sanitization, agent-oriented packet fields, envelope self-check, opaque hash-domain
+handling, and report-only write boundary for `kf-report-skill-usage`. Run
+`node scripts/validate-feedback-reporting.mjs` to lint that specification. It is
+deliberately excluded from core-loop result hashes and does not claim behavioral
+execution.
 [`SKILL_USAGE_REPORT_EVAL_REPORT.md`](SKILL_USAGE_REPORT_EVAL_REPORT.md) records
 the separate independent forward run against the reporter's success, non-trigger,
 unknown-provenance, sanitization, and single-artifact boundaries.

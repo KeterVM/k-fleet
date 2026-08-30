@@ -49,7 +49,7 @@
     "kf-report-skill-usage": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "6c6d4fec52a726148c7e4844883ec30c30c95dea8d196c20996fed9107189165"
+      "computedHash": "0e0d21f2ec0abd5bae9ba2b2585b8eb0b1b96697a8760f57ea7f54940586266a"
     },
     "kf-test-driven-change": {
       "source": "../../skills",

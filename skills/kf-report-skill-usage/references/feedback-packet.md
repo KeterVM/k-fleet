@@ -10,6 +10,10 @@ Begin with the exact marker `K_FLEET_FEEDBACK_PACKET` and include
 `contract_version: 1`. End with `END_K_FLEET_FEEDBACK_PACKET` so copied packets can
 be separated from surrounding conversation.
 
+Before returning or writing the packet, check that these markers are the first and
+last non-empty lines. A valid inner JSON or YAML document without both markers is
+not a complete packet.
+
 Serialization is flexible. Use valid JSON or YAML when reliable; otherwise use
 clearly labelled structured text or Markdown. Preserve the logical field names
 below and represent unavailable values as `unknown` with a reason. Do not omit a
@@ -35,7 +39,12 @@ required section merely because its evidence is unavailable.
 - `version_drift`: observed drift, `none-observed`, or `unknown`.
 
 Record only relevant skill identities. Never treat the currently published K Fleet
-version as the version used in the reported task without direct evidence.
+version as the version used in the reported task without direct evidence. Record a
+hash's algorithm and scope when known. Compare hashes only when both were computed
+with the same algorithm over the same material. In particular, do not treat an
+undocumented lockfile `computedHash` differing from a raw `SKILL.md` SHA-256 as
+version drift; preserve both values as incomparable provenance and explain the
+limit.
 
 ### `task`
 
@@ -125,6 +134,9 @@ the packet as neither write authority nor proof of recurrence.
 
 - Prefer hashes, explicit skill announcements, handoff statements, validation
   results, and user corrections over stylistic similarity.
+- Treat hashes as evidence only within a known comparison domain. An opaque or
+  differently scoped hash can identify an installation but cannot prove drift by
+  disagreeing with a raw-file digest.
 - Keep short excerpts only when paraphrase would remove the routing evidence.
 - Label every non-obvious conclusion as observation or interpretation.
 - One task can demonstrate a boundary failure but cannot by itself prove that a
