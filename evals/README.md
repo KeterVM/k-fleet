@@ -1,6 +1,7 @@
 # K Fleet Harness Evals
 
-`harness-routing.jsonl` contains black-box prompts for evaluating routing,
+`harness-routing.jsonl` contains black-box prompts for evaluating the eleven core
+workflow skills' routing,
 composition, workflow sequencing, handoff, learning gates, and delegation
 boundaries. These cases test decisions and observable ownership rather than exact
 skill wording.
@@ -25,7 +26,8 @@ For an independent behavioral run:
 
 Every new current behavioral report must record:
 
-- `Skill source SHA-256`, computed over the sorted `skills/*/SKILL.md` source set;
+- `Skill source SHA-256`, computed over the explicitly enumerated eleven core
+  workflow `SKILL.md` sources;
 - `Eval corpus SHA-256`, `Blind input SHA-256`, `Eval tooling SHA-256`,
   `Raw observation SHA-256`, `Results SHA-256`, and `Eval protocol version`;
 - the repository revision or working-tree base used to build the fixture;
@@ -43,6 +45,16 @@ still produce the semantic evidence.
 Use a fresh task or independent agent so prior conclusions and expected answers do
 not leak into selection. The eval-corpus lint checks syntax and required coverage,
 but it does not claim that Codex executed these prompts correctly.
+
+`feedback-reporting.jsonl` separately specifies the explicit post-work trigger,
+ordinary-summary and ongoing-work non-triggers, unknown-provenance behavior,
+sanitization, agent-oriented packet fields, and report-only write boundary for
+`kf-report-skill-usage`. Run `node scripts/validate-feedback-reporting.mjs` to lint
+that specification. It is deliberately excluded from core-loop result hashes and
+does not claim behavioral execution.
+[`SKILL_USAGE_REPORT_EVAL_REPORT.md`](SKILL_USAGE_REPORT_EVAL_REPORT.md) records
+the separate independent forward run against the reporter's success, non-trigger,
+unknown-provenance, sanitization, and single-artifact boundaries.
 
 See [`FORWARD_EVAL_REPORT.md`](FORWARD_EVAL_REPORT.md) for the independent
 decision-level run and [`ARTIFACT_EVAL_REPORT.md`](ARTIFACT_EVAL_REPORT.md) for

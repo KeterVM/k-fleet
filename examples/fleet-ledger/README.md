@@ -25,4 +25,5 @@ See `SCENARIOS.md` and `TEST_REPORT.md` for the initial exercise. The maintenanc
 feature rerun is documented in `MAINTENANCE_SCENARIOS.md` and
 `MAINTENANCE_TEST_REPORT.md`. Dedicated design, TDD, guidance-maintenance, and
 retrospective test-coverage exercises use their matching `*_SCENARIO.md` and
-`*_TEST_REPORT.md` files.
+`*_TEST_REPORT.md` files. `SKILL_USAGE_REPORT_SCENARIO.md` describes the separate
+post-work feedback packet exercise.

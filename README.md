@@ -1,10 +1,11 @@
 # K Fleet
 
-K Fleet is a small, reusable collection of Codex workflow skills. It acts as a
-lightweight personal engineering harness: repository evidence supplies the local
-context, while the skills supply consistent ways to maintain that context, add test
-coverage, delegate specialist questions, implement, debug, investigate, refactor,
-verify, and learn from evidence.
+K Fleet is a small, reusable collection of eleven core Codex workflow skills plus
+one feedback-reporting skill. It acts as a lightweight personal engineering
+harness: repository evidence supplies the local context, while the skills supply
+consistent ways to maintain that context, add test coverage, delegate specialist
+questions, implement, debug, investigate, refactor, verify, learn from evidence,
+and export real-use feedback for K Fleet maintainers.
 
 K Fleet is intentionally not a generic prompt library, a framework-specific
 ruleset, an agent orchestration framework, a replacement for project
@@ -41,6 +42,25 @@ evidence is needed.
 
 All skill names use the compact `kf-` namespace to distinguish K Fleet skills from
 similarly named global or third-party skills.
+
+## Feedback reporting
+
+`kf-report-skill-usage` is installed with K Fleet but remains outside the eleven-
+skill workflow closure. After work reaches a terminal state in a target project,
+the user can invoke it explicitly to generate a sanitized, agent-oriented feedback
+packet describing observed skill selection, composition, handoffs, effects,
+corrections, provenance, and uncertainty.
+
+The packet uses a stable logical contract rather than requiring Markdown. It may
+be returned as JSON, YAML, clearly labelled text, Markdown, or another reliably
+delimited representation. The user copies or attaches it in the K Fleet source
+repository so a maintainer can compare the reported skill versions with current
+sources and decide whether the suite should change.
+
+The reporter does not resume the task, modify the target project, invoke
+`kf-learn-from-evidence`, edit K Fleet, submit data externally, or treat one report
+as proof of recurrence. It is an evidence-export boundary, not another controller
+inside the harness.
 
 ## Harness flow
 
@@ -89,6 +109,16 @@ Specialist delegation is read-only and evidence-seeking by default. It is used
 when the user asks for expert assistance or a concrete domain question would
 materially reduce risk. The specialist does not own the task, authorize changes,
 or replace the parent's integration and verification responsibilities.
+
+Separately from this flow, explicit post-work feedback follows:
+
+```text
+terminal work in a target project
+-> explicit kf-report-skill-usage request
+-> portable agent-oriented feedback packet
+-> user transports packet to the K Fleet source repository
+-> maintainer corroborates evidence and decides any suite change
+```
 
 ## Installation
 
@@ -151,7 +181,8 @@ architecture decisions belong in each repository.
 
 ## Usage
 
-Codex can route to these skills from intent; naming a skill explicitly is optional.
+Codex can route to the core workflow skills from intent; naming one explicitly is
+optional. The feedback reporter is intentionally requested after terminal work.
 For example:
 
 ```text
@@ -166,6 +197,7 @@ Investigate why reconnect sometimes happens twice.
 Refactor this service without changing behavior.
 Verify these changes.
 I rewrote the code you generated; evaluate automatically whether the evidence justifies a durable lesson.
+The work is finished. Use kf-report-skill-usage to export an agent-oriented K Fleet feedback packet for the maintainers.
 ```
 
 ## Philosophy
@@ -205,11 +237,12 @@ Its working principles are:
 - **Progressive disclosure:** keep global and repository-root guidance small; load
   detailed facts from their canonical documents or narrowest applicable scope.
 
-K Fleet should evolve through real use: observe repeated mistakes, correct the
-current result, and let `kf-learn-from-evidence` automatically evaluate whether the
-pattern justifies a durable proposal. It does not write the result: the authorized
-artifact owner applies and verifies it, with `kf-maintain-context` owning Context
-destinations.
+K Fleet should evolve through real use in two distinct ways. Inside a task,
+`kf-learn-from-evidence` evaluates whether credible evidence justifies a durable
+proposal but does not write it. Outside that task closure, an explicitly requested
+`kf-report-skill-usage` packet can carry sanitized usage evidence from another
+project back to K Fleet maintainers. The packet is input for corroboration and
+authorized maintenance, not a persistence contract or an automatic suite change.
 
 ## Example project
 
@@ -227,8 +260,10 @@ current initialization, discovery, precedence, size, and verification behavior;
 and `DESIGN_CHANGE_SCENARIO.md` covers implementation-
 ready design in `DESIGN_CHANGE_SCENARIO.md`. `TDD_SCENARIO.md` exercises the
 composable test-driven method, and `TEST_COVERAGE_SCENARIO.md` exercises
-retrospective test-only ownership. Their corresponding `*_TEST_REPORT.md` files
-record installation, routing, and validation results.
+retrospective test-only ownership. `SKILL_USAGE_REPORT_SCENARIO.md` exercises the
+separate post-work feedback boundary and agent-oriented packet contract. Their
+corresponding `*_TEST_REPORT.md` files record installation, routing, and validation
+results where behavioral runs exist.
 
 The machine-readable cases under [`evals`](evals) cover primary routing, method
 composition, specialist delegation, correction and re-verification, design
@@ -245,6 +280,8 @@ Current source-hashed full-loop evidence is recorded in
 [`evals/CLOSURE_EVAL_REPORT.md`](evals/CLOSURE_EVAL_REPORT.md); the current
 source-hashed trigger-boundary evidence is recorded in
 [`evals/TRIGGER_BOUNDARY_EVAL_REPORT.md`](evals/TRIGGER_BOUNDARY_EVAL_REPORT.md).
+The reporter's separate independent forward evidence is recorded in
+[`evals/SKILL_USAGE_REPORT_EVAL_REPORT.md`](evals/SKILL_USAGE_REPORT_EVAL_REPORT.md).
 An isolated [`evals/bounded-quality`](evals/bounded-quality) experiment evaluates
 whether a sole writing expert plus read-only quality roles improves real artifacts
 beyond a stronger single-owner contract. The candidate remains outside the core
@@ -269,13 +306,16 @@ Dependency-free checks are split by responsibility:
 ```sh
 node scripts/validate-repository-structure.mjs
 node scripts/validate-eval-corpus.mjs
+node scripts/validate-feedback-reporting.mjs
 cd examples/fleet-ledger && npm test
 ```
 
-The first command validates packaging and documentation, the second lints the eval
-specification, scores current structured observations, and checks all behavioral-
-evidence hashes, and the fixture test exercises the example application. None
-substitutes for an independent behavioral run of the harness prompts.
+The first command validates packaging and documentation, the second lints the core
+eval specification, scores current structured observations, and checks all core
+behavioral-evidence hashes, the third lints the feedback reporter's separate
+trigger and packet-contract cases, and the fixture test exercises the example
+application. None substitutes for an independent behavioral run of the relevant
+prompts.
 
 ## License
 

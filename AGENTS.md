@@ -2,9 +2,9 @@
 
 ## Purpose
 
-K Fleet is a source repository for eleven portable Codex workflow skills. Keep it
-small, readable as Markdown, workflow-based, and independent of any language or
-framework.
+K Fleet is a source repository for eleven portable Codex workflow skills plus one
+portable feedback-reporting skill. Keep it small, readable as Markdown,
+workflow-based, and independent of any language or framework.
 
 ## Repository map
 
@@ -17,6 +17,8 @@ framework.
   behavioral correctness.
 - `scripts/validate-eval-corpus.mjs` lints harness cases and checks that the current
   behavioral report names the exact skill-source hash; it does not execute prompts.
+- `scripts/validate-feedback-reporting.mjs` lints the separate feedback-skill
+  trigger and output-contract cases without treating them as core-loop evidence.
 - `.github/`, `CONTRIBUTING.md`, and `SECURITY.md` define the public contribution,
   automation, and vulnerability-reporting workflows.
 - `LICENSE` and `NOTICE` contain the Apache-2.0 terms and attribution.
@@ -50,10 +52,17 @@ when the request or repository guidance requires that discipline:
   produces reviewable proposals and authorized persistence contracts without
   editing durable artifacts.
 
+`kf-report-skill-usage` is not a primary workflow or composable method. After work
+has reached a terminal state in another project, it explicitly exports sanitized,
+agent-oriented evidence about actual K Fleet usage for a maintainer to analyze in
+this source repository. It does not join the task closure, change either project,
+or invoke learning or persistence.
+
 ## Conventions
 
-- Keep exactly the eleven core skills documented in the README unless real usage
-  justifies a deliberate scope change.
+- Keep exactly the eleven core workflow skills documented in the README unless
+  real usage justifies a deliberate scope change. Keep the feedback reporter
+  classified separately from that core count and closure.
 - Prefix every skill directory and matching frontmatter name with `kf-`.
 - Split primary workflow skills by user intent, not by technology layer. Add a
   composable method skill only for a reusable discipline that crosses intents
@@ -69,6 +78,9 @@ when the request or repository guidance requires that discipline:
 - Keep machine-readable harness eval cases focused on observable routing,
   composition, handoff, stopping, and authority decisions rather than skill
   wording.
+- Keep feedback-report cases separate from core-loop behavioral evidence. Test
+  explicit post-work reporting, non-trigger boundaries, provenance uncertainty,
+  sanitization, and report-only write scope.
 - Keep detailed project facts in the target project's guidance, not in K Fleet.
 - Do not add dependencies, build tooling, generated files, or scripts without a
   concrete deterministic benefit.
@@ -86,6 +98,7 @@ Run the repository checks with:
 ```sh
 node scripts/validate-repository-structure.mjs
 node scripts/validate-eval-corpus.mjs
+node scripts/validate-feedback-reporting.mjs
 cd examples/fleet-ledger && npm test
 ```
 
@@ -113,6 +126,10 @@ cd examples/fleet-ledger && npm test
   verdicts, retrospective coverage re-enters after its authorized correction,
   learning decides evidence-backed durable changes, and context
   maintenance places direct or authorized policy without inventing it.
+- Keep `kf-report-skill-usage` outside the workflow closure. A user explicitly
+  invokes it after terminal work in a target project to produce a sanitized,
+  agent-oriented feedback packet; the user transports that packet to K Fleet, and
+  only later maintainer work may optimize the suite.
 - For new or materially changed skills, supplement structural validation with
   independent read-only forward tests on isolated realistic fixtures. Withhold
   expected answers, cover material success and failure branches, verify that

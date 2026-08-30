@@ -46,6 +46,11 @@
       "sourceType": "local",
       "computedHash": "f422d587046c6f27c1eb627245976b7944c32139901445ce916aaeda65b7a764"
     },
+    "kf-report-skill-usage": {
+      "source": "../../skills",
+      "sourceType": "local",
+      "computedHash": "6c6d4fec52a726148c7e4844883ec30c30c95dea8d196c20996fed9107189165"
+    },
     "kf-test-driven-change": {
       "source": "../../skills",
       "sourceType": "local",

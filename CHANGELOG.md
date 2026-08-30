@@ -4,6 +4,25 @@ Notable changes to K Fleet are recorded here.
 
 ## Unreleased
 
+### Added
+
+- Added `kf-report-skill-usage`, a portable post-work reporter that exports
+  sanitized, agent-oriented K Fleet usage evidence for maintainers without joining
+  the task workflow closure or modifying either project.
+- Added a serialization-neutral feedback packet contract and separate
+  machine-readable trigger and output-boundary cases.
+
+### Changed
+
+- Kept the eleven core workflow skills and their source-hashed behavioral evidence
+  distinct from the new feedback-reporting boundary.
+
+### Validated
+
+- Independent isolated forward runs passed inline reporting, ordinary-summary
+  non-trigger, unknown-provenance, sanitization, and single-report-artifact
+  boundaries without modifying the K Fleet worktree.
+
 ## [1.4.1] - 2026-08-29
 
 ### Added

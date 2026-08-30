@@ -3,7 +3,7 @@ import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const expectedSkills = [
+const coreSkills = [
   "kf-add-test-coverage",
   "kf-delegate-specialist",
   "kf-design-change",
@@ -16,6 +16,8 @@ const expectedSkills = [
   "kf-test-driven-change",
   "kf-verify-change",
 ];
+const feedbackSkills = ["kf-report-skill-usage"];
+const expectedSkills = [...coreSkills, ...feedbackSkills].sort();
 const failures = [];
 
 function fail(message) {
@@ -32,6 +34,14 @@ function markdownFiles(directory) {
     if (entry.name === ".git" || entry.name === ".agents") return [];
     if (entry.isDirectory()) return markdownFiles(path);
     return entry.name.endsWith(".md") ? [path] : [];
+  });
+}
+
+function regularFiles(directory) {
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const path = join(directory, entry.name);
+    if (entry.isDirectory()) return regularFiles(path);
+    return [path];
   });
 }
 
@@ -83,14 +93,27 @@ if (JSON.stringify(lockedSkills) !== JSON.stringify(expectedSkills)) {
 const installedSkillRoot = join(root, "examples/fleet-ledger/.agents/skills");
 if (existsSync(installedSkillRoot)) {
   for (const skill of expectedSkills) {
-    const sourcePath = join(skillRoot, skill, "SKILL.md");
-    const installedPath = join(installedSkillRoot, skill, "SKILL.md");
-    if (!existsSync(installedPath)) {
-      fail(`Installed example is missing ${relative(root, installedPath)}`);
+    const sourceDirectory = join(skillRoot, skill);
+    const installedDirectory = join(installedSkillRoot, skill);
+    if (!existsSync(installedDirectory)) {
+      fail(`Installed example is missing ${relative(root, installedDirectory)}`);
       continue;
     }
-    if (read(sourcePath) !== read(installedPath)) {
-      fail(`Installed example is stale for ${skill}; rerun bunx skills add`);
+
+    const sourceFiles = regularFiles(sourceDirectory)
+      .map((path) => relative(sourceDirectory, path))
+      .sort();
+    const installedFiles = regularFiles(installedDirectory)
+      .map((path) => relative(installedDirectory, path))
+      .sort();
+    if (JSON.stringify(sourceFiles) !== JSON.stringify(installedFiles)) {
+      fail(`Installed example has a stale file inventory for ${skill}; rerun bunx skills add`);
+      continue;
+    }
+    for (const file of sourceFiles) {
+      if (read(join(sourceDirectory, file)) !== read(join(installedDirectory, file))) {
+        fail(`Installed example is stale for ${skill}/${file}; rerun bunx skills add`);
+      }
     }
   }
 }
@@ -115,4 +138,6 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Validated packaging and repository structure for ${expectedSkills.length} K Fleet skills.`);
+console.log(
+  `Validated packaging and repository structure for ${coreSkills.length} core K Fleet skills and ${feedbackSkills.length} feedback skill.`,
+);
