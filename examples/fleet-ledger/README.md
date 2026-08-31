@@ -18,6 +18,10 @@ bunx skills add ../../skills --agent codex --skill '*' --yes
 bunx skills list --agent codex
 ```
 
+The fixture also mirrors K Fleet's optional read-only companion agents under
+`.codex/agents/`. They are maintained from the repository's canonical
+`../../.codex/agents/` files rather than by `bunx skills`.
+
 The project requires Node.js 20 or newer and has no install step or external
 dependencies.
 

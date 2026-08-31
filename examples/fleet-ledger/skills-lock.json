@@ -9,7 +9,7 @@
     "kf-delegate-subtask": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "55f479016d8d9bda4f658035c9120a7505510df1eb5764e7e8ffb5b580a89052"
+      "computedHash": "51f001dcd0d5c244c0c80745d7912b51d89613ef0ef615f09880807c0424fdd8"
     },
     "kf-design-change": {
       "source": "../../skills",
@@ -39,7 +39,7 @@
     "kf-maintain-context": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "063ebedb9d997837a804da3c013867dcce68afeef7becd152e30275ec936e8d9"
+      "computedHash": "231195c96f4b7c778beff9159cc1efff177b0c40dc4f994063bfccf4c57fee2e"
     },
     "kf-refactor-code": {
       "source": "../../skills",
@@ -59,7 +59,7 @@
     "kf-verify-change": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "97d4068818880f7b5739b4965adedefd8256c594cece432b26a8d82c99592af5"
+      "computedHash": "ffe9f784f17599ac04b6c737ccdff10f270fae1bcbf55181ca9a5aa2652c9c4d"
     }
   }
 }

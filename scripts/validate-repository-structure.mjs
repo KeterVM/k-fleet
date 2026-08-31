@@ -18,6 +18,7 @@ const coreSkills = [
 ];
 const feedbackSkills = ["kf-report-skill-usage"];
 const expectedSkills = [...coreSkills, ...feedbackSkills].sort();
+const companionAgents = ["kf_context_auditor", "kf_reviewer"];
 const failures = [];
 
 function fail(message) {
@@ -118,6 +119,81 @@ if (existsSync(installedSkillRoot)) {
   }
 }
 
+const agentRoot = join(root, ".codex/agents");
+const fixtureAgentRoot = join(root, "examples/fleet-ledger/.codex/agents");
+const expectedAgentFiles = companionAgents.map((name) => `${name.replaceAll("_", "-")}.toml`).sort();
+const actualAgentFiles = existsSync(agentRoot)
+  ? readdirSync(agentRoot).filter((name) => name.endsWith(".toml")).sort()
+  : [];
+const actualFixtureAgentFiles = existsSync(fixtureAgentRoot)
+  ? readdirSync(fixtureAgentRoot).filter((name) => name.endsWith(".toml")).sort()
+  : [];
+if (JSON.stringify(actualAgentFiles) !== JSON.stringify(expectedAgentFiles)) {
+  fail(`Expected companion agents ${expectedAgentFiles.join(", ")}; found ${actualAgentFiles.join(", ")}`);
+}
+if (JSON.stringify(actualFixtureAgentFiles) !== JSON.stringify(expectedAgentFiles)) {
+  fail(`Expected fixture companion agents ${expectedAgentFiles.join(", ")}; found ${actualFixtureAgentFiles.join(", ")}`);
+}
+
+function companionAgentToml(content, path) {
+  const requiredFields = ["name", "description", "sandbox_mode", "developer_instructions"];
+  const instructionMarker = 'developer_instructions = """';
+  const instructionIndex = content.indexOf(instructionMarker);
+  const assignmentScope = instructionIndex >= 0
+    ? `${content.slice(0, instructionIndex)}developer_instructions =`
+    : content;
+  const assignments = [...assignmentScope.matchAll(/^([A-Za-z_][A-Za-z0-9_]*)\s*=/gm)]
+    .map((match) => match[1]);
+  for (const field of requiredFields) {
+    const count = assignments.filter((candidate) => candidate === field).length;
+    if (count !== 1) fail(`${relative(root, path)} must assign ${field} exactly once`);
+  }
+  for (const field of assignments) {
+    if (!requiredFields.includes(field)) fail(`${relative(root, path)} has unsupported field ${field}`);
+  }
+  if ((content.match(/"""/g) ?? []).length !== 2) {
+    fail(`${relative(root, path)} must have exactly one multiline TOML string`);
+  }
+  if (!/^name = "[^"\r\n]+"\ndescription = "[^"\r\n]+"\nsandbox_mode = "read-only"\ndeveloper_instructions = """\n[\s\S]+\n"""\n?$/.test(content)) {
+    fail(`${relative(root, path)} must use the canonical companion-agent TOML shape`);
+  }
+  return {
+    name: content.match(/^name = "([^"\r\n]+)"$/m)?.[1],
+    description: content.match(/^description = "([^"\r\n]+)"$/m)?.[1],
+    sandboxMode: content.match(/^sandbox_mode = "([^"\r\n]+)"$/m)?.[1],
+  };
+}
+
+for (const [index, file] of expectedAgentFiles.entries()) {
+  const sourcePath = join(agentRoot, file);
+  const fixturePath = join(fixtureAgentRoot, file);
+  if (!existsSync(sourcePath)) {
+    fail(`Missing ${relative(root, sourcePath)}`);
+    continue;
+  }
+
+  const content = read(sourcePath);
+  const expectedName = companionAgents[index];
+  const parsed = companionAgentToml(content, sourcePath);
+  if (parsed.name !== expectedName) {
+    fail(`${relative(root, sourcePath)} name must be ${expectedName}`);
+  }
+  if (!parsed.description) {
+    fail(`${relative(root, sourcePath)} must have a description`);
+  }
+  if (parsed.sandboxMode !== "read-only") {
+    fail(`${relative(root, sourcePath)} must remain read-only`);
+  }
+  if (!readme.includes(`\`${expectedName}\``)) {
+    fail(`README.md does not document companion agent ${expectedName}`);
+  }
+  if (!existsSync(fixturePath)) {
+    fail(`Fixture is missing ${relative(root, fixturePath)}`);
+  } else if (content !== read(fixturePath)) {
+    fail(`Fixture companion agent is stale for ${file}`);
+  }
+}
+
 const placeholderPattern = /\b(?:TODO|TBD|PLACEHOLDER)\b|\[insert\b/i;
 for (const path of markdownFiles(root)) {
   const content = read(path);
@@ -139,5 +215,5 @@ if (failures.length) {
 }
 
 console.log(
-  `Validated packaging and repository structure for ${coreSkills.length} core K Fleet skills and ${feedbackSkills.length} feedback skill.`,
+  `Validated packaging and repository structure for ${coreSkills.length} core K Fleet skills, ${feedbackSkills.length} feedback skill, and ${companionAgents.length} companion agents.`,
 );

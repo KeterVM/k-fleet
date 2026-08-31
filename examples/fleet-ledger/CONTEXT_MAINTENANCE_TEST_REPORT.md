@@ -2,6 +2,8 @@
 
 Date: 2026-08-25
 
+Empty-candidate discovery revalidated: 2026-08-31
+
 Two independent evaluators exercised `kf-maintain-context` against fresh fixtures
 under `/private/tmp`. They did not modify K Fleet, did not receive expected answers,
 and removed their fixtures after evaluation.
@@ -25,10 +27,14 @@ and removed their fixtures after evaluation.
 
 ## Findings and corrections
 
-The first pass found that project discovery was described as choosing the first
-non-empty candidate. Installed Codex instead selects the first existing candidate;
-an empty override contributes no instructions but still suppresses lower-precedence
-files. The skill was corrected and a fresh runtime check confirmed the new rule.
+The original runtime check found that installed Codex selected the first existing
+candidate: an empty override contributed no instructions but still suppressed a
+lower-precedence `AGENTS.md`. A fresh isolated control on 2026-08-31 reproduced
+that behavior on Codex `0.151.0-alpha.7.2`: the lower-file marker loaded without
+the override and did not load with an empty override. Current official guidance
+instead describes empty files as skipped. The earlier universal claim is therefore
+superseded; the skill now records this as version-dependent and requires an
+isolated check before claiming which same-directory file is active.
 
 The first pass also found ambiguity between ownership facts and owner-notification
 policy, between a direct user mandate and a request to infer policy, and between the
@@ -39,7 +45,8 @@ found no remaining material ambiguity in the corrected decisions.
 ## Result
 
 The evaluated initialization, discovery, precedence, truncation, authority,
-learning-boundary, sensitive-configuration, and delegation paths are ready. Runtime
-loading was proven for initialization and the empty-override/truncation chain;
-other cases that could not start a nested Codex run were reported as static checks
-rather than runtime proof.
+learning-boundary, sensitive-configuration, and delegation paths are ready within
+their recorded boundaries. Runtime loading was proven for initialization and for
+the installed version's empty-override behavior; that result is not treated as a
+portable rule. Other cases that could not start a nested Codex run were reported
+as static checks rather than runtime proof.

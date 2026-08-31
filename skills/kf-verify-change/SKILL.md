@@ -1,6 +1,6 @@
 ---
 name: kf-verify-change
-description: Verify existing changes without modifying them. Use when the user asks for a distinct review, readiness verdict, or independent verification of an already-existing pull request, commit, branch, diff, patch, implementation, or design, or when applicable guidance requires that separate verification phase. Report evidence, actionable findings, and residual risk. Do not trigger merely because an execution workflow must test or validate its own work, and do not fix findings or act as the primary feature, bug, investigation, refactor, or design workflow.
+description: Verify an existing pull request, commit, branch, diff, patch, implementation, or design without modifying it. Use for a distinct review, readiness verdict, or required independent verification phase. Report evidence, actionable findings, and residual risk. Do not trigger for an execution workflow's routine validation, fix findings, or act as the primary feature, bug, investigation, refactor, or design workflow.
 ---
 
 # Verify Change
@@ -14,15 +14,15 @@ Verification independence means a fresh, non-mutating assessment against the
 target and current artifact, separated from the workflow that owns correction. It
 does not always require a different actor for small, low-risk checks. For a
 non-trivial or high-risk review, compose `kf-delegate-subtask` when a permitted
-sub-agent can materially improve independence or quality: use a fresh quality-first
-read-only reviewer or verifier with the strongest suitable available model and
-high or `xhigh` reasoning for difficult correctness, security, migration,
-concurrency, or edge-case analysis. Give it the original target and current
-artifact without the implementer's conclusion as an expected answer. Keep direct
-verification with the parent when the change is routine and delegation overhead is
-not justified. This workflow reconciles all evidence and owns the readiness
-verdict. When required actor-level independence is unavailable, report it as an
-unverified requirement rather than claiming it occurred.
+sub-agent can materially improve independence or quality. Prefer the optional
+read-only `kf_reviewer` companion agent when available and appropriate. Give it
+the original target and current artifact without the implementer's conclusion as
+an expected answer.
+
+Keep direct verification with the parent when the change is routine and delegation
+overhead is not justified. This workflow reconciles all evidence and owns the
+readiness verdict. When required actor-level independence is unavailable, report
+it as an unverified requirement rather than claiming it occurred.
 
 1. Establish the verification target: requested outcome, observable acceptance
    criteria, artifact or diff scope, compatibility constraints, and relevant
@@ -53,42 +53,13 @@ unverified requirement rather than claiming it occurred.
    checks run and their results, critical checks not run, produced artifacts,
    assumptions, and residual risk.
 
-## Diff review profile
+## Target-specific references
 
-Use this profile in addition to the workflow when the target is a pull request,
-commit, branch, patch, or working-tree diff.
-
-1. Review the complete in-scope diff and the affected execution paths for defects
-   in correctness, security, performance, and maintainability. Inspect unchanged
-   dependencies when they are needed to prove or disprove an impact.
-2. Scope findings to problems introduced by the change or made newly reachable by
-   it. Treat unrelated pre-existing problems as baseline or residual-risk evidence,
-   not findings against the change, unless the change worsens them.
-3. Require a concrete trigger or reachable state, the violated contract or
-   invariant, and a material impact. Do not report style preferences, speculative
-   concerns, or issues already enforced by a check that passes.
-4. Calibrate severity from reachability, likelihood, blast radius, and
-   recoverability:
-   - **P0 — Critical:** catastrophic security impact, widespread data loss or
-     corruption, or an immediate production outage.
-   - **P1 — High:** a serious security, correctness, or availability failure on a
-     common or important path that should block merging.
-   - **P2 — Medium:** a concrete defect under narrower but plausible conditions
-     that should normally be fixed before merging.
-   - **P3 — Low:** a limited-scope but actionable defect with modest impact; never
-     use P3 for cosmetic preferences.
-5. Lead with findings ordered by severity. Give each a `[P0]` through `[P3]`
-   title, the tightest useful file and line reference, and one concise explanation
-   of the trigger, impact, evidence, and remediation direction. State confidence
-   when it is less than high.
-6. When inline review comments are supported, attach each finding to the smallest
-   relevant changed-line range and do not duplicate it in the summary. If there
-   are no actionable findings, say so explicitly and report only meaningful
-   residual risks or validation gaps.
-
-Severity informs prioritization but does not replace the readiness decision. A
-finding that violates the requested outcome or a blocking invariant prevents a
-**ready** result regardless of its label.
+- For a pull request, commit, branch, patch, or working-tree diff, read the
+  [diff review profile](references/diff-review-profile.md) before reviewing.
+- For a high-risk or indeterminate assessment, or when repair and re-verification
+  are both requested, read the
+  [readiness evidence checklist](references/readiness-evidence.md).
 
 ## Correction routing
 
@@ -97,23 +68,22 @@ finding that violates the requested outcome or a blocking invariant prevents a
 - A structural problem whose correction must preserve behavior returns to
   `kf-refactor-code`.
 - An unexplained failure or uncertain cause returns to `kf-investigate-issue`.
-- An unresolved acceptance contract, interface, migration, or architecture decision
-  returns to `kf-design-change`.
+- An unresolved acceptance contract, interface, migration, or architecture
+  decision returns to `kf-design-change`.
 - A verified recurring contradiction in workflow method, routing, or guidance is
   reported as a learning signal for `kf-learn-from-evidence`; verification does
   not persist the lesson.
 
 If the user asks to verify and repair in one request, complete and report the
-verification first, then hand the findings to the applicable execution workflow.
-Do not perform the repair while operating under this skill.
+verification first, then hand findings to the applicable execution workflow. Do
+not perform repair while operating under this skill.
 
 After the execution workflow reports correction complete, re-enter verification
-with the original target and the current artifact. Reassess the affected checks and
-publish a new readiness result; do not reuse the earlier verdict. Continue only
-while evidence shows progress and the requested authorization still covers the
-next correction. Stop when the result is ready, a blocker makes it indeterminate,
-the same unresolved failure repeats without new evidence, or another correction
-would require broader authority.
+with the original target and current artifact. Publish a new readiness result; do
+not reuse the earlier verdict. Continue only while evidence shows progress and the
+authorization covers the next correction. Stop when ready, when a blocker makes
+the result indeterminate, when the same unresolved failure repeats without new
+evidence, or when another correction requires broader authority.
 
 ## Constraints
 
@@ -125,22 +95,8 @@ would require broader authority.
   commands that could not run.
 - Do not claim readiness while a blocking finding remains or a critical risk lacks
   meaningful evidence.
-- Do not run every expensive check by default. Match verification depth to the
-  change's impact, reversibility, and repository practice.
-
-## Completion questions
-
-- Does the change solve the requested task?
-- Does it follow repeated repository patterns?
-- Does it preserve unrelated behavior?
-- Did it introduce unnecessary abstractions or dependencies?
-- Does it touch unrelated code or formatting?
-- Is a simpler complete implementation available?
-- Were the relevant checks actually run?
-- Is every failure classification supported by evidence?
-- Are correction and verification still owned by separate workflows?
-- When repair was requested, was the corrected artifact re-verified against the
-  original target?
+- Do not run every expensive check by default. Match depth to impact,
+  reversibility, and repository practice.
 
 Verification is complete when the readiness result, material findings, supporting
 evidence, unrun critical checks, and residual risk are explicit.

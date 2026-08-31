@@ -26,7 +26,7 @@
 
 ## Documentation
 
-Canonical project documentation lives at the repository root; this example has no
+Canonical fixture documentation lives in this directory; this example has no
 separate `docs/` directory. Keep general usage in `README.md`, workflow exercises
 in the matching `*_SCENARIOS.md` file, and verified results in the matching
 `*_TEST_REPORT.md` file. Add new exercise documentation beside those files unless
@@ -46,6 +46,8 @@ empty documentation files in advance.
 - Keep reusable procedures in `.agents/skills/`, not as long workflows here.
 - Treat `.agents/skills/` as generated installation output; update source skills in
   `../../skills/` and refresh them with the documented `bunx skills` command.
+- Treat `.codex/agents/` as mirrored companion-agent output; update canonical
+  definitions in `../../.codex/agents/` and keep the fixture copies identical.
 - Add a new rule only when repeated repository evidence or an explicit maintainer
   correction supports it.
 

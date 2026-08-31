@@ -1,7 +1,8 @@
 # K Fleet
 
-K Fleet is a small, reusable collection of eleven core Codex workflow skills plus
-one feedback-reporting skill. It acts as a lightweight personal engineering
+K Fleet is a small, reusable collection of eleven core Codex workflow skills, one
+feedback-reporting skill, and two optional read-only companion agents. It acts as a
+lightweight personal engineering
 harness: repository evidence supplies the local context, while the skills supply
 consistent ways to maintain that context, delegate bounded sub-agent work, add
 test coverage, implement, debug, investigate, refactor, verify, learn from evidence,
@@ -42,6 +43,22 @@ evidence is needed.
 
 All skill names use the compact `kf-` namespace to distinguish K Fleet skills from
 similarly named global or third-party skills.
+
+## Companion agents
+
+K Fleet includes two optional project-scoped custom agents under
+`.codex/agents/`. They are evidence providers, not additional workflow owners:
+
+| Agent | Purpose | Boundary |
+| --- | --- | --- |
+| `kf_reviewer` | Fresh review of correctness, security, regressions, migrations, and missing-test risk | Read-only; returns findings and residual risk to `kf-verify-change` or another owning workflow without fixing or declaring readiness. |
+| `kf_context_auditor` | Audit of effective Codex instruction discovery, precedence, scope, byte limits, and routed documents | Read-only; returns scoped Context evidence to `kf-maintain-context`, which retains every write and the final verdict. |
+
+Codex's built-in `explorer` and `worker` remain the defaults for ordinary
+read-heavy mapping and stable bounded implementation. The companion agents are
+used only when their narrower instructions materially improve the task. Their TOML
+files intentionally omit a model so `kf-delegate-subtask` can select capability
+from current risk, difficulty, and available runtime configuration.
 
 ## Feedback reporting
 
@@ -145,7 +162,21 @@ bunx skills list --agent codex
 ```
 
 This resolves the public repository on GitHub, so no local K Fleet clone is
-required. Re-run the command to refresh the installed copies.
+required. Re-run the command to refresh the installed copies. `bunx skills`
+installs skills, not Codex custom-agent TOML files.
+
+When a local K Fleet clone is available and the optional companion agents are
+wanted, copy them explicitly into the target repository:
+
+```sh
+mkdir -p /path/to/target/.codex/agents
+cp .codex/agents/kf-reviewer.toml /path/to/target/.codex/agents/
+cp .codex/agents/kf-context-auditor.toml /path/to/target/.codex/agents/
+```
+
+Review an existing destination before overwriting it. Projects may use the skills
+without these agents; delegation then uses built-in agents or direct bounded
+sub-agents when available.
 
 ### Global manual installation
 
@@ -164,6 +195,13 @@ cp -R skills/kf-implement-feature ~/.codex/skills/kf-implement-feature
 Repeat that operation for each skill you want to install. Before copying, check
 whether the destination already exists; do not overwrite an existing skill without
 reviewing and merging it intentionally.
+
+Optional personal companion agents can similarly be copied into
+`~/.codex/agents/`. Project-scoped copies under a target repository's
+`.codex/agents/` keep the agents versioned with that repository. Avoid defining
+the same agent name in both scopes unless precedence has been verified for the
+active Codex version. Keep the files model-neutral unless a measured
+project-specific reason justifies an override.
 
 For a clone that should stay updateable, symbolic links are an optional
 platform-native alternative:
@@ -193,6 +231,7 @@ For example:
 Initialize or maintain this repository's effective Codex context.
 Design the durable-storage migration, but do not implement it.
 Ask a PostgreSQL specialist to review the migration's locking risks, then use that evidence in the design.
+Use the configured kf_reviewer to review this high-risk migration without editing it.
 Implement invoice export.
 Implement invoice export with TDD and show each Red-Green cycle.
 Add missing tests for the already-implemented invoice totals without changing production behavior.

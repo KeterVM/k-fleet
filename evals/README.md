@@ -26,8 +26,9 @@ For an independent behavioral run:
 
 Every new current behavioral report must record:
 
-- `Skill source SHA-256`, computed over the explicitly enumerated eleven core
-  workflow `SKILL.md` sources;
+- `Skill source SHA-256`, computed over every file in the explicitly enumerated
+  eleven core workflow skill directories, including conditional references, plus
+  the two canonical companion-agent TOML contracts under `.codex/agents/`;
 - `Eval corpus SHA-256`, `Blind input SHA-256`, `Eval tooling SHA-256`,
   `Raw observation SHA-256`, `Results SHA-256`, and `Eval protocol version`;
 - the repository revision or working-tree base used to build the fixture;
@@ -43,7 +44,10 @@ independent evaluators and judges
 still produce the semantic evidence.
 
 Use a fresh task or independent agent so prior conclusions and expected answers do
-not leak into selection. The eval-corpus lint checks syntax and required coverage,
+not leak into selection. Blind evaluators must use exact current source files and
+must not query persistent or session-global knowledge indexes. If prior artifacts,
+diffs, or expected answers surface, discard the complete run and restart with a
+fresh isolated evaluator. The eval-corpus lint checks syntax and required coverage,
 but it does not claim that Codex executed these prompts correctly.
 
 `feedback-reporting.jsonl` separately specifies the explicit post-work trigger,

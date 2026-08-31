@@ -1,20 +1,20 @@
 # K Fleet Closure Eval Report
 
-Date: 2026-08-30
+Date: 2026-08-31
 
-Repository base: `75eff05de514251121d9020b0be3edb75f532746`
+Repository base: `d16d101698d8539b49de4ec45b1c5c5b34ca64ae`
 
-Skill source SHA-256: `2027fbc26d821c0d75ee694a889c605db244a1afc69f7cdc4134e86c3a1d3926`
+Skill source SHA-256: `266adc0010adc8e7a1a11a9fcb0858f5b2c746eac9e4e7ea8872aaa6bba956da`
 
-Eval corpus SHA-256: `0ecd71b80948ff435aae55ae59d8904f77dd148ce71f0382590857b2c0daa674`
+Eval corpus SHA-256: `5e5c2b6ab0ea91c7c31d7da668baf78b47c1eeb5766ac294f2e490ef1f1ad1c3`
 
-Blind input SHA-256: `c0d0c34c8a938f70bcc711bf72fdcb844a12ad0ea4e4d07ba24b1718ef6c49ce`
+Blind input SHA-256: `5bd38ec47179d109698bbb4bfb36c5f07d3f39d44c32815f500c2df8051493fa`
 
-Eval tooling SHA-256: `fe6645f5ab6246c42d6da016ecab16555cfa72e281f1c737dccb269e331b50a8`
+Eval tooling SHA-256: `1f3c1d5c9eefa82184df6940126ab6503299a7b3dfddb89ba0c94d509f6150b2`
 
-Raw observation SHA-256: `35642d4b36d990d7905074de0e43519e412910d4f7d72291b50bc341ffe78f72`
+Raw observation SHA-256: `22b95c0c6ac2e86bd72a45f244116135eb662c828c11f921b960d7bf2b25c5e8`
 
-Results SHA-256: `deffc7ef900e346c97d091b84e989772685fa83d4221da16884f32bbcd619363`
+Results SHA-256: `cdbec6d0a95c6c1f36b3e8be7dad56a762928ce13807369a0938cb63f04c1010`
 
 Eval protocol version: `2`
 
@@ -22,7 +22,7 @@ Evaluator mode: independent, blind, read-only
 
 ## Fresh evaluation
 
-Two fresh `gpt-5.6-sol/high` blind evaluators produced 64 read-only observations across 54 cases. A separate `gpt-5.6-sol/xhigh` post-hoc judge passed all 179 invariants. Contaminated/superseded earlier runs were excluded; raw observations and judgments are preserved in `current-results.json`.
+Two fresh `gpt-5.6-sol/xhigh` blind evaluators produced 68 read-only observations across 56 cases. A separate `gpt-5.6-sol/xhigh` post-hoc judge passed all 187 invariants. Contaminated and superseded diagnostic runs were excluded; raw observations and judgments are preserved in `current-results.json`.
 
 The required closure boundaries all pass:
 

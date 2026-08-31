@@ -6,6 +6,11 @@ Notable changes to K Fleet are recorded here.
 
 ### Added
 
+- Added optional read-only `kf_reviewer` and `kf_context_auditor` companion
+  agents, with mirrored Fleet Ledger configurations and no pinned model.
+- Added purpose-routed references for delegation capability and contracts, diff
+  review and readiness evidence, and Context discovery, audit, verification, and
+  persistence.
 - Added `kf-report-skill-usage`, a portable post-work reporter that exports
   sanitized, agent-oriented K Fleet usage evidence for maintainers without joining
   the task workflow closure or modifying either project.
@@ -14,6 +19,19 @@ Notable changes to K Fleet are recorded here.
 
 ### Changed
 
+- Reduced the always-loaded entry points for delegation, verification, and Context
+  maintenance while preserving their routing, authority, write ownership, stopping,
+  and re-entry contracts.
+- Bound behavioral source hashes to complete core skill directories and canonical
+  companion-agent contracts, and added explicit named-agent blind cases.
+- Hardened companion-agent validation against duplicate or unsupported TOML fields
+  and stale extra fixture agents.
+- Documented the observed version difference in empty-candidate Context discovery,
+  required isolated verification for that branch, and removed an unverified
+  personal-versus-project agent precedence claim.
+- Clarified blind sequence observations so composed method phases remain visible
+  without inventing blocked returns or standalone verification, and made
+  persistent-index leakage invalidate the complete evaluator run.
 - Kept the eleven core workflow skills and their source-hashed behavioral evidence
   distinct from the new feedback-reporting boundary.
 - Hardened feedback provenance so hashes are compared only when their algorithm

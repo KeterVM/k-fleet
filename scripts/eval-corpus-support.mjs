@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 export const protocolVersion = 2;
@@ -19,9 +19,9 @@ export const expectedSkills = [
 ];
 
 export const blindRubric = {
-  observedPrimary: "The first substantive workflow entered from the request. Later substantive owners belong in observedSequence, not observedComposed.",
-  observedComposed: "Only reusable method skills composed inside the primary workflow; sequential correction, verification, persistence, and re-entry owners belong only in observedSequence.",
-  observedSequence: "Every workflow and method phase in execution order, including returns to an owner for closeout.",
+  observedPrimary: "The canonical skill name for the first substantive workflow entered from the request. Later substantive owners belong in observedSequence, not observedComposed.",
+  observedComposed: "Canonical names for reusable method skills composed inside the primary workflow. Sequential correction, verification, persistence, and re-entry owners belong only in observedSequence.",
+  observedSequence: "Canonical names for every workflow and method phase actually invoked, including composed method phases and owner returns, in execution order. Validation performed inside an owning workflow is not a separate kf-verify-change phase. Record an owner return only when its contract re-enters with a current artifact or an explicit persistence or closeout handoff; do not invent a return after a blocked downstream owner.",
   observedStopping: "The final ready, complete, incomplete, blocked, indeterminate, proposal-only, or authority-boundary state and why it stops there.",
   rationale: "Original evidence from the prompt and current Skill contracts; do not infer meaning from the anonymous caseRef.",
 };
@@ -45,8 +45,25 @@ function sha256(value) {
 export function skillSourceHash(root) {
   const hash = createHash("sha256");
   for (const skill of expectedSkills) {
-    hash.update(`${skill}\0`);
-    hash.update(readFileSync(join(root, "skills", skill, "SKILL.md"), "utf8"));
+    const directory = join(root, "skills", skill);
+    const files = [];
+    const visit = (current, prefix = "") => {
+      for (const entry of readdirSync(current, { withFileTypes: true })) {
+        const relativePath = prefix ? `${prefix}/${entry.name}` : entry.name;
+        if (entry.isDirectory()) visit(join(current, entry.name), relativePath);
+        else files.push(relativePath);
+      }
+    };
+    visit(directory);
+    for (const file of files.sort()) {
+      hash.update(`${skill}/${file}\0`);
+      hash.update(readFileSync(join(directory, file), "utf8"));
+      hash.update("\0");
+    }
+  }
+  for (const file of ["kf-context-auditor.toml", "kf-reviewer.toml"]) {
+    hash.update(`.codex/agents/${file}\0`);
+    hash.update(readFileSync(join(root, ".codex", "agents", file), "utf8"));
     hash.update("\0");
   }
   return hash.digest("hex");
@@ -107,6 +124,8 @@ export function scoreResults(evalCases, results, hashes) {
   const runIds = new Set();
   const requiredRepeatIds = new Set([
     "delegate-explicit-specialist",
+    "delegate-configured-kf-reviewer-evidence-only",
+    "delegate-configured-context-auditor-evidence-only",
     "delegate-hard-review-quality-first",
     "delegate-efficient-worker-then-review",
     "verify-feature-reverify",
