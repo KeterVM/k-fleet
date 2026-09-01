@@ -345,12 +345,20 @@ read-only evaluators receive anonymous prompts and a neutral rubric without
 semantic IDs, modes, or expected answers. Their frozen raw rationale and stopping
 results are hashed before a separate judge maps hidden invariants, while
 deterministic scoring binds the complete result to source, corpus, blind-input,
-evaluation-tooling, raw-observation, result, and protocol hashes.
+anonymous-fixture, transitive evaluation/judge/scoring tooling, raw-observation,
+judge-input, judgment, result, repository-base, and protocol hashes.
 The separate naturalistic robustness suite adds balanced feature, bug, and
 refactor prompts, Chinese coverage, terse and messy requests, a cross-model matrix,
-and a catalog-description ablation candidate. These inputs are intentionally not
-folded into current behavioral claims until fresh blind runs exist; see
-[`evals/ROBUSTNESS_EVAL_PROTOCOL.md`](evals/ROBUSTNESS_EVAL_PROTOCOL.md).
+and a catalog-description ablation candidate. Its completed 18-run blind matrix is
+recorded in
+[`evals/ROUTING_ROBUSTNESS_MATRIX_REPORT.md`](evals/ROUTING_ROBUSTNESS_MATRIX_REPORT.md).
+The compact candidate remains unpromoted. It improved exact selection
+(100/120 versus 96/120), stopping (68/120 versus 61/120), and complete-contract
+outcomes (57/120 versus 45/120), but repeated high-risk contract failures kept it
+below the canonical-ablation gate, as did model-specific regressions hidden by the
+aggregate gains; see
+[`evals/ROBUSTNESS_EVAL_PROTOCOL.md`](evals/ROBUSTNESS_EVAL_PROTOCOL.md) for the
+promotion boundary.
 Current source-hashed full-loop evidence is recorded in
 [`evals/CLOSURE_EVAL_REPORT.md`](evals/CLOSURE_EVAL_REPORT.md); the current
 source-hashed trigger-boundary evidence is recorded in
@@ -382,14 +390,16 @@ Dependency-free checks are split by responsibility:
 node scripts/validate-repository-structure.mjs
 node scripts/validate-eval-corpus.mjs
 node scripts/validate-robustness-evals.mjs
+node scripts/score-robustness-results.mjs
 node scripts/validate-feedback-reporting.mjs
 cd examples/fleet-ledger && npm test
 ```
 
 The first command validates packaging and documentation, the second lints the core
 eval specification, scores current structured observations, and checks all core
-behavioral-evidence hashes, the third lints the unexecuted naturalistic and catalog-
-ablation inputs, the fourth lints the feedback reporter's separate trigger and
+behavioral-evidence hashes, the third lints the naturalistic and catalog-ablation
+inputs, the fourth validates the frozen robustness observations, judgments,
+scores, and hashes, the fifth lints the feedback reporter's separate trigger and
 packet-contract cases, and the fixture test exercises the example application.
 None substitutes for an independent behavioral run of the relevant prompts.
 

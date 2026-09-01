@@ -24,6 +24,13 @@ Notable changes to K Fleet are recorded here.
   ablation protocol that preserves current source-hashed evidence until rerun.
 - Added Essential, Methods, Governance, and Feedback installation profiles so
   projects can limit catalog and workflow overhead without changing skill behavior.
+- Added a frozen 18-run, 240-observation cross-model robustness matrix with 240
+  independent post-hoc judgments, anonymous fixture bindings, observation-bound
+  judge inputs, transitive tooling hashes, deterministic scoring, and a generated
+  source-hashed report. The compact catalog candidate improved aggregate selection,
+  stopping, invariants, and complete-contract results but remains unpromoted because
+  repeated high-risk contract failures and model-specific regressions still violate
+  the promotion gate.
 
 ### Changed
 
@@ -40,6 +47,8 @@ Notable changes to K Fleet are recorded here.
 - Clarified blind sequence observations so composed method phases remain visible
   without inventing blocked returns or standalone verification, and made
   persistent-index leakage invalidate the complete evaluator run.
+- Bound every robustness stopping judgment to an explicit per-case
+  `expected.mustStopWhen` contract frozen into the judge input.
 - Kept the eleven core workflow skills and their source-hashed behavioral evidence
   distinct from the new feedback-reporting boundary.
 - Hardened feedback provenance so hashes are compared only when their algorithm

@@ -142,6 +142,11 @@ function sameArray(left, right) {
   return canonicalJson(left) === canonicalJson(right);
 }
 
+function repeatsHiddenExpectedText(evidence, expected) {
+  const normalize = (value) => value.trim().replace(/\s+/g, " ").toLocaleLowerCase("en-US");
+  return normalize(evidence).includes(normalize(expected));
+}
+
 function caseRef(index) {
   return `case-${String(index + 1).padStart(3, "0")}`;
 }
@@ -321,8 +326,20 @@ function promotionDecision(result) {
     candidate.overall[field] >= current.overall[field]);
   const currentInvariantRate = current.overall.invariantPass / current.overall.invariantTotal;
   const candidateInvariantRate = candidate.overall.invariantPass / candidate.overall.invariantTotal;
-  const naturalisticStabilityPass = candidate.overall.stoppingPass >= current.overall.stoppingPass
+  const aggregateStabilityPass = candidate.overall.stoppingPass >= current.overall.stoppingPass
     && candidateInvariantRate >= currentInvariantRate;
+  const modelMatrixPass = Object.entries(current.byModel).every(([model, currentScore]) => {
+    const candidateScore = candidate.byModel[model];
+    if (!candidateScore) return false;
+    const selectionPass = selectionFields.every((field) => candidateScore[field] >= currentScore[field]);
+    const currentModelInvariantRate = currentScore.invariantPass / currentScore.invariantTotal;
+    const candidateModelInvariantRate = candidateScore.invariantPass / candidateScore.invariantTotal;
+    return selectionPass
+      && candidateScore.stoppingPass >= currentScore.stoppingPass
+      && candidateModelInvariantRate >= currentModelInvariantRate
+      && candidateScore.contractPass >= currentScore.contractPass;
+  });
+  const naturalisticStabilityPass = aggregateStabilityPass && modelMatrixPass;
   const highRisk = candidate.byScope["high-risk-repeat"];
   const highRiskPass = highRisk.contractPass === highRisk.observations;
   const canonicalAblationEligible = reductionPass
@@ -332,7 +349,8 @@ function promotionDecision(result) {
   const reasons = [];
   if (!reductionPass) reasons.push("catalog-reduction-below-30-percent");
   if (!selectionNoRegression) reasons.push("naturalistic-selection-regression");
-  if (!naturalisticStabilityPass) reasons.push("naturalistic-stopping-or-invariant-regression");
+  if (!aggregateStabilityPass) reasons.push("naturalistic-stopping-or-invariant-regression");
+  if (!modelMatrixPass) reasons.push("model-matrix-regression");
   if (!highRiskPass) reasons.push("high-risk-repeat-contract-failures");
   if (canonicalAblationEligible) reasons.push("canonical-56-case-ablation-not-run");
   return {
@@ -343,6 +361,7 @@ function promotionDecision(result) {
     reductionPass,
     selectionNoRegression,
     naturalisticStabilityPass,
+    modelMatrixPass,
     highRiskPass,
     reasons,
   };
@@ -403,7 +422,7 @@ inputs. Three model configurations each ran one 24-case full pass and two
 independent eight-case high-risk repeats per arm. The matrix contains
 ${result.runs.length} valid evaluator runs, ${validObservations} observations,
 ${judgments} separately bound stopping judgments, and ${invariantJudgments}
-per-invariant judgments. Every judge used a different model family from the
+per-invariant judgments. Every judge used a different model identifier from the
 evaluator observations it scored.
 
 Excluded attempts:
@@ -803,6 +822,10 @@ function validate(result, { checkReport = true, reportPath = defaultReportPath }
         failures.push(`${prefix} ${judgment.runId}/${judgment.caseRef} invalid stopping judgment`);
       }
       const entry = casesByRef.get(judgment.caseRef);
+      if (entry && typeof judgment.stoppingEvidence === "string"
+        && repeatsHiddenExpectedText(judgment.stoppingEvidence, entry.expected.mustStopWhen)) {
+        failures.push(`${prefix} ${judgment.runId}/${judgment.caseRef} repeats hidden stopping condition`);
+      }
       if (!entry || judgment.invariants?.length !== entry.expected.invariants.length) {
         failures.push(`${prefix} ${judgment.runId}/${judgment.caseRef} invariant count mismatch`);
       } else {
@@ -810,7 +833,7 @@ function validate(result, { checkReport = true, reportPath = defaultReportPath }
           if (invariant.index !== index || typeof invariant.pass !== "boolean"
             || typeof invariant.evidence !== "string" || !invariant.evidence.trim()) {
             failures.push(`${prefix} ${judgment.runId}/${judgment.caseRef} invalid invariant ${index}`);
-          } else if (invariant.evidence.includes(entry.expected.invariants[index])) {
+          } else if (repeatsHiddenExpectedText(invariant.evidence, entry.expected.invariants[index])) {
             failures.push(`${prefix} ${judgment.runId}/${judgment.caseRef} repeats hidden invariant ${index}`);
           }
         }

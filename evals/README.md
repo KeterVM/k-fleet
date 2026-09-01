@@ -6,15 +6,20 @@ composition, workflow sequencing, handoff, learning gates, and delegation
 boundaries. These cases test decisions and observable ownership rather than exact
 skill wording.
 
-`robustness-routing.jsonl` is a separate unexecuted suite for natural short and
+`robustness-routing.jsonl` is a separate suite for natural short and
 messy requests, balanced feature/bug/refactor coverage, Chinese prompts, and
 ordinary language that does not hand the evaluator K Fleet's authority vocabulary.
 `catalog-description-candidate.json` is likewise an unpromoted discovery-cost
 ablation input. Validate both with
 `node scripts/validate-robustness-evals.mjs`, prepare anonymous prompts with
-`node scripts/prepare-robustness-input.mjs`, and follow
+`node scripts/prepare-robustness-input.mjs`, prepare high-risk repeats with
+`node scripts/prepare-robustness-repeat-input.mjs`, and follow
 [`ROBUSTNESS_EVAL_PROTOCOL.md`](ROBUSTNESS_EVAL_PROTOCOL.md). Their lint status is
-not behavioral evidence and they remain outside `current-results.json`.
+not behavioral evidence. The completed cross-model run is frozen in
+`robustness-current-results.json`, validated by
+`node scripts/score-robustness-results.mjs`, which also generates and verifies
+[`ROUTING_ROBUSTNESS_MATRIX_REPORT.md`](ROUTING_ROBUSTNESS_MATRIX_REPORT.md). It
+remains separate from the canonical `current-results.json` evidence.
 
 For an independent behavioral run:
 

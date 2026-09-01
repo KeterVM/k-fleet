@@ -26,6 +26,12 @@ framework.
 - `scripts/validate-robustness-evals.mjs` lints the separate naturalistic,
   multilingual routing corpus and unpromoted catalog-description candidate; it
   does not extend current behavioral claims without fresh blind runs.
+- `scripts/prepare-robustness-repeat-input.mjs` freezes the high-risk subset, and
+  `scripts/prepare-robustness-judge-input.mjs` content-addresses exact raw
+  observations and hidden expectations before independent judging.
+- `scripts/score-robustness-results.mjs` validates the frozen cross-model
+  robustness runs, anonymous fixture bindings, judge inputs, post-hoc judgments,
+  repository base, generated report, scores, and transitive tooling hashes.
 - `scripts/validate-feedback-reporting.mjs` lints the separate feedback-skill
   trigger and output-contract cases without treating them as core-loop evidence.
 - `.github/`, `CONTRIBUTING.md`, and `SECURITY.md` define the public contribution,
@@ -115,6 +121,7 @@ Run the repository checks with:
 node scripts/validate-repository-structure.mjs
 node scripts/validate-eval-corpus.mjs
 node scripts/validate-robustness-evals.mjs
+node scripts/score-robustness-results.mjs
 node scripts/validate-feedback-reporting.mjs
 cd examples/fleet-ledger && npm test
 ```

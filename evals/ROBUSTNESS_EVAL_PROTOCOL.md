@@ -80,6 +80,11 @@ Promote candidate descriptions only when they:
 - show no meaningful degradation on the naturalistic multilingual suite across
   the model matrix below.
 
+The matrix gate is deliberately conservative: for every paired model
+configuration, the candidate must be no lower than the current catalog on every
+selection component, stopping count, invariant pass rate, and complete-contract
+count. Aggregate improvements cannot mask a model-specific regression.
+
 If a single description regresses, revise that description rather than weakening
 an expected result or promoting the remainder as a universal catalog rewrite.
 
