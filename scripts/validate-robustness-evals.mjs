@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { canonicalJson, expectedSkills } from "./eval-corpus-support.mjs";
+import { robustnessToolingHash } from "./robustness-eval-support.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const corpusPath = join(root, "evals/robustness-routing.jsonl");
@@ -15,20 +16,6 @@ function fail(message) {
 
 function sha256(value) {
   return createHash("sha256").update(value).digest("hex");
-}
-
-function toolingHash() {
-  const hash = createHash("sha256");
-  for (const file of [
-    "materialize-catalog-ablation.mjs",
-    "prepare-robustness-input.mjs",
-    "validate-robustness-evals.mjs",
-  ]) {
-    hash.update(`${file}\0`);
-    hash.update(readFileSync(join(root, "scripts", file)));
-    hash.update("\0");
-  }
-  return hash.digest("hex");
 }
 
 function readJsonl(path) {
@@ -193,4 +180,4 @@ console.log(`Explicit authority-language prompts: ${authorityPrompts}/${cases.le
 console.log(`Catalog characters: ${currentChars} current -> ${candidateChars} candidate (${Math.round((1 - candidateChars / currentChars) * 100)}% reduction).`);
 console.log(`Robustness corpus SHA-256: ${sha256(canonicalJson(cases))}`);
 console.log(`Candidate catalog SHA-256: ${sha256(canonicalJson(candidate.descriptions))}`);
-console.log(`Robustness tooling SHA-256: ${toolingHash()}`);
+console.log(`Robustness tooling SHA-256: ${robustnessToolingHash(root)}`);

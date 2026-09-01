@@ -11,6 +11,10 @@ import {
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { canonicalJson, expectedSkills, skillSourceHash } from "./eval-corpus-support.mjs";
+import {
+  fixtureBindingHash,
+  robustnessToolingHash,
+} from "./robustness-eval-support.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const args = process.argv.slice(2);
@@ -87,19 +91,19 @@ function treeHash(directory) {
 }
 
 const catalogHash = createHash("sha256").update(canonicalJson(descriptions)).digest("hex");
-const toolingHash = (() => {
-  const hash = createHash("sha256");
-  for (const file of [
-    "materialize-catalog-ablation.mjs",
-    "prepare-robustness-input.mjs",
-    "validate-robustness-evals.mjs",
-  ]) {
-    hash.update(`${file}\0`);
-    hash.update(readFileSync(join(root, "scripts", file)));
-    hash.update("\0");
-  }
-  return hash.digest("hex");
-})();
+const toolingHash = robustnessToolingHash(root);
+const skillTreeHash = treeHash(destination);
+const bindingHash = fixtureBindingHash({
+  catalogHash,
+  skillTreeHash,
+  skillSourceHash: skillSourceHash(root),
+  toolingHash,
+});
+writeFileSync(join(destination, ".kf-eval-binding.json"), `${JSON.stringify({
+  schemaVersion: 1,
+  suite: "anonymous-catalog-fixture-v1",
+  fixtureBindingHash: bindingHash,
+}, null, 2)}\n`);
 const manifest = {
   schemaVersion: 1,
   suite: "catalog-description-ablation-v1",
@@ -107,6 +111,8 @@ const manifest = {
   canonicalSkillSourceHash: skillSourceHash(root),
   catalogHash,
   toolingHash,
+  skillTreeHash,
+  fixtureBindingHash: bindingHash,
   materializedTreeHash: treeHash(destination),
   skills: expectedSkills,
 };
