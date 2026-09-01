@@ -192,18 +192,65 @@ This resolves the public repository on GitHub, so no local K Fleet clone is
 required. Re-run the command to refresh the installed copies. `bunx skills`
 installs skills, not Codex custom-agent TOML files.
 
-When a local K Fleet clone is available and the optional companion agents are
-wanted, copy them explicitly into the target repository:
+### Install the optional companion agents
+
+Codex discovers personal custom agents from `~/.codex/agents/` and project-scoped
+agents from `.codex/agents/`, as documented in the
+[official Codex subagents guide](https://developers.openai.com/codex/subagents/).
+K Fleet ships two optional read-only agents:
+
+- `kf_reviewer` performs fresh correctness, security, regression, migration, and
+  missing-test review without editing or claiming final readiness.
+- `kf_context_auditor` audits effective `AGENTS.md` discovery, precedence, scope,
+  byte limits, and routed Context without writing it.
+
+For the usual project-scoped installation, run these commands from the target
+repository root after installing the skills:
 
 ```sh
-mkdir -p /path/to/target/.codex/agents
-cp .codex/agents/kf-reviewer.toml /path/to/target/.codex/agents/
-cp .codex/agents/kf-context-auditor.toml /path/to/target/.codex/agents/
+mkdir -p .codex/agents
+curl -fsSL \
+  https://raw.githubusercontent.com/KeterVM/k-fleet/main/.codex/agents/kf-reviewer.toml \
+  -o .codex/agents/kf-reviewer.toml
+curl -fsSL \
+  https://raw.githubusercontent.com/KeterVM/k-fleet/main/.codex/agents/kf-context-auditor.toml \
+  -o .codex/agents/kf-context-auditor.toml
 ```
 
-Review an existing destination before overwriting it. Projects may use the skills
-without these agents; delegation then uses built-in agents or direct bounded
-sub-agents when available.
+To make the agents available across personal projects instead, use the same source
+files with the personal destination:
+
+```sh
+mkdir -p ~/.codex/agents
+curl -fsSL \
+  https://raw.githubusercontent.com/KeterVM/k-fleet/main/.codex/agents/kf-reviewer.toml \
+  -o ~/.codex/agents/kf-reviewer.toml
+curl -fsSL \
+  https://raw.githubusercontent.com/KeterVM/k-fleet/main/.codex/agents/kf-context-auditor.toml \
+  -o ~/.codex/agents/kf-context-auditor.toml
+```
+
+Review any existing destination before overwriting it, and avoid defining the same
+agent name in both scopes unless precedence has been verified for the active Codex
+version. Start a new Codex session after installation so subsequently spawned
+sessions load the files. The TOML `name` values, not the hyphenated filenames, are
+the invocation names:
+
+```text
+Use kf_reviewer for an independent read-only review of the current change.
+Use kf_context_auditor to audit the effective Context under services/payments.
+```
+
+Verify the installed names with:
+
+```sh
+rg '^name = ' .codex/agents/*.toml
+```
+
+Projects may use the skills without these agents; `kf-delegate-subtask` then uses
+available built-in agents or direct bounded sub-agents. When a local K Fleet clone
+is already present, copying the two files from its `.codex/agents/` directory is an
+equivalent auditable installation method.
 
 ### Global manual installation
 
@@ -223,12 +270,9 @@ Repeat that operation for each skill you want to install. Before copying, check
 whether the destination already exists; do not overwrite an existing skill without
 reviewing and merging it intentionally.
 
-Optional personal companion agents can similarly be copied into
-`~/.codex/agents/`. Project-scoped copies under a target repository's
-`.codex/agents/` keep the agents versioned with that repository. Avoid defining
-the same agent name in both scopes unless precedence has been verified for the
-active Codex version. Keep the files model-neutral unless a measured
-project-specific reason justifies an override.
+The optional companion-agent installation is documented separately above because
+`bunx skills` does not manage custom-agent TOML files. Keep installed agents
+model-neutral unless a measured project-specific reason justifies an override.
 
 For a clone that should stay updateable, symbolic links are an optional
 platform-native alternative:
@@ -373,7 +417,7 @@ demonstrated.
 
 ## Releases
 
-The latest tagged stable release is `v1.4.1`; `main` may contain unreleased
+The latest tagged stable release is `v1.5.0`; `main` may contain unreleased
 evidence-backed improvements. See [CHANGELOG.md](CHANGELOG.md) for the release
 history. K Fleet evolves from evidence gathered in real use rather than by
 expanding the skill catalog speculatively.

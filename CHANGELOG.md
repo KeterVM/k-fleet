@@ -4,6 +4,8 @@ Notable changes to K Fleet are recorded here.
 
 ## Unreleased
 
+## [1.5.0] - 2026-09-01
+
 ### Added
 
 - Added optional read-only `kf_reviewer` and `kf_context_auditor` companion
@@ -49,6 +51,8 @@ Notable changes to K Fleet are recorded here.
   persistent-index leakage invalidate the complete evaluator run.
 - Bound every robustness stopping judgment to an explicit per-case
   `expected.mustStopWhen` contract frozen into the judge input.
+- Documented direct project-scoped and personal installation of the optional
+  companion-agent TOML files alongside skills installed through `bunx skills`.
 - Kept the eleven core workflow skills and their source-hashed behavioral evidence
   distinct from the new feedback-reporting boundary.
 - Hardened feedback provenance so hashes are compared only when their algorithm
