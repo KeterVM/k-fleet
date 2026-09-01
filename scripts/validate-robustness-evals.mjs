@@ -83,12 +83,15 @@ for (const entry of cases) {
     fail(`${prefix} must have expected results`);
     continue;
   }
-  const expectedFields = ["composed", "forbidden", "invariants", "primary", "sequence"];
+  const expectedFields = ["composed", "forbidden", "invariants", "mustStopWhen", "primary", "sequence"];
   if (canonicalJson(Object.keys(expected).sort()) !== canonicalJson(expectedFields)) {
     fail(`${prefix} expected must contain exactly ${expectedFields.join(", ")}`);
   }
   if (!expectedSkills.includes(expected.primary)) fail(`${prefix} has unknown primary ${expected.primary}`);
   else primaryCounts.set(expected.primary, (primaryCounts.get(expected.primary) ?? 0) + 1);
+  if (typeof expected.mustStopWhen !== "string" || !expected.mustStopWhen.trim()) {
+    fail(`${prefix} expected.mustStopWhen must be a non-empty string`);
+  }
   for (const field of ["composed", "forbidden", "sequence", "invariants"]) {
     if (!Array.isArray(expected[field])) fail(`${prefix} expected.${field} must be an array`);
   }

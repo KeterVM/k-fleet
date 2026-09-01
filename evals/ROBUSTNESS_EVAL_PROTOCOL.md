@@ -26,17 +26,23 @@ The suite mixes terse, messy, and mixed-intent requests. It excludes canonical
 skill names from prompts and caps explicit authority language so the evaluator
 cannot succeed merely by mirroring policy vocabulary.
 
+Every case must define a non-empty `expected.mustStopWhen` contract. Judge inputs
+freeze that exact criterion with the expected set so stopping verdicts are tied to
+predeclared evidence rather than reconstructed after observing a run.
+
 Run:
 
 ```sh
 node scripts/validate-robustness-evals.mjs
 node scripts/prepare-robustness-input.mjs > /tmp/kf-robustness-input.json
+node scripts/prepare-robustness-repeat-input.mjs > /tmp/kf-robustness-repeat-input.json
 ```
 
 Give a blind evaluator only the generated rubric and anonymous prompts. Preserve
-raw selections, phase order, stopping result, rationale, contamination state,
-model, reasoning configuration, and the generated source, corpus, and blind-input
-hashes before judging against the hidden expectations.
+raw selections, phase order, stopping result, rationale, mutation and contamination
+state, model, reasoning configuration, the opaque fixture-binding hash, and the
+generated source, corpus, blind-input, and transitive-tooling hashes before judging
+against the hidden expectations.
 
 ### Catalog-description ablation
 
@@ -59,7 +65,10 @@ node scripts/materialize-catalog-ablation.mjs \
 Install one tree per clean evaluator environment. Do not expose the other variant,
 the sibling maintainer manifest, the candidate label, expected answers, prior
 reports, or maintainer hypotheses. Run the identical canonical and robustness
-blind inputs against both variants.
+blind inputs against both variants. Each materialized tree contains only an opaque
+`.kf-eval-binding.json` marker: require the evaluator to copy its hash into the raw
+run, then resolve the arm from that hash rather than assigning an arm after the
+run.
 
 Promote candidate descriptions only when they:
 
@@ -84,9 +93,14 @@ do not encode transient model names into portable skill sources.
 For each catalog variant and model tier:
 
 1. run every robustness prompt once in a fresh blind environment;
-2. repeat high-risk composition and mixed-intent cases at least three times;
+2. obtain at least three total observations for high-risk composition and
+   mixed-intent cases, including the full pass;
 3. keep execution read-only and discard contaminated runs completely; and
-4. use a post-hoc judge different from the evaluator model when available.
+4. create a content-addressed judge input over the exact raw observations and
+   hidden expectations; and
+5. use a post-hoc judge different from the evaluator model when available, binding
+   every judgment to its observation content hash and the complete judge-input
+   hash.
 
 Report exact counts instead of calling a small sample statistically reliable.
 Separate disagreements caused by routing, method composition, owner return,
@@ -108,7 +122,18 @@ the canonical decision-level evidence for `harness-routing.jsonl`.
 ## Reporting boundary
 
 A robustness report must bind the canonical skill source, robustness corpus,
-blind input, catalog variant, catalog manifest, evaluation tooling, raw
-observations, judgments, and repository base hashes. State which tracks were not
-run. Never describe a linted corpus, materialized fixture, or unexecuted candidate
-as a passed behavioral evaluation.
+blind input, anonymous fixture, catalog manifest, transitive evaluation, judge,
+and scoring tooling, raw observations, judge inputs, judgments, and a real
+repository base commit whose evaluated source resolves to the recorded hashes.
+Generate the report from the frozen result and validate it byte-for-byte in CI.
+State which tracks were not run. Never describe a linted corpus, materialized
+fixture, or unexecuted candidate as a passed behavioral evaluation.
+
+The current completed matrix is frozen in `robustness-current-results.json` and
+reported in `ROUTING_ROBUSTNESS_MATRIX_REPORT.md`. Validate its raw observations,
+fixture and judge-input bindings, independent judgments, generated report, scores,
+and hashes with:
+
+```sh
+node scripts/score-robustness-results.mjs
+```
