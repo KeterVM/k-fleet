@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "status": "candidate-not-promoted",
+  "descriptions": {
+    "kf-add-test-coverage": "Add or strengthen tests for already-implemented intended behavior without changing production behavior. Use for retrospective, characterization, or test-only regression coverage; not TDD, defect correction, new behavior, production refactoring, or verification-only review.",
+    "kf-delegate-subtask": "Delegate a bounded Codex subtask for independent review, difficult reasoning, parallel read-only exploration, specialist evidence, or an isolated implementation slice when handoff value exceeds cost. Preserve parent scope and final authority, and never overlap writes.",
+    "kf-design-change": "Produce an implementation-ready technical design without modifying production code. Use for architecture, migration, approach comparison, or explicit design-before-implementation requests; hand authorized execution to the feature, bug, or refactor owner.",
+    "kf-fix-bug": "Diagnose and correct existing behavior that violates an expected contract, including root-cause repair and regression validation. Use investigation when the user only asks why; keep ordinary corrections to the current task in its active workflow.",
+    "kf-implement-feature": "Add or modify observable capability in an existing codebase. Use for requested behavior changes; not known defects, diagnosis-only work, behavior-preserving refactoring, or verification-only review.",
+    "kf-investigate-issue": "Explain unclear, intermittent, unexpected, or performance-related behavior with evidence and a next action. Own diagnosis, not product correction; when correction is also authorized, report the cause before handing it to the applicable execution workflow.",
+    "kf-learn-from-evidence": "Evaluate credible repeated or independent evidence that a workflow, routing rule, method, or repository guidance needs durable change. Produce a reviewable persistence contract without writing durable artifacts; ignore ordinary failures, current-task corrections, and one-off preferences.",
+    "kf-maintain-context": "Initialize, audit, or maintain effective repository Context from AGENTS.md, overrides, fallback instruction files, and routed documents. Use for discovery, scope, precedence, duplication, byte-limit, or supported guidance changes; never invent policy.",
+    "kf-refactor-code": "Improve internal code structure while preserving observable behavior. Use for concrete cleanup such as reducing duplication or complexity; not feature work, defect correction, diagnosis, or verification-only review.",
+    "kf-test-driven-change": "Drive an already-scoped feature or bug fix through behavior-focused Red-Green-Refactor when the user or repository requires test-first work. Compose with the feature or bug owner; not retrospective coverage, investigation, verification, or non-code work.",
+    "kf-verify-change": "Review an existing PR, commit, branch, diff, patch, implementation, or design without modifying it. Use for a distinct readiness verdict or independent verification; routine validation stays inside the execution owner, and findings are routed rather than fixed."
+  }
+}

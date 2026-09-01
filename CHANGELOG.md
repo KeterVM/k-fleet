@@ -16,6 +16,14 @@ Notable changes to K Fleet are recorded here.
   the task workflow closure or modifying either project.
 - Added a serialization-neutral feedback packet contract and separate
   machine-readable trigger and output-boundary cases.
+- Added a separate 24-case naturalistic robustness corpus with balanced feature,
+  bug, and refactor coverage, English and Chinese prompts, terse and messy request
+  styles, and natural TDD composition cases.
+- Added an unpromoted compact catalog-description candidate, isolated fixture
+  materializer, blind-input preparation, deterministic lint, and a cross-model
+  ablation protocol that preserves current source-hashed evidence until rerun.
+- Added Essential, Methods, Governance, and Feedback installation profiles so
+  projects can limit catalog and workflow overhead without changing skill behavior.
 
 ### Changed
 
@@ -55,10 +63,10 @@ Notable changes to K Fleet are recorded here.
   including inline and file output, ordinary and ongoing-task non-triggers,
   unknown provenance, opaque lock-hash domains, sanitization, and JSON/YAML
   envelope boundaries, without modifying the K Fleet worktree.
-- Two fresh strong-model blind evaluators produced 64 read-only observations over
-  54 routing cases, including strong reviewer, efficient worker, and
+- Two fresh strong-model blind evaluators produced 68 read-only observations over
+  56 routing cases, including strong reviewer, efficient worker, and
   read-parallel/write-serial delegation. A separate high-reasoning judge passed
-  all 179 hidden invariants without repository mutation.
+  all 187 hidden invariants without repository mutation.
 
 ## [1.4.1] - 2026-08-29
 

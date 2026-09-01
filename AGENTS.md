@@ -23,6 +23,9 @@ framework.
   documentation without claiming behavioral correctness.
 - `scripts/validate-eval-corpus.mjs` lints harness cases and checks that the current
   behavioral report names the exact skill-source hash; it does not execute prompts.
+- `scripts/validate-robustness-evals.mjs` lints the separate naturalistic,
+  multilingual routing corpus and unpromoted catalog-description candidate; it
+  does not extend current behavioral claims without fresh blind runs.
 - `scripts/validate-feedback-reporting.mjs` lints the separate feedback-skill
   trigger and output-contract cases without treating them as core-loop evidence.
 - `.github/`, `CONTRIBUTING.md`, and `SECURITY.md` define the public contribution,
@@ -88,6 +91,9 @@ or invoke learning or persistence.
 - Keep machine-readable harness eval cases focused on observable routing,
   composition, handoff, stopping, and authority decisions rather than skill
   wording.
+- Keep naturalistic and catalog-ablation candidates separate from source-hashed
+  current results until fresh blind runs bind their corpus, catalog, tooling, raw
+  observations, and judgments.
 - Keep feedback-report cases separate from core-loop behavioral evidence. Test
   explicit post-work reporting, non-trigger boundaries, provenance uncertainty,
   sanitization, and report-only write scope.
@@ -108,6 +114,7 @@ Run the repository checks with:
 ```sh
 node scripts/validate-repository-structure.mjs
 node scripts/validate-eval-corpus.mjs
+node scripts/validate-robustness-evals.mjs
 node scripts/validate-feedback-reporting.mjs
 cd examples/fleet-ledger && npm test
 ```

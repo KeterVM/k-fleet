@@ -143,6 +143,33 @@ terminal work in a target project
 
 ## Installation
 
+### Choose an installation profile
+
+Install only the workflows whose decisions should enter the target project's skill
+catalog. The full fleet remains appropriate for maintainers who want the complete
+closed loop, but smaller profiles reduce discovery cost and workflow choreography:
+
+| Profile | Skills | Use when |
+| --- | --- | --- |
+| Essential | `kf-implement-feature`, `kf-fix-bug`, `kf-investigate-issue`, `kf-refactor-code`, `kf-design-change`, `kf-verify-change` | The project needs the common implementation, diagnosis, design, and readiness owners. |
+| Methods | `kf-test-driven-change`, `kf-add-test-coverage`, `kf-delegate-subtask` | The repository or user explicitly benefits from test-first order, retrospective coverage, or bounded sub-agent work. |
+| Governance | `kf-maintain-context`, `kf-learn-from-evidence` | Maintainers want effective Context ownership and evidence-gated durable learning. |
+| Feedback | `kf-report-skill-usage` | Users explicitly export terminal K Fleet usage evidence to this source repository. |
+
+Profiles are guidance, not new packages or hidden dependencies. Install one named
+skill with the same command used for the full fleet, replacing `<skill-name>`:
+
+```sh
+bunx skills add KeterVM/k-fleet \
+  --agent codex \
+  --skill '<skill-name>' \
+  --yes
+```
+
+Start with Essential when uncertain. Add Methods or Governance only when their
+entry conditions reflect actual project practice; the feedback reporter remains
+explicit and outside workflow closure.
+
 ### Project-local with `bunx skills`
 
 From a target repository, install all K Fleet skills for Codex with:
@@ -319,6 +346,11 @@ semantic IDs, modes, or expected answers. Their frozen raw rationale and stoppin
 results are hashed before a separate judge maps hidden invariants, while
 deterministic scoring binds the complete result to source, corpus, blind-input,
 evaluation-tooling, raw-observation, result, and protocol hashes.
+The separate naturalistic robustness suite adds balanced feature, bug, and
+refactor prompts, Chinese coverage, terse and messy requests, a cross-model matrix,
+and a catalog-description ablation candidate. These inputs are intentionally not
+folded into current behavioral claims until fresh blind runs exist; see
+[`evals/ROBUSTNESS_EVAL_PROTOCOL.md`](evals/ROBUSTNESS_EVAL_PROTOCOL.md).
 Current source-hashed full-loop evidence is recorded in
 [`evals/CLOSURE_EVAL_REPORT.md`](evals/CLOSURE_EVAL_REPORT.md); the current
 source-hashed trigger-boundary evidence is recorded in
@@ -349,16 +381,17 @@ Dependency-free checks are split by responsibility:
 ```sh
 node scripts/validate-repository-structure.mjs
 node scripts/validate-eval-corpus.mjs
+node scripts/validate-robustness-evals.mjs
 node scripts/validate-feedback-reporting.mjs
 cd examples/fleet-ledger && npm test
 ```
 
 The first command validates packaging and documentation, the second lints the core
 eval specification, scores current structured observations, and checks all core
-behavioral-evidence hashes, the third lints the feedback reporter's separate
-trigger and packet-contract cases, and the fixture test exercises the example
-application. None substitutes for an independent behavioral run of the relevant
-prompts.
+behavioral-evidence hashes, the third lints the unexecuted naturalistic and catalog-
+ablation inputs, the fourth lints the feedback reporter's separate trigger and
+packet-contract cases, and the fixture test exercises the example application.
+None substitutes for an independent behavioral run of the relevant prompts.
 
 ## License
 

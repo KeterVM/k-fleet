@@ -6,6 +6,16 @@ composition, workflow sequencing, handoff, learning gates, and delegation
 boundaries. These cases test decisions and observable ownership rather than exact
 skill wording.
 
+`robustness-routing.jsonl` is a separate unexecuted suite for natural short and
+messy requests, balanced feature/bug/refactor coverage, Chinese prompts, and
+ordinary language that does not hand the evaluator K Fleet's authority vocabulary.
+`catalog-description-candidate.json` is likewise an unpromoted discovery-cost
+ablation input. Validate both with
+`node scripts/validate-robustness-evals.mjs`, prepare anonymous prompts with
+`node scripts/prepare-robustness-input.mjs`, and follow
+[`ROBUSTNESS_EVAL_PROTOCOL.md`](ROBUSTNESS_EVAL_PROTOCOL.md). Their lint status is
+not behavioral evidence and they remain outside `current-results.json`.
+
 For an independent behavioral run:
 
 1. Install the current K Fleet skills in an isolated fixture.
