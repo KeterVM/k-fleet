@@ -106,14 +106,11 @@ References:
 ### SkillOpt-Sleep
 
 Skill evolution is an offline cycle, not an inference-time rewrite. With a source
-checkout, point the runner at that checkout and install its Codex skill into the
-target repository:
+checkout, point the runner at that checkout; the project-scoped Codex skill is
+installed separately in the installation flow below:
 
 ```sh
 export SKILLOPT_SLEEP_REPO=/absolute/path/to/SkillOpt
-mkdir -p .agents/skills/skillopt-sleep
-cp "$SKILLOPT_SLEEP_REPO/plugins/codex/skills/skillopt-sleep/SKILL.md" \
-  .agents/skills/skillopt-sleep/SKILL.md
 bash "$SKILLOPT_SLEEP_REPO/plugins/run-sleep.sh" status --project "$(pwd)"
 ```
 
@@ -134,14 +131,25 @@ References:
 
 ## Installation
 
-Install the single orchestration skill from a target repository:
+Install the orchestration and offline-evolution skills from the target repository:
 
 ```sh
 bunx skills add KeterVM/k-fleet \
   --agent codex \
   --skill kf-orchestrate-work \
   --yes
+
+bunx skills add \
+  https://github.com/microsoft/SkillOpt/tree/main/plugins/codex/skills \
+  --agent codex \
+  --skill skillopt-sleep \
+  --yes
 ```
+
+Both skills are installed under `.agents/skills/` and recorded in
+`skills-lock.json`. Keep the SkillOpt URL scoped to `plugins/codex/skills`;
+installing from the repository root can select a same-named integration for a
+different agent.
 
 The optional reviewer is a project-scoped Codex agent and is installed separately:
 
