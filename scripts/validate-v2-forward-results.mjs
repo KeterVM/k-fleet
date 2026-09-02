@@ -32,10 +32,12 @@ if (!report.includes(results.skillHash) || !report.includes(results.corpusHash))
 }
 
 const expectedCases = [
-  "setup-create-bootstrap-only",
+  "setup-blocked-without-supermemory",
+  "setup-ready-creates-bootstrap",
   "setup-malformed-marker",
   "supermemory-operation-unavailable",
   "evolution-no-regression-gate-missing",
+  "bug-fix-cross-boundary-engineering",
 ];
 const actualCases = (results.cases ?? []).map((entry) => entry.id);
 if (JSON.stringify(actualCases) !== JSON.stringify(expectedCases)) {

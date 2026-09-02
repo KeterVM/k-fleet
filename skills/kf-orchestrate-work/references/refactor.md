@@ -7,9 +7,12 @@ behavior.
    remain stable.
 2. Establish a passing baseline from existing checks and inspect affected contracts,
    exports, errors, formats, ordering, side effects, and performance-sensitive paths.
-3. Restructure one coherent unit using established repository patterns. Keep the
+3. Apply the proportional [engineering checkpoint](design.md) before mutation when
+   the restructure crosses a boundary or changes ownership, protocols, persistence,
+   concurrency, or lifecycle ordering. The refactor route retains equivalence scope.
+4. Restructure one coherent unit using established repository patterns. Keep the
    change reversible and avoid speculative generalization or unrelated cleanup.
-4. Re-run equivalence evidence, proportionate broader checks, and inspect the final
+5. Re-run equivalence evidence, proportionate broader checks, and inspect the final
    diff for accidental behavior changes.
 
 If the requested result intentionally changes behavior, use implementation. If the

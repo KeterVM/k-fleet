@@ -1,6 +1,6 @@
 ---
 name: kf-orchestrate-work
-description: Orchestrate substantive repository work through one K Fleet entry point, or initialize a target repository after installation when explicitly invoked with setup. Consume project-scoped context supplied by Supermemory, select only the required workflow procedure, execute within the user's authority, and close with verified evidence. Use for any non-trivial repository task; outside setup, stop if the required orchestrator or Supermemory runtime is unavailable.
+description: Orchestrate substantive repository work through one K Fleet entry point, or initialize a target repository after installation when explicitly invoked with setup. Consume project-scoped context supplied by Supermemory, select only the required workflow procedure, execute within the user's authority, and close with verified evidence. Use for any non-trivial repository task; stop, including during setup, if the required Supermemory runtime is unavailable.
 ---
 
 # Orchestrate Work
@@ -12,8 +12,8 @@ the always-loaded entry point and read only the references selected below.
 
 When explicitly invoked as `/kf-orchestrate-work setup`, read and execute
 [setup](references/setup.md), then stop. Setup is installation bootstrap, not a
-substantive repository workflow, and is the only route allowed before the
-configured Supermemory integration is ready.
+substantive repository workflow. It may initialize the target only after the
+configured Supermemory integration is ready and correctly scoped.
 
 ## Bootstrap
 
@@ -50,6 +50,10 @@ configured Supermemory integration is ready.
 - Preserve explicit handoffs. Design may hand an accepted contract to execution;
   investigation reports its diagnosis before an authorized correction; independent
   verification reports before and after a separately owned correction.
+- Before any production mutation that crosses architectural boundaries or changes
+  ownership, protocols, persistence, concurrency, or lifecycle ordering, read and
+  apply the engineering checkpoint in [design](references/design.md). It assists the
+  active implementation, bug-fix, or refactor route without taking over its scope.
 - Use repository evidence and analogous implementations before inventing a local
   convention. Choose the smallest complete change and avoid unrelated cleanup.
 - Check the current integrated artifact, not summaries from tools or sub-agents.

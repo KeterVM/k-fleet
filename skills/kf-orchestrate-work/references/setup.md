@@ -2,19 +2,26 @@
 
 Use this route only when the installed skill is explicitly invoked as
 `/kf-orchestrate-work setup`. It initializes K Fleet's compact bootstrap in the
-target repository without taking ownership of that repository's other guidance.
+target repository after its required Supermemory integration is ready, without
+taking ownership of that repository's other guidance.
 
 ## Scope and authority
 
 1. Resolve the target repository root from the active worktree. If there is no
    repository, use the current working directory. Do not target another directory
    unless the user explicitly names it.
-2. Inspect the root `AGENTS.md` and any applicable ancestor or nested instruction
-   files needed to understand scope. Edit only the target root `AGENTS.md`.
-3. Setup may run before Supermemory is configured. That exception authorizes only
-   the bootstrap edit and read-only runtime checks; it does not authorize other
-   substantive exploration, repository mutation, dependency installation, or
-   global configuration changes.
+2. Before any setup write, use the installed integration's status facility from
+   the target root to verify that Supermemory is installed, connected, and scoped
+   to this repository/worktree.
+3. If Supermemory is absent, unavailable, or its scope cannot be verified, stop
+   without modifying `AGENTS.md` or any other project file. Report the failed
+   check, direct the user to install or configure the official Codex integration
+   at <https://supermemory.ai/docs/integrations/codex>, then restart Codex and
+   rerun `/kf-orchestrate-work setup`. Do not run an installer or change global
+   configuration unless the user separately authorizes that work.
+4. After the runtime check passes, inspect the root `AGENTS.md` and any applicable
+   ancestor or nested instruction files needed to understand scope. Edit only the
+   target root `AGENTS.md`.
 
 ## Managed bootstrap
 
@@ -47,20 +54,12 @@ report the missing runtime.
   especially project-specific rules and any `self-reflect` managed block. Do not
   create nested `AGENTS.md` files or infer project conventions.
 
-## Runtime check and completion
-
-After the file edit, use the already-installed integration's status facility to
-check that Supermemory is available and scoped to this repository/worktree. Do not
-run an installer, download a package, or change user-global configuration merely
-to make the check pass.
+## Completion
 
 Read the resulting root `AGENTS.md` and verify that it has one complete managed
 block and that unrelated guidance remains intact. Report whether setup created,
-updated, or left the file unchanged, plus one of these runtime states:
-
-- ready: the orchestrator and scoped Supermemory integration are available;
-- bootstrap-only: `AGENTS.md` is initialized, but Supermemory is missing or its
-  scope could not be verified, so substantive work remains blocked.
+updated, or left the file unchanged and confirm that the orchestrator and scoped
+Supermemory integration are ready.
 
 Setup completes after this report. Do not enter another workflow route unless the
 user makes a separate substantive request and the normal bootstrap succeeds.

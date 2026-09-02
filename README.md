@@ -53,7 +53,7 @@ Substantial work stops when the orchestrator or Supermemory integration is unava
   corpus. Reports from the retired multi-skill architecture are historical evidence,
   not current behavior claims.
 - `evals/v2-release-forward-results.json` and its report record the bounded,
-  source-bound blind smoke test used for the 2.0 release.
+  source-bound blind smoke test used for the current v2 release.
 - `scripts/validate-repository-structure.mjs` checks packaging, installed copies,
   links, placeholders, and the companion agent.
 - `scripts/validate-orchestrator-evals.mjs` lints the current orchestration corpus;
@@ -171,10 +171,11 @@ Then run this from the target repository root:
 
 Setup creates or updates one marked K Fleet block in the root `AGENTS.md`. It is
 idempotent, preserves existing project rules and managed learning blocks, and
-checks whether Supermemory is ready for that repository/worktree. Setup itself may
-run before Supermemory is configured; it reports `bootstrap-only` and leaves
-substantive work blocked when the runtime is unavailable. It never installs the
-memory backend or changes global configuration implicitly.
+first verifies that Supermemory is installed, connected, and scoped to that
+repository/worktree. If the runtime is unavailable, setup makes no project changes,
+directs the user to install or configure the official integration, and stops until
+Codex is restarted and setup is rerun. It never installs the memory backend or
+changes global configuration implicitly.
 
 ## Operation
 
@@ -183,9 +184,13 @@ The user describes the outcome normally. K Fleet performs this loop:
 1. Resolve repository, worktree, working directory, authority, and stopping state.
 2. Retrieve focused project context from Supermemory.
 3. Select and load only the required workflow references.
-4. Execute directly or delegate bounded evidence/work with non-overlapping writes.
-5. Validate the integrated artifact and report a terminal state.
-6. Report a compact, sanitized terminal outcome for Supermemory's automatic capture
+4. Establish proportional engineering reasoning before mutation: a decisive
+   constraint for local edits, or a compact responsibility, flow, tradeoff, failure,
+   and test contract for cross-boundary changes.
+5. Execute directly or delegate bounded evidence/work with non-overlapping writes.
+6. Validate the integrated artifact with behavior evidence appropriate to the
+   changed contract and report a terminal state.
+7. Report a compact, sanitized terminal outcome for Supermemory's automatic capture
    and later evolution.
 
 Explicit post-work feedback reporting is also routed through the orchestrator; it
@@ -232,6 +237,8 @@ Codex, Supermemory, and SkillOpt runtimes.
 - Runtime state and evidence belong in memory, not always-loaded instructions.
 - Repository files remain the inspectable source for current code and policy.
 - Methods are selected by intent, not technology stack.
+- Smallest complete means minimal structure with explicit ownership and preserved
+  invariants, not the fewest files or shortest patch.
 - Automation may be aggressive; promotion remains gated and reversible.
 - Historical reports stay historical instead of being relabelled as evidence for a
   materially different architecture.

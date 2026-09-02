@@ -71,10 +71,11 @@ workflow behavior rather than framework-specific instructions.
 - Put bootstrap, routing, authority, stopping, and reference-selection rules in
   `SKILL.md`. Put substantial route procedures and backend-specific contracts in
   purpose-labelled references.
-- Keep `/kf-orchestrate-work setup` as the only pre-memory exception. It may
-  idempotently maintain one marked block in a target repository's root `AGENTS.md`
-  and check runtime readiness, but must preserve all unrelated guidance and must
-  not install or globally configure the memory backend.
+- Guard `/kf-orchestrate-work setup` with a successful scoped Supermemory runtime
+  check before any target write. When the integration is missing or unready, make
+  no project change, direct the user to install or configure it, and stop. Setup
+  must preserve unrelated guidance and must not install or globally configure the
+  memory backend itself.
 - Preserve the hard cutover: do not restore standalone context-maintenance,
   learning, delegation, feedback, or primary workflow skills as compatibility
   shims. Recover a missing invariant inside the orchestrator or its reference.
@@ -129,7 +130,9 @@ When the installed Codex skill validator is available, run it against
   create a feature branch only when the user explicitly requests one.
 - Keep K Fleet's source-repository `AGENTS.md` as a complete maintainer contract.
   Apply the minimal managed bootstrap only to repositories that install K Fleet,
-  through the explicit idempotent setup route.
+  through the explicit idempotent setup route and only after its scoped
+  Supermemory runtime check passes. Otherwise setup must stop without writing and
+  direct the user to install or configure the integration.
 - Keep one public orchestrator skill. Workflow methods, context maintenance,
   delegation, feedback, and learning remain conditional runtime responsibilities,
   not separate catalog entries or compatibility shims.

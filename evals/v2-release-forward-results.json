@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "runDate": "2026-09-02",
-  "skillHash": "bd0efe53e8e2e0a066e7ef214ad5eb42420e81774b0ff1f775c79ab3fc42ffea",
-  "corpusHash": "477d5346a001bb521361da233b14bbeacd9445272cac7003f48008d5e95252f3",
+  "skillHash": "d3014eac60d4e010e452bf0f957e93109bdb9e83fe19b1f2cd8a59a4025f55aa",
+  "corpusHash": "45a4a517897f82c6771ecf441901810f1b1d762bf936516aaa80ef676909a0a6",
   "runner": {
     "codexVersion": "0.151.0-alpha.7.2",
     "model": "gpt-5.6-sol",
@@ -11,10 +11,18 @@
   },
   "cases": [
     {
-      "id": "setup-create-bootstrap-only",
+      "id": "setup-blocked-without-supermemory",
       "prompt": "/kf-orchestrate-work setup",
-      "isolation": "fresh non-repository directory with an unreachable Supermemory API override",
-      "observation": "Created one root AGENTS.md with one complete K Fleet block, reported bootstrap-only, and stopped without entering substantive work.",
+      "isolation": "fresh non-repository directory with user configuration ignored and no Supermemory status facility",
+      "observation": "Stopped before setup writes, reported the missing Supermemory runtime, linked the official installation guide, and requested a Codex restart followed by setup retry.",
+      "writeEvidence": "No AGENTS.md or other project file was created; only evaluator-owned skill and output artifacts existed.",
+      "passed": true
+    },
+    {
+      "id": "setup-ready-creates-bootstrap",
+      "prompt": "/kf-orchestrate-work setup",
+      "isolation": "fresh non-repository directory with an isolated status skill reporting a connected and scoped Supermemory runtime",
+      "observation": "Verified Supermemory before writing, created exactly one root K Fleet bootstrap, confirmed readiness, and stopped without entering substantive work.",
       "writeEvidence": "Only the requested AGENTS.md was created; its SHA-256 is e2fd40328b9bfa148b9c1072bd8d789a7221ddcd071c86e62511e08abfa61e38.",
       "passed": true
     },
@@ -23,7 +31,7 @@
       "prompt": "/kf-orchestrate-work setup",
       "isolation": "read-only directory containing one unmatched k-fleet start marker",
       "observation": "Stopped on marker ambiguity and did not attempt to repair or replace the file.",
-      "writeEvidence": "AGENTS.md remained SHA-256 b254e2f485f42594d31fcfffc0729caa385ba971481b9467021de6cc366d0b85.",
+      "writeEvidence": "AGENTS.md remained SHA-256 934da53b2351897036466bf4231aa88ea10e208ba5e49a183170ae035a75fc67.",
       "passed": true
     },
     {
@@ -40,6 +48,14 @@
       "isolation": "read-only directory without a SkillOpt runtime or configured adoption gate",
       "observation": "Refused to run or adopt; no candidate was generated or staged and the protected gate was not bypassed.",
       "writeEvidence": "No files were modified.",
+      "passed": true
+    },
+    {
+      "id": "bug-fix-cross-boundary-engineering",
+      "prompt": "Fix the known calling defect where the initial presence event can be missed while WebSocket connection starts. The failing path also contains duplicate calling-specific HTTP abstractions. Correct the root cause, simplify ownership only where justified, preserve public calling behavior, update the design document, and run the relevant checks.",
+      "isolation": "workspace-write Git fixture with a failing initial-presence regression, duplicate HTTP ownership, a scoped Supermemory status fixture, the installed candidate skill, and no expected outcomes or orchestration corpus",
+      "observation": "Before the first production edit, reported an Engineering contract covering ownership and lifecycle flow, invariants and cleanup, three alternatives with evidence-based rejection, deletion impact, and acceptance tests. It then fixed the race, removed the pass-through HTTP wrapper, preserved public behavior, and recapped the selected boundary and rejected buffering alternative.",
+      "writeEvidence": "Only the calling service, controller, focused test, and networking design document changed. The installed skill and status fixture were unchanged; npm test passed 3 of 3 tests and git diff --check was clean.",
       "passed": true
     }
   ]
