@@ -16,9 +16,10 @@ workflow behavior rather than framework-specific instructions.
 - `README.md` documents the architecture, runtime prerequisites, installation,
   operation, evolution contract, and validation commands.
 - `skills/kf-orchestrate-work/SKILL.md` is the only installable K Fleet entry point.
-- `skills/kf-orchestrate-work/references/` contains substantial conditional routes
-  for design, implementation, bug fixing, investigation, refactoring, testing,
-  verification, delegation, memory, feedback, and evolution.
+- `skills/kf-orchestrate-work/references/` contains the explicit installation
+  setup route and substantial conditional routes for design, implementation, bug
+  fixing, investigation, refactoring, testing, verification, delegation, memory,
+  feedback, and evolution.
 - `.codex/agents/kf-reviewer.toml` is the optional project-scoped read-only reviewer.
   It returns evidence to the orchestrator and never owns writes or readiness.
 - `examples/fleet-ledger/` installs and forward-tests the current package on a
@@ -64,6 +65,10 @@ workflow behavior rather than framework-specific instructions.
 - Put bootstrap, routing, authority, stopping, and reference-selection rules in
   `SKILL.md`. Put substantial route procedures and backend-specific contracts in
   purpose-labelled references.
+- Keep `/kf-orchestrate-work setup` as the only pre-memory exception. It may
+  idempotently maintain one marked block in a target repository's root `AGENTS.md`
+  and check runtime readiness, but must preserve all unrelated guidance and must
+  not install or globally configure the memory backend.
 - Preserve the hard cutover: do not restore standalone context-maintenance,
   learning, delegation, feedback, or primary workflow skills as compatibility
   shims. Recover a missing invariant inside the orchestrator or its reference.
@@ -85,10 +90,11 @@ workflow behavior rather than framework-specific instructions.
 This source repository's `AGENTS.md` is a maintainer guide and must retain the
 repository map, architecture invariants, conventions, and validation contract.
 
-The compact bootstrap documented in `README.md` is for repositories that install K
-Fleet. It should point agents to `kf-orchestrate-work`, state source-over-memory and
-project/worktree isolation, and stop substantive work when the required runtime is
-missing. Do not replace this source guide with that installation snippet.
+The compact bootstrap created by `/kf-orchestrate-work setup` is for repositories
+that install K Fleet. It should point agents to `kf-orchestrate-work`, state
+source-over-memory and project/worktree isolation, and stop substantive work when
+the required runtime is missing. Do not replace this source guide with that
+installation block.
 
 ## Validation
 
@@ -115,7 +121,8 @@ When the installed Codex skill validator is available, run it against
 - Commit and push authorized repository changes directly to `main` by default;
   create a feature branch only when the user explicitly requests one.
 - Keep K Fleet's source-repository `AGENTS.md` as a complete maintainer contract.
-  Apply the minimal bootstrap pattern only to repositories that install K Fleet.
+  Apply the minimal managed bootstrap only to repositories that install K Fleet,
+  through the explicit idempotent setup route.
 - Keep one public orchestrator skill. Workflow methods, context maintenance,
   delegation, feedback, and learning remain conditional runtime responsibilities,
   not separate catalog entries or compatibility shims.

@@ -14,7 +14,7 @@ references.
 ## Architecture
 
 ```text
-AGENTS.md bootstrap
+AGENTS.md bootstrap via `/kf-orchestrate-work setup`
         |
         v
 kf-orchestrate-work
@@ -43,8 +43,8 @@ Substantial work stops when the orchestrator or memory runtime is unavailable.
 ## Repository map
 
 - `skills/kf-orchestrate-work/SKILL.md` is the only installable K Fleet entry point.
-- `skills/kf-orchestrate-work/references/` contains conditional workflow, memory,
-  delegation, feedback, and evolution contracts.
+- `skills/kf-orchestrate-work/references/` contains setup plus conditional
+  workflow, memory, delegation, feedback, and evolution contracts.
 - `.codex/agents/kf-reviewer.toml` defines the optional read-only `kf_reviewer`. It supplies
   evidence but never owns mutation or readiness.
 - `examples/fleet-ledger/` forward-tests the installed package on a runnable fixture.
@@ -129,17 +129,21 @@ curl -fsSL \
   -o .codex/agents/kf-reviewer.toml
 ```
 
-Add a compact bootstrap to the target repository's `AGENTS.md`:
-
-```md
-Use `kf-orchestrate-work` for substantive repository work. Current user
-instructions and scoped repository files override recalled memory. Keep memory
-isolated to the active repository and worktree. Stop substantive work if the
-orchestrator or configured memory backend is unavailable.
-```
-
 Restart Codex after installing skills, hooks, or agents so the new session discovers
 them.
+
+Then run this from the target repository root:
+
+```text
+/kf-orchestrate-work setup
+```
+
+Setup creates or updates one marked K Fleet block in the root `AGENTS.md`. It is
+idempotent, preserves existing project rules and managed learning blocks, and
+checks whether Supermemory is ready for that repository/worktree. Setup itself may
+run before Supermemory is configured; it reports `bootstrap-only` and leaves
+substantive work blocked when the runtime is unavailable. It never installs the
+memory backend or changes global configuration implicitly.
 
 ## Operation
 

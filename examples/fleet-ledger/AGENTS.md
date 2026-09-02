@@ -1,9 +1,16 @@
 # Fleet Ledger
 
+<!-- k-fleet:start -->
+## K Fleet
+
 Use `kf-orchestrate-work` for substantive repository work. Current user
-instructions and files in this repository override recalled memory; isolate memory
-to this repository and worktree. Stop substantive work if the orchestrator or
-configured memory backend is unavailable.
+instructions and scoped repository files override recalled memory. Keep memory
+isolated to the active repository and worktree.
+
+Require the configured orchestrator and memory runtime before substantive work.
+If either is unavailable or its scope cannot be verified, stop and report the
+missing runtime.
+<!-- k-fleet:end -->
 
 ## Project context
 

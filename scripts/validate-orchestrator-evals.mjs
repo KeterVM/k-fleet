@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const corpusPath = join(root, "evals/orchestrator-routing.jsonl");
 const routes = new Set([
+  "setup",
   "design",
   "implementation",
   "bug-fix",
@@ -89,6 +90,9 @@ for (const method of methods) {
   }
 }
 for (const id of [
+  "setup-create-agents",
+  "setup-preserve-agents",
+  "setup-memory-not-ready",
   "memory-source-wins",
   "memory-cross-project-isolation",
   "memory-inference-not-policy",

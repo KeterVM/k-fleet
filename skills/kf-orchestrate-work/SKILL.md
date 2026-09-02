@@ -1,12 +1,19 @@
 ---
 name: kf-orchestrate-work
-description: Orchestrate substantive repository work through one K Fleet entry point. Resolve scoped context from the configured memory backend, select only the required design, implementation, bug-fix, investigation, refactor, testing, verification, delegation, feedback, or evolution procedure, execute within the user's authority, and close with verified evidence. Use for any non-trivial repository task; stop if the required orchestrator or memory runtime is unavailable.
+description: Orchestrate substantive repository work through one K Fleet entry point, or initialize a target repository after installation when explicitly invoked with setup. Resolve scoped context from the configured memory backend, select only the required workflow procedure, execute within the user's authority, and close with verified evidence. Use for any non-trivial repository task; outside setup, stop if the required orchestrator or memory runtime is unavailable.
 ---
 
 # Orchestrate Work
 
 Own the task from intent through verified closure. Keep detailed methods outside
 the always-loaded entry point and read only the references selected below.
+
+## Setup dispatch
+
+When explicitly invoked as `/kf-orchestrate-work setup`, read and execute
+[setup](references/setup.md), then stop. Setup is installation bootstrap, not a
+substantive repository workflow, and is the only route allowed before the
+configured memory runtime is ready.
 
 ## Bootstrap
 

@@ -21,6 +21,10 @@ Notable changes to K Fleet are recorded here.
 
 ### Added
 
+- Added `/kf-orchestrate-work setup`, an explicit pre-memory bootstrap route that
+  idempotently initializes one managed K Fleet block in a target repository's root
+  `AGENTS.md`, preserves existing guidance, and reports runtime readiness without
+  implicitly installing or globally configuring Supermemory.
 - Added current orchestration contracts for memory classes, context authority,
   project/worktree isolation, source-over-memory conflicts, inference review,
   SkillOpt adoption gates, automatic adoption boundaries, and rollback.
