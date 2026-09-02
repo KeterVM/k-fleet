@@ -25,7 +25,7 @@ body:
     id: skill
     attributes:
       label: Affected skill
-      placeholder: kf-implement-feature
+      placeholder: kf-orchestrate-work or one reference route
   - type: textarea
     id: environment
     attributes:

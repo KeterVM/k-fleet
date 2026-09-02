@@ -3,22 +3,9 @@ import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const coreSkills = [
-  "kf-add-test-coverage",
-  "kf-delegate-subtask",
-  "kf-design-change",
-  "kf-fix-bug",
-  "kf-implement-feature",
-  "kf-investigate-issue",
-  "kf-learn-from-evidence",
-  "kf-maintain-context",
-  "kf-refactor-code",
-  "kf-test-driven-change",
-  "kf-verify-change",
-];
-const feedbackSkills = ["kf-report-skill-usage"];
-const expectedSkills = [...coreSkills, ...feedbackSkills].sort();
-const companionAgents = ["kf_context_auditor", "kf_reviewer"];
+const coreSkills = ["kf-orchestrate-work"];
+const expectedSkills = [...coreSkills];
+const companionAgents = ["kf_reviewer"];
 const failures = [];
 
 function fail(message) {
@@ -32,7 +19,7 @@ function read(path) {
 function markdownFiles(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
     const path = join(directory, entry.name);
-    if (entry.name === ".git" || entry.name === ".agents") return [];
+    if (entry.name === ".git" || entry.name === ".agents" || entry.name === "archive") return [];
     if (entry.isDirectory()) return markdownFiles(path);
     return entry.name.endsWith(".md") ? [path] : [];
   });
@@ -215,5 +202,5 @@ if (failures.length) {
 }
 
 console.log(
-  `Validated packaging and repository structure for ${coreSkills.length} core K Fleet skills, ${feedbackSkills.length} feedback skill, and ${companionAgents.length} companion agents.`,
+  `Validated packaging and repository structure for ${coreSkills.length} K Fleet orchestrator skill and ${companionAgents.length} companion agent.`,
 );

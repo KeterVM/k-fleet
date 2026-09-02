@@ -1,65 +1,10 @@
 {
   "version": 1,
   "skills": {
-    "kf-add-test-coverage": {
+    "kf-orchestrate-work": {
       "source": "../../skills",
       "sourceType": "local",
-      "computedHash": "c8ff2fc1b0fb83bd1b7696b6a9e6afdc2f0b7e9cd77e00cc7b232730fc94a6d3"
-    },
-    "kf-delegate-subtask": {
-      "source": "../../skills",
-      "sourceType": "local",
-      "computedHash": "51f001dcd0d5c244c0c80745d7912b51d89613ef0ef615f09880807c0424fdd8"
-    },
-    "kf-design-change": {
-      "source": "../../skills",
-      "sourceType": "local",
-      "computedHash": "50c8730ba0d952a1d215a69a599fe58bc46855aaf4049fb5581b5414f85071f7"
-    },
-    "kf-fix-bug": {
-      "source": "../../skills",
-      "sourceType": "local",
-      "computedHash": "68b628c2b7e83ea2d172f32d631d73622c0347b73b50c2572e7a63fe613a720d"
-    },
-    "kf-implement-feature": {
-      "source": "../../skills",
-      "sourceType": "local",
-      "computedHash": "c97fbc2ea78ad7a544095c3a82d999a6de60b2f369b58ccbc6cc6a01478a86c2"
-    },
-    "kf-investigate-issue": {
-      "source": "../../skills",
-      "sourceType": "local",
-      "computedHash": "3643627f7ee03c707912f87f2db14554da7acc6cb9afb884cb0ff1e97d42f621"
-    },
-    "kf-learn-from-evidence": {
-      "source": "../../skills",
-      "sourceType": "local",
-      "computedHash": "c3ceb100d9308e67e457a78c19463f0247320e7ab926d87a88bed9c712ad8092"
-    },
-    "kf-maintain-context": {
-      "source": "../../skills",
-      "sourceType": "local",
-      "computedHash": "231195c96f4b7c778beff9159cc1efff177b0c40dc4f994063bfccf4c57fee2e"
-    },
-    "kf-refactor-code": {
-      "source": "../../skills",
-      "sourceType": "local",
-      "computedHash": "c002dd4fb40ecf3be95f7bfbe2c3d7b2f591c2ee37e5daf2629516dccbbf3200"
-    },
-    "kf-report-skill-usage": {
-      "source": "../../skills",
-      "sourceType": "local",
-      "computedHash": "0e0d21f2ec0abd5bae9ba2b2585b8eb0b1b96697a8760f57ea7f54940586266a"
-    },
-    "kf-test-driven-change": {
-      "source": "../../skills",
-      "sourceType": "local",
-      "computedHash": "e11cefd1417de500b742557330a5b25eaab4b8ff553dd12b85473f7164d39977"
-    },
-    "kf-verify-change": {
-      "source": "../../skills",
-      "sourceType": "local",
-      "computedHash": "ffe9f784f17599ac04b6c737ccdff10f270fae1bcbf55181ca9a5aa2652c9c4d"
+      "computedHash": "ea7c42bbbed9cc223781daf778fc5a33d0856d2fbece553397d93d758f473821"
     }
   }
 }

@@ -1,110 +1,15 @@
-# K Fleet Harness Evals
+# K Fleet orchestration evals
 
-`harness-routing.jsonl` contains black-box prompts for evaluating the eleven core
-workflow skills' routing,
-composition, workflow sequencing, handoff, learning gates, and delegation
-boundaries. These cases test decisions and observable ownership rather than exact
-skill wording.
+`orchestrator-routing.jsonl` is the current linted corpus for the hard-cutover
+architecture. It tests the single public orchestrator's route, conditional methods,
+phase sequence, stopping state, memory isolation, source authority, delegation, and
+SkillOpt gate boundaries.
 
-`robustness-routing.jsonl` is a separate suite for natural short and
-messy requests, balanced feature/bug/refactor coverage, Chinese prompts, and
-ordinary language that does not hand the evaluator K Fleet's authority vocabulary.
-`catalog-description-candidate.json` is likewise an unpromoted discovery-cost
-ablation input. Validate both with
-`node scripts/validate-robustness-evals.mjs`, prepare anonymous prompts with
-`node scripts/prepare-robustness-input.mjs`, prepare high-risk repeats with
-`node scripts/prepare-robustness-repeat-input.mjs`, and follow
-[`ROBUSTNESS_EVAL_PROTOCOL.md`](ROBUSTNESS_EVAL_PROTOCOL.md). Their lint status is
-not behavioral evidence. The completed cross-model run is frozen in
-`robustness-current-results.json`, validated by
-`node scripts/score-robustness-results.mjs`, which also generates and verifies
-[`ROUTING_ROBUSTNESS_MATRIX_REPORT.md`](ROUTING_ROBUSTNESS_MATRIX_REPORT.md). It
-remains separate from the canonical `current-results.json` evidence.
+The corpus is not an execution result. Fresh blind runs must bind the exact skill
+tree, corpus, tooling, observations, and judgments before K Fleet publishes a
+behavioral claim.
 
-For an independent behavioral run:
-
-1. Install the current K Fleet skills in an isolated fixture.
-2. Run `node scripts/prepare-eval-input.mjs` and give the evaluator only its
-   neutral rubric and anonymous `case-NNN` prompts, never semantic IDs, modes,
-   `expected` objects, or prior reports.
-3. Freeze each evaluator's raw primary skill, composed method skills, workflow
-   phase order, stopping result, rationale, mutations, and contamination state.
-   Keep separate run IDs and hash the complete raw runs before judging.
-4. Give a separate post-hoc judge the frozen observations and hidden expectations.
-   Record its stopping and per-invariant decisions without altering raw selections
-   or copying expected text as evidence.
-5. Run `node scripts/score-eval-results.mjs evals/current-results.json` to compare
-   observations with `expected.primary`, `composed`, `forbidden`, `sequence`, and
-   `invariants`.
-6. Classify a mismatch as routing, method, handoff, authority, stopping, or eval
-   ambiguity before changing a skill.
-
-Every new current behavioral report must record:
-
-- `Skill source SHA-256`, computed over every file in the explicitly enumerated
-  eleven core workflow skill directories, including conditional references, plus
-  the two canonical companion-agent TOML contracts under `.codex/agents/`;
-- `Eval corpus SHA-256`, `Blind input SHA-256`, `Eval tooling SHA-256`,
-  `Raw observation SHA-256`, `Results SHA-256`, and `Eval protocol version`;
-- the repository revision or working-tree base used to build the fixture;
-- `Evaluator mode: independent, blind, read-only`;
-- the exact case IDs exercised, contamination handling, mutations observed, and
-  fresh results.
-
-Run `node scripts/validate-eval-corpus.mjs` to lint the specification, score the
-structured observations deterministically, and confirm that current results and
-reports match their source, corpus, anonymous input, evaluation tooling,
-raw-observation, and result hashes. It deliberately does not invoke a model;
-independent evaluators and judges
-still produce the semantic evidence.
-
-Use a fresh task or independent agent so prior conclusions and expected answers do
-not leak into selection. Blind evaluators must use exact current source files and
-must not query persistent or session-global knowledge indexes. If prior artifacts,
-diffs, or expected answers surface, discard the complete run and restart with a
-fresh isolated evaluator. The eval-corpus lint checks syntax and required coverage,
-but it does not claim that Codex executed these prompts correctly.
-
-`feedback-reporting.jsonl` separately specifies the explicit post-work trigger,
-ordinary-summary and ongoing-work non-triggers, unknown-provenance behavior,
-sanitization, agent-oriented packet fields, envelope self-check, opaque hash-domain
-handling, and report-only write boundary for `kf-report-skill-usage`. Run
-`node scripts/validate-feedback-reporting.mjs` to lint that specification. It is
-deliberately excluded from core-loop result hashes and does not claim behavioral
-execution.
-[`SKILL_USAGE_REPORT_EVAL_REPORT.md`](SKILL_USAGE_REPORT_EVAL_REPORT.md) records
-the separate independent forward run against the reporter's success, non-trigger,
-unknown-provenance, sanitization, and single-artifact boundaries.
-
-See [`FORWARD_EVAL_REPORT.md`](FORWARD_EVAL_REPORT.md) for the independent
-decision-level run and [`ARTIFACT_EVAL_REPORT.md`](ARTIFACT_EVAL_REPORT.md) for
-isolated implementation, repair, and design-drift execution.
-[`CLOSURE_EVAL_REPORT.md`](CLOSURE_EVAL_REPORT.md) records the current
-source-hashed blind tests of direct policy, authorization stopping,
-Learning-to-Context handoff, missing-peer degradation, and the full
-design-to-Context sequence. Older dated reports remain historical evidence for
-the corpus and contracts they name.
-[`TRIGGER_BOUNDARY_EVAL_REPORT.md`](TRIGGER_BOUNDARY_EVAL_REPORT.md) records the
-current source-hashed blind rerun of investigation mutation, retrospective coverage
-authority, design-to-implementation routing, current-task feedback, and execution
-validation boundaries.
-[`VARIANCE_EVAL_REPORT.md`](VARIANCE_EVAL_REPORT.md) records repeated independent
-runs of the highest-risk decision boundaries.
-[`ADVERSARIAL_EVAL_REPORT.md`](ADVERSARIAL_EVAL_REPORT.md) records mixed-intent,
-mislabelled, authority-seeking, and intentionally unsupported prompts.
-[`DELEGATE_SPECIALIST_EVAL_REPORT.md`](DELEGATE_SPECIALIST_EVAL_REPORT.md) records
-an actual parent-to-specialist read-only handoff and integration run.
-
-The isolated [`bounded-quality`](bounded-quality) experiment compares the current
-single-owner workflows, a stronger single-owner quality contract, and an
-experimental sole-writing-expert topology. Its candidate skill is intentionally
-outside `skills/` and the installed fixture: it does not change the eleven-skill
-public contract or count as behavioral evidence until blind artifact runs satisfy
-its promotion gate. [`BOUNDED_QUALITY_PILOT_REPORT.md`](BOUNDED_QUALITY_PILOT_REPORT.md)
-records the first instruction-blind smoke run, the detected fixture contamination,
-the later isolation limitations, and the decision not to promote. Validate the
-experiment specification with:
-
-```sh
-node scripts/bounded-quality-experiment.mjs validate
-```
+`archive/v1/` preserves reports, corpora, results, and experiment material from the
+retired multi-skill architecture. Those artifacts are intentionally excluded from
+current structural validation and must not be described as evidence for
+`kf-orchestrate-work`.

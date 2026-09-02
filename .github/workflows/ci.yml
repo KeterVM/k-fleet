@@ -24,14 +24,8 @@ jobs:
           package-manager-cache: false
       - name: Validate repository structure
         run: node scripts/validate-repository-structure.mjs
-      - name: Lint eval corpus and evidence metadata
-        run: node scripts/validate-eval-corpus.mjs
-      - name: Validate robustness inputs
-        run: node scripts/validate-robustness-evals.mjs
-      - name: Validate robustness results
-        run: node scripts/score-robustness-results.mjs
-      - name: Validate feedback reporting
-        run: node scripts/validate-feedback-reporting.mjs
+      - name: Lint orchestrator evaluation corpus
+        run: node scripts/validate-orchestrator-evals.mjs
       - name: Test Fleet Ledger example
         working-directory: examples/fleet-ledger
         run: npm test

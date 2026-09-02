@@ -4,6 +4,30 @@ Notable changes to K Fleet are recorded here.
 
 ## Unreleased
 
+### Changed
+
+- Replaced the eleven-skill public workflow catalog and separate feedback reporter
+  with one `kf-orchestrate-work` entry point and conditional route references.
+- Moved context maintenance, delegation, feedback, and evidence-driven learning
+  behind the orchestrator instead of keeping them as separately selected skills.
+- Selected Supermemory as the required scoped context and experience backend and
+  SkillOpt-Sleep as the offline, validation-gated evolution engine.
+- Reduced installation guidance in target repositories to a compact bootstrap while
+  retaining this source repository's complete maintainer `AGENTS.md` contract.
+- Removed the Context auditor companion and kept one optional read-only reviewer
+  that returns evidence to the orchestrator.
+- Archived the former routing corpora, result sets, reports, and evaluation tooling
+  as v1 historical evidence; none of their scores carry over to the cutover.
+
+### Added
+
+- Added current orchestration contracts for memory classes, context authority,
+  project/worktree isolation, source-over-memory conflicts, inference review,
+  SkillOpt adoption gates, automatic adoption boundaries, and rollback.
+- Added a new orchestration corpus and deterministic lint covering routes, TDD,
+  delegation, phase handoffs, runtime failure, memory isolation, terminal episodes,
+  feedback, and evolution gates.
+
 ## [1.5.0] - 2026-09-01
 
 ### Added
