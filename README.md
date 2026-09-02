@@ -29,8 +29,8 @@ The control plane has four boundaries:
 
 - **Orchestrator:** owns routing, authority, integration, validation, and task
   completion.
-- **Supermemory:** supplies scoped source documents, facts, inferences, preferences,
-  and terminal task episodes. Memory is evidence, not permission.
+- **Supermemory:** owns scoped recall, automatic capture, explicit memory operations,
+  versioning, forgetting, and inference review. Memory is evidence, not permission.
 - **Workflow references:** provide the selected method without adding more
   always-visible skill descriptions.
 - **SkillOpt-Sleep:** performs offline trajectory-driven optimization. A candidate
@@ -38,31 +38,37 @@ The control plane has four boundaries:
 
 Current user instructions and current scoped repository files remain authoritative
 when recalled memory conflicts with them. Project and worktree isolation is required.
-Substantial work stops when the orchestrator or memory runtime is unavailable.
+Substantial work stops when the orchestrator or Supermemory integration is unavailable.
 
 ## Repository map
 
 - `skills/kf-orchestrate-work/SKILL.md` is the only installable K Fleet entry point.
 - `skills/kf-orchestrate-work/references/` contains setup plus conditional
-  workflow, memory, delegation, feedback, and evolution contracts.
+  workflow, delegation, feedback, and evolution contracts. The shared Supermemory
+  boundary stays in the entry point instead of a backend procedure reference.
 - `.codex/agents/kf-reviewer.toml` defines the optional read-only `kf_reviewer`. It supplies
   evidence but never owns mutation or readiness.
 - `examples/fleet-ledger/` forward-tests the installed package on a runnable fixture.
 - `evals/orchestrator-routing.jsonl` defines the current routing and control-plane
   corpus. Reports from the retired multi-skill architecture are historical evidence,
   not current behavior claims.
+- `evals/v2-release-forward-results.json` and its report record the bounded,
+  source-bound blind smoke test used for the 2.0 release.
 - `scripts/validate-repository-structure.mjs` checks packaging, installed copies,
   links, placeholders, and the companion agent.
 - `scripts/validate-orchestrator-evals.mjs` lints the current orchestration corpus;
   it does not claim that prompts were executed.
+- `scripts/validate-v2-forward-results.mjs` rejects release observations whose skill
+  or corpus hashes no longer match the current sources.
 
 ## Runtime prerequisites
 
 ### Supermemory
 
-Use the official Codex integration, which provides automatic prompt-time recall,
-incremental capture, terminal flush, explicit memory operations, project scoping,
-and support for a local Supermemory server:
+Install the official Codex integration once at user scope. It owns prompt-time
+recall, incremental capture, terminal flush, project scoping, and every explicit
+memory operation; K Fleet does not install a second memory client or ship fallback
+memory skills:
 
 ```sh
 npx codex-supermemory@latest install
@@ -72,14 +78,24 @@ npx codex-supermemory status
 For a local backend:
 
 ```sh
+export SUPERMEMORY_DATA_DIR="$HOME/.supermemory"
 npx supermemory local
-export SUPERMEMORY_API_URL=http://localhost:6767
 export SUPERMEMORY_ISOLATE_WORKTREES=true
 ```
 
-Use the API key printed by the local server. Keep the server and model local when
-repository data must not leave the machine. The hosted backend is also supported
-when its data and access policy are acceptable.
+Put the API key printed by the local server and
+`"baseUrl": "http://127.0.0.1:6767"` in `~/.codex/supermemory.json`, or provide
+the equivalent documented environment variables before starting Codex. Pin
+`SUPERMEMORY_DATA_DIR`; otherwise starting the server from another directory creates
+a separate store. Keep the server and model local when repository data must not
+leave the machine. The hosted backend is also supported when its data and access
+policy are acceptable.
+
+K Fleet requires the integration's scoped automatic recall and capture, not its MCP
+transport. Hosted MCP tools or future local explicit-operation surfaces remain
+Supermemory features. If an explicitly requested memory operation is unavailable,
+K Fleet reports that missing capability instead of bypassing the integration with
+direct REST calls.
 
 References:
 
@@ -89,18 +105,25 @@ References:
 
 ### SkillOpt-Sleep
 
-Skill evolution is an offline cycle, not an inference-time rewrite:
+Skill evolution is an offline cycle, not an inference-time rewrite. With a source
+checkout, point the runner at that checkout and install its Codex skill into the
+target repository:
 
 ```sh
-pip install skillopt
-skillopt-sleep dry-run --project "$(pwd)" --source codex
-skillopt-sleep run --project "$(pwd)" --source codex
-skillopt-sleep status
+export SKILLOPT_SLEEP_REPO=/absolute/path/to/SkillOpt
+mkdir -p .agents/skills/skillopt-sleep
+cp "$SKILLOPT_SLEEP_REPO/plugins/codex/skills/skillopt-sleep/SKILL.md" \
+  .agents/skills/skillopt-sleep/SKILL.md
+bash "$SKILLOPT_SLEEP_REPO/plugins/run-sleep.sh" status --project "$(pwd)"
 ```
 
-Configure the live installed `kf-orchestrate-work` skill as the target, enable a
-no-regression gate for protected invariants, and scope harvesting to the current
-project. Review or redact harvested material before sending it to any remote model.
+The runner can execute directly from the checkout; a separate package install is
+optional. In `~/.skillopt-sleep/config.json`, set `"evolve_memory": false`, set
+`"target_skill_path"` to the target project's installed
+`.agents/skills/kf-orchestrate-work/SKILL.md`, enable `"gate_no_regression": true`,
+and set `"transcript_source": "codex"`. SkillOpt must optimize only the named skill;
+Supermemory retains the complete memory lifecycle. Scope harvesting to that project
+and review or redact harvested material before sending it to any remote model.
 Automatic adoption is appropriate only when the target, gate, rollback artifact,
 and protected invariants are preconfigured; otherwise keep adoption review-driven.
 
@@ -154,7 +177,8 @@ The user describes the outcome normally. K Fleet performs this loop:
 3. Select and load only the required workflow references.
 4. Execute directly or delegate bounded evidence/work with non-overlapping writes.
 5. Validate the integrated artifact and report a terminal state.
-6. Save a compact, sanitized terminal episode for later retrieval and evolution.
+6. Report a compact, sanitized terminal outcome for Supermemory's automatic capture
+   and later evolution.
 
 Explicit post-work feedback reporting is also routed through the orchestrator; it
 is no longer a separate skill. Context maintenance and learning are runtime
@@ -185,12 +209,14 @@ Run:
 ```sh
 node scripts/validate-repository-structure.mjs
 node scripts/validate-orchestrator-evals.mjs
+node scripts/validate-v2-forward-results.mjs
 cd examples/fleet-ledger && npm test
 ```
 
-The structure and corpus validators are deterministic lint. They do not substitute
-for forward behavioral evaluation with the installed Codex, Supermemory, and
-SkillOpt runtimes.
+The structure and corpus validators are deterministic lint. The v2 forward-results
+validator authenticates the recorded test inputs against current hashes; it does not
+re-execute Codex or substitute for broader behavioral evaluation with the installed
+Codex, Supermemory, and SkillOpt runtimes.
 
 ## Design principles
 

@@ -29,9 +29,9 @@ Use `kf-orchestrate-work` for substantive repository work. Current user
 instructions and scoped repository files override recalled memory. Keep memory
 isolated to the active repository and worktree.
 
-Require the configured orchestrator and memory runtime before substantive work.
-If either is unavailable or its scope cannot be verified, stop and report the
-missing runtime.
+Require the configured orchestrator and Supermemory integration before substantive
+work. If either is unavailable or the memory scope cannot be verified, stop and
+report the missing runtime.
 <!-- k-fleet:end -->
 ```
 
@@ -58,9 +58,9 @@ Read the resulting root `AGENTS.md` and verify that it has one complete managed
 block and that unrelated guidance remains intact. Report whether setup created,
 updated, or left the file unchanged, plus one of these runtime states:
 
-- ready: the orchestrator and scoped memory runtime are available;
-- bootstrap-only: `AGENTS.md` is initialized, but the memory runtime is missing or
-  its scope could not be verified, so substantive work remains blocked.
+- ready: the orchestrator and scoped Supermemory integration are available;
+- bootstrap-only: `AGENTS.md` is initialized, but Supermemory is missing or its
+  scope could not be verified, so substantive work remains blocked.
 
 Setup completes after this report. Do not enter another workflow route unless the
 user makes a separate substantive request and the normal bootstrap succeeds.

@@ -18,8 +18,8 @@ workflow behavior rather than framework-specific instructions.
 - `skills/kf-orchestrate-work/SKILL.md` is the only installable K Fleet entry point.
 - `skills/kf-orchestrate-work/references/` contains the explicit installation
   setup route and substantial conditional routes for design, implementation, bug
-  fixing, investigation, refactoring, testing, verification, delegation, memory,
-  feedback, and evolution.
+  fixing, investigation, refactoring, testing, verification, delegation, feedback,
+  and evolution.
 - `.codex/agents/kf-reviewer.toml` is the optional project-scoped read-only reviewer.
   It returns evidence to the orchestrator and never owns writes or readiness.
 - `examples/fleet-ledger/` installs and forward-tests the current package on a
@@ -28,10 +28,14 @@ workflow behavior rather than framework-specific instructions.
 - `evals/orchestrator-routing.jsonl` is the current machine-readable orchestration
   corpus. Other reports and result sets describe the retired multi-skill
   architecture unless explicitly regenerated against the current source hash.
+- `evals/v2-release-forward-results.json` and its report contain the bounded blind
+  release smoke observations bound to the exact v2 skill and corpus hashes.
 - `scripts/validate-repository-structure.mjs` validates packaging, references,
   installed copies, companion agents, links, placeholders, and documentation.
 - `scripts/validate-orchestrator-evals.mjs` lints the current corpus without
   claiming prompts were executed.
+- `scripts/validate-v2-forward-results.mjs` verifies that the recorded v2 smoke
+  observations still match the current skill and corpus.
 - `.github/`, `CONTRIBUTING.md`, and `SECURITY.md` define public contribution,
   automation, and vulnerability-reporting workflows.
 - `LICENSE` and `NOTICE` contain the Apache-2.0 terms and attribution.
@@ -39,16 +43,18 @@ workflow behavior rather than framework-specific instructions.
 ## Architecture responsibilities
 
 - `kf-orchestrate-work` owns task routing, authority, selected workflow execution,
-  delegation, integration, validation, memory handoff, and final task state.
+  delegation, integration, validation, terminal evidence, and final task state.
 - Supermemory owns scoped source documents, extracted facts, inferences,
   preferences, terminal episodes, versioned updates, forgetting, and memory review.
   It supplies evidence and never expands permission or silently overrides a current
-  scoped repository source.
+  scoped repository source. K Fleet must not ship fallback memory skills, implement
+  a second memory client, or call backend REST APIs to emulate a missing integration.
 - Conditional references hold detailed methods. Keep the entry point concise and
   link each reference at its decision point; do not recreate public method skills.
 - SkillOpt-Sleep owns offline trajectory mining, bounded candidate edits, replay,
-  and held-out gates. Normal task execution records evidence but does not rewrite
-  the live skill in the hot path.
+  and held-out gates for an explicitly named skill target. Keep its memory evolution
+  disabled because Supermemory owns memory consolidation. Normal task execution
+  records evidence but does not rewrite the live skill in the hot path.
 - The reviewer is advisory and read-only. The orchestrator retains correction,
   integration, conflict resolution, and completion.
 
@@ -72,9 +78,9 @@ workflow behavior rather than framework-specific instructions.
 - Preserve the hard cutover: do not restore standalone context-maintenance,
   learning, delegation, feedback, or primary workflow skills as compatibility
   shims. Recover a missing invariant inside the orchestrator or its reference.
-- Keep memory scope derived from canonical repository and worktree identity. Treat
-  inferred memory as unapproved evidence; preserve provenance for promotion,
-  update, rejection, forgetting, and rollback.
+- Require Supermemory to derive scope from canonical repository and worktree
+  identity. Treat recalled inferences as unapproved evidence and leave memory
+  promotion, update, rejection, forgetting, and rollback to that integration.
 - Test orchestration through observable route, method, sequence, authority,
   stopping, memory-isolation, and evolution-gate decisions rather than exact prose.
 - Do not transfer historical behavioral scores to the cutover architecture. New
@@ -108,6 +114,7 @@ Run:
 ```sh
 node scripts/validate-repository-structure.mjs
 node scripts/validate-orchestrator-evals.mjs
+node scripts/validate-v2-forward-results.mjs
 cd examples/fleet-ledger && npm test
 ```
 
@@ -129,7 +136,8 @@ When the installed Codex skill validator is available, run it against
 - Use Supermemory as the context and experience backend and SkillOpt-Sleep as the
   offline skill optimizer. Preserve current repository sources as the conflict
   authority, enforce project/worktree isolation, and gate every adopted evolution
-  so it is versioned and reversible.
+  so it is versioned and reversible. Supermemory owns the complete memory lifecycle;
+  do not recreate its operations as K Fleet skills or adapters.
 - Keep `kf_reviewer` optional, read-only, model-neutral, and advisory. It must not
   fix its findings or claim readiness independently of the orchestrator.
 - For materially changed orchestration behavior, supplement deterministic lint with

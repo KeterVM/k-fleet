@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -31,6 +32,16 @@ function regularFiles(directory) {
     if (entry.isDirectory()) return regularFiles(path);
     return [path];
   });
+}
+
+function skillFolderHash(directory) {
+  const hash = createHash("sha256");
+  for (const path of regularFiles(directory).sort((a, b) =>
+    relative(directory, a).localeCompare(relative(directory, b)))) {
+    hash.update(relative(directory, path).split("\\").join("/"));
+    hash.update(readFileSync(path));
+  }
+  return hash.digest("hex");
 }
 
 const skillRoot = join(root, "skills");
@@ -76,6 +87,13 @@ const lock = JSON.parse(read(join(root, "examples/fleet-ledger/skills-lock.json"
 const lockedSkills = Object.keys(lock.skills ?? {}).sort();
 if (JSON.stringify(lockedSkills) !== JSON.stringify(expectedSkills)) {
   fail("skills-lock.json does not contain exactly the expected source skills");
+}
+for (const skill of expectedSkills) {
+  const recordedHash = lock.skills?.[skill]?.computedHash;
+  const actualHash = skillFolderHash(join(skillRoot, skill));
+  if (recordedHash !== actualHash) {
+    fail(`skills-lock.json has a stale computedHash for ${skill}; rerun bunx skills add`);
+  }
 }
 
 const installedSkillRoot = join(root, "examples/fleet-ledger/.agents/skills");

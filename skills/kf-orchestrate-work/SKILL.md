@@ -1,6 +1,6 @@
 ---
 name: kf-orchestrate-work
-description: Orchestrate substantive repository work through one K Fleet entry point, or initialize a target repository after installation when explicitly invoked with setup. Resolve scoped context from the configured memory backend, select only the required workflow procedure, execute within the user's authority, and close with verified evidence. Use for any non-trivial repository task; outside setup, stop if the required orchestrator or memory runtime is unavailable.
+description: Orchestrate substantive repository work through one K Fleet entry point, or initialize a target repository after installation when explicitly invoked with setup. Consume project-scoped context supplied by Supermemory, select only the required workflow procedure, execute within the user's authority, and close with verified evidence. Use for any non-trivial repository task; outside setup, stop if the required orchestrator or Supermemory runtime is unavailable.
 ---
 
 # Orchestrate Work
@@ -13,16 +13,17 @@ the always-loaded entry point and read only the references selected below.
 When explicitly invoked as `/kf-orchestrate-work setup`, read and execute
 [setup](references/setup.md), then stop. Setup is installation bootstrap, not a
 substantive repository workflow, and is the only route allowed before the
-configured memory runtime is ready.
+configured Supermemory integration is ready.
 
 ## Bootstrap
 
 1. Resolve the active repository root, worktree, working directory, user outcome,
    authority, and stopping condition.
-2. Require the configured K Fleet memory runtime. Resolve its project/worktree
-   scope and retrieve focused context before substantial exploration or mutation.
-   If the runtime is unavailable or its scope cannot be verified, stop substantive
-   work and report the failure.
+2. Require the configured Supermemory integration. Verify its project/worktree
+   scope and consume the focused context it supplies before substantial exploration
+   or mutation. If the integration is unavailable or its scope cannot be verified,
+   stop substantive work and report the failure. Do not implement a second memory
+   client or call backend REST APIs as a fallback.
 3. Treat current system and user instructions plus current scoped repository files
    as authoritative. Recalled memory is evidence; never let it silently override a
    current source, expand authority, or cross a repository/worktree boundary.
@@ -39,9 +40,8 @@ configured memory runtime is ready.
    - bounded sub-agent work: [delegation](references/delegation.md)
    - explicit post-work K Fleet report: [feedback](references/feedback.md)
 
-   Read [memory](references/memory.md) for memory writes, conflict resolution,
-   forgetting, or memory review. Read [evolution](references/evolution.md) when a
-   reusable orchestration or skill change is proposed or a SkillOpt cycle is run.
+   Read [evolution](references/evolution.md) when a reusable orchestration or skill
+   change is proposed or a SkillOpt cycle is run.
 
 ## Control loop
 
@@ -55,12 +55,21 @@ configured memory runtime is ready.
 - Check the current integrated artifact, not summaries from tools or sub-agents.
   Run focused validation and proportionate broader checks, then inspect the final
   diff before claiming completion.
-- Persist a compact terminal episode to memory: intent, scope, route and methods,
-  decisive evidence, changed boundaries, checks, outcome, corrections, remaining
-  uncertainty, and source revision. Do not store secrets, raw logs, proprietary
-  excerpts, or unsupported conclusions.
+- End with a compact terminal account of intent, scope, route and methods, decisive
+  evidence, changed boundaries, checks, outcome, corrections, remaining uncertainty,
+  and source revision so the Supermemory integration can capture the useful episode.
+  Do not duplicate that capture through a K Fleet-owned memory client.
 - Reusable learning enters the evolution pipeline as evidence. It does not directly
   edit this skill, repository policy, or memory marked as authoritative.
+
+## Memory boundary
+
+Supermemory owns recall, capture, explicit memory operations, versioning, forgetting,
+and inference review. K Fleet consumes recalled context and produces useful terminal
+evidence; it does not ship fallback memory skills or emulate missing Supermemory
+capabilities. When a user explicitly requests a memory operation, use the configured
+Supermemory integration's own surface. If that surface is unavailable, report the
+missing capability instead of substituting another store.
 
 ## Authority and completion
 

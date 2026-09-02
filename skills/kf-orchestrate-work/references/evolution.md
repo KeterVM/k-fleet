@@ -1,7 +1,7 @@
 # Evolution contract
 
-SkillOpt-Sleep is K Fleet's offline evolution engine. Normal task execution records
-bounded terminal episodes; it does not rewrite skills in the hot path.
+SkillOpt-Sleep is K Fleet's offline evolution engine. Supermemory captures bounded
+terminal episodes from normal task outcomes; the hot path does not rewrite skills.
 
 The evolution cycle is:
 
@@ -14,6 +14,9 @@ harvest -> redact/review -> mine -> replay -> bounded edit
 
 - Scope transcript harvesting and recalled episodes to the active project. Treat
   harvested prompts and evidence logs as sensitive.
+- Set SkillOpt-Sleep's `evolve_memory` to `false`. Supermemory owns memory
+  consolidation; SkillOpt may optimize only the explicitly named orchestrator skill
+  or reference target.
 - Exclude secrets, raw tool arguments and outputs, unrelated repositories, and
   unsupported inferred memories from training material.
 - Optimize the live `kf-orchestrate-work` skill or one named reference at a time.
@@ -29,7 +32,7 @@ harvest -> redact/review -> mine -> replay -> bounded edit
   adoption mechanism records the candidate, baseline, scores, and rollback target.
   Otherwise stage for review.
 
-Supermemory supplies scoped episodes and relevant prior experience. SkillOpt owns
+Supermemory owns episode capture and supplies scoped prior experience. SkillOpt owns
 candidate optimization and evaluation. The orchestrator owns runtime selection and
 post-adoption verification. None of these components may treat a benchmark gain as
 permission to broaden repository or user policy.

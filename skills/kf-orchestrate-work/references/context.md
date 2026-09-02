@@ -18,6 +18,7 @@ source documents that govern future agent behavior.
 5. Recompute the effective chain for representative directories after the edit and
    verify scope, precedence, size, links, and source-over-memory behavior.
 
-Do not invent policy or write outside the user's scope. Store the resulting source
-revision and a compact change episode in memory, but keep the repository file as
-the authority.
+Do not invent policy or write outside the user's scope. Include the resulting source
+revision and a compact change account in the terminal evidence for Supermemory's
+automatic capture; do not perform a separate K Fleet-owned memory write. The
+repository file remains the authority.

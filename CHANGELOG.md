@@ -4,6 +4,8 @@ Notable changes to K Fleet are recorded here.
 
 ## Unreleased
 
+## [2.0.0] - 2026-09-02
+
 ### Changed
 
 - Replaced the eleven-skill public workflow catalog and separate feedback reporter
@@ -12,8 +14,14 @@ Notable changes to K Fleet are recorded here.
   behind the orchestrator instead of keeping them as separately selected skills.
 - Selected Supermemory as the required scoped context and experience backend and
   SkillOpt-Sleep as the offline, validation-gated evolution engine.
+- Assigned the complete memory lifecycle to the Supermemory integration. K Fleet
+  consumes scoped recall and emits terminal evidence for automatic capture; it no
+  longer requires named fallback memory skills or implements direct REST behavior.
 - Reduced installation guidance in target repositories to a compact bootstrap while
   retaining this source repository's complete maintainer `AGENTS.md` contract.
+- Documented repository-scoped installation of the SkillOpt-Sleep Codex skill from
+  a source checkout, keeping it separate from K Fleet's single public entry point
+  and disabling SkillOpt's separate memory/`CLAUDE.md` evolution path.
 - Removed the Context auditor companion and kept one optional read-only reviewer
   that returns evidence to the orchestrator.
 - Archived the former routing corpora, result sets, reports, and evaluation tooling
@@ -31,6 +39,11 @@ Notable changes to K Fleet are recorded here.
 - Added a new orchestration corpus and deterministic lint covering routes, TDD,
   delegation, phase handoffs, runtime failure, memory isolation, terminal episodes,
   feedback, and evolution gates.
+- Added deterministic verification that the Fleet Ledger lock hash matches the
+  exact current orchestrator skill contents.
+- Added four isolated Codex forward observations for release-critical setup,
+  Supermemory ownership, and SkillOpt gate boundaries, plus source/corpus hash
+  validation that prevents stale evidence from being presented as current.
 
 ## [1.5.0] - 2026-09-01
 

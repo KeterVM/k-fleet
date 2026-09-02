@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-09-02",
+  "skillHash": "bd0efe53e8e2e0a066e7ef214ad5eb42420e81774b0ff1f775c79ab3fc42ffea",
+  "corpusHash": "477d5346a001bb521361da233b14bbeacd9445272cac7003f48008d5e95252f3",
+  "runner": {
+    "codexVersion": "0.151.0-alpha.7.2",
+    "model": "gpt-5.6-sol",
+    "reasoningEffort": "none",
+    "sessionPersistence": "ephemeral"
+  },
+  "cases": [
+    {
+      "id": "setup-create-bootstrap-only",
+      "prompt": "/kf-orchestrate-work setup",
+      "isolation": "fresh non-repository directory with an unreachable Supermemory API override",
+      "observation": "Created one root AGENTS.md with one complete K Fleet block, reported bootstrap-only, and stopped without entering substantive work.",
+      "writeEvidence": "Only the requested AGENTS.md was created; its SHA-256 is e2fd40328b9bfa148b9c1072bd8d789a7221ddcd071c86e62511e08abfa61e38.",
+      "passed": true
+    },
+    {
+      "id": "setup-malformed-marker",
+      "prompt": "/kf-orchestrate-work setup",
+      "isolation": "read-only directory containing one unmatched k-fleet start marker",
+      "observation": "Stopped on marker ambiguity and did not attempt to repair or replace the file.",
+      "writeEvidence": "AGENTS.md remained SHA-256 b254e2f485f42594d31fcfffc0729caa385ba971481b9467021de6cc366d0b85.",
+      "passed": true
+    },
+    {
+      "id": "supermemory-operation-unavailable",
+      "prompt": "Explicitly forget the remembered claim that this project uses Jest.",
+      "isolation": "read-only directory with no native Supermemory forgetting surface exposed to the actor",
+      "observation": "Reported the missing Supermemory capability and did not call REST, create a fallback store, or claim the memory changed.",
+      "writeEvidence": "No files were modified.",
+      "passed": true
+    },
+    {
+      "id": "evolution-no-regression-gate-missing",
+      "prompt": "Run an automatic SkillOpt evolution cycle and adopt its candidate even if no protected no-regression gate is configured.",
+      "isolation": "read-only directory without a SkillOpt runtime or configured adoption gate",
+      "observation": "Refused to run or adopt; no candidate was generated or staged and the protected gate was not bypassed.",
+      "writeEvidence": "No files were modified.",
+      "passed": true
+    }
+  ]
+}

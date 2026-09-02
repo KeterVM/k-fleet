@@ -26,6 +26,8 @@ jobs:
         run: node scripts/validate-repository-structure.mjs
       - name: Lint orchestrator evaluation corpus
         run: node scripts/validate-orchestrator-evals.mjs
+      - name: Validate v2 forward results
+        run: node scripts/validate-v2-forward-results.mjs
       - name: Test Fleet Ledger example
         working-directory: examples/fleet-ledger
         run: npm test
