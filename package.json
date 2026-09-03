@@ -1,0 +1,41 @@
+{
+  "name": "k-fleet",
+  "version": "2.1.0",
+  "description": "Install, update, and operate K Fleet and SkillOpt-Sleep across Codex projects",
+  "type": "module",
+  "bin": {
+    "k-fleet": "scripts/kf-projects.mjs"
+  },
+  "files": [
+    ".codex/agents/kf-reviewer.toml",
+    "scripts/kf-projects.mjs",
+    "LICENSE",
+    "NOTICE",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test scripts/kf-projects.test.mjs && node scripts/validate-repository-structure.mjs && node scripts/validate-orchestrator-evals.mjs && node scripts/validate-v2-forward-results.mjs && npm --prefix examples/fleet-ledger test",
+    "prepack": "npm test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KeterVM/k-fleet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KeterVM/k-fleet/issues"
+  },
+  "homepage": "https://github.com/KeterVM/k-fleet#readme",
+  "keywords": [
+    "codex",
+    "agent-skills",
+    "skillopt",
+    "orchestration"
+  ],
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  }
+}

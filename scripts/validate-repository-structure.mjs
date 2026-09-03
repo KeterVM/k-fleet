@@ -54,6 +54,23 @@ if (JSON.stringify(actualSkills) !== JSON.stringify(expectedSkills)) {
 }
 
 const readme = read(join(root, "README.md"));
+const packageManifest = JSON.parse(read(join(root, "package.json")));
+if (packageManifest.name !== "k-fleet") fail("package.json name must be k-fleet");
+if (packageManifest.type !== "module") fail("package.json type must be module");
+if (packageManifest.bin?.["k-fleet"] !== "scripts/kf-projects.mjs") {
+  fail("package.json must expose scripts/kf-projects.mjs as the k-fleet executable");
+}
+for (const required of [
+  ".codex/agents/kf-reviewer.toml",
+  "scripts/kf-projects.mjs",
+  "LICENSE",
+  "NOTICE",
+  "README.md",
+]) {
+  if (!packageManifest.files?.includes(required)) {
+    fail(`package.json files must include ${required}`);
+  }
+}
 for (const required of ["scripts/kf-projects.mjs", "scripts/kf-projects.test.mjs"]) {
   if (!existsSync(join(root, required))) fail(`Missing ${required}`);
   if (!readme.includes(required)) fail(`README.md does not document ${required}`);

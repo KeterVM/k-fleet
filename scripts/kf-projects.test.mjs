@@ -7,6 +7,7 @@ import {
   mkdtempSync,
   readFileSync,
   realpathSync,
+  symlinkSync,
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
@@ -66,35 +67,46 @@ test("bulk adoption requires explicit project paths", () => {
   );
 });
 
-test("bootstrap configures and installs every registered project", () => {
+test("npm bin symlink invokes the CLI", () => {
+  const root = mkdtempSync(join(tmpdir(), "kf-bin-"));
+  const source = join(dirname(fileURLToPath(import.meta.url)), "kf-projects.mjs");
+  const bin = join(root, "k-fleet");
+  symlinkSync(source, bin);
+  const result = spawnSync(bin, ["help"], { encoding: "utf8" });
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /npx k-fleet install/);
+});
+
+test("install prepares SkillOpt and every selected project", () => {
   const root = mkdtempSync(join(tmpdir(), "kf-projects-"));
   const state = join(root, "state");
   const sleepConfig = join(root, "sleep", "config.json");
-  const skillOpt = join(root, "SkillOpt");
+  const skillOpt = join(state, "SkillOpt");
   const runner = join(skillOpt, "plugins", "run-sleep.sh");
   const fakeBin = join(root, "bin");
-  const bunx = join(fakeBin, "bunx");
-  const log = join(root, "bunx.log");
+  const npx = join(fakeBin, "npx");
+  const git = join(fakeBin, "git");
+  const log = join(root, "npx.log");
   const projects = [join(root, "api"), join(root, "web")];
 
-  mkdirSync(dirname(runner), { recursive: true });
   mkdirSync(fakeBin, { recursive: true });
   for (const project of projects) mkdirSync(project, { recursive: true });
-  writeFileSync(runner, "#!/bin/sh\nexit 0\n");
   writeFileSync(
-    bunx,
+    npx,
     "#!/bin/sh\nprintf '%s|%s\\n' \"$PWD\" \"$*\" >> \"$KFLEET_TEST_LOG\"\n",
   );
-  chmodSync(runner, 0o755);
-  chmodSync(bunx, 0o755);
+  writeFileSync(
+    git,
+    "#!/bin/sh\nfor last do :; done\nmkdir -p \"$last/plugins\"\nprintf '#!/bin/sh\\nexit 0\\n' > \"$last/plugins/run-sleep.sh\"\n",
+  );
+  chmodSync(npx, 0o755);
+  chmodSync(git, 0o755);
 
   const result = spawnSync(
     process.execPath,
     [
       join(dirname(fileURLToPath(import.meta.url)), "kf-projects.mjs"),
-      "bootstrap",
-      "--skillopt-repo",
-      skillOpt,
+      "install",
       ...projects,
     ],
     {
@@ -116,6 +128,7 @@ test("bootstrap configures and installs every registered project", () => {
     projects.map((project) => realpathSync(project)),
   );
   assert.equal(registry.skilloptRepo, realpathSync(skillOpt));
+  assert.equal(existsSync(runner), true);
   const config = JSON.parse(readFileSync(sleepConfig, "utf8"));
   assert.equal(
     config.target_skill_path,

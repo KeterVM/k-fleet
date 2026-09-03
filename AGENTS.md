@@ -15,6 +15,8 @@ workflow behavior rather than framework-specific instructions.
 
 - `README.md` documents the architecture, runtime prerequisites, installation,
   operation, evolution contract, and validation commands.
+- `package.json` exposes the zero-dependency `k-fleet` npm executable so project
+  installation, updates, and SkillOpt-Sleep operations can run through `npx`.
 - `skills/kf-orchestrate-work/SKILL.md` is the only installable K Fleet entry point.
 - `skills/kf-orchestrate-work/references/` contains the explicit installation
   setup route and substantial conditional routes for design, implementation, bug
@@ -38,9 +40,10 @@ workflow behavior rather than framework-specific instructions.
   claiming prompts were executed.
 - `scripts/validate-v2-forward-results.mjs` protects the historical v2 bindings and
   verifies that current targeted observations match the current skill and corpus.
-- `scripts/kf-projects.mjs` registers target repositories and provides one guarded
-  interface for project-scoped installation, upgrades, status, and SkillOpt-Sleep
-  actions. Its unit tests are in `scripts/kf-projects.test.mjs`.
+- `scripts/kf-projects.mjs` is the `k-fleet` executable. It registers target
+  repositories and provides one guarded interface for project-scoped installation,
+  updates, status, and SkillOpt-Sleep actions. Its unit tests are in
+  `scripts/kf-projects.test.mjs`.
 - `.github/`, `CONTRIBUTING.md`, and `SECURITY.md` define public contribution,
   automation, and vulnerability-reporting workflows.
 - `LICENSE` and `NOTICE` contain the Apache-2.0 terms and attribution.

@@ -22,7 +22,10 @@ const kFleetSource = process.env.KFLEET_SKILL_SOURCE || "KeterVM/k-fleet";
 const skillOptSource =
   process.env.SKILLOPT_SKILL_SOURCE ||
   "https://github.com/microsoft/SkillOpt/tree/main/plugins/codex/skills";
+const skillOptGitSource =
+  process.env.SKILLOPT_GIT_SOURCE || "https://github.com/microsoft/SkillOpt.git";
 const stateRoot = process.env.KFLEET_STATE_DIR || join(homedir(), ".k-fleet");
+const defaultSkillOptRepo = join(stateRoot, "SkillOpt");
 const registryPath = join(stateRoot, "projects.json");
 const sleepConfigPath =
   process.env.SKILLOPT_SLEEP_CONFIG ||
@@ -42,21 +45,21 @@ function usage() {
     "K Fleet multi-project manager",
     "",
     "Usage:",
-    "  node scripts/kf-projects.mjs bootstrap --skillopt-repo PATH PROJECT...",
-    "  node scripts/kf-projects.mjs register PROJECT...",
-    "  node scripts/kf-projects.mjs unregister PROJECT...",
-    "  node scripts/kf-projects.mjs list",
-    "  node scripts/kf-projects.mjs configure [--skillopt-repo PATH]",
-    "  node scripts/kf-projects.mjs install [--all | PROJECT...]",
-    "  node scripts/kf-projects.mjs upgrade [--all | PROJECT...]",
-    "  node scripts/kf-projects.mjs status [--all | PROJECT...]",
-    "  node scripts/kf-projects.mjs sleep ACTION [--all | PROJECT...] [-- EXTRA_ARGS...]",
+    "  npx k-fleet install [--skillopt-repo PATH] [--all | PROJECT...]",
+    "  npx k-fleet update [--skillopt-repo PATH] [--all | PROJECT...]",
+    "  npx k-fleet status [--all | PROJECT...]",
+    "  npx k-fleet sleep ACTION [--all | PROJECT...] [-- EXTRA_ARGS...]",
+    "  npx k-fleet register PROJECT...",
+    "  npx k-fleet unregister PROJECT...",
+    "  npx k-fleet list",
+    "  npx k-fleet configure [--skillopt-repo PATH]",
     "",
     "Examples:",
-    "  node scripts/kf-projects.mjs bootstrap --skillopt-repo /opt/SkillOpt ~/src/api ~/src/web",
-    "  node scripts/kf-projects.mjs upgrade --all",
-    "  node scripts/kf-projects.mjs sleep dry-run --all -- --backend mock",
-    "  node scripts/kf-projects.mjs sleep run ~/src/api -- --backend codex --max-tasks 3",
+    "  npx k-fleet install",
+    "  npx k-fleet install ~/src/api ~/src/web",
+    "  npx k-fleet update --all",
+    "  npx k-fleet sleep dry-run --all -- --backend mock",
+    "  npx k-fleet sleep run ~/src/api -- --backend codex --max-tasks 3",
     "",
     "Registry: " + registryPath,
     "SkillOpt-Sleep config: " + sleepConfigPath,
@@ -177,19 +180,39 @@ export function selectProjects(args, registry, options = {}) {
   if (!allowAll && paths.length === 0) {
     fail("This action requires explicit project paths");
   }
-  const selected =
-    all || paths.length === 0 ? registry.projects : paths.map(normalizeProject);
+  const selected = all
+    ? registry.projects
+    : paths.length
+      ? paths.map(normalizeProject)
+      : [normalizeProject(process.cwd())];
   if (selected.length === 0) fail("No projects selected; register projects first");
   return unique(selected);
 }
 
-function configure(registry, requestedRepo) {
-  const repo = requestedRepo
-    ? normalizeProject(requestedRepo)
-    : process.env.SKILLOPT_SLEEP_REPO || registry.skilloptRepo;
-  if (!repo) fail("Set --skillopt-repo PATH or SKILLOPT_SLEEP_REPO first");
+function resolveSkillOptRepo(registry, requestedRepo, options = {}) {
+  const selected =
+    requestedRepo ||
+    process.env.SKILLOPT_SLEEP_REPO ||
+    registry.skilloptRepo ||
+    defaultSkillOptRepo;
+  const repo = resolve(selected);
   const runner = join(repo, "plugins", "run-sleep.sh");
+  if (!existsSync(runner)) {
+    if (!options.install) fail("SkillOpt-Sleep runner not found: " + runner);
+    mkdirSync(dirname(repo), { recursive: true });
+    run("git", ["clone", "--depth", "1", skillOptGitSource, repo]);
+  } else if (options.update) {
+    if (!existsSync(join(repo, ".git"))) {
+      fail("Cannot update a non-Git SkillOpt checkout: " + repo);
+    }
+    run("git", ["-C", repo, "pull", "--ff-only"]);
+  }
   if (!existsSync(runner)) fail("SkillOpt-Sleep runner not found: " + runner);
+  return realpathSync(repo);
+}
+
+function configure(registry, requestedRepo, options = {}) {
+  const repo = resolveSkillOptRepo(registry, requestedRepo, options);
 
   writeJson(
     sleepConfigPath,
@@ -219,11 +242,12 @@ function installReviewer(project) {
 
 function installProject(project) {
   if (existsSync(join(project, targetSkillPath))) {
-    console.log("K Fleet skill already installed; use upgrade: " + project);
+    console.log("K Fleet skill already installed; use update: " + project);
   } else {
     run(
-      "bunx",
+      "npx",
       [
+        "--yes",
         "skills",
         "add",
         kFleetSource,
@@ -237,11 +261,12 @@ function installProject(project) {
     );
   }
   if (existsSync(join(project, sleepSkillPath))) {
-    console.log("SkillOpt-Sleep skill already installed; use upgrade: " + project);
+    console.log("SkillOpt-Sleep skill already installed; use update: " + project);
   } else {
     run(
-      "bunx",
+      "npx",
       [
+        "--yes",
         "skills",
         "add",
         skillOptSource,
@@ -277,8 +302,9 @@ function backupUpgradeTarget(project) {
 function upgradeProject(project) {
   backupUpgradeTarget(project);
   run(
-    "bunx",
+    "npx",
     [
+      "--yes",
       "skills",
       "update",
       "kf-orchestrate-work",
@@ -292,8 +318,10 @@ function upgradeProject(project) {
 }
 
 function getRunner(registry) {
-  const repo = process.env.SKILLOPT_SLEEP_REPO || registry.skilloptRepo;
-  if (!repo) fail("SkillOpt checkout is not configured; run configure or bootstrap");
+  const repo =
+    process.env.SKILLOPT_SLEEP_REPO ||
+    registry.skilloptRepo ||
+    defaultSkillOptRepo;
   const runner = join(repo, "plugins", "run-sleep.sh");
   if (!existsSync(runner)) fail("SkillOpt-Sleep runner not found: " + runner);
   return runner;
@@ -357,25 +385,33 @@ function main(argv) {
     const args = [...manager];
     const repo = takeOption(args, "--skillopt-repo");
     if (args.length) fail("Unexpected configure arguments: " + args.join(" "));
-    configure(registry, repo);
+    configure(registry, repo, { install: true });
     return;
   }
-  if (command === "bootstrap") {
+  if (command === "bootstrap" || command === "install") {
     const args = [...manager];
     const repo = takeOption(args, "--skillopt-repo");
-    registerProjects(registry, args);
-    configure(registry, repo);
-    for (const project of args.map(normalizeProject)) installProject(project);
+    const projects = selectProjects(args, registry);
+    registry.projects.push(...projects);
+    saveRegistry(registry);
+    configure(registry, repo, { install: true });
+    for (const project of projects) installProject(project);
     console.log(
       "Restart Codex, then run /kf-orchestrate-work setup in each project.",
     );
     return;
   }
-  if (["install", "upgrade", "status"].includes(command)) {
-    const projects = selectProjects(manager, registry);
+  if (["upgrade", "update", "status"].includes(command)) {
+    const args = [...manager];
+    const repo = takeOption(args, "--skillopt-repo");
+    const projects = selectProjects(args, registry);
+    if (command === "upgrade" || command === "update") {
+      configure(registry, repo, { install: true, update: true });
+    } else if (repo) {
+      fail("--skillopt-repo is only supported by install, update, and configure");
+    }
     for (const project of projects) {
-      if (command === "install") installProject(project);
-      else if (command === "upgrade") upgradeProject(project);
+      if (command === "upgrade" || command === "update") upgradeProject(project);
       else printStatus(project);
     }
     if (command !== "status") {
@@ -404,7 +440,9 @@ function main(argv) {
 }
 
 const invokedPath = process.argv[1] ? resolve(process.argv[1]) : "";
-if (invokedPath === fileURLToPath(import.meta.url)) {
+const invokedRealPath =
+  invokedPath && existsSync(invokedPath) ? realpathSync(invokedPath) : invokedPath;
+if (invokedRealPath === realpathSync(fileURLToPath(import.meta.url))) {
   try {
     main(process.argv.slice(2));
   } catch (error) {

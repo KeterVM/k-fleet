@@ -6,6 +6,10 @@ Notable changes to K Fleet are recorded here.
 
 ### Changed
 
+- Added the zero-dependency `k-fleet` npm executable. `npx` can now prepare the
+  shared SkillOpt checkout, configure project-relative targeting, install or update
+  both project-scoped Codex skills and the reviewer, and run guarded SkillOpt-Sleep
+  actions across one or more registered repositories.
 - Added a risk-driven TDD decision gate: explicit requests remain strong signals and
   repository requirements remain binding, while K Fleet may also select TDD when a
   stable public seam gives valuable early feedback for clear, materially risky

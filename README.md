@@ -134,61 +134,45 @@ References:
 
 ## Installation
 
-Install the orchestration and offline-evolution skills from the target repository:
+Run the package directly from a target repository; cloning K Fleet is not required:
 
 ```sh
-bunx skills add KeterVM/k-fleet \
-  --agent codex \
-  --skill kf-orchestrate-work \
-  --yes
-
-bunx skills add \
-  https://github.com/microsoft/SkillOpt/tree/main/plugins/codex/skills \
-  --agent codex \
-  --skill skillopt-sleep \
-  --yes
+npx --yes github:KeterVM/k-fleet install
 ```
 
-Both skills are installed under `.agents/skills/` and recorded in
-`skills-lock.json`. Keep the SkillOpt URL scoped to `plugins/codex/skills`;
-installing from the repository root can select a same-named integration for a
-different agent.
+The npm package exposes the `k-fleet` executable, so after an npm release the
+equivalent short form is `npx --yes k-fleet install`. The package name is currently
+prepared for publication; the GitHub form works without an npm registry release.
 
-For several projects, use the bundled manager instead of repeating installation,
-configuration, update, and sleep commands:
+`install` defaults to the current directory. It downloads a shared SkillOpt checkout
+to `~/.k-fleet/SkillOpt` when one is not configured, safely merges the shared
+SkillOpt settings, installs `kf-orchestrate-work` and `skillopt-sleep` under the
+project's `.agents/skills/` through the `skills` CLI, records them in
+`skills-lock.json`, installs `kf_reviewer`, and registers the project.
+
+Pass several directories to install them together:
 
 ```sh
-node scripts/kf-projects.mjs bootstrap \
-  --skillopt-repo /absolute/path/to/SkillOpt \
+npx --yes github:KeterVM/k-fleet install \
   /absolute/path/to/project-a \
   /absolute/path/to/project-b
 
-node scripts/kf-projects.mjs upgrade --all
-node scripts/kf-projects.mjs status --all
-node scripts/kf-projects.mjs sleep dry-run --all -- --backend mock
+npx --yes github:KeterVM/k-fleet update --all
+npx --yes github:KeterVM/k-fleet status --all
+npx --yes github:KeterVM/k-fleet sleep dry-run --all -- --backend mock
 ```
 
-`bootstrap` registers the projects in `~/.k-fleet/projects.json`, safely merges the
-shared SkillOpt settings into `~/.skillopt-sleep/config.json`, installs both
-project-scoped Codex skills, and copies the optional reviewer. Existing SkillOpt
-settings are preserved and the previous config is backed up as `config.json.bak`.
-An existing customized reviewer is backed up before replacement.
+The project registry is `~/.k-fleet/projects.json`. Existing SkillOpt settings are
+preserved and the previous `~/.skillopt-sleep/config.json` is backed up.
+The zero-dependency implementation is `scripts/kf-projects.mjs`.
 Use `register`, `unregister`, and `list` to maintain the project set. `install` and
-`upgrade` operate on explicit project paths or `--all`; `sleep` supports `status`,
+`update` operate on the current directory, explicit project paths, or `--all`.
+`update` also fast-forwards the shared SkillOpt checkout. `sleep` supports `status`,
 `harvest`, `dry-run`, `run`, `adopt`, `schedule`, and `unschedule`, with additional
 SkillOpt arguments placed after `--`. Bulk `adopt` is deliberately rejected: name
 the intended project explicitly so promotion remains review-driven. Installation
-skips existing skills, while upgrade first preserves the current K Fleet target
+skips existing skills, while update first preserves the current K Fleet target
 under the project's `.skillopt-sleep/backups/` directory.
-
-The optional reviewer is a project-scoped Codex agent and is installed separately:
-
-```sh
-mkdir -p .codex/agents
-curl -fsSL \
-  https://raw.githubusercontent.com/KeterVM/k-fleet/main/.codex/agents/kf-reviewer.toml \
-  -o .codex/agents/kf-reviewer.toml
-```
 
 Restart Codex after installing skills, hooks, or agents so the new session discovers
 them.
