@@ -54,6 +54,10 @@ if (JSON.stringify(actualSkills) !== JSON.stringify(expectedSkills)) {
 }
 
 const readme = read(join(root, "README.md"));
+for (const required of ["scripts/kf-projects.mjs", "scripts/kf-projects.test.mjs"]) {
+  if (!existsSync(join(root, required))) fail(`Missing ${required}`);
+  if (!readme.includes(required)) fail(`README.md does not document ${required}`);
+}
 for (const skill of expectedSkills) {
   const path = join(skillRoot, skill, "SKILL.md");
   if (!existsSync(path)) {

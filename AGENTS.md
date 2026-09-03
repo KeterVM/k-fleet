@@ -38,6 +38,9 @@ workflow behavior rather than framework-specific instructions.
   claiming prompts were executed.
 - `scripts/validate-v2-forward-results.mjs` protects the historical v2 bindings and
   verifies that current targeted observations match the current skill and corpus.
+- `scripts/kf-projects.mjs` registers target repositories and provides one guarded
+  interface for project-scoped installation, upgrades, status, and SkillOpt-Sleep
+  actions. Its unit tests are in `scripts/kf-projects.test.mjs`.
 - `.github/`, `CONTRIBUTING.md`, and `SECURITY.md` define public contribution,
   automation, and vulnerability-reporting workflows.
 - `LICENSE` and `NOTICE` contain the Apache-2.0 terms and attribution.
@@ -118,6 +121,7 @@ Run:
 node scripts/validate-repository-structure.mjs
 node scripts/validate-orchestrator-evals.mjs
 node scripts/validate-v2-forward-results.mjs
+node --test scripts/kf-projects.test.mjs
 cd examples/fleet-ledger && npm test
 ```
 

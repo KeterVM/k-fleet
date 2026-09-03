@@ -117,10 +117,11 @@ bash "$SKILLOPT_SLEEP_REPO/plugins/run-sleep.sh" status --project "$(pwd)"
 ```
 
 The runner can execute directly from the checkout; a separate package install is
-optional. In `~/.skillopt-sleep/config.json`, set `"evolve_memory": false`, set
-`"target_skill_path"` to the target project's installed
-`.agents/skills/kf-orchestrate-work/SKILL.md`, enable `"gate_no_regression": true`,
-and set `"transcript_source": "codex"`. SkillOpt must optimize only the named skill;
+optional. In `~/.skillopt-sleep/config.json`, set `"evolve_memory": false`, use the
+project-relative `"target_skill_path": ".agents/skills/kf-orchestrate-work/SKILL.md"`,
+enable `"gate_no_regression": true`, and set `"transcript_source": "codex"`.
+The relative target lets one safe configuration serve multiple projects selected
+with `--project`. SkillOpt must optimize only the named skill;
 Supermemory retains the complete memory lifecycle. Scope harvesting to that project
 and review or redact harvested material before sending it to any remote model.
 Automatic adoption is appropriate only when the target, gate, rollback artifact,
@@ -152,6 +153,33 @@ Both skills are installed under `.agents/skills/` and recorded in
 `skills-lock.json`. Keep the SkillOpt URL scoped to `plugins/codex/skills`;
 installing from the repository root can select a same-named integration for a
 different agent.
+
+For several projects, use the bundled manager instead of repeating installation,
+configuration, update, and sleep commands:
+
+```sh
+node scripts/kf-projects.mjs bootstrap \
+  --skillopt-repo /absolute/path/to/SkillOpt \
+  /absolute/path/to/project-a \
+  /absolute/path/to/project-b
+
+node scripts/kf-projects.mjs upgrade --all
+node scripts/kf-projects.mjs status --all
+node scripts/kf-projects.mjs sleep dry-run --all -- --backend mock
+```
+
+`bootstrap` registers the projects in `~/.k-fleet/projects.json`, safely merges the
+shared SkillOpt settings into `~/.skillopt-sleep/config.json`, installs both
+project-scoped Codex skills, and copies the optional reviewer. Existing SkillOpt
+settings are preserved and the previous config is backed up as `config.json.bak`.
+An existing customized reviewer is backed up before replacement.
+Use `register`, `unregister`, and `list` to maintain the project set. `install` and
+`upgrade` operate on explicit project paths or `--all`; `sleep` supports `status`,
+`harvest`, `dry-run`, `run`, `adopt`, `schedule`, and `unschedule`, with additional
+SkillOpt arguments placed after `--`. Bulk `adopt` is deliberately rejected: name
+the intended project explicitly so promotion remains review-driven. Installation
+skips existing skills, while upgrade first preserves the current K Fleet target
+under the project's `.skillopt-sleep/backups/` directory.
 
 The optional reviewer is a project-scoped Codex agent and is installed separately:
 
@@ -229,6 +257,7 @@ Run:
 node scripts/validate-repository-structure.mjs
 node scripts/validate-orchestrator-evals.mjs
 node scripts/validate-v2-forward-results.mjs
+node --test scripts/kf-projects.test.mjs
 cd examples/fleet-ledger && npm test
 ```
 
