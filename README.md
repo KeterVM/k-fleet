@@ -54,8 +54,8 @@ Substantial work stops when the orchestrator or Supermemory integration is unava
   not current behavior claims.
 - `evals/v2-release-forward-results.json` and its report preserve the bounded blind
   smoke evidence for the exact v2 release sources they name.
-- `evals/test-value-forward-results.json` and its report contain the current
-  source-bound blind observation for the test-value gate.
+- `evals/test-value-forward-results.json` and its report contain the current paired,
+  source-bound blind observations for risk-driven TDD selection and skipping.
 - `scripts/validate-repository-structure.mjs` checks packaging, installed copies,
   links, placeholders, and the companion agent.
 - `scripts/validate-orchestrator-evals.mjs` lints the current orchestration corpus;
@@ -191,9 +191,11 @@ The user describes the outcome normally. K Fleet performs this loop:
    and test contract for cross-boundary changes.
 5. Execute directly or delegate bounded evidence/work with non-overlapping writes.
 6. Validate the integrated artifact with evidence proportionate to the changed
-   contract. Add tests only for meaningful behavior or regression risk; do not
-   manufacture TDD or low-value tests for unconditional presentation or mechanical
-   field wiring. Then report a terminal state.
+   contract. Choose TDD when test-first feedback materially reduces uncertainty or
+   regression risk at a stable behavior seam, and skip it when cheaper evidence is
+   sufficient. Add tests only for meaningful behavior or regression risk; do not
+   manufacture low-value tests for unconditional presentation or mechanical field
+   wiring. Then report a terminal state.
 7. Report a compact, sanitized terminal outcome for Supermemory's automatic capture
    and later evolution.
 
@@ -231,8 +233,8 @@ cd examples/fleet-ledger && npm test
 ```
 
 The structure and corpus validators are deterministic lint. The v2 forward-results
-validator protects the recorded release hashes and authenticates the current
-test-value observation against current hashes; it does not re-execute Codex or
+validator protects the recorded release hashes and authenticates the current paired
+test-value observations against current hashes; it does not re-execute Codex or
 substitute for broader behavioral evaluation with the installed Codex, Supermemory,
 and SkillOpt runtimes.
 

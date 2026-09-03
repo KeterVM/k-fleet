@@ -16,11 +16,16 @@ Use this route for new or intentionally changed observable behavior.
    pattern. Reject forwarding-only layers, duplicated mapping, mixed transport and
    domain policy, speculative extension points, and convenience wrappers without
    evidence. Do not avoid a necessary abstraction merely to reduce the diff.
-5. Compose the TDD mode in [testing](testing.md) only when the user or an
-   authoritative repository rule explicitly requires TDD. Do not infer TDD from an
-   ordinary behavior change, nearby tests, a coverage goal, or a request to run the
-   relevant checks. This route retains product scope and production-structure
-   ownership.
+5. Decide whether to compose the TDD mode using [testing](testing.md). An explicit
+   user request is a strong signal and an authoritative repository requirement is
+   binding, but neither is the only reason to use TDD. Choose it proactively when a
+   stable public seam can give early feedback on meaningful, well-defined behavior
+   with material uncertainty or regression cost, such as defect reproduction,
+   branching rules, state or lifecycle transitions, or critical boundaries. Skip
+   it when the test would only freeze a mechanical or presentational change, when
+   cheaper evidence is sufficient, or when test setup would outweigh the risk it
+   reduces. State the proportional rationale briefly. This route retains product
+   scope and production-structure ownership.
 6. Implement coherent vertical slices. Add or update a test only when it protects a
    meaningful behavior or risk that cheaper existing evidence would miss: name the
    plausible regression and exercise a credible public seam. Do not create tests

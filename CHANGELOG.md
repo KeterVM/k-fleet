@@ -6,12 +6,17 @@ Notable changes to K Fleet are recorded here.
 
 ### Changed
 
-- Added a test-value gate: TDD now requires an explicit user or authoritative
-  repository rule, while new tests must protect meaningful behavior or credible
-  regression risk instead of freezing unconditional presentation, pass-through
-  field wiring, incidental markup, or implementation history.
-- Added a source-bound blind UI-field observation and separated its current hash
-  validation from the preserved historical v2 release smoke bindings.
+- Added a risk-driven TDD decision gate: explicit requests remain strong signals and
+  repository requirements remain binding, while K Fleet may also select TDD when a
+  stable public seam gives valuable early feedback for clear, materially risky
+  behavior. New tests must still protect meaningful behavior or credible regression
+  risk instead of freezing unconditional presentation, pass-through field wiring,
+  incidental markup, or implementation history.
+- Added paired source-bound blind observations for proactive high-risk TDD and a
+  skipped low-value UI test, and separated their current hash validation from the
+  preserved historical v2 release smoke bindings.
+- Clarified that a connected, correctly scoped direct Supermemory integration
+  satisfies the runtime gate without requiring its optional MCP transport.
 
 ## [2.0.0] - 2026-09-02
 

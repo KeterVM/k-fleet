@@ -97,10 +97,12 @@ for (const id of [
   "memory-cross-project-isolation",
   "memory-inference-not-policy",
   "memory-runtime-missing",
+  "memory-direct-runtime-without-mcp",
   "memory-terminal-episode",
   "route-evolution-auto-adopt",
   "route-evolution-gate-failure",
   "method-no-overlapping-writes",
+  "method-tdd-by-risk",
   "method-no-low-value-ui-test",
   "bug-fix-cross-boundary-engineering",
 ]) {

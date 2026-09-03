@@ -32,12 +32,25 @@ Use for test-only protection of already-implemented intended behavior.
 
 ## Test-driven change
 
-Compose this method only when the user or an authoritative repository rule
-explicitly requires TDD for an already scoped implementation or bug fix. Never
-infer it from the existence of a test suite, a generic request for tests or relevant
-checks, or the fact that observable behavior changes. Apply the test value gate to
-each slice; do not manufacture a Red failure for behavior that has no useful test
-contract.
+Compose this method for an already scoped implementation or bug fix when test-first
+feedback is proportionate to the behavior and risk. An authoritative repository TDD
+requirement is binding and an explicit user request is a strong signal. Without
+either, choose TDD proactively when all of these are true:
+
+- the intended behavior or invariant is clear before production implementation;
+- a stable public seam can produce a Red failure for the missing or defective
+  behavior rather than for setup details;
+- early executable feedback materially reduces uncertainty or regression cost.
+
+Defect reproduction, non-trivial transformations or branching, state and lifecycle
+transitions, and security, accessibility, financial, data-integrity, or compatibility
+boundaries are strong signals. Prefer implementation followed by proportionate
+validation when requirements are still exploratory, the change is mechanical or
+presentational, existing evidence already covers the risk, or the test harness cost
+is greater than the uncertainty it removes. The existence of nearby tests, a generic
+request to run relevant checks, or observable change by itself is not a reason to use
+TDD. Apply the test value gate to every slice and briefly record why TDD was selected
+or skipped.
 
 For each observable vertical slice:
 

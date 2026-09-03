@@ -12,7 +12,9 @@ taking ownership of that repository's other guidance.
    unless the user explicitly names it.
 2. Before any setup write, use the installed integration's status facility from
    the target root to verify that Supermemory is installed, connected, and scoped
-   to this repository/worktree.
+   to this repository/worktree. The direct integration's connected status,
+   automatic recall/capture mode, and canonical scope are sufficient; do not treat
+   an unavailable optional MCP transport as a failed runtime.
 3. If Supermemory is absent, unavailable, or its scope cannot be verified, stop
    without modifying `AGENTS.md` or any other project file. Report the failed
    check, direct the user to install or configure the official Codex integration

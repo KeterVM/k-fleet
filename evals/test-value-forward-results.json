@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "runDate": "2026-09-03",
-  "skillHash": "b2499feebb11df09259c822c9d4b01a150c8b879a9de520067626a5fea7b6a05",
-  "corpusHash": "66277b49493ba5171b075e5aae0c9264dcf0ff65676a976cd06de1511e373395",
+  "skillHash": "098033543c8db314834de207afa8f1cb827f5d0e99cbf37423403218fafa2f21",
+  "corpusHash": "038ec57aaf7c683be890ffbbec6bcb7048cd0274588d97e4ca6a44c2afef1a1b",
   "runner": {
     "codexVersion": "0.151.0-alpha.7.2",
     "model": "gpt-5.6-sol",
@@ -10,17 +10,26 @@
     "sessionPersistence": "ephemeral"
   },
   "preflight": {
-    "blockedAttempts": 3,
-    "observation": "Three harness preflight runs stopped before product inspection or mutation while a real, project-scoped Supermemory status path and localhost access were established; none was counted as a behavioral pass. No fake status or fallback memory client was used."
+    "blockedAttempts": 1,
+    "observation": "One predecessor-candidate preflight stopped before product inspection or mutation because it incorrectly treated the optional Supermemory MCP transport as required even though the real direct integration was connected and scoped. The final candidate clarified the existing direct-runtime contract; the blocked attempt was not counted as a behavioral pass and no fake status or fallback memory client was used."
   },
   "cases": [
     {
+      "id": "method-tdd-by-risk",
+      "prompt": "Implement the documented tiered payout fee: 0% below 100, 2% from 100 through 999, and 5% from 1000 upward. This is high-risk financial logic, the existing public calculator seam is fast and deterministic, and boundary regressions would affect real payouts. Choose the proportionate workflow and run the relevant checks.",
+      "isolation": "workspace-write Git fixture with the installed final candidate skill, a public payout calculator and one existing below-threshold test, a real read-only Supermemory status skill using dedicated container repo_kf_tdd_risk_eval2__01a0662c, and no orchestration corpus or expected outcomes",
+      "observation": "Without an explicit TDD phrase, the actor selected TDD because the clear branching financial rules had exact boundary risk and a stable deterministic public seam. It added public-API boundary cases first, observed Red at amount 100, implemented the two fee tiers, observed Green, ran git diff --check, and inspected the integrated diff.",
+      "writeEvidence": "Only src/payout-fee.js and test/payout-fee.test.js changed in the Git fixture. The Red run failed on the missing 2% behavior at amount 100; the Green run passed 1 of 1 tests, and git diff --check was clean.",
+      "judgment": "Passed: TDD was selected proportionately from behavior clarity, stable seam, and material financial regression cost rather than from an explicit TDD instruction, and coverage remained limited to credible payout boundaries.",
+      "passed": true
+    },
+    {
       "id": "method-no-low-value-ui-test",
       "prompt": "On the existing profile card, display the already available department string as one unconditional text row. There is no formatting, branching, interaction, accessibility-state change, bug history, or repository test requirement. Make the smallest change and run proportionate checks.",
-      "isolation": "workspace-write Git fixture with the installed candidate skill, an existing profile-card renderer and test suite, a real read-only Supermemory status skill using dedicated container repo_kf_ui_value_eval__01a0662c, and no orchestration corpus or expected outcomes",
+      "isolation": "workspace-write Git fixture with the installed final candidate skill, an existing profile-card renderer and test suite, a real read-only Supermemory status skill using dedicated container repo_kf_tdd_ui_eval__01a0662c, and no orchestration corpus or expected outcomes",
       "observation": "The actor verified the real scoped Supermemory runtime, selected the implementation route without TDD, mirrored the established title-row pattern for department, ran npm run check and git diff --check, inspected the final diff, and explicitly reported that no test was added for static string rendering.",
       "writeEvidence": "Only src/profile-card.js changed in the Git fixture. The existing test directory was byte-for-byte unchanged, git diff --check passed, and final.md was evaluator-owned output outside the tracked baseline.",
-      "judgment": "Passed: TDD was not inferred, no low-value presentation test or test-only production seam was created, and proportionate non-test evidence supported the one-line UI wiring change.",
+      "judgment": "Passed: the risk-driven decision skipped TDD, no low-value presentation test or test-only production seam was created, and proportionate non-test evidence supported the one-line UI wiring change.",
       "passed": true
     }
   ]

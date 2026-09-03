@@ -76,7 +76,7 @@ if (
 ) {
   fail("Test-value forward report must name the exact skill and corpus hashes");
 }
-const expectedTestValueCases = ["method-no-low-value-ui-test"];
+const expectedTestValueCases = ["method-tdd-by-risk", "method-no-low-value-ui-test"];
 const actualTestValueCases = (testValueResults.cases ?? []).map((entry) => entry.id);
 if (JSON.stringify(actualTestValueCases) !== JSON.stringify(expectedTestValueCases)) {
   fail(`Test-value forward results must contain exactly: ${expectedTestValueCases.join(", ")}`);
@@ -100,5 +100,5 @@ if (failures.length) {
 
 console.log(
   `Validated ${expectedCases.length} historical K Fleet v2 release results and ` +
-    `${expectedTestValueCases.length} current source-bound test-value result.`,
+    `${expectedTestValueCases.length} current source-bound test-value results.`,
 );

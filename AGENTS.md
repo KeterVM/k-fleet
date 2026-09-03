@@ -30,8 +30,8 @@ workflow behavior rather than framework-specific instructions.
   architecture unless explicitly regenerated against the current source hash.
 - `evals/v2-release-forward-results.json` and its report preserve the bounded blind
   release smoke observations bound to their exact v2 skill and corpus hashes.
-- `evals/test-value-forward-results.json` and its report contain the current
-  source-bound blind observation for the test-value gate.
+- `evals/test-value-forward-results.json` and its report contain the current paired,
+  source-bound blind observations for risk-driven TDD selection and skipping.
 - `scripts/validate-repository-structure.mjs` validates packaging, references,
   installed copies, companion agents, links, placeholders, and documentation.
 - `scripts/validate-orchestrator-evals.mjs` lints the current corpus without
