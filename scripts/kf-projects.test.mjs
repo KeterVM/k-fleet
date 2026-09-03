@@ -102,6 +102,15 @@ test("install prepares SkillOpt and every selected project", () => {
   chmodSync(npx, 0o755);
   chmodSync(git, 0o755);
 
+  const env = {
+    ...process.env,
+    PATH: fakeBin + ":" + process.env.PATH,
+    KFLEET_STATE_DIR: state,
+    SKILLOPT_SLEEP_CONFIG: sleepConfig,
+    KFLEET_TEST_LOG: log,
+  };
+  delete env.SKILLOPT_SLEEP_REPO;
+
   const result = spawnSync(
     process.execPath,
     [
@@ -111,13 +120,7 @@ test("install prepares SkillOpt and every selected project", () => {
     ],
     {
       encoding: "utf8",
-      env: {
-        ...process.env,
-        PATH: fakeBin + ":" + process.env.PATH,
-        KFLEET_STATE_DIR: state,
-        SKILLOPT_SLEEP_CONFIG: sleepConfig,
-        KFLEET_TEST_LOG: log,
-      },
+      env,
     },
   );
 
