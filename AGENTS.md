@@ -28,14 +28,16 @@ workflow behavior rather than framework-specific instructions.
 - `evals/orchestrator-routing.jsonl` is the current machine-readable orchestration
   corpus. Other reports and result sets describe the retired multi-skill
   architecture unless explicitly regenerated against the current source hash.
-- `evals/v2-release-forward-results.json` and its report contain the bounded blind
-  release smoke observations bound to the exact v2 skill and corpus hashes.
+- `evals/v2-release-forward-results.json` and its report preserve the bounded blind
+  release smoke observations bound to their exact v2 skill and corpus hashes.
+- `evals/test-value-forward-results.json` and its report contain the current
+  source-bound blind observation for the test-value gate.
 - `scripts/validate-repository-structure.mjs` validates packaging, references,
   installed copies, companion agents, links, placeholders, and documentation.
 - `scripts/validate-orchestrator-evals.mjs` lints the current corpus without
   claiming prompts were executed.
-- `scripts/validate-v2-forward-results.mjs` verifies that the recorded v2 smoke
-  observations still match the current skill and corpus.
+- `scripts/validate-v2-forward-results.mjs` protects the historical v2 bindings and
+  verifies that current targeted observations match the current skill and corpus.
 - `.github/`, `CONTRIBUTING.md`, and `SECURITY.md` define public contribution,
   automation, and vulnerability-reporting workflows.
 - `LICENSE` and `NOTICE` contain the Apache-2.0 terms and attribution.

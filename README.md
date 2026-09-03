@@ -52,14 +52,16 @@ Substantial work stops when the orchestrator or Supermemory integration is unava
 - `evals/orchestrator-routing.jsonl` defines the current routing and control-plane
   corpus. Reports from the retired multi-skill architecture are historical evidence,
   not current behavior claims.
-- `evals/v2-release-forward-results.json` and its report record the bounded,
-  source-bound blind smoke test used for the current v2 release.
+- `evals/v2-release-forward-results.json` and its report preserve the bounded blind
+  smoke evidence for the exact v2 release sources they name.
+- `evals/test-value-forward-results.json` and its report contain the current
+  source-bound blind observation for the test-value gate.
 - `scripts/validate-repository-structure.mjs` checks packaging, installed copies,
   links, placeholders, and the companion agent.
 - `scripts/validate-orchestrator-evals.mjs` lints the current orchestration corpus;
   it does not claim that prompts were executed.
-- `scripts/validate-v2-forward-results.mjs` rejects release observations whose skill
-  or corpus hashes no longer match the current sources.
+- `scripts/validate-v2-forward-results.mjs` protects the historical release bindings
+  and rejects current targeted observations whose skill or corpus hashes are stale.
 
 ## Runtime prerequisites
 
@@ -188,8 +190,10 @@ The user describes the outcome normally. K Fleet performs this loop:
    constraint for local edits, or a compact responsibility, flow, tradeoff, failure,
    and test contract for cross-boundary changes.
 5. Execute directly or delegate bounded evidence/work with non-overlapping writes.
-6. Validate the integrated artifact with behavior evidence appropriate to the
-   changed contract and report a terminal state.
+6. Validate the integrated artifact with evidence proportionate to the changed
+   contract. Add tests only for meaningful behavior or regression risk; do not
+   manufacture TDD or low-value tests for unconditional presentation or mechanical
+   field wiring. Then report a terminal state.
 7. Report a compact, sanitized terminal outcome for Supermemory's automatic capture
    and later evolution.
 
@@ -227,9 +231,10 @@ cd examples/fleet-ledger && npm test
 ```
 
 The structure and corpus validators are deterministic lint. The v2 forward-results
-validator authenticates the recorded test inputs against current hashes; it does not
-re-execute Codex or substitute for broader behavioral evaluation with the installed
-Codex, Supermemory, and SkillOpt runtimes.
+validator protects the recorded release hashes and authenticates the current
+test-value observation against current hashes; it does not re-execute Codex or
+substitute for broader behavioral evaluation with the installed Codex, Supermemory,
+and SkillOpt runtimes.
 
 ## Design principles
 

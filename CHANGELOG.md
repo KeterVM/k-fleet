@@ -4,6 +4,15 @@ Notable changes to K Fleet are recorded here.
 
 ## Unreleased
 
+### Changed
+
+- Added a test-value gate: TDD now requires an explicit user or authoritative
+  repository rule, while new tests must protect meaningful behavior or credible
+  regression risk instead of freezing unconditional presentation, pass-through
+  field wiring, incidental markup, or implementation history.
+- Added a source-bound blind UI-field observation and separated its current hash
+  validation from the preserved historical v2 release smoke bindings.
+
 ## [2.0.0] - 2026-09-02
 
 ### Changed

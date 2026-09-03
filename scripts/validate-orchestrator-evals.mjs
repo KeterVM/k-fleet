@@ -101,6 +101,7 @@ for (const id of [
   "route-evolution-auto-adopt",
   "route-evolution-gate-failure",
   "method-no-overlapping-writes",
+  "method-no-low-value-ui-test",
   "bug-fix-cross-boundary-engineering",
 ]) {
   if (!ids.has(id)) fail(`Orchestrator corpus does not cover ${id}`);

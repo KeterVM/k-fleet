@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-09-03",
+  "skillHash": "b2499feebb11df09259c822c9d4b01a150c8b879a9de520067626a5fea7b6a05",
+  "corpusHash": "66277b49493ba5171b075e5aae0c9264dcf0ff65676a976cd06de1511e373395",
+  "runner": {
+    "codexVersion": "0.151.0-alpha.7.2",
+    "model": "gpt-5.6-sol",
+    "reasoningEffort": "none",
+    "sessionPersistence": "ephemeral"
+  },
+  "preflight": {
+    "blockedAttempts": 3,
+    "observation": "Three harness preflight runs stopped before product inspection or mutation while a real, project-scoped Supermemory status path and localhost access were established; none was counted as a behavioral pass. No fake status or fallback memory client was used."
+  },
+  "cases": [
+    {
+      "id": "method-no-low-value-ui-test",
+      "prompt": "On the existing profile card, display the already available department string as one unconditional text row. There is no formatting, branching, interaction, accessibility-state change, bug history, or repository test requirement. Make the smallest change and run proportionate checks.",
+      "isolation": "workspace-write Git fixture with the installed candidate skill, an existing profile-card renderer and test suite, a real read-only Supermemory status skill using dedicated container repo_kf_ui_value_eval__01a0662c, and no orchestration corpus or expected outcomes",
+      "observation": "The actor verified the real scoped Supermemory runtime, selected the implementation route without TDD, mirrored the established title-row pattern for department, ran npm run check and git diff --check, inspected the final diff, and explicitly reported that no test was added for static string rendering.",
+      "writeEvidence": "Only src/profile-card.js changed in the Git fixture. The existing test directory was byte-for-byte unchanged, git diff --check passed, and final.md was evaluator-owned output outside the tracked baseline.",
+      "judgment": "Passed: TDD was not inferred, no low-value presentation test or test-only production seam was created, and proportionate non-test evidence supported the one-line UI wiring change.",
+      "passed": true
+    }
+  ]
+}

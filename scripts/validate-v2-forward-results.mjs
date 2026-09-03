@@ -6,9 +6,13 @@ import { fileURLToPath } from "node:url";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const resultsPath = join(root, "evals/v2-release-forward-results.json");
 const reportPath = join(root, "evals/V2_RELEASE_FORWARD_TEST_REPORT.md");
+const testValueResultsPath = join(root, "evals/test-value-forward-results.json");
+const testValueReportPath = join(root, "evals/TEST_VALUE_FORWARD_TEST_REPORT.md");
 const corpusPath = join(root, "evals/orchestrator-routing.jsonl");
 const lockPath = join(root, "examples/fleet-ledger/skills-lock.json");
 const failures = [];
+const releaseSkillHash = "d3014eac60d4e010e452bf0f957e93109bdb9e83fe19b1f2cd8a59a4025f55aa";
+const releaseCorpusHash = "45a4a517897f82c6771ecf441901810f1b1d762bf936516aaa80ef676909a0a6";
 
 function fail(message) {
   failures.push(message);
@@ -20,13 +24,15 @@ function sha256(path) {
 
 const results = JSON.parse(readFileSync(resultsPath, "utf8"));
 const report = readFileSync(reportPath, "utf8");
+const testValueResults = JSON.parse(readFileSync(testValueResultsPath, "utf8"));
+const testValueReport = readFileSync(testValueReportPath, "utf8");
 const lock = JSON.parse(readFileSync(lockPath, "utf8"));
 const skillHash = lock.skills?.["kf-orchestrate-work"]?.computedHash;
 const corpusHash = sha256(corpusPath);
 
 if (results.schemaVersion !== 1) fail("Forward results must use schemaVersion 1");
-if (results.skillHash !== skillHash) fail("Forward results do not match the current skill hash");
-if (results.corpusHash !== corpusHash) fail("Forward results do not match the current corpus hash");
+if (results.skillHash !== releaseSkillHash) fail("Release results skill hash changed");
+if (results.corpusHash !== releaseCorpusHash) fail("Release results corpus hash changed");
 if (!report.includes(results.skillHash) || !report.includes(results.corpusHash)) {
   fail("Forward report must name the exact skill and corpus hashes");
 }
@@ -55,9 +61,44 @@ for (const entry of results.cases ?? []) {
   }
 }
 
+if (testValueResults.schemaVersion !== 1) {
+  fail("Test-value forward results must use schemaVersion 1");
+}
+if (testValueResults.skillHash !== skillHash) {
+  fail("Test-value forward results do not match the current skill hash");
+}
+if (testValueResults.corpusHash !== corpusHash) {
+  fail("Test-value forward results do not match the current corpus hash");
+}
+if (
+  !testValueReport.includes(testValueResults.skillHash) ||
+  !testValueReport.includes(testValueResults.corpusHash)
+) {
+  fail("Test-value forward report must name the exact skill and corpus hashes");
+}
+const expectedTestValueCases = ["method-no-low-value-ui-test"];
+const actualTestValueCases = (testValueResults.cases ?? []).map((entry) => entry.id);
+if (JSON.stringify(actualTestValueCases) !== JSON.stringify(expectedTestValueCases)) {
+  fail(`Test-value forward results must contain exactly: ${expectedTestValueCases.join(", ")}`);
+}
+for (const entry of testValueResults.cases ?? []) {
+  if (entry.passed !== true) fail(`${entry.id} is not recorded as passing`);
+  for (const field of ["prompt", "isolation", "observation", "writeEvidence", "judgment"]) {
+    if (typeof entry[field] !== "string" || !entry[field].trim()) {
+      fail(`${entry.id} must record ${field}`);
+    }
+  }
+  if (!testValueReport.includes(entry.id)) {
+    fail(`Test-value forward report does not reference ${entry.id}`);
+  }
+}
+
 if (failures.length) {
   for (const failure of failures) console.error(`FAIL: ${failure}`);
   process.exit(1);
 }
 
-console.log(`Validated ${expectedCases.length} source-bound K Fleet v2 release forward results.`);
+console.log(
+  `Validated ${expectedCases.length} historical K Fleet v2 release results and ` +
+    `${expectedTestValueCases.length} current source-bound test-value result.`,
+);

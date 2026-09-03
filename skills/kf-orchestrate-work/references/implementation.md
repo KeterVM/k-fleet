@@ -16,11 +16,20 @@ Use this route for new or intentionally changed observable behavior.
    pattern. Reject forwarding-only layers, duplicated mapping, mixed transport and
    domain policy, speculative extension points, and convenience wrappers without
    evidence. Do not avoid a necessary abstraction merely to reduce the diff.
-5. When TDD is required, compose the TDD mode in [testing](testing.md); this route
-   retains product scope and production-structure ownership.
-6. Implement coherent vertical slices and update their behavior-level tests. When
-   deleting or consolidating code, trace every reference and replace removed
-   coverage or record why equivalent public coverage already exists.
+5. Compose the TDD mode in [testing](testing.md) only when the user or an
+   authoritative repository rule explicitly requires TDD. Do not infer TDD from an
+   ordinary behavior change, nearby tests, a coverage goal, or a request to run the
+   relevant checks. This route retains product scope and production-structure
+   ownership.
+6. Implement coherent vertical slices. Add or update a test only when it protects a
+   meaningful behavior or risk that cheaper existing evidence would miss: name the
+   plausible regression and exercise a credible public seam. Do not create tests
+   merely to freeze unconditional presentation, static copy, incidental markup,
+   pass-through field wiring, or implementation structure; use proportionate
+   typechecking, static analysis, build, focused diff inspection, or UI inspection
+   for those changes. When deleting or consolidating code, trace every reference and
+   replace removed valuable coverage or record why equivalent public coverage
+   already exists.
 7. Inspect the integrated diff for misplaced responsibility, reversed dependencies,
    duplicate representations, orphaned paths, and unsafe lifecycle ordering. Run
    focused behavior tests for changed contracts and failure paths plus proportionate
