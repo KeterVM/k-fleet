@@ -134,15 +134,18 @@ References:
 
 ## Installation
 
-Run the package directly from a target repository; cloning K Fleet is not required:
+Run the published package directly from a target repository; cloning K Fleet is
+not required:
+
+```sh
+npx --yes k-fleet install
+```
+
+The GitHub source remains available as an explicit alternative:
 
 ```sh
 npx --yes github:KeterVM/k-fleet install
 ```
-
-The npm package exposes the `k-fleet` executable, so after an npm release the
-equivalent short form is `npx --yes k-fleet install`. The package name is currently
-prepared for publication; the GitHub form works without an npm registry release.
 
 `install` defaults to the current directory. It downloads a shared SkillOpt checkout
 to `~/.k-fleet/SkillOpt` when one is not configured, safely merges the shared
@@ -153,13 +156,13 @@ project's `.agents/skills/` through the `skills` CLI, records them in
 Pass several directories to install them together:
 
 ```sh
-npx --yes github:KeterVM/k-fleet install \
+npx --yes k-fleet install \
   /absolute/path/to/project-a \
   /absolute/path/to/project-b
 
-npx --yes github:KeterVM/k-fleet update --all
-npx --yes github:KeterVM/k-fleet status --all
-npx --yes github:KeterVM/k-fleet sleep dry-run --all -- --backend mock
+npx --yes k-fleet update --all
+npx --yes k-fleet status --all
+npx --yes k-fleet sleep dry-run --all -- --backend mock
 ```
 
 The project registry is `~/.k-fleet/projects.json`. Existing SkillOpt settings are
