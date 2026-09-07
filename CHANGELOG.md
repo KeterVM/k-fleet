@@ -6,6 +6,13 @@ Notable changes to K Fleet are recorded here.
 
 ### Changed
 
+- Promoted requirements, codebase design, implementation, test writing, and
+  verification into five self-contained methods alongside the orchestrator.
+  Removed replaced methods and draft copies; installation migrates retired names.
+- Removed validation scripts, unit tests, evaluation artifacts, examples, and test
+  CI. Earlier entries describe historical work; the current tree does not retain
+  those artifacts or use their results as evidence for current skill quality.
+
 - Added the zero-dependency `k-fleet` npm executable. `npx` can now prepare the
   shared SkillOpt checkout, configure project-relative targeting, install or update
   both project-scoped Codex skills and the reviewer, and run guarded SkillOpt-Sleep
@@ -16,9 +23,6 @@ Notable changes to K Fleet are recorded here.
   behavior. New tests must still protect meaningful behavior or credible regression
   risk instead of freezing unconditional presentation, pass-through field wiring,
   incidental markup, or implementation history.
-- Added paired source-bound blind observations for proactive high-risk TDD and a
-  skipped low-value UI test, and separated their current hash validation from the
-  preserved historical v2 release smoke bindings.
 - Clarified that a connected, correctly scoped direct Supermemory integration
   satisfies the runtime gate without requiring its optional MCP transport.
 

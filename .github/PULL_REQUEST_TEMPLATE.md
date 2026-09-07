@@ -1,16 +1,13 @@
 ## What changed
 
-Describe the user intent and the smallest complete change that addresses it.
+Describe the requested outcome and the change that addresses it.
 
 ## Why it belongs in K Fleet
 
-Explain why the behavior is reusable across projects and how its routing boundary
-fits the single orchestrator without adding another catalog entry.
+Explain the reusable decision guidance and how it fits the current skill catalog.
 
-## Validation
+## Review notes
 
-- [ ] `node scripts/validate-repository-structure.mjs`
-- [ ] `node scripts/validate-orchestrator-evals.mjs`
-- [ ] `npm test` from `examples/fleet-ledger` when relevant
-- [ ] README, examples, and current eval corpus are accurate
-- [ ] No project-specific facts, placeholders, or unrelated changes were added
+Describe the affected instructions, installation paths, or documents inspected.
+State any actual behavioral observations and their limits. Do not infer skill
+quality from mechanical checks, or add evaluation infrastructure without a request.

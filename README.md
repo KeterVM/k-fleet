@@ -1,17 +1,20 @@
 # K Fleet
 
-K Fleet is one portable Codex orchestration skill. It keeps a single entry point
-in the skill catalog, retrieves project context through Supermemory, discloses
-workflow procedures only when they are needed, and turns verified task experience
-into validation-gated SkillOpt evolution for explicitly selected non-K-Fleet skills.
+K Fleet provides six portable Codex skills: one orchestrator and five focused
+engineering methods. It retrieves scoped project context through Supermemory,
+loads only the applicable method, and keeps validation and completion tied to the
+requested outcome. SkillOpt evolution is limited to explicitly selected non-K-Fleet
+skills and remains subject to its validation and target boundaries.
 
-The repository previously shipped eleven separately routed workflow skills. That
-architecture was removed in the orchestration cutover: design, implementation,
-debugging, investigation, refactoring, testing, verification, delegation, memory,
-feedback, and evolution now live behind `kf-orchestrate-work` as conditional
-references.
+The catalog has six self-contained skills. Each owns its required instructions
+and local references; no method depends
+on another skill's internal files. This is an explicit user-approved architecture
+decision, not evidence by itself of improved quality or lower execution cost.
 
 ## Architecture
+
+The catalog contains `kf-orchestrate-work`, `kf-define-requirements`, `kf-design-codebase`,
+`kf-implement`, `kf-write-tests`, and `kf-verify`.
 
 ```text
 AGENTS.md bootstrap via `/kf-orchestrate-work setup`
@@ -19,7 +22,7 @@ AGENTS.md bootstrap via `/kf-orchestrate-work setup`
         v
 kf-orchestrate-work
         |-- Supermemory recall and terminal episodes
-        |-- one selected workflow reference
+        |-- requirements / codebase design / implementation / tests / verification
         |-- optional bounded sub-agents
         |-- integrated validation and closure
         `-- SkillOpt-Sleep non-kf candidate -> held-out gate -> staged review
@@ -31,8 +34,9 @@ The control plane has four boundaries:
   completion.
 - **Supermemory:** owns scoped recall, automatic capture, explicit memory operations,
   versioning, forgetting, and inference review. Memory is evidence, not permission.
-- **Workflow references:** provide the selected method without adding more
-  always-visible skill descriptions.
+- **Method skills:** own requirements, codebase design, implementation, test writing, and verification.
+  Each has a concise discovery description and loads its own details only as needed.
+  One agent can use several methods; there is no required agent per skill.
 - **SkillOpt-Sleep:** performs offline trajectory-driven optimization for explicitly
   selected non-`kf-*` skills. K Fleet skills and references are excluded.
 
@@ -42,35 +46,28 @@ Substantial work stops when the orchestrator or Supermemory integration is unava
 
 ## Repository map
 
-- `skills/kf-orchestrate-work/SKILL.md` is the only installable K Fleet entry point.
-- `skills/kf-orchestrate-work/references/` contains setup plus conditional
-  workflow, delegation, feedback, and evolution contracts. The shared Supermemory
-  boundary stays in the entry point instead of a backend procedure reference.
-  Design, implementation, and verification select relevant engineering dimensions
-  through the shared `references/engineering.md` method, then use route-specific
-  procedures and target-project or domain sources for deeper work.
+- `skills/kf-orchestrate-work/SKILL.md` coordinates scope, method selection,
+  integration, and final completion. Its local references cover runtime, setup,
+  guidance maintenance, delegation, feedback, and evolution.
+- `skills/kf-define-requirements/SKILL.md` clarifies intended behavior and scope.
+- `skills/kf-design-codebase/SKILL.md` designs module contracts, directory structure,
+  dependencies, and consistency with complexity proportional to current needs.
+- `skills/kf-implement/SKILL.md` delivers changes under project code style and
+  disciplined reuse, preserving the accepted design.
+- `skills/kf-write-tests/SKILL.md` writes meaningful automated checks and regressions.
+- `skills/kf-verify/SKILL.md` verifies implemented functionality and identifies
+  related defects, regressions, and runtime problems. Using it alone does not
+  establish independent review.
+- Each method includes its own runtime constraints and complete method.
+  Direct invocation preserves source authority, scope, and read-only boundaries.
+- `docs/skill-authoring.md` records the user-supplied prompt-writing reference and
+  how the four engineering foundations should shape maintained instructions.
 - `.codex/agents/kf-reviewer.toml` defines the optional read-only `kf_reviewer`. It supplies
   evidence but never owns mutation or readiness.
-- `examples/fleet-ledger/` forward-tests the installed package on a runnable fixture.
-- `evals/orchestrator-routing.jsonl` defines the current routing and control-plane
-  corpus. Reports from the retired multi-skill architecture are historical evidence,
-  not current behavior claims.
-- `evals/v2-release-forward-results.json` and its report preserve the bounded blind
-  smoke evidence for the exact v2 release sources they name.
-- `evals/test-value-forward-results.json` and its report preserve the historical
-  source-bound observations for risk-driven TDD selection and skipping.
-- `evals/astra-forward-results.json` and its report preserve historical prompt
-  simplification observations bound to their exact sources and raw evidence.
-- `evals/feature-method-forward-results.json` and its report preserve the original
-  engineering-method observations bound to their sources and evidence.
-- `evals/progressive-disclosure-forward-results.json` and its report bind current
-  conditional-loading observations and an original-source control to their evidence.
-- `scripts/validate-repository-structure.mjs` checks packaging, installed copies,
-  links, placeholders, and the companion agent.
-- `scripts/validate-orchestrator-evals.mjs` lints the current orchestration corpus;
-  it does not claim that prompts were executed.
-- `scripts/validate-v2-forward-results.mjs` protects the historical release bindings
-  and rejects current targeted observations whose skill or corpus hashes are stale.
+- `scripts/kf-projects.mjs` implements the zero-dependency installation and
+  multi-project CLI exposed by `package.json`.
+- [Workflow method composition](docs/workflow-methods.md) explains how the five
+  methods are selected and combined without a mandatory phase sequence.
 
 ## Runtime prerequisites
 
@@ -168,7 +165,7 @@ npx --yes github:KeterVM/k-fleet install
 
 `install` defaults to the current directory. It downloads a shared SkillOpt checkout
 to `~/.k-fleet/SkillOpt` when one is not configured, safely merges the shared
-SkillOpt settings, installs `kf-orchestrate-work` and `skillopt-sleep` under the
+SkillOpt settings, installs all six K Fleet skills and `skillopt-sleep` under the
 project's `.agents/skills/` through the `skills` CLI, records them in
 `skills-lock.json`, installs `kf_reviewer`, and registers the project.
 
@@ -194,6 +191,12 @@ Use `register`, `unregister`, and `list` to maintain the project set. `install` 
 SkillOpt arguments placed after `--`. `adopt` and `schedule` are blocked until
 upstream can preserve the validated target boundary. Installation skips existing
 skills; update refreshes them without creating K Fleet skill backups.
+Updates request all six named K Fleet skills, refreshing existing entries and
+adding missing methods. After replacements install successfully, the CLI removes
+retired `kf-design` and `kf-investigate` directories from `.agents/skills/`. An install
+that detects these retired entries also refreshes the current catalog before
+removing them; otherwise existing current skills are preserved. Unrelated skills
+are not removed. Stale lock entries for the retired names are pruned after removal.
 Updates refresh SkillOpt-Sleep from its Codex-specific source path to avoid
 ambiguity with the same-named skills for other platforms in the upstream repository.
 
@@ -220,8 +223,12 @@ The user describes the outcome normally. K Fleet performs this loop:
 
 1. Resolve repository, worktree, working directory, authority, and stopping state.
 2. Retrieve focused project context from Supermemory.
-3. Select and load only the required workflow references.
-4. Identify affected invariants and validation before materially risky changes.
+3. Select only the needed method skills and their local references. Small understood
+   changes can go directly to implementation and its own checks.
+4. Resolve design decisions for new capabilities, responsibilities, state, public
+   contracts, and platform obligations. Reuse accepted decisions when still valid.
+   Distinguish the goal, facts, constraints, and assumptions; identify affected
+   invariants and validation before materially risky changes.
    Explain consequential tradeoffs when useful; routine edits do not require an
    engineering report or a fixed number of alternatives.
 5. Execute directly or delegate bounded evidence/work with non-overlapping writes.
@@ -261,49 +268,28 @@ Promotion must preserve these protected invariants:
 - accepted changes are versioned and reversible;
 - failed or missing gate results block adoption.
 
-The current eval corpus tests these boundaries through observable routing, methods,
-stopping, and memory/evolution behavior. Fresh blind runs are required before making
-new behavioral quality claims about the cutover architecture.
+## Maintenance
 
-## Validation
-
-Use the change-to-check mapping in [AGENTS.md](AGENTS.md#validation) for focused
-work. Before release or changes spanning multiple surfaces, run:
-
-```sh
-node scripts/validate-repository-structure.mjs
-node scripts/validate-orchestrator-evals.mjs
-node scripts/validate-v2-forward-results.mjs
-node --test scripts/kf-projects.test.mjs
-cd examples/fleet-ledger && npm test
-```
-
-The structure and corpus validators are deterministic lint. The v2 forward-results
-validator protects historical release and test-value bindings and checks current
-prompt observations against source and evidence hashes; it does not re-execute Codex or
-substitute for broader behavioral evaluation with the installed Codex, Supermemory,
-and SkillOpt runtimes.
-
-The [historical Astra report](evals/ASTRA_FORWARD_TEST_REPORT.md) records eight bounded
-passes and one explicit-user-override failure reproduced on the original source.
-The validator retains that known failure as failed evidence; its successful exit
-is an integrity check, not a passing behavioral adoption gate.
-The [SkillOpt exclusion observations](evals/skillopt-exclusion-forward-results.json)
-record two isolated blind decision scenarios for the current policy: rejecting a
-K Fleet target despite passing gates, and staging an explicitly selected non-K-Fleet
-candidate. These are simulated policy decisions, not live optimizer or adoption runs.
+Keep the catalog, method routing, internal references, installer, and documentation
+consistent. This repository does not ship test suites, evaluation corpora, or
+example projects. Mechanical checks do not demonstrate skill effectiveness;
+quality claims must describe actual observed decisions and outcomes and their
+limits. See [AGENTS.md](AGENTS.md) for the maintainer contract.
 
 ## Design principles
 
-- One catalog entry; progressive disclosure below it.
+- Six distinct, self-contained skills; progressive disclosure within each.
+- First principles clarify premises, methodology guides execution, feedback corrects
+  results, and double-loop learning can justify proposed method revisions. These
+  foundations do not prescribe the number of skills or agents.
 - Runtime state and evidence belong in memory, not always-loaded instructions.
 - Repository files remain the inspectable source for current code and policy.
 - Methods are selected by intent, not technology stack.
 - Smallest complete means minimal structure with explicit ownership and preserved
   invariants, not the fewest files or shortest patch.
 - Automation may be aggressive; promotion remains gated and reversible.
-- Historical reports stay historical instead of being relabelled as evidence for a
-  materially different architecture.
+- Historical claims in the changelog describe earlier versions, not proof of
+  effectiveness for the current methods.
 
 ## License
 

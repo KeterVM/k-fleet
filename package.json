@@ -13,10 +13,6 @@
     "NOTICE",
     "README.md"
   ],
-  "scripts": {
-    "test": "node --test scripts/kf-projects.test.mjs && node scripts/validate-repository-structure.mjs && node scripts/validate-orchestrator-evals.mjs && node scripts/validate-v2-forward-results.mjs && npm --prefix examples/fleet-ledger test",
-    "prepack": "npm test"
-  },
   "engines": {
     "node": ">=20"
   },

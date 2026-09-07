@@ -8,6 +8,7 @@ import {
   readFileSync,
   realpathSync,
   renameSync,
+  rmSync,
   statSync,
   writeFileSync,
 } from "node:fs";
@@ -16,7 +17,15 @@ import { basename, dirname, isAbsolute, join, parse, relative, resolve } from "n
 import { fileURLToPath } from "node:url";
 
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const targetSkillPath = ".agents/skills/kf-orchestrate-work/SKILL.md";
+const kFleetSkills = [
+  "kf-orchestrate-work",
+  "kf-define-requirements",
+  "kf-design-codebase",
+  "kf-implement",
+  "kf-write-tests",
+  "kf-verify",
+];
+const retiredSkills = ["kf-design", "kf-investigate"];
 const sleepSkillPath = ".agents/skills/skillopt-sleep/SKILL.md";
 const kFleetSource = process.env.KFLEET_SKILL_SOURCE || "KeterVM/k-fleet";
 const skillOptSource =
@@ -297,25 +306,45 @@ function installReviewer(project) {
   console.log("Installed reviewer: " + destination);
 }
 
+function addKFleetSkills(project, skills) {
+  run(
+    "npx",
+    ["--yes", "skills", "add", kFleetSource, "--agent", "codex", "--skill", ...skills, "--yes"],
+    { cwd: project },
+  );
+}
+
+function installedRetiredSkills(project) {
+  return retiredSkills.filter((skill) =>
+    existsSync(join(project, ".agents", "skills", skill, "SKILL.md")));
+}
+
+function removeRetiredSkills(project) {
+  // Codex discovers these canonical directories directly. The upstream remove
+  // command can leave both canonical copies and local-source lock entries behind.
+  const lockPath = join(project, "skills-lock.json");
+  const lock = readJson(lockPath, null);
+  for (const skill of retiredSkills) {
+    rmSync(join(project, ".agents", "skills", skill), { recursive: true, force: true });
+  }
+  if (lock?.skills && retiredSkills.some((skill) => Object.hasOwn(lock.skills, skill))) {
+    for (const skill of retiredSkills) delete lock.skills[skill];
+    writeJson(lockPath, lock);
+  }
+}
+
 function installProject(project) {
-  if (existsSync(join(project, targetSkillPath))) {
-    console.log("K Fleet skill already installed; use update: " + project);
-  } else {
-    run(
-      "npx",
-      [
-        "--yes",
-        "skills",
-        "add",
-        kFleetSource,
-        "--agent",
-        "codex",
-        "--skill",
-        "kf-orchestrate-work",
-        "--yes",
-      ],
-      { cwd: project },
-    );
+  // Refresh existing coordinators during cutover so they cannot retain routes
+  // to the retired methods. Otherwise install preserves existing current entries.
+  const locked = readJson(join(project, "skills-lock.json"), {})?.skills ?? {};
+  const migrating = installedRetiredSkills(project).length > 0 ||
+    retiredSkills.some((skill) => Object.hasOwn(locked, skill));
+  const missing = kFleetSkills.filter((skill) =>
+    !existsSync(join(project, ".agents", "skills", skill, "SKILL.md")));
+  if (migrating || missing.length) addKFleetSkills(project, migrating ? kFleetSkills : missing);
+  removeRetiredSkills(project);
+  if (!migrating && missing.length < kFleetSkills.length) {
+    console.log("Existing K Fleet skills preserved; use update to refresh them: " + project);
   }
   if (existsSync(join(project, sleepSkillPath))) {
     console.log("SkillOpt-Sleep skill already installed; use update: " + project);
@@ -340,18 +369,9 @@ function installProject(project) {
 }
 
 function upgradeProject(project) {
-  run(
-    "npx",
-    [
-      "--yes",
-      "skills",
-      "update",
-      "kf-orchestrate-work",
-      "--project",
-      "--yes",
-    ],
-    { cwd: project },
-  );
+  // Install replacements successfully before removing exact retired names.
+  addKFleetSkills(project, kFleetSkills);
+  removeRetiredSkills(project);
   // Repository-wide update treats SkillOpt's platform variants as ambiguous.
   // Refresh from the same Codex-specific source used during installation.
   run(
@@ -384,7 +404,7 @@ function getRunner(registry) {
 
 function printStatus(project) {
   const checks = [
-    ["K Fleet skill", join(project, targetSkillPath)],
+    ...kFleetSkills.map((skill) => [skill, join(project, ".agents", "skills", skill, "SKILL.md")]),
     ["SkillOpt-Sleep skill", join(project, sleepSkillPath)],
     ["skills lock", join(project, "skills-lock.json")],
     ["reviewer", join(project, ".codex", "agents", "kf-reviewer.toml")],
