@@ -1,15 +1,20 @@
 ---
-name: kf-design-code
-description: Design code responsibilities, interfaces, dependencies, and consistency boundaries for an understood software change before substantial implementation or restructuring.
+name: kf-design-codebase
+description: Design a codebase's directory organization, module responsibilities, interfaces, and internal dependencies for an understood change, keeping complexity proportional to current needs.
 ---
 
-# Design code
+# Design codebase
 
 Translate understood behavior into a structure with explicit ownership and
 contracts. Reuse adequate existing design, and inspect the relevant
 code and project conventions before choosing where the change belongs. Resolve
 missing decisions that materially affect correctness or scope; proceed with
 independently understood work without adding a routine approval checkpoint.
+
+Treat accepted system architecture, technology choices, and deployment boundaries
+as inputs. Revisit an affected premise when evidence requires it, without silently
+expanding internal code design into a system redesign. Leave coding style and
+line-level implementation choices to implementation under the project contract.
 
 ## Turn responsibilities into code boundaries
 
@@ -31,6 +36,39 @@ business rules. Make the supported entry points and dependency direction clear
 enough that another caller can use the behavior without bypassing its invariants.
 Extract boundaries when justified by actual responsibilities, not hypothetical
 future platforms or consumers.
+
+## Map responsibilities to directories
+
+Inspect the existing source layout, module entry points, tests, build rules, and
+framework discovery conventions. Choose locations that make ownership and related
+changes easy to find. Group by business capability, technical responsibility, or
+a combination according to the actual change patterns and project constraints;
+do not impose one layout on every codebase.
+
+Keep module internals together and make the supported import boundary clear.
+Give shared code a concrete responsibility and owner instead of using a generic
+shared or utils directory as a destination for anything reused. Place tests and
+supporting files consistently with the project and the behavior they validate.
+Directory nesting should convey useful ownership, not merely mirror call layers.
+
+For new or changed layout, show only the relevant paths and explain what belongs
+there. A directory tree supports the design but does not replace the contracts.
+For existing code, account for affected imports, public exports, tests, and tooling
+before proposing moves. Preserve a sound layout for a local change; avoid unrelated
+repository reorganization and empty directories for hypothetical features.
+
+## Keep the design proportional
+
+Start with the simplest structure that satisfies current behavior and invariants.
+For each proposed layer, interface, package, or extension mechanism, identify the
+present responsibility or constraint it serves and the indirection it adds. If a
+direct implementation preserves the required boundaries with less coordination,
+prefer it. Do not make future flexibility a sufficient reason on its own.
+
+Small projects can use few modules and concrete dependencies. Split when there is
+a meaningful ownership boundary, not to satisfy a template; avoid collapsing
+unrelated rules merely to reduce file count. Stop elaborating when ownership,
+contracts, placement, and critical failure behavior are clear enough to implement.
 
 ## Preserve invariants across boundaries
 
@@ -67,8 +105,8 @@ brief for straightforward work and record consequential tradeoffs where useful.
 
 ## Carry decisions into implementation
 
-Leave enough context to implement the chosen ownership, interfaces, dependency
-direction, consistency guarantees, and material tradeoffs. Use the conversation
+Leave enough context to implement the chosen directory placement, ownership,
+interfaces, dependency direction, consistency guarantees, and material tradeoffs. Use the conversation
 or an existing artifact unless a durable document is needed. Identify observable
 checks for important contracts; do not prescribe every function in advance.
 
