@@ -308,8 +308,24 @@ function upgradeProject(project) {
       "skills",
       "update",
       "kf-orchestrate-work",
-      "skillopt-sleep",
       "--project",
+      "--yes",
+    ],
+    { cwd: project },
+  );
+  // Repository-wide update treats SkillOpt's platform variants as ambiguous.
+  // Refresh from the same Codex-specific source used during installation.
+  run(
+    "npx",
+    [
+      "--yes",
+      "skills",
+      "add",
+      skillOptSource,
+      "--agent",
+      "codex",
+      "--skill",
+      "skillopt-sleep",
       "--yes",
     ],
     { cwd: project },

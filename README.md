@@ -185,6 +185,8 @@ SkillOpt arguments placed after `--`. Bulk `adopt` is deliberately rejected: nam
 the intended project explicitly so promotion remains review-driven. Installation
 skips existing skills, while update first preserves the current K Fleet target
 under the project's `.skillopt-sleep/backups/` directory.
+Updates refresh SkillOpt-Sleep from its Codex-specific source path to avoid
+ambiguity with the same-named skills for other platforms in the upstream repository.
 
 Restart Codex after installing skills, hooks, or agents so the new session discovers
 them.

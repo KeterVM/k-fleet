@@ -7,6 +7,7 @@ import {
   mkdtempSync,
   readFileSync,
   realpathSync,
+  readdirSync,
   symlinkSync,
   writeFileSync,
 } from "node:fs";
@@ -20,6 +21,52 @@ import {
   mergeSkillOptConfig,
   selectProjects,
 } from "./kf-projects.mjs";
+
+test("update preserves backup and refreshes the Codex SkillOpt source explicitly", () => {
+  const root = mkdtempSync(join(tmpdir(), "kf-update-"));
+  const project = join(root, "project");
+  const repo = join(root, "SkillOpt");
+  const bin = join(root, "bin");
+  const log = join(root, "commands.log");
+  const target = join(project, ".agents/skills/kf-orchestrate-work/SKILL.md");
+  for (const dir of [dirname(target), join(repo, "plugins"), join(repo, ".git"), bin]) {
+    mkdirSync(dir, { recursive: true });
+  }
+  writeFileSync(target, "original optimized skill\n");
+  writeFileSync(join(repo, "plugins/run-sleep.sh"), "#!/bin/sh\nexit 0\n");
+  writeFileSync(join(bin, "git"), "#!/bin/sh\nexit 0\n");
+  writeFileSync(join(bin, "npx"), `#!/bin/sh
+printf '%s|%s\\n' "$PWD" "$*" >> "$KFLEET_TEST_LOG"
+case "$*" in
+  *"update"*"skillopt-sleep"*) exit 42 ;;
+esac
+`);
+  for (const name of ["git", "npx"]) chmodSync(join(bin, name), 0o755);
+  const result = spawnSync(process.execPath, [
+    join(dirname(fileURLToPath(import.meta.url)), "kf-projects.mjs"),
+    "update", "--skillopt-repo", repo, project,
+  ], {
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      PATH: bin + ":" + process.env.PATH,
+      KFLEET_STATE_DIR: join(root, "state"),
+      SKILLOPT_SLEEP_CONFIG: join(root, "config.json"),
+      SKILLOPT_SKILL_SOURCE: "https://github.com/microsoft/SkillOpt/tree/main/plugins/codex/skills",
+      KFLEET_TEST_LOG: log,
+    },
+  });
+  assert.equal(result.status, 0, result.stderr);
+  assert.deepEqual(readFileSync(log, "utf8").trim().split("\n"), [
+    `${realpathSync(project)}|--yes skills update kf-orchestrate-work --project --yes`,
+    `${realpathSync(project)}|--yes skills add https://github.com/microsoft/SkillOpt/tree/main/plugins/codex/skills --agent codex --skill skillopt-sleep --yes`,
+  ]);
+  const backups = join(project, ".skillopt-sleep/backups");
+  const entries = readdirSync(backups);
+  assert.equal(entries.length, 1);
+  assert.equal(readFileSync(join(backups, entries[0], "kf-orchestrate-work/SKILL.md"), "utf8"), "original optimized skill\n");
+  assert.equal(existsSync(join(project, ".codex/agents/kf-reviewer.toml")), true);
+});
 
 test("config preserves unrelated values and enforces K Fleet boundaries", () => {
   assert.deepEqual(mergeSkillOptConfig({ model: "custom", evolve_memory: true }), {
