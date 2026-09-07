@@ -56,7 +56,7 @@ override memory, which never grants permission or crosses project/worktree scope
 From the target repository:
 
 ```sh
-npx --yes k-fleet install
+npx --yes k-fleet@latest install
 ```
 
 Or install from this GitHub source:
@@ -90,11 +90,14 @@ The CLI defaults to the current project and also accepts explicit paths or
 `--all` for registered projects:
 
 ```sh
-npx k-fleet install /absolute/path/to/api /absolute/path/to/web
-npx k-fleet update --all
-npx k-fleet status --all
-npx k-fleet list
+npx k-fleet@latest install /absolute/path/to/api /absolute/path/to/web
+npx k-fleet@latest update --all
+npx k-fleet@latest status --all
+npx k-fleet@latest list
 ```
+
+With Bun, use `bunx k-fleet@latest update` (or add `--all` for all registered
+projects). Specify `@latest` to avoid reusing a cached older CLI.
 
 `register` and `unregister` maintain `~/.k-fleet/projects.json`. Installation
 preserves existing current skills; updates refresh them. When retired
