@@ -1,5 +1,8 @@
 # K Fleet
 
+K Fleet is optimized specifically for Astra. Results with other models are not
+guaranteed.
+
 K Fleet provides six engineering methods and a user-triggered setup skill, using
 Supermemory for scoped project context. The main agent selects methods and owns
 the integrated result, guided by reminders in the project's root `AGENTS.md`.
