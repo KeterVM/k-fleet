@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "status": "initial-implementation-evaluated",
+  "actor": "/root/hono_implementer",
+  "forkTurns": "none",
+  "model": "inherited parent model; exact serving identity not independently recorded",
+  "candidateImplementationSkill": null,
+  "briefPath": "examples/project-hub/BRIEF.md",
+  "briefHash": "bd8f9a1698cb85932970702b18648932dbc5ecc5c23b14084e9b155771e78dd7",
+  "preRunEvaluationHashes": {
+    "evals/hono-implementation/PLAN.md": "5e5f259b983c34130aa82d9eac84f40478c97968f1177e44db6a70949009b96e",
+    "evals/hono-implementation/acceptance.test.ts": "8ab907f62f8a72ff5cdc4a995555f0e24349bf693819501eaf90e8162502694a",
+    "evals/hono-implementation/http-smoke.ts": "f73e6fa5eeed216aa96c8efddd02304168c5d5bed1305b822058a3d324c2b789"
+  },
+  "actorPrompt": "Implement the runnable Hono API described in /Users/ketervm/Project/keterVM/k-fleet/examples/project-hub/BRIEF.md. This is a real implementation exercise: design input is that brief, and you choose internal architecture and code using your normal engineering judgment. Ownership: all implementation files under examples/project-hub/ EXCEPT BRIEF.md, which is frozen and read-only. You are not alone in the codebase: preserve others' edits, do not revert or modify anything outside your owned directory, and adapt to shared repository guidance. Do not read evals/, drafts/, other examples, or the parent's skill-restructuring changes; no candidate implementation skill is assigned. You may read applicable ancestor AGENTS.md, use official Hono/Bun documentation, install project-local dependencies, run local tests/typechecks, and operate disposable local databases. Do not deploy, publish, commit, create subagents, or alter global settings. Required deliverable: working source, pinned dependencies and lockfile, meaningful own tests, runnable server, README. Report actual checks and limitations. Please complete the initial implementation and your own validation, then stop so the parent can snapshot and independently evaluate it before any feedback-driven correction. The local environment has Bun 1.4.0 and Node 24.16.0. If network installation is blocked, report the exact command/error so the parent can resolve access. Use tools with cwd explicitly set to the example; the default cwd is the parent repository. Respond in Chinese.",
+  "environmentAssistance": "The parent ran bun install in the example with approved network access after the actor reported sandbox tempdir and DNS failures. No implementation advice was supplied in that assistance.",
+  "isolation": "Instruction-scoped read/write boundaries in a shared filesystem; hidden evaluator files were not supplied to the actor. This does not prove OS-enforced isolation or absence of outside reads.",
+  "claimBoundary": "One implementation with an explicit design brief. Not an unprompted baseline, a controlled skill comparison, or evidence of general performance improvement. Existing host and repository instructions remain active."
+}

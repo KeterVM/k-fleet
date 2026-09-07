@@ -1,0 +1,18 @@
+bun test v1.4.0 (34cbb9a40)
+
+../../evals/hono-implementation/acceptance.test.ts:
+(pass) independent Project Hub acceptance > identity normalization, session revocation and expiration are enforced [213.98ms]
+(pass) independent Project Hub acceptance > project ownership and nested task identity do not permit cross-project access [107.35ms]
+(pass) independent Project Hub acceptance > task transitions, stale retries and no-op updates preserve exact side effects [83.61ms]
+(pass) independent Project Hub acceptance > membership removal unassigns tasks and removes notification visibility [72.90ms]
+(pass) independent Project Hub acceptance > notification persistence failure rolls back the domain operation and activity [68.71ms]
+(pass) independent Project Hub acceptance > SQLite state survives reopen and sessions do not authenticate another app [91.35ms]
+(pass) independent Project Hub acceptance > malformed requests get bounded, correlated errors without secret logging [42.99ms]
+(pass) independent Project Hub acceptance > task filters and pagination remain project-scoped and deterministic [71.67ms]
+(pass) independent Project Hub acceptance > combined assignment and status changes deduplicate recipients and exclude the actor [98.66ms]
+(pass) independent Project Hub acceptance > same-version concurrent edits commit exactly one result [37.45ms]
+
+ 10 pass
+ 0 fail
+ 290 expect() calls
+Ran 10 tests across 1 file. [980.00ms]

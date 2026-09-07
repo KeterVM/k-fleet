@@ -20,7 +20,7 @@ function read(path) {
 function markdownFiles(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
     const path = join(directory, entry.name);
-    if (entry.name === ".git" || entry.name === ".agents" || entry.name === "archive") return [];
+    if ([".git", ".agents", "archive", "node_modules"].includes(entry.name)) return [];
     if (entry.isDirectory()) return markdownFiles(path);
     return entry.name.endsWith(".md") ? [path] : [];
   });
