@@ -133,4 +133,39 @@ claims require fresh blind runs with raw observations and judgments.
   isolated blind forward tests. Withhold hidden expectations, verify evaluator write
   boundaries, and bind claims to the exact source and corpus versions.
 
+### Foundational engineering principles
+
+Use four complementary intellectual foundations to guide engineering decisions.
+They operate at different levels, not as four equivalent formal theories:
+
+- **First principles:** distinguish the real goal, established facts, constraints,
+  and unverified assumptions. Derive necessary capabilities from those premises;
+  check that their composition is sufficient for the intended scenario. Challenge
+  assumptions without discarding relevant evidence or established engineering knowledge.
+- **Methodology:** select an explicit method suited to the task and its conditions.
+  Methods must guide reasoning and delivery; following their steps does not by itself
+  establish correctness or compliance with repository policy.
+- **Control theory:** compare observable outcomes with the intended result, use
+  evidence to correct deviations, and define when to stop or change strategy.
+  Feedback requires useful measurements and corrective actions; repeated attempts
+  alone do not establish a working control loop or guarantee convergence.
+- **Double-loop learning:** distinguish correcting an implementation from revising
+  the assumptions, methods, or evaluation criteria that produced it. Repeated or
+  otherwise sufficient evidence may justify a proposed revision; one failure does
+  not automatically justify another rule. Apply existing authority and evolution
+  gates before adoption; learning never grants permission to change user goals.
+
+For material decisions, be able to answer these questions using proportionate
+working evidence, without requiring a fixed report for every task:
+
+1. Which premises are established facts, and which remain assumptions?
+2. Why does this method fit the task, and under what conditions does it apply?
+3. What evidence could reveal an error, and when should execution stop or change?
+4. Does the evidence call for correcting the implementation, or is it sufficient
+   to propose revising the method or its assumptions?
+
+Treat these principles as a design framework whose value must be demonstrated in
+observable decisions and outcomes. They do not prescribe a skill or agent count;
+the existing public-entry-point contract remains in force until explicitly revised.
+
 <!-- self-reflect:end -->
