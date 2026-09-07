@@ -1,6 +1,6 @@
 {
   "name": "k-fleet",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "description": "Install and update K Fleet skills across Codex projects",
   "type": "module",
   "bin": {
