@@ -6,15 +6,19 @@ loads only the applicable method, and keeps validation and completion tied to th
 requested outcome. SkillOpt evolution is limited to explicitly selected non-K-Fleet
 skills and remains subject to its validation and target boundaries.
 
-The catalog has six self-contained skills. Each owns its required instructions
-and local references; no method depends
-on another skill's internal files. This is an explicit user-approved architecture
-decision, not evidence by itself of improved quality or lower execution cost.
+Each skill owns its required instructions and local references; no method depends
+on another skill's internal files.
 
 ## Architecture
 
-The catalog contains `kf-orchestrate-work`, `kf-define-requirements`, `kf-design-codebase`,
-`kf-implement`, `kf-write-tests`, and `kf-verify`.
+| Skill | Responsibility |
+| --- | --- |
+| `kf-orchestrate-work` | Coordinate scope, method selection, delegation, integration, and completion |
+| `kf-define-requirements` | Clarify intended behavior, scope, and acceptance criteria |
+| `kf-design-codebase` | Design directories, module contracts, dependencies, and consistency without overengineering |
+| `kf-implement` | Implement understood changes under project code style and disciplined reuse |
+| `kf-write-tests` | Write meaningful automated checks and regression protection |
+| `kf-verify` | Verify functionality and identify related defects, regressions, and runtime problems |
 
 ```text
 AGENTS.md bootstrap via `/kf-orchestrate-work setup`
@@ -43,6 +47,26 @@ The control plane has four boundaries:
 Current user instructions and current scoped repository files remain authoritative
 when recalled memory conflicts with them. Project and worktree isolation is required.
 Substantial work stops when the orchestrator or Supermemory integration is unavailable.
+
+### Skills and agents
+
+Skills provide reusable methods; agents execute work. A single agent can use
+several skills as needed. The catalog does not require six agents, a separate
+agent per method, or a fixed sequence through every method. Test writing can
+precede implementation, and verification can return work to an affected decision.
+
+The optional `kf_reviewer` role is defined in
+[kf-reviewer.toml](.codex/agents/kf-reviewer.toml). Use it for a fresh, bounded,
+read-only review when independent scrutiny is requested or warranted. It reports
+concrete findings and uncertainty; it does not fix code or decide whether the
+whole task is complete. The coordinating agent owns corrections, integration,
+and the final outcome. Using `kf-verify` in the same agent is useful verification,
+but does not constitute independent review.
+
+The CLI copies this reviewer configuration into each target project's
+`.codex/agents/` during installation and update. Having the configuration installed
+does not require invoking it on every task. K Fleet ships one named reviewer role;
+other bounded implementation or investigation work can use ordinary sub-agents.
 
 ## Repository map
 
