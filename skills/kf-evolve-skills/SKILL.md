@@ -71,7 +71,7 @@ If no inspected candidate fits, use skill-creator when available to create a
 focused skill. Without it, author a self-contained SKILL.md with matching directory
 and frontmatter name, a discriminating description, decision criteria, and the
 needed workflow. Inspect project conventions and existing names before writing.
-Do not shadow core K Fleet entries or create a second orchestrator.
+Do not shadow core K Fleet entries or duplicate the main agent's coordination role.
 
 Write the guidance that changes the deficient decision, including when it applies
 and when a simpler approach is sufficient. Avoid turning the last incident into
@@ -97,5 +97,5 @@ or installation alone, and do not repeat search or edits without new evidence.
 
 Report the original gap, selected source or created path, scope, observed result,
 and next decision for Supermemory's automatic capture. Keep the summary within
-the active project. The orchestrator integrates the result and returns to the
+the active project. The main agent integrates the result and returns to the
 original task; adding a skill alone does not complete that task.

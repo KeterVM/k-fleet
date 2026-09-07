@@ -18,7 +18,7 @@ handle every task. Additional public skills need distinct selection value; movin
 a reference into a skill directory alone does not demonstrate better behavior.
 
 Each skill owns the instructions and references needed to execute its method.
-Keep file links inside that skill's directory. The orchestrator may select another
+Keep file links inside that skill's directory. The main agent may select another
 skill by name, but a method must not require reading another skill's internal files
 to establish its runtime contract or reasoning procedure. Keep necessary local
 constraints concise and check their consistency when the shared policy changes.

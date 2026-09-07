@@ -11,10 +11,10 @@ workflow behavior rather than framework-specific instructions.
 
 - `README.md` documents the architecture, runtime prerequisites, installation,
   operation, and maintenance guidance.
-- `skills/` contains `kf-orchestrate-work`, `kf-define-requirements`,
+- `skills/` contains `kf-setup`, `kf-define-requirements`,
   `kf-design-codebase`, `kf-implement`, `kf-write-tests`, `kf-verify`, and
   `kf-evolve-skills`. Each skill owns its instructions and references;
-  the orchestrator owns setup and task coordination.
+  setup manages target-project reminders and the main agent coordinates work.
 - `.codex/agents/kf-reviewer.toml` defines the companion reviewer.
 - `scripts/kf-projects.mjs` implements the zero-dependency `k-fleet` npm CLI exposed
   by `package.json`.
@@ -24,8 +24,9 @@ workflow behavior rather than framework-specific instructions.
 
 ## Architecture responsibilities
 
-- `kf-orchestrate-work` owns task routing, authority, delegation, integration,
-  terminal evidence, and final task state. Requirements, codebase design,
+- The main agent owns task routing, authority, delegation, integration,
+  terminal evidence, and final task state. `kf-setup` only initializes or refreshes
+  root `AGENTS.md` reminders on explicit user request. Requirements, codebase design,
   implementation, test writing, verification, and capability-improvement skills
   own their respective methods.
 - Backend ownership, source authority, isolation, and maintenance boundaries are
@@ -46,14 +47,15 @@ workflow behavior rather than framework-specific instructions.
   frontmatter names identical.
 - Use only supported `name` and `description` frontmatter unless a verified need
   requires optional metadata.
-- Keep the description discriminating enough to select the orchestrator for
-  substantive repository work without turning unrelated conversation into a task.
-- Put bootstrap, routing, authority, stopping, and reference-selection rules in
-  `SKILL.md`. Put substantial route procedures and backend-specific contracts in
+- Keep method descriptions discriminating. Setup must remain user-triggered with
+  `policy.allow_implicit_invocation: false` in its `agents/openai.yaml`.
+- Put method applicability, authority, stopping, and reference-selection rules in
+  `SKILL.md`. Put substantial procedures and backend-specific contracts in
   purpose-labelled references, linked at the relevant decision point.
 - Setup must preserve unrelated guidance and must not install or globally configure
-  the memory backend itself. Recover missing workflow invariants inside the
-  orchestrator or its references.
+  the memory backend itself. Keep root reminders concise and method procedures
+  inside their skills. CLI installation only installs files and reminds the user
+  to run `/kf-setup`; it never invokes setup or edits root instructions.
 - Supermemory derives scope from canonical repository and worktree identity;
   recalled inferences remain unapproved evidence.
 - Keep detailed target-project facts in that project's guidance or source documents,
@@ -86,15 +88,16 @@ presence does not require this repository to maintain a test harness.
   Retain the repository map, architecture invariants, conventions, and validation
   contract; never replace this guide with the installation bootstrap.
   Apply the minimal managed bootstrap only to repositories that install K Fleet,
-  through the explicit idempotent setup route and only after its scoped
+  through explicitly requested idempotent `kf-setup` and only after its scoped
   Supermemory runtime check passes. Otherwise setup must stop without writing and
-  direct the user to install or configure the integration. The bootstrap must point
-  to `kf-orchestrate-work`, state source-over-memory and project/worktree isolation,
+  direct the user to install or configure the integration. The bootstrap must remind
+  the main agent to select methods as needed, retain task ownership, enforce
+  source-over-memory and project/worktree isolation,
   and stop substantive work when the required runtime is missing.
-- Keep seven public skills: `kf-orchestrate-work`, `kf-define-requirements`,
+- Keep seven public skills: `kf-setup`, `kf-define-requirements`,
   `kf-design-codebase`, `kf-implement`, `kf-write-tests`, `kf-verify`, and
   `kf-evolve-skills`. Each skill must be self-contained: its required
-  instructions and file references stay inside its own directory. The orchestrator
+  instructions and file references stay inside its own directory. The main agent
   selects methods by skill name; do not link into another skill's files to complete
   a method. Context maintenance, delegation, and feedback remain conditional
   responsibilities; capability improvement uses `kf-evolve-skills`. Select methods
@@ -112,7 +115,7 @@ presence does not require this repository to maintain a test harness.
   project scope and preserve unrelated skills. Do not create new skills for every
   failure or claim that installation alone closes the feedback loop.
 - Keep `kf_reviewer` optional, read-only, model-neutral, and advisory. It must not
-  fix its findings or claim readiness independently of the orchestrator, which
+  fix its findings or claim readiness independently of the main agent, which
   retains correction, integration, conflict resolution, and completion.
 - Judge instruction changes by the decisions and outcomes they are intended to
   improve. Keep claims tied to actual observations; do not treat formatting or

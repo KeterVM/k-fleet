@@ -1,15 +1,14 @@
 # K Fleet
 
-K Fleet is a portable Codex workflow package: one orchestrator coordinates six
-methods, using Supermemory for scoped project context. Describe the
-outcome normally; the agent selects the methods needed and owns the integrated
-result.
+K Fleet provides six engineering methods and a user-triggered setup skill, using
+Supermemory for scoped project context. The main agent selects methods and owns
+the integrated result, guided by reminders in the project's root `AGENTS.md`.
 
 ## Skills
 
 | Skill | Responsibility |
 | --- | --- |
-| `kf-orchestrate-work` | Scope, method selection, delegation, integration, and completion |
+| `kf-setup` | On explicit request, initialize or refresh root `AGENTS.md` reminders |
 | `kf-define-requirements` | Intended behavior, scope, and acceptance criteria |
 | `kf-design-codebase` | Directories, module contracts, dependencies, and consistency |
 | `kf-implement` | Implementation under project code style and disciplined reuse |
@@ -65,17 +64,18 @@ npx --yes github:KeterVM/k-fleet install
 
 The CLI installs the seven K Fleet skills under `.agents/skills/`,
 records `skills-lock.json`, copies the reviewer into `.codex/agents/`, and
-registers the project.
+registers the project. Installation does not run setup or edit `AGENTS.md`.
 
-Restart Codex, then run:
+**After installation, restart Codex and manually run setup once in each project:**
 
 ```text
-/kf-orchestrate-work setup
+/kf-setup
 ```
 
 Setup checks Supermemory before writing an idempotent block in the target's
 `AGENTS.md`, preserving existing guidance. If the required runtime is unavailable,
 it stops without writing. It does not install or configure the memory backend.
+Setup is never selected automatically; ordinary tasks use the methods directly.
 
 ## Usage
 
@@ -94,10 +94,11 @@ npx k-fleet list
 ```
 
 `register` and `unregister` maintain `~/.k-fleet/projects.json`. Installation
-preserves existing current skills; updates refresh them. When retired `kf-design`,
-`kf-investigate`, or `skillopt-sleep` entries are present,
+preserves existing current skills; updates refresh them. When retired
+`kf-orchestrate-work`, `kf-design`, `kf-investigate`, or `skillopt-sleep` entries are present,
 installation also refreshes the catalog, then removes those directories and lock
-entries after replacements install successfully. Restart Codex after updates.
+entries after replacements install successfully. Restart Codex after updates and
+manually run `/kf-setup` to refresh old project reminders when needed.
 
 ## Maintenance
 

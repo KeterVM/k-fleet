@@ -6,6 +6,10 @@ Notable changes to K Fleet are recorded here.
 
 ### Changed
 
+- Replaced the orchestrator skill with explicit-only `kf-setup`. The main agent
+  coordinates work using concise root AGENTS.md reminders; installation and update
+  prompt the user to run setup and do not execute it automatically.
+
 - Added `kf-evolve-skills` to turn observed capability gaps into inspected skill
   reuse or creation, followed by actual-use feedback. The orchestrator routes to
   it as needed; discovery and authoring use available helpers without bundling them.

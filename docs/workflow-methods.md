@@ -1,9 +1,11 @@
 # Workflow method composition
 
 K Fleet's six method skills are complementary capabilities, not a mandatory
-sequence. The orchestrator selects only what the task needs; each method remains
+sequence. The main agent selects only what the task needs; each method remains
 usable on its own. This maintainer note explains the installed selection contract;
-runtime routing lives in the orchestrator's own instructions.
+root reminders are written by the user-triggered `kf-setup`. Setup is not a task
+phase and is never invoked automatically. Installation only prompts the user to
+run it once; a later explicit setup request can refresh the same managed block.
 
 | Need | Capability | Result to carry forward |
 | --- | --- | --- |

@@ -1,7 +1,7 @@
 # Contributing to K Fleet
 
 Thanks for helping improve K Fleet. Keep the seven skills small, portable, and
-self-contained. Each skill owns its required file references; the orchestrator
+self-contained. Each skill owns its required file references; the main agent
 selects focused methods by name. Add more catalog entries only for an explicitly
 agreed capability boundary.
 

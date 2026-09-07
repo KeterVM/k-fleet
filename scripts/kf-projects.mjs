@@ -18,7 +18,7 @@ import { fileURLToPath } from "node:url";
 
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const kFleetSkills = [
-  "kf-orchestrate-work",
+  "kf-setup",
   "kf-define-requirements",
   "kf-design-codebase",
   "kf-implement",
@@ -26,7 +26,7 @@ const kFleetSkills = [
   "kf-verify",
   "kf-evolve-skills",
 ];
-const retiredSkills = ["kf-design", "kf-investigate", "skillopt-sleep"];
+const retiredSkills = ["kf-orchestrate-work", "kf-design", "kf-investigate", "skillopt-sleep"];
 const kFleetSource = process.env.KFLEET_SKILL_SOURCE || "KeterVM/k-fleet";
 const stateRoot = process.env.KFLEET_STATE_DIR || join(homedir(), ".k-fleet");
 const registryPath = join(stateRoot, "projects.json");
@@ -168,8 +168,7 @@ function removeRetiredSkills(project) {
 }
 
 function installProject(project) {
-  // Refresh existing coordinators during cutover so they cannot retain routes
-  // to the retired methods. Otherwise install preserves existing current entries.
+  // Refresh the catalog during cutover; otherwise preserve current entries.
   const locked = readJson(join(project, "skills-lock.json"), {})?.skills ?? {};
   const migrating = installedRetiredSkills(project).length > 0 ||
     retiredSkills.some((skill) => Object.hasOwn(locked, skill));
@@ -253,14 +252,14 @@ function main(argv) {
     for (const project of projects) installProject(project);
     registry.projects.push(...projects);
     saveRegistry(registry);
-    console.log("Restart Codex, then run /kf-orchestrate-work setup in each project.");
+    console.log("Restart Codex, then manually run /kf-setup once in each project to initialize AGENTS.md. Installation does not run setup.");
     return;
   }
   for (const project of projects) {
     if (command === "status") printStatus(project);
     else upgradeProject(project);
   }
-  if (command !== "status") console.log("Restart Codex so new or updated skills are discovered.");
+  if (command !== "status") console.log("Restart Codex to discover updated skills. To refresh project reminders, manually run /kf-setup; update does not edit AGENTS.md.");
 }
 
 const invokedPath = process.argv[1] ? resolve(process.argv[1]) : "";
