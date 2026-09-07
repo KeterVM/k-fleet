@@ -5,42 +5,29 @@ design or when the user explicitly requires design before implementation.
 
 ## Engineering checkpoint
 
-For changes with material architectural, compatibility, data-integrity, or lifecycle
-risk, identify affected ownership, invariants, failure behavior, and validation
-before editing. Include migration, deletion, and rollback impact where relevant.
+For material architectural, compatibility, data-integrity, trust-boundary, or
+lifecycle risk, resolve decisive ownership, invariants, failure behavior, and
+validation before editing. Use the relevant sections of [engineering](engineering.md)
+when these questions remain unresolved or require tracing across layers. Current
+evidence or an accepted design can satisfy this checkpoint without rereading it.
 A local change needs only its decisive constraint and proportionate validation.
-Use the shared [engineering method](engineering.md) to select the relevant
-dimensions and resolve dependencies across layers rather than considering only the
-initially affected component.
 
-Explain consequential tradeoffs when useful; compare alternatives only when there
-is a real choice. Resolve routine implementation decisions within existing
-authorization. Ask when an unresolved product or authority decision materially
-changes the outcome. Completion depends on the requested result and relevant
-evidence, not a prescribed report format or number of alternatives.
+Resolve routine technical choices within existing authorization. Ask when an
+unresolved product or authority decision materially changes the outcome.
 
 ## Procedure
 
-1. Define the observable target, acceptance evidence, scope, non-goals,
-   compatibility constraints, verified facts, assumptions, and unresolved choices.
-   Use the [engineering method](engineering.md) to derive necessary supporting
-   capabilities and select the dimensions that need design before choosing components.
-2. Inspect the context and affected paths needed to resolve the design; expand to
-   history or analogous implementations when they answer a material question.
-3. Model the current and target responsibilities, dependency direction, data and
-   control flow, state or lifecycle transitions, failure handling, observability,
-   and test seams relevant to the change's risk.
-   Resolve [module ownership and local conventions](engineering.md#resolve-ownership-and-conventions)
-   from the repository so the design specifies where responsibilities belong.
-4. Where viable alternatives exist, compare their material tradeoffs and explain
-   the recommendation using repository evidence.
-5. Recommend the smallest complete design supported by evidence. Smallest means
-   the least structure that preserves clear ownership and all required invariants,
-   not the fewest files or abstractions. Challenge it against edge conditions,
-   deletion and rollback paths, and both under- and over-engineering.
-6. If implementation follows, carry forward the accepted decisions, constraints,
-   acceptance evidence, and unresolved assumptions. Revalidate facts that may have
-   changed; continue implementation when it is already authorized.
+1. Define the target, scope, acceptance evidence, and unresolved choices. Reuse
+   current context; inspect sources needed to resolve material gaps or assumptions.
+2. Model affected responsibilities and boundaries using local conventions. Apply
+   the checkpoint above where relevant, including necessary supporting capabilities.
+3. Compare viable alternatives when there is a real tradeoff. Recommend the least
+   structure that preserves ownership and required invariants; check relevant edge
+   conditions, migration, deletion, and rollback consequences.
+4. Make the design usable for delivery: identify affected owners, constraints,
+   acceptance evidence, and remaining assumptions. No fixed report format or number
+   of alternatives is required. Continue authorized implementation using these
+   decisions, revalidating facts only when needed.
 
 Do not modify production code unless implementation is also authorized. A design
 does not itself grant mutation authority.

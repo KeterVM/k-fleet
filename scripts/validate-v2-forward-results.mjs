@@ -12,6 +12,8 @@ const astraResultsPath = join(root, "evals/astra-forward-results.json");
 const astraReportPath = join(root, "evals/ASTRA_FORWARD_TEST_REPORT.md");
 const featureResultsPath = join(root, "evals/feature-method-forward-results.json");
 const featureReportPath = join(root, "evals/FEATURE_METHOD_FORWARD_TEST_REPORT.md");
+const disclosureResultsPath = join(root, "evals/progressive-disclosure-forward-results.json");
+const disclosureReportPath = join(root, "evals/PROGRESSIVE_DISCLOSURE_FORWARD_TEST_REPORT.md");
 const corpusPath = join(root, "evals/orchestrator-routing.jsonl");
 const lockPath = join(root, "examples/fleet-ledger/skills-lock.json");
 const failures = [];
@@ -184,40 +186,92 @@ for (const entry of known) {
   if (entry.baseline) validateAstraEntry({ ...entry.baseline, id: entry.id });
 }
 
-const featureResults = JSON.parse(readFileSync(featureResultsPath, "utf8"));
-const featureReport = readFileSync(featureReportPath, "utf8");
-if (featureResults.schemaVersion !== 1) fail("Feature-method results must use schemaVersion 1");
-for (const [field, expected] of Object.entries(currentBindings)) {
-  if (featureResults[field] !== expected) fail(`Feature-method results have stale ${field}`);
-  if (!featureReport.includes(expected)) fail(`Feature-method report must name ${field}`);
-}
+const historicalFeatureBindings = {
+  skillHash: "5a6a60dc7d5b72c027334d0dcc25147762ad09266fe63e6bdda726f8410ff811",
+  reviewerHash: "4e7d26b2a98289a23b0458606fbdfc1b243ffe67e0eebc7468aabb1f3fb696cb",
+  corpusHash: "b59226ea1a5d12121faa498eaec8b4551a8db931b9e3c68d7b4ecdb68c611913",
+};
 const expectedFeatureCases = [
   "implementation-module-conventions",
   "implementation-supporting-lifecycle",
   "implementation-bounded-presentation",
   "design-cross-layer-sharing",
 ];
-if (JSON.stringify((featureResults.cases ?? []).map((entry) => entry.id)) !== JSON.stringify(expectedFeatureCases)) {
-  fail(`Feature-method results must contain exactly: ${expectedFeatureCases.join(", ")}`);
+const expectedDisclosureCases = [...expectedFeatureCases, "verification-local-contract"];
+
+function validateTargetedRun(label, resultsPath, reportPath, bindings, ids, evidenceDirectory, waivedCaseId = null) {
+  const results = JSON.parse(readFileSync(resultsPath, "utf8"));
+  const report = readFileSync(reportPath, "utf8");
+  if (results.schemaVersion !== 1) fail(`${label} results must use schemaVersion 1`);
+  for (const [field, expected] of Object.entries(bindings)) {
+    if (results[field] !== expected) fail(`${label} results have stale ${field}`);
+    if (!report.includes(expected)) fail(`${label} report must name ${field}`);
+  }
+  if (JSON.stringify((results.cases ?? []).map((entry) => entry.id)) !== JSON.stringify(ids)) {
+    fail(`${label} results must contain exactly: ${ids.join(", ")}`);
+  }
+  function validateEntry(entry, expectedSkillHash) {
+    if (entry.id === waivedCaseId) {
+      if (entry.passed !== false || entry.status !== "blocked") {
+        fail(`${entry.id} must retain its blocked, non-passing observation`);
+      }
+    } else if (entry.passed !== true) fail(`${entry.id} is not recorded as passing`);
+    for (const field of ["prompt", "isolation", "observation", "writeEvidence", "judgment"]) {
+      if (typeof entry[field] !== "string" || !entry[field].trim()) fail(`${entry.id} must record ${field}`);
+    }
+    if (!report.includes(entry.id)) fail(`${label} report does not reference ${entry.id}`);
+    for (const prefix of ["evidence", "artifact"]) {
+      const path = entry[`${prefix}Path`];
+      const directory = `${evidenceDirectory}/`;
+      if (typeof path !== "string" || !path.startsWith(directory) ||
+          !/^[a-z0-9-]+\.json$/.test(path.slice(directory.length))) {
+        fail(`${entry.id} has invalid ${prefix}Path`);
+        continue;
+      }
+      try {
+        if (sha256(join(root, path)) !== entry[`${prefix}Hash`]) fail(`${entry.id} has stale ${prefix}Hash`);
+        const record = JSON.parse(readFileSync(join(root, path), "utf8"));
+        if (record.caseId !== entry.id) fail(`${entry.id} has mismatched ${prefix} caseId`);
+        if (prefix === "artifact" && record.skillHash !== expectedSkillHash) {
+          fail(`${entry.id} artifact was produced with different skill sources`);
+        }
+      } catch {
+        fail(`${entry.id} has missing or invalid ${prefix} evidence`);
+      }
+    }
+  }
+  for (const entry of results.cases ?? []) validateEntry(entry, bindings.skillHash);
+  return { results, report, validateEntry };
 }
-for (const entry of featureResults.cases ?? []) {
-  if (entry.passed !== true) fail(`${entry.id} is not recorded as passing`);
-  for (const field of ["prompt", "isolation", "observation", "writeEvidence", "judgment"]) {
-    if (typeof entry[field] !== "string" || !entry[field].trim()) fail(`${entry.id} must record ${field}`);
+
+validateTargetedRun("Historical feature-method", featureResultsPath, featureReportPath,
+  historicalFeatureBindings, expectedFeatureCases, "evals/feature-method-forward");
+const disclosure = validateTargetedRun("Progressive-disclosure", disclosureResultsPath,
+  disclosureReportPath, currentBindings, expectedDisclosureCases, "evals/progressive-disclosure-forward",
+  "implementation-module-conventions");
+// A one-release user decision permits shipping with this missing observation.
+// It never turns the blocked evaluation into a passing behavioral result.
+const waiver = disclosure.results.releaseWaiver;
+if (disclosure.results.status !== "incomplete-release-authorized" ||
+    waiver?.version !== "2.1.1" || waiver?.caseId !== "implementation-module-conventions" ||
+    waiver?.skillHash !== "f36755783ee5dac0b5560287d25e938b1873d87682abbd4598b61b9a1bd27a47" ||
+    waiver?.skillHash !== skillHash ||
+    waiver?.corpusHash !== "78d1fd2ed5a707a9a7a44d72eb51b3e1c9dd51cee6e63d83c3d81d470b55935e" ||
+    waiver?.corpusHash !== corpusHash ||
+    waiver?.authorization !== "没事 可以都commit和 push 然后release" ||
+    !disclosure.report.includes("Release 2.1.1 authorized with one blocked observation")) {
+  fail("Progressive-disclosure release waiver must retain its exact user decision and source bindings");
+}
+const controls = disclosure.results.controls ?? [];
+if (controls.length !== 1 || controls[0]?.id !== "baseline-bounded-presentation") {
+  fail("Progressive-disclosure results must retain the original-source presentation control");
+}
+for (const entry of controls) {
+  for (const [field, expected] of Object.entries(historicalFeatureBindings)) {
+    if (entry[field] !== expected) fail(`${entry.id} changed its original ${field}`);
+    if (!disclosure.report.includes(expected)) fail(`Progressive-disclosure report must name control ${field}`);
   }
-  if (!featureReport.includes(entry.id)) fail(`Feature-method report does not reference ${entry.id}`);
-  for (const prefix of ["evidence", "artifact"]) {
-    const path = entry[`${prefix}Path`];
-    if (typeof path !== "string" || !/^evals\/feature-method-forward\/[a-z0-9-]+\.json$/.test(path)) {
-      fail(`${entry.id} has invalid ${prefix}Path`);
-      continue;
-    }
-    try {
-      if (sha256(join(root, path)) !== entry[`${prefix}Hash`]) fail(`${entry.id} has stale ${prefix}Hash`);
-    } catch {
-      fail(`${entry.id} is missing ${prefix} evidence`);
-    }
-  }
+  disclosure.validateEntry(entry, historicalFeatureBindings.skillHash);
 }
 
 if (failures.length) {
@@ -229,6 +283,7 @@ console.log(
   `Validated ${expectedCases.length} historical K Fleet v2 release results and ` +
     `${expectedTestValueCases.length} historical test-value results and ` +
     `${expectedAstraCases.length} passing historical Astra results and ` +
-    `${expectedFeatureCases.length} current source-bound feature-method results; ` +
+    `${expectedFeatureCases.length} historical feature-method results and ` +
+    `${expectedDisclosureCases.length - 1} passing current progressive-disclosure results, 1 blocked observation with an explicit release waiver, and ${controls.length} original-source control; ` +
     `${known.length} known baseline failure retained (not a passing adoption gate).`,
 );

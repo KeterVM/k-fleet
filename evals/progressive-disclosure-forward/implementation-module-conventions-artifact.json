@@ -1,0 +1,141 @@
+{
+  "caseId": "implementation-module-conventions",
+  "skillHash": "f36755783ee5dac0b5560287d25e938b1873d87682abbd4598b61b9a1bd27a47",
+  "initialFiles": {
+    ".agents/skills/kf-orchestrate-work/SKILL.md": {
+      "sha256": "af9c4e70c9465570661bd0cd057dc6e44b5b59a65fc66ac6a5267bebed13e7ae"
+    },
+    ".agents/skills/kf-orchestrate-work/references/bug-fix.md": {
+      "sha256": "61057db18e0c423966d8b68e0f5ee6a593f9fa8c2f48584acb8e853ed8c86cd2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/context.md": {
+      "sha256": "7b186ad216873ef6ca17fef49e060e48f2bc87ed9cb4edadae3fbe90ff477bc3"
+    },
+    ".agents/skills/kf-orchestrate-work/references/delegation.md": {
+      "sha256": "f86e7401c8f1086e79af64245112b8d8fb07bfe68cf2943231522a71008ca8d0"
+    },
+    ".agents/skills/kf-orchestrate-work/references/design.md": {
+      "sha256": "825e1204674af1359f213bcbae1e4ee7d4c7b7fc4f1e2265cd07db6c7eb144e2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/engineering.md": {
+      "sha256": "2c5a2279d517f84dd6a8560c21bdb082cff3b7f46fc9c80d796a510bbe194590"
+    },
+    ".agents/skills/kf-orchestrate-work/references/evolution.md": {
+      "sha256": "747333df1a8cca359efca848292e6c2a78562304429175a9ff21151ad308841a"
+    },
+    ".agents/skills/kf-orchestrate-work/references/feedback.md": {
+      "sha256": "f0cb539e017b76bb6797e7e8de988a7a2d7f673d7fdb9c288302db5e3a9de2c2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/implementation.md": {
+      "sha256": "5b6d602d65dda35f7d4b4d82ec4b65a01e0aec1130e8974864d4e0b9786cf5fa"
+    },
+    ".agents/skills/kf-orchestrate-work/references/investigation.md": {
+      "sha256": "cc18b2bc629ed37849bc91ee511a91fbd363dd5d0d0045fe0bd831a6d4be6200"
+    },
+    ".agents/skills/kf-orchestrate-work/references/refactor.md": {
+      "sha256": "b318948a9753f20da0ddca7ce8f9c5ed3f3a5c634f07c148cd319162378268aa"
+    },
+    ".agents/skills/kf-orchestrate-work/references/setup.md": {
+      "sha256": "9184cdba45209c257dbb1d61556ee15efa018a6218914b4149056de712c576bb"
+    },
+    ".agents/skills/kf-orchestrate-work/references/testing.md": {
+      "sha256": "90397319cbeb53c46fc797da86fda6e5571b17f001234af20aa552b4c3be6689"
+    },
+    ".agents/skills/kf-orchestrate-work/references/verification.md": {
+      "sha256": "b50748db7e6f5e1149634fa8746400956546d02ea7107bae28d16b9c762c8101"
+    },
+    "README.md": {
+      "sha256": "1c5865d312e55dc94878d73f53b95e035024e5c809e957f3faf35ef168ad1c82",
+      "content": "# Account app\n\nJavaScript ESM, no dependencies. Product features live under src/features.\nsrc/app.js composes their public entry points. Use named exports, camelCase names,\ntwo-space indentation, single quotes and semicolons as in the existing sources.\nRepositories are injected by the host.\n\nInvoice repository: repositories.invoices.load(id) returns an invoice with\nlines: [{quantity, unitPriceCents}]. Total is the sum of quantity times unit price,\nin integer cents. Negative or noninteger quantities and prices are invalid.\n"
+    },
+    "package.json": {
+      "sha256": "67bf036e130c0a49ed6382244c295ba8bf8e9a3616d65d841183a8836a0e303d",
+      "content": "{\"private\":true,\"type\":\"module\",\"scripts\":{\"test\":\"node --test\"}}\n"
+    },
+    "src/app.js": {
+      "sha256": "f3d6f535e68bb3e976f28b1460a78ab63d9ad0856a8c83c60270edf4acc5b601",
+      "content": "import { createProfileController } from './features/profile/index.js';\n\nexport function createApp(repositories) {\n  return { profile: createProfileController(repositories.profile) };\n}\n"
+    },
+    "src/features/profile/controller.js": {
+      "sha256": "88d8426c2d2a6dc116863e9f3c7f06783cb0f50df82848c858d5b7f82e86e235",
+      "content": "import { profileLabel } from './model.js';\n\nexport function createProfileController(repository) {\n  return { async label(id) { return profileLabel(await repository.load(id)); } };\n}\n"
+    },
+    "src/features/profile/index.js": {
+      "sha256": "70a61568d68fe1a470c0953f41e15be2dc95bc0079afc8cd009d512ede2d56ab",
+      "content": "export { createProfileController } from './controller.js';\n"
+    },
+    "src/features/profile/model.js": {
+      "sha256": "75467d3446909d8a0fe9fd156acb9cbd2a3306e68b4de72bc72c48c0c23b0c72",
+      "content": "export function profileLabel(profile) {\n  return profile.displayName.trim();\n}\n"
+    }
+  },
+  "finalFiles": {
+    ".agents/skills/kf-orchestrate-work/references/implementation.md": {
+      "sha256": "5b6d602d65dda35f7d4b4d82ec4b65a01e0aec1130e8974864d4e0b9786cf5fa"
+    },
+    ".agents/skills/kf-orchestrate-work/references/bug-fix.md": {
+      "sha256": "61057db18e0c423966d8b68e0f5ee6a593f9fa8c2f48584acb8e853ed8c86cd2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/engineering.md": {
+      "sha256": "2c5a2279d517f84dd6a8560c21bdb082cff3b7f46fc9c80d796a510bbe194590"
+    },
+    ".agents/skills/kf-orchestrate-work/references/context.md": {
+      "sha256": "7b186ad216873ef6ca17fef49e060e48f2bc87ed9cb4edadae3fbe90ff477bc3"
+    },
+    ".agents/skills/kf-orchestrate-work/references/setup.md": {
+      "sha256": "9184cdba45209c257dbb1d61556ee15efa018a6218914b4149056de712c576bb"
+    },
+    ".agents/skills/kf-orchestrate-work/references/investigation.md": {
+      "sha256": "cc18b2bc629ed37849bc91ee511a91fbd363dd5d0d0045fe0bd831a6d4be6200"
+    },
+    ".agents/skills/kf-orchestrate-work/references/delegation.md": {
+      "sha256": "f86e7401c8f1086e79af64245112b8d8fb07bfe68cf2943231522a71008ca8d0"
+    },
+    ".agents/skills/kf-orchestrate-work/references/testing.md": {
+      "sha256": "90397319cbeb53c46fc797da86fda6e5571b17f001234af20aa552b4c3be6689"
+    },
+    ".agents/skills/kf-orchestrate-work/references/verification.md": {
+      "sha256": "b50748db7e6f5e1149634fa8746400956546d02ea7107bae28d16b9c762c8101"
+    },
+    ".agents/skills/kf-orchestrate-work/references/refactor.md": {
+      "sha256": "b318948a9753f20da0ddca7ce8f9c5ed3f3a5c634f07c148cd319162378268aa"
+    },
+    ".agents/skills/kf-orchestrate-work/references/design.md": {
+      "sha256": "825e1204674af1359f213bcbae1e4ee7d4c7b7fc4f1e2265cd07db6c7eb144e2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/feedback.md": {
+      "sha256": "f0cb539e017b76bb6797e7e8de988a7a2d7f673d7fdb9c288302db5e3a9de2c2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/evolution.md": {
+      "sha256": "747333df1a8cca359efca848292e6c2a78562304429175a9ff21151ad308841a"
+    },
+    ".agents/skills/kf-orchestrate-work/SKILL.md": {
+      "sha256": "af9c4e70c9465570661bd0cd057dc6e44b5b59a65fc66ac6a5267bebed13e7ae"
+    },
+    "README.md": {
+      "sha256": "1c5865d312e55dc94878d73f53b95e035024e5c809e957f3faf35ef168ad1c82",
+      "content": "# Account app\n\nJavaScript ESM, no dependencies. Product features live under src/features.\nsrc/app.js composes their public entry points. Use named exports, camelCase names,\ntwo-space indentation, single quotes and semicolons as in the existing sources.\nRepositories are injected by the host.\n\nInvoice repository: repositories.invoices.load(id) returns an invoice with\nlines: [{quantity, unitPriceCents}]. Total is the sum of quantity times unit price,\nin integer cents. Negative or noninteger quantities and prices are invalid.\n"
+    },
+    "package.json": {
+      "sha256": "67bf036e130c0a49ed6382244c295ba8bf8e9a3616d65d841183a8836a0e303d",
+      "content": "{\"private\":true,\"type\":\"module\",\"scripts\":{\"test\":\"node --test\"}}\n"
+    },
+    "src/features/profile/index.js": {
+      "sha256": "70a61568d68fe1a470c0953f41e15be2dc95bc0079afc8cd009d512ede2d56ab",
+      "content": "export { createProfileController } from './controller.js';\n"
+    },
+    "src/features/profile/controller.js": {
+      "sha256": "88d8426c2d2a6dc116863e9f3c7f06783cb0f50df82848c858d5b7f82e86e235",
+      "content": "import { profileLabel } from './model.js';\n\nexport function createProfileController(repository) {\n  return { async label(id) { return profileLabel(await repository.load(id)); } };\n}\n"
+    },
+    "src/features/profile/model.js": {
+      "sha256": "75467d3446909d8a0fe9fd156acb9cbd2a3306e68b4de72bc72c48c0c23b0c72",
+      "content": "export function profileLabel(profile) {\n  return profile.displayName.trim();\n}\n"
+    },
+    "src/app.js": {
+      "sha256": "f3d6f535e68bb3e976f28b1460a78ab63d9ad0856a8c83c60270edf4acc5b601",
+      "content": "import { createProfileController } from './features/profile/index.js';\n\nexport function createApp(repositories) {\n  return { profile: createProfileController(repositories.profile) };\n}\n"
+    }
+  },
+  "changedFiles": []
+}

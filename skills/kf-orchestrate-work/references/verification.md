@@ -3,25 +3,19 @@
 Use for a review, readiness verdict, or independent assessment of an existing
 artifact. Do not modify the reviewed artifact in this route.
 
-1. Resolve the exact artifact, base or intended contract, scope, and readiness
-   criteria. Inspect the complete current diff or artifact rather than a summary.
-2. Prioritize actionable correctness, security, data-loss, compatibility,
-   regression, migration, architectural-boundary, lifecycle, and missing-test risks.
-   Check that responsibilities have clear owners, dependency direction is preserved,
-   removed coverage has a replacement, and claimed behavior has behavior-level
-   evidence; static analysis alone does not establish those properties.
-   Use the [engineering method](engineering.md) to select relevant cross-layer
-   concerns and [check the integrated outcome](engineering.md#verify-the-integrated-outcome).
-   Trace required supporting capabilities into the running paths and check module
-   placement against local conventions; a working entry point may still lack
-   required operational support.
-3. Report findings with evidence, affected location, impact, and confidence. State
-   checks not run and residual risk.
-4. If correction is already authorized, carry the findings into bug fix,
-   implementation, or refactor without renewed approval. Validate the integrated
-   correction against the original criteria; use a separate reviewer when an
-   independent verdict is requested or justified by risk. Review-only requests
-   remain read-only.
+1. Resolve the exact artifact, intended contract, and scope. Inspect the current
+   artifact and relevant evidence rather than relying on the writer's summary.
+2. Prioritize reachable correctness, security, regression, and missing-evidence
+   risks. For unresolved cross-layer ownership, data-integrity, platform lifecycle,
+   or compatibility concerns, consult the relevant sections of
+   [engineering](engineering.md). A bounded review with understood contracts does
+   not require that reference.
+3. Report actionable findings with location, evidence, impact, and confidence.
+   Distinguish properties demonstrated by checks from untested claims; identify
+   material limitations without rerunning checks solely because review has begun.
+4. If correction is already authorized, continue through the appropriate change
+   route and validate the correction against the original criteria. Review-only
+   requests remain read-only.
 
-A writer's own checks support implementation completion but do not count as an
-independent verdict.
+A writer's checks support implementation completion but do not constitute an
+independent verdict. The orchestrator retains integration and final completion.

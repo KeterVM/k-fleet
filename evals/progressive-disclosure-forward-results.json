@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "status": "incomplete-release-authorized",
+  "releaseWaiver": {
+    "version": "2.1.1",
+    "caseId": "implementation-module-conventions",
+    "skillHash": "f36755783ee5dac0b5560287d25e938b1873d87682abbd4598b61b9a1bd27a47",
+    "corpusHash": "78d1fd2ed5a707a9a7a44d72eb51b3e1c9dd51cee6e63d83c3d81d470b55935e",
+    "authorization": "没事 可以都commit和 push 然后release",
+    "date": "2026-09-07",
+    "reason": "User explicitly requested commit, push, and release after being informed that automatic approval review blocked this fixture twice and full validation was incomplete. The blocked result remains non-passing."
+  },
+  "date": "2026-09-07",
+  "skillHash": "f36755783ee5dac0b5560287d25e938b1873d87682abbd4598b61b9a1bd27a47",
+  "reviewerHash": "4e7d26b2a98289a23b0458606fbdfc1b243ffe67e0eebc7468aabb1f3fb696cb",
+  "corpusHash": "78d1fd2ed5a707a9a7a44d72eb51b3e1c9dd51cee6e63d83c3d81d470b55935e",
+  "cases": [
+    {
+      "id": "implementation-module-conventions",
+      "passed": false,
+      "status": "blocked",
+      "prompt": "Use /private/tmp/kf-disclosure-20260907/a/structure/.agents/skills/kf-orchestrate-work/SKILL.md. Task: Add invoice totals to this account app through app.invoices.total(id), using the injected invoice repository and the documented line contract. Preserve the existing profile behavior and verify the result. Work only inside this fixture. Existing skill files, README, package.json and profile sources are read-only; you own src/app.js and new implementation/test files. You are not alone in the environment: do not revert others' work or inspect sibling directories or the K Fleet source repository. No dependencies, delegation, another model client, commits or external changes. Installed Supermemory status skill and status.js are allowed runtime surfaces; run from this fixture and use narrow escalation if localhost is blocked. Return changed paths, skill references actually consulted, checks and limitations.",
+      "isolation": "Fresh native agent, disposable Git-indexed fixture, no parent history or hidden evaluation expectations; reads/writes restricted by prompt to assigned fixture plus installed Supermemory status. Not OS isolation.",
+      "observation": "Blocked by automatic approval review twice before any file writes; this is missing execution evidence, not a behavioral pass.",
+      "writeEvidence": "[]",
+      "judgment": "Pending explicit authorization for disposable fixture writes; readiness remains blocked.",
+      "evidencePath": "evals/progressive-disclosure-forward/implementation-module-conventions-evidence.json",
+      "evidenceHash": "9d0b7900fcb18c0d0b7f046d7c7e61edeab703f75ff899c5b8f4c2c8e1282fb4",
+      "artifactPath": "evals/progressive-disclosure-forward/implementation-module-conventions-artifact.json",
+      "artifactHash": "28f40f6e075724cf75874dcb36a3b7a6342aeb78176bd2ad0c045503c999fa72"
+    },
+    {
+      "id": "implementation-supporting-lifecycle",
+      "passed": true,
+      "prompt": "Use /private/tmp/kf-disclosure-20260907/b/calls/.agents/skills/kf-orchestrate-work/SKILL.md. Task: Implement outgoing voice calls through app.calls.start(peerId), setMuted(boolean), and end(), using the existing host adapter and the product requirements. Verify the result. Work only inside this fixture. Existing skill files, README, docs, package.json and src/platform/runtime.js are read-only; you own src/app.js and new implementation/test files. You are not alone in the environment: do not revert others' work or inspect sibling directories or the K Fleet source repository. No dependencies, delegation, another model client, commits or external changes. Installed Supermemory status skill and status.js are allowed runtime surfaces; run from this fixture and use narrow escalation if localhost is blocked. Return changed paths, skill references actually consulted, checks and limitations.",
+      "isolation": "Fresh native agent, disposable Git-indexed fixture, no parent history or hidden evaluation expectations; reads/writes restricted by prompt to assigned fixture plus installed Supermemory status. Not OS isolation.",
+      "observation": "Acquired execution support, retained it across background transition, exposed mute, and cleaned up hang-up and connection failure; six actor-authored tests passed.",
+      "writeEvidence": "[\"src/app.js\",\"test/calls.test.js\"]",
+      "judgment": "Independent runtime assertions passed including a no-support negative control. Simulator evidence does not verify native platform behavior.",
+      "evidencePath": "evals/progressive-disclosure-forward/implementation-supporting-lifecycle-evidence.json",
+      "evidenceHash": "4bf6ffddbdcbdb1c1a2f20736d01f85809e9197938660610e53c97d16714f010",
+      "artifactPath": "evals/progressive-disclosure-forward/implementation-supporting-lifecycle-artifact.json",
+      "artifactHash": "9c33f6e68b8b07ee971be19b527d27aa917a638e46c5e2dc312edbb4fde477bc"
+    },
+    {
+      "id": "implementation-bounded-presentation",
+      "passed": true,
+      "prompt": "Use /private/tmp/kf-disclosure-20260907/c/presentation/.agents/skills/kf-orchestrate-work/SKILL.md. Task: Show the already available department string as an unconditional profile-card row. This milestone is display-only; do not add editing, persistence, or background behavior. Preserve the existing module layout and use proportionate checks. Work only inside this fixture. Existing skill files, README, package.json and model code are read-only; you own view implementation changes and justified new files. You are not alone in the environment: do not revert others' work or inspect sibling directories or the K Fleet source repository. No dependencies, delegation, another model client, commits or external changes. Installed Supermemory status skill and status.js are allowed runtime surfaces; run from this fixture and use narrow escalation if localhost is blocked. Return changed paths, skill references actually consulted, checks and limitations.",
+      "isolation": "Fresh native agent, disposable Git-indexed fixture, no parent history or hidden evaluation expectations; reads/writes restricted by prompt to assigned fixture plus installed Supermemory status. Not OS isolation.",
+      "observation": "Changed only the existing view; reported reading the entry and implementation reference, without design or engineering references.",
+      "writeEvidence": "[\"src/views/profile-card.js\"]",
+      "judgment": "Independent render and file-inventory assertions passed. Reference loading is agent-reported, not a captured read trace.",
+      "evidencePath": "evals/progressive-disclosure-forward/implementation-bounded-presentation-evidence.json",
+      "evidenceHash": "7bfd089039ec35df1a3daced3912255d400a85ef7638ac175512509f9f9b5466",
+      "artifactPath": "evals/progressive-disclosure-forward/implementation-bounded-presentation-artifact.json",
+      "artifactHash": "60166d10515d3033c01b1950071c2f887b355c2b20036e3750a56db757270d0d"
+    },
+    {
+      "id": "design-cross-layer-sharing",
+      "passed": true,
+      "prompt": "Use /private/tmp/kf-disclosure-20260907/d/sharing/.agents/skills/kf-orchestrate-work/SKILL.md. Task: Design revocable report sharing according to the product brief and existing service contracts. Write DESIGN.md only; do not implement or deploy the change. Work only inside this fixture. Every existing file is read-only; you exclusively own new DESIGN.md. You are not alone in the environment: do not revert others' work or inspect sibling directories or the K Fleet source repository. No dependencies, delegation, another model client, commits or external changes. Installed Supermemory status skill and status.js are allowed runtime surfaces; run from this fixture and use narrow escalation if localhost is blocked. Return changed paths, skill references actually consulted, checks and limitations.",
+      "isolation": "Fresh native agent, disposable Git-indexed fixture, no parent history or hidden evaluation expectations; reads/writes restricted by prompt to assigned fixture plus installed Supermemory status. Not OS isolation.",
+      "observation": "Design covers durable tokens, expiry and revocation, tenant boundaries, missing public adapter, compatibility and rollout/rollback dependencies.",
+      "writeEvidence": "[\"DESIGN.md\"]",
+      "judgment": "Parent inspected design against supplied contracts: durable restart-safe tokens, 24-hour expiry/revocation, tenant checks, explicit public adapter, existing mobile compatibility, additive migration and old/new rollback serving strategy. Design only.",
+      "evidencePath": "evals/progressive-disclosure-forward/design-cross-layer-sharing-evidence.json",
+      "evidenceHash": "1adfc990fd055843757f387a1cb22702393083e0b973fc8279819cb8e53831ae",
+      "artifactPath": "evals/progressive-disclosure-forward/design-cross-layer-sharing-artifact.json",
+      "artifactHash": "7cb9305d0f4f9f5a0b3dacdaa0cf237c910fd2b546084bbf9ee6d5e8831d0e0c"
+    },
+    {
+      "id": "verification-local-contract",
+      "passed": true,
+      "prompt": "Use /private/tmp/kf-disclosure-20260907/e/review/.agents/skills/kf-orchestrate-work/SKILL.md. Task: Review the total function against the documented contract. Report any actionable defect with evidence; do not change files. Work only inside this fixture. Every fixture file is read-only. You are not alone in the environment: do not revert others' work or inspect sibling directories or the K Fleet source repository. No dependencies, delegation, another model client, commits or external changes. Installed Supermemory status skill and status.js are allowed runtime surfaces; run from this fixture and use narrow escalation if localhost is blocked. Return findings, skill references actually consulted, checks and limitations.",
+      "isolation": "Fresh native agent, disposable Git-indexed fixture, no parent history or hidden evaluation expectations; reads/writes restricted by prompt to assigned fixture plus installed Supermemory status. Not OS isolation.",
+      "observation": "Reported the documented empty-input defect and no writes; reported verification and delegation references without engineering.",
+      "writeEvidence": "[]",
+      "judgment": "Parent independently reproduced the empty-array TypeError and verified no fixture changes.",
+      "evidencePath": "evals/progressive-disclosure-forward/verification-local-contract-evidence.json",
+      "evidenceHash": "ba6f82495deb2459c943faffa434c6f42b52dd2a3476d5bc456a25903dfbf3ff",
+      "artifactPath": "evals/progressive-disclosure-forward/verification-local-contract-artifact.json",
+      "artifactHash": "e0af0205722752960f15addda9ad9a0026347f233460f74b7ff9f6a6b0f155fd"
+    }
+  ],
+  "controls": [
+    {
+      "id": "baseline-bounded-presentation",
+      "passed": true,
+      "prompt": "Use /private/tmp/kf-disclosure-20260907/f/presentation/.agents/skills/kf-orchestrate-work/SKILL.md. Task: Show the already available department string as an unconditional profile-card row. This milestone is display-only; do not add editing, persistence, or background behavior. Preserve the existing module layout and use proportionate checks. Work only inside this fixture. Existing skill files, README, package.json and model code are read-only; you own view implementation changes and justified new files. You are not alone in the environment: do not revert others' work or inspect sibling directories or the K Fleet source repository. No dependencies, delegation, another model client, commits or external changes. Installed Supermemory status skill and status.js are allowed runtime surfaces; run from this fixture and use narrow escalation if localhost is blocked. Return changed paths, skill references actually consulted, checks and limitations.",
+      "isolation": "Fresh native agent, disposable Git-indexed fixture, no parent history or hidden evaluation expectations; reads/writes restricted by prompt to assigned fixture plus installed Supermemory status. Not OS isolation.",
+      "observation": "Original-source control changed only the existing view; reported reading entry, implementation and engineering.",
+      "writeEvidence": "[\"src/views/profile-card.js\"]",
+      "judgment": "Independent checks passed for same user task and seed as candidate. A single control supports only this observed comparison.",
+      "evidencePath": "evals/progressive-disclosure-forward/baseline-bounded-presentation-evidence.json",
+      "evidenceHash": "0357af2a89e7a390f87b3be63e85627a0fd47f37573a520e1809a1f81e0dec53",
+      "artifactPath": "evals/progressive-disclosure-forward/baseline-bounded-presentation-artifact.json",
+      "artifactHash": "e1cea4794972ba5a9a0c073ef877630794b0552ae067b6bb9a39c45236b1adad",
+      "skillHash": "5a6a60dc7d5b72c027334d0dcc25147762ad09266fe63e6bdda726f8410ff811",
+      "corpusHash": "b59226ea1a5d12121faa498eaec8b4551a8db931b9e3c68d7b4ecdb68c611913",
+      "reviewerHash": "4e7d26b2a98289a23b0458606fbdfc1b243ffe67e0eebc7468aabb1f3fb696cb"
+    }
+  ]
+}

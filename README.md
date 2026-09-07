@@ -61,8 +61,10 @@ Substantial work stops when the orchestrator or Supermemory integration is unava
   source-bound observations for risk-driven TDD selection and skipping.
 - `evals/astra-forward-results.json` and its report preserve historical prompt
   simplification observations bound to their exact sources and raw evidence.
-- `evals/feature-method-forward-results.json` and its report bind the current
-  engineering-method observations to their sources and evidence.
+- `evals/feature-method-forward-results.json` and its report preserve the original
+  engineering-method observations bound to their sources and evidence.
+- `evals/progressive-disclosure-forward-results.json` and its report bind current
+  conditional-loading observations and an original-source control to their evidence.
 - `scripts/validate-repository-structure.mjs` checks packaging, installed copies,
   links, placeholders, and the companion agent.
 - `scripts/validate-orchestrator-evals.mjs` lints the current orchestration corpus;

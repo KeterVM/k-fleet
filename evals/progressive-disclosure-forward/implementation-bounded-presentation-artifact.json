@@ -1,0 +1,135 @@
+{
+  "caseId": "implementation-bounded-presentation",
+  "skillHash": "f36755783ee5dac0b5560287d25e938b1873d87682abbd4598b61b9a1bd27a47",
+  "initialFiles": {
+    ".agents/skills/kf-orchestrate-work/SKILL.md": {
+      "sha256": "af9c4e70c9465570661bd0cd057dc6e44b5b59a65fc66ac6a5267bebed13e7ae"
+    },
+    ".agents/skills/kf-orchestrate-work/references/bug-fix.md": {
+      "sha256": "61057db18e0c423966d8b68e0f5ee6a593f9fa8c2f48584acb8e853ed8c86cd2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/context.md": {
+      "sha256": "7b186ad216873ef6ca17fef49e060e48f2bc87ed9cb4edadae3fbe90ff477bc3"
+    },
+    ".agents/skills/kf-orchestrate-work/references/delegation.md": {
+      "sha256": "f86e7401c8f1086e79af64245112b8d8fb07bfe68cf2943231522a71008ca8d0"
+    },
+    ".agents/skills/kf-orchestrate-work/references/design.md": {
+      "sha256": "825e1204674af1359f213bcbae1e4ee7d4c7b7fc4f1e2265cd07db6c7eb144e2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/engineering.md": {
+      "sha256": "2c5a2279d517f84dd6a8560c21bdb082cff3b7f46fc9c80d796a510bbe194590"
+    },
+    ".agents/skills/kf-orchestrate-work/references/evolution.md": {
+      "sha256": "747333df1a8cca359efca848292e6c2a78562304429175a9ff21151ad308841a"
+    },
+    ".agents/skills/kf-orchestrate-work/references/feedback.md": {
+      "sha256": "f0cb539e017b76bb6797e7e8de988a7a2d7f673d7fdb9c288302db5e3a9de2c2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/implementation.md": {
+      "sha256": "5b6d602d65dda35f7d4b4d82ec4b65a01e0aec1130e8974864d4e0b9786cf5fa"
+    },
+    ".agents/skills/kf-orchestrate-work/references/investigation.md": {
+      "sha256": "cc18b2bc629ed37849bc91ee511a91fbd363dd5d0d0045fe0bd831a6d4be6200"
+    },
+    ".agents/skills/kf-orchestrate-work/references/refactor.md": {
+      "sha256": "b318948a9753f20da0ddca7ce8f9c5ed3f3a5c634f07c148cd319162378268aa"
+    },
+    ".agents/skills/kf-orchestrate-work/references/setup.md": {
+      "sha256": "9184cdba45209c257dbb1d61556ee15efa018a6218914b4149056de712c576bb"
+    },
+    ".agents/skills/kf-orchestrate-work/references/testing.md": {
+      "sha256": "90397319cbeb53c46fc797da86fda6e5571b17f001234af20aa552b4c3be6689"
+    },
+    ".agents/skills/kf-orchestrate-work/references/verification.md": {
+      "sha256": "b50748db7e6f5e1149634fa8746400956546d02ea7107bae28d16b9c762c8101"
+    },
+    "README.md": {
+      "sha256": "268cf462d94d1823761d511b6cd6f9a1d2fb46a0253efe5f50699223fb66fccb",
+      "content": "# Profile card\n\nJavaScript ESM, no dependencies. This project deliberately separates view rendering\nunder src/views and pure data projection under src/models. The app composes them.\nKeep these boundaries and existing named exports, two-space indentation, single\nquotes and semicolons. Current profile values are trusted plain strings for this\ntext-only display. No test framework or test requirement is configured.\n"
+    },
+    "package.json": {
+      "sha256": "67bf036e130c0a49ed6382244c295ba8bf8e9a3616d65d841183a8836a0e303d",
+      "content": "{\"private\":true,\"type\":\"module\",\"scripts\":{\"test\":\"node --test\"}}\n"
+    },
+    "src/app.js": {
+      "sha256": "f018b6efc7b9d3261369c7fa8f0e749d1fb8ab1cd7da6ddddeeff7169f66b89d",
+      "content": "import { projectProfile } from './models/profile.js';\nimport { renderProfileCard } from './views/profile-card.js';\n\nexport function renderApp(record) {\n  return renderProfileCard(projectProfile(record));\n}\n"
+    },
+    "src/models/profile.js": {
+      "sha256": "8811b3cbb240493dcd5d51334490fe9af052ca389a222a653ac594c4f4c66c1b",
+      "content": "export function projectProfile(record) {\n  return { name: record.name, department: record.department };\n}\n"
+    },
+    "src/views/profile-card.js": {
+      "sha256": "64b03385dd01f9bc17a0f87e38a431595b8e4a71a67771d62fd0719189e2cb7d",
+      "content": "export function renderProfileCard(profile) {\n  return `Name: ${profile.name}`;\n}\n"
+    }
+  },
+  "finalFiles": {
+    ".agents/skills/kf-orchestrate-work/references/implementation.md": {
+      "sha256": "5b6d602d65dda35f7d4b4d82ec4b65a01e0aec1130e8974864d4e0b9786cf5fa"
+    },
+    ".agents/skills/kf-orchestrate-work/references/bug-fix.md": {
+      "sha256": "61057db18e0c423966d8b68e0f5ee6a593f9fa8c2f48584acb8e853ed8c86cd2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/engineering.md": {
+      "sha256": "2c5a2279d517f84dd6a8560c21bdb082cff3b7f46fc9c80d796a510bbe194590"
+    },
+    ".agents/skills/kf-orchestrate-work/references/context.md": {
+      "sha256": "7b186ad216873ef6ca17fef49e060e48f2bc87ed9cb4edadae3fbe90ff477bc3"
+    },
+    ".agents/skills/kf-orchestrate-work/references/setup.md": {
+      "sha256": "9184cdba45209c257dbb1d61556ee15efa018a6218914b4149056de712c576bb"
+    },
+    ".agents/skills/kf-orchestrate-work/references/investigation.md": {
+      "sha256": "cc18b2bc629ed37849bc91ee511a91fbd363dd5d0d0045fe0bd831a6d4be6200"
+    },
+    ".agents/skills/kf-orchestrate-work/references/delegation.md": {
+      "sha256": "f86e7401c8f1086e79af64245112b8d8fb07bfe68cf2943231522a71008ca8d0"
+    },
+    ".agents/skills/kf-orchestrate-work/references/testing.md": {
+      "sha256": "90397319cbeb53c46fc797da86fda6e5571b17f001234af20aa552b4c3be6689"
+    },
+    ".agents/skills/kf-orchestrate-work/references/verification.md": {
+      "sha256": "b50748db7e6f5e1149634fa8746400956546d02ea7107bae28d16b9c762c8101"
+    },
+    ".agents/skills/kf-orchestrate-work/references/refactor.md": {
+      "sha256": "b318948a9753f20da0ddca7ce8f9c5ed3f3a5c634f07c148cd319162378268aa"
+    },
+    ".agents/skills/kf-orchestrate-work/references/design.md": {
+      "sha256": "825e1204674af1359f213bcbae1e4ee7d4c7b7fc4f1e2265cd07db6c7eb144e2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/feedback.md": {
+      "sha256": "f0cb539e017b76bb6797e7e8de988a7a2d7f673d7fdb9c288302db5e3a9de2c2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/evolution.md": {
+      "sha256": "747333df1a8cca359efca848292e6c2a78562304429175a9ff21151ad308841a"
+    },
+    ".agents/skills/kf-orchestrate-work/SKILL.md": {
+      "sha256": "af9c4e70c9465570661bd0cd057dc6e44b5b59a65fc66ac6a5267bebed13e7ae"
+    },
+    "README.md": {
+      "sha256": "268cf462d94d1823761d511b6cd6f9a1d2fb46a0253efe5f50699223fb66fccb",
+      "content": "# Profile card\n\nJavaScript ESM, no dependencies. This project deliberately separates view rendering\nunder src/views and pure data projection under src/models. The app composes them.\nKeep these boundaries and existing named exports, two-space indentation, single\nquotes and semicolons. Current profile values are trusted plain strings for this\ntext-only display. No test framework or test requirement is configured.\n"
+    },
+    "package.json": {
+      "sha256": "67bf036e130c0a49ed6382244c295ba8bf8e9a3616d65d841183a8836a0e303d",
+      "content": "{\"private\":true,\"type\":\"module\",\"scripts\":{\"test\":\"node --test\"}}\n"
+    },
+    "src/models/profile.js": {
+      "sha256": "8811b3cbb240493dcd5d51334490fe9af052ca389a222a653ac594c4f4c66c1b",
+      "content": "export function projectProfile(record) {\n  return { name: record.name, department: record.department };\n}\n"
+    },
+    "src/views/profile-card.js": {
+      "sha256": "d80a831bdfd4c2c584379ec03f66a5d5465bb545cd7665c57ade6bd6ef84c5ef",
+      "content": "export function renderProfileCard(profile) {\n  return `Name: ${profile.name}\\nDepartment: ${profile.department}`;\n}\n"
+    },
+    "src/app.js": {
+      "sha256": "f018b6efc7b9d3261369c7fa8f0e749d1fb8ab1cd7da6ddddeeff7169f66b89d",
+      "content": "import { projectProfile } from './models/profile.js';\nimport { renderProfileCard } from './views/profile-card.js';\n\nexport function renderApp(record) {\n  return renderProfileCard(projectProfile(record));\n}\n"
+    }
+  },
+  "changedFiles": [
+    "src/views/profile-card.js"
+  ]
+}

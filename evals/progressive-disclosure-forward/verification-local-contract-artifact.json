@@ -1,0 +1,117 @@
+{
+  "caseId": "verification-local-contract",
+  "skillHash": "f36755783ee5dac0b5560287d25e938b1873d87682abbd4598b61b9a1bd27a47",
+  "initialFiles": {
+    ".agents/skills/kf-orchestrate-work/SKILL.md": {
+      "sha256": "af9c4e70c9465570661bd0cd057dc6e44b5b59a65fc66ac6a5267bebed13e7ae"
+    },
+    ".agents/skills/kf-orchestrate-work/references/bug-fix.md": {
+      "sha256": "61057db18e0c423966d8b68e0f5ee6a593f9fa8c2f48584acb8e853ed8c86cd2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/context.md": {
+      "sha256": "7b186ad216873ef6ca17fef49e060e48f2bc87ed9cb4edadae3fbe90ff477bc3"
+    },
+    ".agents/skills/kf-orchestrate-work/references/delegation.md": {
+      "sha256": "f86e7401c8f1086e79af64245112b8d8fb07bfe68cf2943231522a71008ca8d0"
+    },
+    ".agents/skills/kf-orchestrate-work/references/design.md": {
+      "sha256": "825e1204674af1359f213bcbae1e4ee7d4c7b7fc4f1e2265cd07db6c7eb144e2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/engineering.md": {
+      "sha256": "2c5a2279d517f84dd6a8560c21bdb082cff3b7f46fc9c80d796a510bbe194590"
+    },
+    ".agents/skills/kf-orchestrate-work/references/evolution.md": {
+      "sha256": "747333df1a8cca359efca848292e6c2a78562304429175a9ff21151ad308841a"
+    },
+    ".agents/skills/kf-orchestrate-work/references/feedback.md": {
+      "sha256": "f0cb539e017b76bb6797e7e8de988a7a2d7f673d7fdb9c288302db5e3a9de2c2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/implementation.md": {
+      "sha256": "5b6d602d65dda35f7d4b4d82ec4b65a01e0aec1130e8974864d4e0b9786cf5fa"
+    },
+    ".agents/skills/kf-orchestrate-work/references/investigation.md": {
+      "sha256": "cc18b2bc629ed37849bc91ee511a91fbd363dd5d0d0045fe0bd831a6d4be6200"
+    },
+    ".agents/skills/kf-orchestrate-work/references/refactor.md": {
+      "sha256": "b318948a9753f20da0ddca7ce8f9c5ed3f3a5c634f07c148cd319162378268aa"
+    },
+    ".agents/skills/kf-orchestrate-work/references/setup.md": {
+      "sha256": "9184cdba45209c257dbb1d61556ee15efa018a6218914b4149056de712c576bb"
+    },
+    ".agents/skills/kf-orchestrate-work/references/testing.md": {
+      "sha256": "90397319cbeb53c46fc797da86fda6e5571b17f001234af20aa552b4c3be6689"
+    },
+    ".agents/skills/kf-orchestrate-work/references/verification.md": {
+      "sha256": "b50748db7e6f5e1149634fa8746400956546d02ea7107bae28d16b9c762c8101"
+    },
+    "README.md": {
+      "sha256": "8baaf16f1ff4e2b18e0d052d0366ff5f259ba07f76aad05ef50c404f066666e8",
+      "content": "# Totals library\n\nJavaScript ESM, no dependencies. total(values) returns the sum of numeric values.\nAn empty collection must return zero. Review only; do not change library files.\n"
+    },
+    "package.json": {
+      "sha256": "a90fc33418afa2b9cbf4768524b021135b965ecdf993457505bfae3ac44a8428",
+      "content": "{\"private\":true,\"type\":\"module\"}\n"
+    },
+    "src/total.js": {
+      "sha256": "bfb9841d35f040ce2a952240911534e91708429aa690855fb1d8507e1eaa2b6b",
+      "content": "export function total(values) {\n  return values.reduce((sum, value) => sum + value);\n}\n"
+    }
+  },
+  "finalFiles": {
+    ".agents/skills/kf-orchestrate-work/references/implementation.md": {
+      "sha256": "5b6d602d65dda35f7d4b4d82ec4b65a01e0aec1130e8974864d4e0b9786cf5fa"
+    },
+    ".agents/skills/kf-orchestrate-work/references/bug-fix.md": {
+      "sha256": "61057db18e0c423966d8b68e0f5ee6a593f9fa8c2f48584acb8e853ed8c86cd2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/engineering.md": {
+      "sha256": "2c5a2279d517f84dd6a8560c21bdb082cff3b7f46fc9c80d796a510bbe194590"
+    },
+    ".agents/skills/kf-orchestrate-work/references/context.md": {
+      "sha256": "7b186ad216873ef6ca17fef49e060e48f2bc87ed9cb4edadae3fbe90ff477bc3"
+    },
+    ".agents/skills/kf-orchestrate-work/references/setup.md": {
+      "sha256": "9184cdba45209c257dbb1d61556ee15efa018a6218914b4149056de712c576bb"
+    },
+    ".agents/skills/kf-orchestrate-work/references/investigation.md": {
+      "sha256": "cc18b2bc629ed37849bc91ee511a91fbd363dd5d0d0045fe0bd831a6d4be6200"
+    },
+    ".agents/skills/kf-orchestrate-work/references/delegation.md": {
+      "sha256": "f86e7401c8f1086e79af64245112b8d8fb07bfe68cf2943231522a71008ca8d0"
+    },
+    ".agents/skills/kf-orchestrate-work/references/testing.md": {
+      "sha256": "90397319cbeb53c46fc797da86fda6e5571b17f001234af20aa552b4c3be6689"
+    },
+    ".agents/skills/kf-orchestrate-work/references/verification.md": {
+      "sha256": "b50748db7e6f5e1149634fa8746400956546d02ea7107bae28d16b9c762c8101"
+    },
+    ".agents/skills/kf-orchestrate-work/references/refactor.md": {
+      "sha256": "b318948a9753f20da0ddca7ce8f9c5ed3f3a5c634f07c148cd319162378268aa"
+    },
+    ".agents/skills/kf-orchestrate-work/references/design.md": {
+      "sha256": "825e1204674af1359f213bcbae1e4ee7d4c7b7fc4f1e2265cd07db6c7eb144e2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/feedback.md": {
+      "sha256": "f0cb539e017b76bb6797e7e8de988a7a2d7f673d7fdb9c288302db5e3a9de2c2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/evolution.md": {
+      "sha256": "747333df1a8cca359efca848292e6c2a78562304429175a9ff21151ad308841a"
+    },
+    ".agents/skills/kf-orchestrate-work/SKILL.md": {
+      "sha256": "af9c4e70c9465570661bd0cd057dc6e44b5b59a65fc66ac6a5267bebed13e7ae"
+    },
+    "README.md": {
+      "sha256": "8baaf16f1ff4e2b18e0d052d0366ff5f259ba07f76aad05ef50c404f066666e8",
+      "content": "# Totals library\n\nJavaScript ESM, no dependencies. total(values) returns the sum of numeric values.\nAn empty collection must return zero. Review only; do not change library files.\n"
+    },
+    "package.json": {
+      "sha256": "a90fc33418afa2b9cbf4768524b021135b965ecdf993457505bfae3ac44a8428",
+      "content": "{\"private\":true,\"type\":\"module\"}\n"
+    },
+    "src/total.js": {
+      "sha256": "bfb9841d35f040ce2a952240911534e91708429aa690855fb1d8507e1eaa2b6b",
+      "content": "export function total(values) {\n  return values.reduce((sum, value) => sum + value);\n}\n"
+    }
+  },
+  "changedFiles": []
+}

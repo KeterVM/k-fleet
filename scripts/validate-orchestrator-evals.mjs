@@ -113,6 +113,7 @@ for (const id of [
   "implementation-supporting-lifecycle",
   "implementation-bounded-presentation",
   "design-cross-layer-sharing",
+  "verification-local-contract",
 ]) {
   if (!ids.has(id)) fail(`Orchestrator corpus does not cover ${id}`);
 }
