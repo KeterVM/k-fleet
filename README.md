@@ -46,6 +46,9 @@ Substantial work stops when the orchestrator or Supermemory integration is unava
 - `skills/kf-orchestrate-work/references/` contains setup plus conditional
   workflow, delegation, feedback, and evolution contracts. The shared Supermemory
   boundary stays in the entry point instead of a backend procedure reference.
+  Design, implementation, and verification select relevant engineering dimensions
+  through the shared `references/engineering.md` method, then use route-specific
+  procedures and target-project or domain sources for deeper work.
 - `.codex/agents/kf-reviewer.toml` defines the optional read-only `kf_reviewer`. It supplies
   evidence but never owns mutation or readiness.
 - `examples/fleet-ledger/` forward-tests the installed package on a runnable fixture.
@@ -56,8 +59,10 @@ Substantial work stops when the orchestrator or Supermemory integration is unava
   smoke evidence for the exact v2 release sources they name.
 - `evals/test-value-forward-results.json` and its report preserve the historical
   source-bound observations for risk-driven TDD selection and skipping.
-- `evals/astra-forward-results.json` and its report bind current prompt
-  simplification observations to the skill, reviewer, corpus, and raw evidence.
+- `evals/astra-forward-results.json` and its report preserve historical prompt
+  simplification observations bound to their exact sources and raw evidence.
+- `evals/feature-method-forward-results.json` and its report bind the current
+  engineering-method observations to their sources and evidence.
 - `scripts/validate-repository-structure.mjs` checks packaging, installed copies,
   links, placeholders, and the companion agent.
 - `scripts/validate-orchestrator-evals.mjs` lints the current orchestration corpus;

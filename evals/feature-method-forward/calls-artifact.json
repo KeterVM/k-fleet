@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "caseId": "implementation-supporting-lifecycle",
+  "skillHash": "5a6a60dc7d5b72c027334d0dcc25147762ad09266fe63e6bdda726f8410ff811",
+  "initialFiles": {
+    ".agents/skills/kf-orchestrate-work/SKILL.md": {
+      "sha256": "af9c4e70c9465570661bd0cd057dc6e44b5b59a65fc66ac6a5267bebed13e7ae"
+    },
+    ".agents/skills/kf-orchestrate-work/references/bug-fix.md": {
+      "sha256": "61057db18e0c423966d8b68e0f5ee6a593f9fa8c2f48584acb8e853ed8c86cd2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/context.md": {
+      "sha256": "7b186ad216873ef6ca17fef49e060e48f2bc87ed9cb4edadae3fbe90ff477bc3"
+    },
+    ".agents/skills/kf-orchestrate-work/references/delegation.md": {
+      "sha256": "f86e7401c8f1086e79af64245112b8d8fb07bfe68cf2943231522a71008ca8d0"
+    },
+    ".agents/skills/kf-orchestrate-work/references/design.md": {
+      "sha256": "2894e620e8beb803d85e6aff8ff70de7c4a1b813ec1e6c2a2419b561cf08d41d"
+    },
+    ".agents/skills/kf-orchestrate-work/references/engineering.md": {
+      "sha256": "bfb01ce04437dba9690ad93ec09809d9106937b43f048a548f969be2f35b8842"
+    },
+    ".agents/skills/kf-orchestrate-work/references/evolution.md": {
+      "sha256": "747333df1a8cca359efca848292e6c2a78562304429175a9ff21151ad308841a"
+    },
+    ".agents/skills/kf-orchestrate-work/references/feedback.md": {
+      "sha256": "f0cb539e017b76bb6797e7e8de988a7a2d7f673d7fdb9c288302db5e3a9de2c2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/implementation.md": {
+      "sha256": "171853810b48321806472167ff135a79e787cbe5c09037cbee0bbaa761360e53"
+    },
+    ".agents/skills/kf-orchestrate-work/references/investigation.md": {
+      "sha256": "cc18b2bc629ed37849bc91ee511a91fbd363dd5d0d0045fe0bd831a6d4be6200"
+    },
+    ".agents/skills/kf-orchestrate-work/references/refactor.md": {
+      "sha256": "b318948a9753f20da0ddca7ce8f9c5ed3f3a5c634f07c148cd319162378268aa"
+    },
+    ".agents/skills/kf-orchestrate-work/references/setup.md": {
+      "sha256": "9184cdba45209c257dbb1d61556ee15efa018a6218914b4149056de712c576bb"
+    },
+    ".agents/skills/kf-orchestrate-work/references/testing.md": {
+      "sha256": "90397319cbeb53c46fc797da86fda6e5571b17f001234af20aa552b4c3be6689"
+    },
+    ".agents/skills/kf-orchestrate-work/references/verification.md": {
+      "sha256": "5547b276b865572ed85853a028f64320f4257f78eeb4337be343711dde564b1b"
+    },
+    "README.md": {
+      "sha256": "1a094f2babfe74bfafbef09cf41768ce39c224380deeea79d4e6c8fe935b1d51",
+      "content": "# Audio app simulator\n\nJavaScript ESM; no dependencies. Product requirements are in docs/product.md.\nsrc/platform/runtime.js is an existing host contract and executable simulator.\nThe application receives its runtime through createApp(runtime).\nNative platform components are maintained by the app shell outside this fixture.\n"
+    },
+    "docs/product.md": {
+      "sha256": "e3cb76078523395c4cdc6716a4c97406ebe54d311210359e3e36d47ece8d827c",
+      "content": "# Voice sessions\n\nUsers start an audio conversation, mute or unmute their microphone, and hang up.\nAn established conversation continues when they switch to another app or lock\ntheir screen. Hanging up ends microphone use and any ongoing-call indicator.\nAn unsuccessful connection must leave no ongoing-call indicator or held resources.\nThis milestone handles outgoing calls only, with one active conversation at a time.\nIncoming calls, call history and recording are outside this milestone.\n"
+    },
+    "package.json": {
+      "sha256": "67bf036e130c0a49ed6382244c295ba8bf8e9a3616d65d841183a8836a0e303d",
+      "content": "{\"private\":true,\"type\":\"module\",\"scripts\":{\"test\":\"node --test\"}}\n"
+    },
+    "src/app.js": {
+      "sha256": "dfef5478d33588b539f82c4cc0fb8371e21b2c4b42abb359a6ade2c33dc0a333",
+      "content": "export function createApp(runtime) {\n  return {};\n}\n"
+    },
+    "src/platform/runtime.js": {
+      "sha256": "fc8a0dec6544691aed05f3117235055fe0b45d96ccc563713914d464986710fb",
+      "content": "// Host adapter used by the executable simulator. Native implementations are\n// provided by the app shell. A lease owns ongoing execution and its indicator.\nexport function createRuntime({ failConnect = false } = {}) {\n  let background = false;\n  const leases = new Set();\n  const sessions = new Set();\n  return {\n    execution: {\n      async acquire(reason) {\n        const lease = { reason };\n        leases.add(lease);\n        return { async release() { leases.delete(lease); } };\n      },\n    },\n    transport: {\n      async connect(peerId) {\n        if (failConnect) throw new Error('Connection failed');\n        const session = { peerId, muted: false };\n        sessions.add(session);\n        return {\n          async setMuted(value) { session.muted = value; },\n          async disconnect() { sessions.delete(session); },\n        };\n      },\n    },\n    enterBackground() { background = true; },\n    snapshot() {\n      return {\n        sessions: sessions.size,\n        leases: leases.size,\n        audible: sessions.size > 0 && (!background || leases.size > 0),\n        muted: [...sessions].map(session => session.muted),\n      };\n    },\n  };\n}\n"
+    }
+  },
+  "finalFiles": {
+    ".agents/skills/kf-orchestrate-work/SKILL.md": {
+      "sha256": "af9c4e70c9465570661bd0cd057dc6e44b5b59a65fc66ac6a5267bebed13e7ae"
+    },
+    ".agents/skills/kf-orchestrate-work/references/bug-fix.md": {
+      "sha256": "61057db18e0c423966d8b68e0f5ee6a593f9fa8c2f48584acb8e853ed8c86cd2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/context.md": {
+      "sha256": "7b186ad216873ef6ca17fef49e060e48f2bc87ed9cb4edadae3fbe90ff477bc3"
+    },
+    ".agents/skills/kf-orchestrate-work/references/delegation.md": {
+      "sha256": "f86e7401c8f1086e79af64245112b8d8fb07bfe68cf2943231522a71008ca8d0"
+    },
+    ".agents/skills/kf-orchestrate-work/references/design.md": {
+      "sha256": "2894e620e8beb803d85e6aff8ff70de7c4a1b813ec1e6c2a2419b561cf08d41d"
+    },
+    ".agents/skills/kf-orchestrate-work/references/engineering.md": {
+      "sha256": "bfb01ce04437dba9690ad93ec09809d9106937b43f048a548f969be2f35b8842"
+    },
+    ".agents/skills/kf-orchestrate-work/references/evolution.md": {
+      "sha256": "747333df1a8cca359efca848292e6c2a78562304429175a9ff21151ad308841a"
+    },
+    ".agents/skills/kf-orchestrate-work/references/feedback.md": {
+      "sha256": "f0cb539e017b76bb6797e7e8de988a7a2d7f673d7fdb9c288302db5e3a9de2c2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/implementation.md": {
+      "sha256": "171853810b48321806472167ff135a79e787cbe5c09037cbee0bbaa761360e53"
+    },
+    ".agents/skills/kf-orchestrate-work/references/investigation.md": {
+      "sha256": "cc18b2bc629ed37849bc91ee511a91fbd363dd5d0d0045fe0bd831a6d4be6200"
+    },
+    ".agents/skills/kf-orchestrate-work/references/refactor.md": {
+      "sha256": "b318948a9753f20da0ddca7ce8f9c5ed3f3a5c634f07c148cd319162378268aa"
+    },
+    ".agents/skills/kf-orchestrate-work/references/setup.md": {
+      "sha256": "9184cdba45209c257dbb1d61556ee15efa018a6218914b4149056de712c576bb"
+    },
+    ".agents/skills/kf-orchestrate-work/references/testing.md": {
+      "sha256": "90397319cbeb53c46fc797da86fda6e5571b17f001234af20aa552b4c3be6689"
+    },
+    ".agents/skills/kf-orchestrate-work/references/verification.md": {
+      "sha256": "5547b276b865572ed85853a028f64320f4257f78eeb4337be343711dde564b1b"
+    },
+    "README.md": {
+      "sha256": "1a094f2babfe74bfafbef09cf41768ce39c224380deeea79d4e6c8fe935b1d51",
+      "content": "# Audio app simulator\n\nJavaScript ESM; no dependencies. Product requirements are in docs/product.md.\nsrc/platform/runtime.js is an existing host contract and executable simulator.\nThe application receives its runtime through createApp(runtime).\nNative platform components are maintained by the app shell outside this fixture.\n"
+    },
+    "docs/product.md": {
+      "sha256": "e3cb76078523395c4cdc6716a4c97406ebe54d311210359e3e36d47ece8d827c",
+      "content": "# Voice sessions\n\nUsers start an audio conversation, mute or unmute their microphone, and hang up.\nAn established conversation continues when they switch to another app or lock\ntheir screen. Hanging up ends microphone use and any ongoing-call indicator.\nAn unsuccessful connection must leave no ongoing-call indicator or held resources.\nThis milestone handles outgoing calls only, with one active conversation at a time.\nIncoming calls, call history and recording are outside this milestone.\n"
+    },
+    "package.json": {
+      "sha256": "67bf036e130c0a49ed6382244c295ba8bf8e9a3616d65d841183a8836a0e303d",
+      "content": "{\"private\":true,\"type\":\"module\",\"scripts\":{\"test\":\"node --test\"}}\n"
+    },
+    "src/app.js": {
+      "sha256": "9226b48959512ccbba4387664654ef3172efed1f9d8a9dd23e7d0b2872898bf7",
+      "content": "export function createApp(runtime) {\n  let session;\n  let lease;\n  let pending = Promise.resolve();\n\n  // Host operations are asynchronous: serialize controls, including hangup\n  // requested while a connection is still being established.\n  function enqueue(operation) {\n    const result = pending.then(operation);\n    pending = result.catch(() => {});\n    return result;\n  }\n\n  async function cleanup() {\n    const errors = [];\n    if (session) {\n      try {\n        await session.disconnect();\n        session = undefined;\n      } catch (error) {\n        errors.push(error);\n      }\n    }\n    if (lease) {\n      try {\n        await lease.release();\n        lease = undefined;\n      } catch (error) {\n        errors.push(error);\n      }\n    }\n    // Keep failed resource handles so a later hangup can retry cleanup.\n    if (errors.length) throw new AggregateError(errors, 'Call cleanup failed');\n  }\n\n  return {\n    calls: {\n      start(peerId) {\n        return enqueue(async () => {\n          if (session || lease) throw new Error('A call is already active');\n          lease = await runtime.execution.acquire('outgoing-call');\n          try {\n            session = await runtime.transport.connect(peerId);\n          } catch (error) {\n            try {\n              await cleanup();\n            } catch (cleanupError) {\n              throw new AggregateError([error, cleanupError], 'Connection and cleanup failed');\n            }\n            throw error;\n          }\n        });\n      },\n      setMuted(value) {\n        return enqueue(async () => {\n          if (typeof value !== 'boolean') throw new TypeError('Mute value must be a boolean');\n          if (!session) throw new Error('No active call');\n          await session.setMuted(value);\n        });\n      },\n      end() {\n        return enqueue(cleanup);\n      },\n    },\n  };\n}\n"
+    },
+    "src/app.test.js": {
+      "sha256": "3e66fcb32b0facaf5e0939c4c3ef36c58eea88e3555ec78d2f250c21463d6975",
+      "content": "import test from 'node:test';\nimport assert from 'node:assert/strict';\nimport { createApp } from './app.js';\nimport { createRuntime } from './platform/runtime.js';\n\ntest('outgoing call stays active in background, supports mute, and releases resources', async () => {\n  const runtime = createRuntime();\n  const app = createApp(runtime);\n  await app.calls.start('peer');\n  runtime.enterBackground();\n  assert.deepEqual(runtime.snapshot(), { sessions: 1, leases: 1, audible: true, muted: [false] });\n  await app.calls.setMuted(true);\n  assert.deepEqual(runtime.snapshot().muted, [true]);\n  await app.calls.setMuted(false);\n  assert.deepEqual(runtime.snapshot().muted, [false]);\n  await app.calls.end();\n  assert.deepEqual(runtime.snapshot(), { sessions: 0, leases: 0, audible: false, muted: [] });\n  await app.calls.end();\n  await app.calls.start('next');\n  await app.calls.end();\n});\n\ntest('connection failure releases the ongoing execution lease', async () => {\n  const runtime = createRuntime({ failConnect: true });\n  const app = createApp(runtime);\n  await assert.rejects(app.calls.start('peer'), /Connection failed/);\n  assert.deepEqual(runtime.snapshot(), { sessions: 0, leases: 0, audible: false, muted: [] });\n});\n\ntest('concurrent starts cannot open two conversations', async () => {\n  const runtime = createRuntime();\n  const app = createApp(runtime);\n  const first = app.calls.start('first');\n  const second = app.calls.start('second');\n  await first;\n  await assert.rejects(second, /already/);\n  assert.equal(runtime.snapshot().sessions, 1);\n  await app.calls.end();\n});\n\ntest('hangup during connection waits for and cleans up the pending session', async () => {\n  const runtime = createRuntime();\n  const connect = runtime.transport.connect;\n  let resume;\n  const pending = new Promise(resolve => { resume = resolve; });\n  runtime.transport.connect = async peer => { await pending; return connect(peer); };\n  const app = createApp(runtime);\n  const start = app.calls.start('peer');\n  const end = app.calls.end();\n  resume();\n  await Promise.all([start, end]);\n  assert.equal(runtime.snapshot().sessions, 0);\n  assert.equal(runtime.snapshot().leases, 0);\n});\n\ntest('invalid mute and idle mute fail without poisoning subsequent operations', async () => {\n  const runtime = createRuntime();\n  const app = createApp(runtime);\n  await assert.rejects(app.calls.setMuted(true), /active/);\n  await app.calls.start('peer');\n  await assert.rejects(app.calls.setMuted('false'), /boolean/);\n  assert.deepEqual(runtime.snapshot().muted, [false]);\n  await app.calls.end();\n});\n\ntest('hangup attempts both cleanups and retains a failed handle for retry', async () => {\n  const runtime = createRuntime();\n  const connect = runtime.transport.connect;\n  let failDisconnect = true;\n  runtime.transport.connect = async peer => {\n    const session = await connect(peer);\n    return {\n      ...session,\n      async disconnect() {\n        if (failDisconnect) throw new Error('Disconnect failed');\n        await session.disconnect();\n      },\n    };\n  };\n  const app = createApp(runtime);\n  await app.calls.start('peer');\n  await assert.rejects(app.calls.end(), /cleanup failed/);\n  assert.equal(runtime.snapshot().leases, 0);\n  await assert.rejects(app.calls.start('next'), /already/);\n  failDisconnect = false;\n  await app.calls.end();\n  assert.equal(runtime.snapshot().sessions, 0);\n});\n\ntest('failed lease release after connection failure remains retryable', async () => {\n  const runtime = createRuntime({ failConnect: true });\n  const acquire = runtime.execution.acquire;\n  let failRelease = true;\n  runtime.execution.acquire = async reason => {\n    const lease = await acquire(reason);\n    return {\n      async release() {\n        if (failRelease) throw new Error('Release failed');\n        await lease.release();\n      },\n    };\n  };\n  const app = createApp(runtime);\n  await assert.rejects(app.calls.start('peer'), /Connection and cleanup failed/);\n  assert.equal(runtime.snapshot().sessions, 0);\n  assert.equal(runtime.snapshot().leases, 1);\n  failRelease = false;\n  await app.calls.end();\n  assert.equal(runtime.snapshot().leases, 0);\n});\n"
+    },
+    "src/platform/runtime.js": {
+      "sha256": "fc8a0dec6544691aed05f3117235055fe0b45d96ccc563713914d464986710fb",
+      "content": "// Host adapter used by the executable simulator. Native implementations are\n// provided by the app shell. A lease owns ongoing execution and its indicator.\nexport function createRuntime({ failConnect = false } = {}) {\n  let background = false;\n  const leases = new Set();\n  const sessions = new Set();\n  return {\n    execution: {\n      async acquire(reason) {\n        const lease = { reason };\n        leases.add(lease);\n        return { async release() { leases.delete(lease); } };\n      },\n    },\n    transport: {\n      async connect(peerId) {\n        if (failConnect) throw new Error('Connection failed');\n        const session = { peerId, muted: false };\n        sessions.add(session);\n        return {\n          async setMuted(value) { session.muted = value; },\n          async disconnect() { sessions.delete(session); },\n        };\n      },\n    },\n    enterBackground() { background = true; },\n    snapshot() {\n      return {\n        sessions: sessions.size,\n        leases: leases.size,\n        audible: sessions.size > 0 && (!background || leases.size > 0),\n        muted: [...sessions].map(session => session.muted),\n      };\n    },\n  };\n}\n"
+    }
+  },
+  "changedPaths": [
+    "src/app.js",
+    "src/app.test.js"
+  ]
+}

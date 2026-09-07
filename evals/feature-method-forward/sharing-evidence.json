@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "caseId": "design-cross-layer-sharing",
+  "actorPrompt": "Use /private/tmp/kf-method-20260907/sharing/.agents/skills/kf-orchestrate-work/SKILL.md. Task: Design revocable report sharing according to the product brief and existing service contracts. Write DESIGN.md only; do not implement or deploy the change. Work only in this fixture; all existing files, including skill files, are read-only. You exclusively own new DESIGN.md. You are not alone in the environment; do not revert others' work or inspect sibling directories or the K Fleet source repository. Do not install dependencies, delegate, use another model client, commit or make external changes. Installed Supermemory status skill and status.js are allowed runtime surfaces; resolve scope from fixture cwd with narrow network escalation if required. Return the actual design outcome, decisions, checks and limitations; do not claim execution evidence for a proposed design.",
+  "actorFinal": "Created [DESIGN.md](/private/tmp/kf-method-20260907/sharing/DESIGN.md).\n\nThe design specifies durable hashed bearer tokens, 24-hour expiry, tenant-authorized revocation, explicit public-route authentication, unchanged mobile reads, and additive migration/rollback handling.\n\nChecked the design against all fixture contracts and confirmed existing files were unchanged. Supermemory connectivity and fixture scope were verified.\n\nNo implementation or deployment occurred. Runtime adapters are absent; integration tests and rollout rehearsal remain proposed acceptance evidence.",
+  "actorReportedChecksAreNotIndependent": true,
+  "independentInspection": {
+    "changedPaths": [
+      "DESIGN.md"
+    ],
+    "protectedFilesUnchanged": true,
+    "fullToolTrajectoryExported": false
+  },
+  "independentDesignReview": [
+    {
+      "criterion": "Tenant ownership and anonymous trust boundary",
+      "evidence": "API and authentication contract requires authenticated management with tenant ownership, a separate explicitly public endpoint, required authentication by default, and no caller-controlled tenant or expiry."
+    },
+    {
+      "criterion": "Durable expiry and revocation",
+      "evidence": "Persistence and lifecycle specifies database-backed token digests, database time, 24-hour expiration on every read, monotonic revoked_at, and restart persistence."
+    },
+    {
+      "criterion": "Compatibility and deployment",
+      "evidence": "Migration, mixed versions, and rollback preserves GET /reports/:id, uses an additive schema, accounts for old instances lacking new routes, and separates database retention from application rollback."
+    },
+    {
+      "criterion": "Source-grounded ownership",
+      "evidence": "Ownership and boundaries retains src/reports.js and proposes a cohesive src/report-sharing.js using injected database access; HTTP policy remains owned by the actual adapter."
+    },
+    {
+      "criterion": "Relevant acceptance evidence",
+      "evidence": "Acceptance evidence includes cross-tenant operations, expiry boundaries, concurrent revocation/read, restart, errors, real HTTP wiring and migration/rollback rehearsal, explicitly proposed rather than executed."
+    },
+    {
+      "criterion": "Design-only scope",
+      "evidence": "Final snapshot adds only DESIGN.md; every initial fixture file hash is unchanged."
+    }
+  ],
+  "limitations": "Fresh conversation and instruction-scoped filesystem ownership, not an OS-enforced read boundary. Final hashes verify preserved artifacts, not every attempted access. Agent-reported runtime and Red/Green events are not independently asserted by this record."
+}

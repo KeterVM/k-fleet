@@ -10,6 +10,11 @@ artifact. Do not modify the reviewed artifact in this route.
    Check that responsibilities have clear owners, dependency direction is preserved,
    removed coverage has a replacement, and claimed behavior has behavior-level
    evidence; static analysis alone does not establish those properties.
+   Use the [engineering method](engineering.md) to select relevant cross-layer
+   concerns and [check the integrated outcome](engineering.md#verify-the-integrated-outcome).
+   Trace required supporting capabilities into the running paths and check module
+   placement against local conventions; a working entry point may still lack
+   required operational support.
 3. Report findings with evidence, affected location, impact, and confidence. State
    checks not run and residual risk.
 4. If correction is already authorized, carry the findings into bug fix,

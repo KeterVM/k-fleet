@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "caseId": "implementation-module-conventions",
+  "skillHash": "5a6a60dc7d5b72c027334d0dcc25147762ad09266fe63e6bdda726f8410ff811",
+  "initialFiles": {
+    ".agents/skills/kf-orchestrate-work/SKILL.md": {
+      "sha256": "af9c4e70c9465570661bd0cd057dc6e44b5b59a65fc66ac6a5267bebed13e7ae"
+    },
+    ".agents/skills/kf-orchestrate-work/references/bug-fix.md": {
+      "sha256": "61057db18e0c423966d8b68e0f5ee6a593f9fa8c2f48584acb8e853ed8c86cd2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/context.md": {
+      "sha256": "7b186ad216873ef6ca17fef49e060e48f2bc87ed9cb4edadae3fbe90ff477bc3"
+    },
+    ".agents/skills/kf-orchestrate-work/references/delegation.md": {
+      "sha256": "f86e7401c8f1086e79af64245112b8d8fb07bfe68cf2943231522a71008ca8d0"
+    },
+    ".agents/skills/kf-orchestrate-work/references/design.md": {
+      "sha256": "2894e620e8beb803d85e6aff8ff70de7c4a1b813ec1e6c2a2419b561cf08d41d"
+    },
+    ".agents/skills/kf-orchestrate-work/references/engineering.md": {
+      "sha256": "bfb01ce04437dba9690ad93ec09809d9106937b43f048a548f969be2f35b8842"
+    },
+    ".agents/skills/kf-orchestrate-work/references/evolution.md": {
+      "sha256": "747333df1a8cca359efca848292e6c2a78562304429175a9ff21151ad308841a"
+    },
+    ".agents/skills/kf-orchestrate-work/references/feedback.md": {
+      "sha256": "f0cb539e017b76bb6797e7e8de988a7a2d7f673d7fdb9c288302db5e3a9de2c2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/implementation.md": {
+      "sha256": "171853810b48321806472167ff135a79e787cbe5c09037cbee0bbaa761360e53"
+    },
+    ".agents/skills/kf-orchestrate-work/references/investigation.md": {
+      "sha256": "cc18b2bc629ed37849bc91ee511a91fbd363dd5d0d0045fe0bd831a6d4be6200"
+    },
+    ".agents/skills/kf-orchestrate-work/references/refactor.md": {
+      "sha256": "b318948a9753f20da0ddca7ce8f9c5ed3f3a5c634f07c148cd319162378268aa"
+    },
+    ".agents/skills/kf-orchestrate-work/references/setup.md": {
+      "sha256": "9184cdba45209c257dbb1d61556ee15efa018a6218914b4149056de712c576bb"
+    },
+    ".agents/skills/kf-orchestrate-work/references/testing.md": {
+      "sha256": "90397319cbeb53c46fc797da86fda6e5571b17f001234af20aa552b4c3be6689"
+    },
+    ".agents/skills/kf-orchestrate-work/references/verification.md": {
+      "sha256": "5547b276b865572ed85853a028f64320f4257f78eeb4337be343711dde564b1b"
+    },
+    "README.md": {
+      "sha256": "1c5865d312e55dc94878d73f53b95e035024e5c809e957f3faf35ef168ad1c82",
+      "content": "# Account app\n\nJavaScript ESM, no dependencies. Product features live under src/features.\nsrc/app.js composes their public entry points. Use named exports, camelCase names,\ntwo-space indentation, single quotes and semicolons as in the existing sources.\nRepositories are injected by the host.\n\nInvoice repository: repositories.invoices.load(id) returns an invoice with\nlines: [{quantity, unitPriceCents}]. Total is the sum of quantity times unit price,\nin integer cents. Negative or noninteger quantities and prices are invalid.\n"
+    },
+    "package.json": {
+      "sha256": "67bf036e130c0a49ed6382244c295ba8bf8e9a3616d65d841183a8836a0e303d",
+      "content": "{\"private\":true,\"type\":\"module\",\"scripts\":{\"test\":\"node --test\"}}\n"
+    },
+    "src/app.js": {
+      "sha256": "f3d6f535e68bb3e976f28b1460a78ab63d9ad0856a8c83c60270edf4acc5b601",
+      "content": "import { createProfileController } from './features/profile/index.js';\n\nexport function createApp(repositories) {\n  return { profile: createProfileController(repositories.profile) };\n}\n"
+    },
+    "src/features/profile/controller.js": {
+      "sha256": "88d8426c2d2a6dc116863e9f3c7f06783cb0f50df82848c858d5b7f82e86e235",
+      "content": "import { profileLabel } from './model.js';\n\nexport function createProfileController(repository) {\n  return { async label(id) { return profileLabel(await repository.load(id)); } };\n}\n"
+    },
+    "src/features/profile/index.js": {
+      "sha256": "70a61568d68fe1a470c0953f41e15be2dc95bc0079afc8cd009d512ede2d56ab",
+      "content": "export { createProfileController } from './controller.js';\n"
+    },
+    "src/features/profile/model.js": {
+      "sha256": "75467d3446909d8a0fe9fd156acb9cbd2a3306e68b4de72bc72c48c0c23b0c72",
+      "content": "export function profileLabel(profile) {\n  return profile.displayName.trim();\n}\n"
+    }
+  },
+  "finalFiles": {
+    ".agents/skills/kf-orchestrate-work/SKILL.md": {
+      "sha256": "af9c4e70c9465570661bd0cd057dc6e44b5b59a65fc66ac6a5267bebed13e7ae"
+    },
+    ".agents/skills/kf-orchestrate-work/references/bug-fix.md": {
+      "sha256": "61057db18e0c423966d8b68e0f5ee6a593f9fa8c2f48584acb8e853ed8c86cd2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/context.md": {
+      "sha256": "7b186ad216873ef6ca17fef49e060e48f2bc87ed9cb4edadae3fbe90ff477bc3"
+    },
+    ".agents/skills/kf-orchestrate-work/references/delegation.md": {
+      "sha256": "f86e7401c8f1086e79af64245112b8d8fb07bfe68cf2943231522a71008ca8d0"
+    },
+    ".agents/skills/kf-orchestrate-work/references/design.md": {
+      "sha256": "2894e620e8beb803d85e6aff8ff70de7c4a1b813ec1e6c2a2419b561cf08d41d"
+    },
+    ".agents/skills/kf-orchestrate-work/references/engineering.md": {
+      "sha256": "bfb01ce04437dba9690ad93ec09809d9106937b43f048a548f969be2f35b8842"
+    },
+    ".agents/skills/kf-orchestrate-work/references/evolution.md": {
+      "sha256": "747333df1a8cca359efca848292e6c2a78562304429175a9ff21151ad308841a"
+    },
+    ".agents/skills/kf-orchestrate-work/references/feedback.md": {
+      "sha256": "f0cb539e017b76bb6797e7e8de988a7a2d7f673d7fdb9c288302db5e3a9de2c2"
+    },
+    ".agents/skills/kf-orchestrate-work/references/implementation.md": {
+      "sha256": "171853810b48321806472167ff135a79e787cbe5c09037cbee0bbaa761360e53"
+    },
+    ".agents/skills/kf-orchestrate-work/references/investigation.md": {
+      "sha256": "cc18b2bc629ed37849bc91ee511a91fbd363dd5d0d0045fe0bd831a6d4be6200"
+    },
+    ".agents/skills/kf-orchestrate-work/references/refactor.md": {
+      "sha256": "b318948a9753f20da0ddca7ce8f9c5ed3f3a5c634f07c148cd319162378268aa"
+    },
+    ".agents/skills/kf-orchestrate-work/references/setup.md": {
+      "sha256": "9184cdba45209c257dbb1d61556ee15efa018a6218914b4149056de712c576bb"
+    },
+    ".agents/skills/kf-orchestrate-work/references/testing.md": {
+      "sha256": "90397319cbeb53c46fc797da86fda6e5571b17f001234af20aa552b4c3be6689"
+    },
+    ".agents/skills/kf-orchestrate-work/references/verification.md": {
+      "sha256": "5547b276b865572ed85853a028f64320f4257f78eeb4337be343711dde564b1b"
+    },
+    "README.md": {
+      "sha256": "1c5865d312e55dc94878d73f53b95e035024e5c809e957f3faf35ef168ad1c82",
+      "content": "# Account app\n\nJavaScript ESM, no dependencies. Product features live under src/features.\nsrc/app.js composes their public entry points. Use named exports, camelCase names,\ntwo-space indentation, single quotes and semicolons as in the existing sources.\nRepositories are injected by the host.\n\nInvoice repository: repositories.invoices.load(id) returns an invoice with\nlines: [{quantity, unitPriceCents}]. Total is the sum of quantity times unit price,\nin integer cents. Negative or noninteger quantities and prices are invalid.\n"
+    },
+    "package.json": {
+      "sha256": "67bf036e130c0a49ed6382244c295ba8bf8e9a3616d65d841183a8836a0e303d",
+      "content": "{\"private\":true,\"type\":\"module\",\"scripts\":{\"test\":\"node --test\"}}\n"
+    },
+    "src/app.js": {
+      "sha256": "f1bcf952446f144642493718a150aa5fe39d52a4906165749065319393deba88",
+      "content": "import { createProfileController } from './features/profile/index.js';\nimport { createInvoiceController } from './features/invoices/index.js';\n\nexport function createApp(repositories) {\n  return {\n    profile: createProfileController(repositories.profile),\n    invoices: createInvoiceController(repositories.invoices),\n  };\n}\n"
+    },
+    "src/features/invoices/controller.js": {
+      "sha256": "467c5defe09785290b7b6d1eeba5b5d72e36658708651609c5a18c7d564ad4b4",
+      "content": "import { invoiceTotal } from './model.js';\n\nexport function createInvoiceController(repository) {\n  return { async total(id) { return invoiceTotal(await repository.load(id)); } };\n}\n"
+    },
+    "src/features/invoices/index.js": {
+      "sha256": "d5fab191b0413dacfde027a25248c4251a23ec3aa31471ed01a3702d4f798b1c",
+      "content": "export { createInvoiceController } from './controller.js';\n"
+    },
+    "src/features/invoices/invoices.test.js": {
+      "sha256": "dbc93e4a04ec3ea32410adc9bb762c89fbb1bb70cc555cf5ccb3d69f7ede9925",
+      "content": "import assert from 'node:assert/strict';\nimport test from 'node:test';\nimport { createApp } from '../../app.js';\n\nfunction appFor(lines) {\n  return createApp({ invoices: { async load() { return { lines }; } } });\n}\n\ntest('invoice totals use the injected repository and preserve profile behavior', async () => {\n  const app = createApp({\n    invoices: { async load(id) {\n      assert.equal(id, 'invoice-7');\n      return { lines: [\n        { quantity: 3, unitPriceCents: 125 },\n        { quantity: 2, unitPriceCents: 249 },\n      ] };\n    } },\n    profile: { async load(id) {\n      assert.equal(id, 'account-1');\n      return { displayName: '  Ada  ' };\n    } },\n  });\n  assert.equal(await app.invoices.total('invoice-7'), 873);\n  assert.equal(await app.profile.label('account-1'), 'Ada');\n});\n\ntest('empty invoices and zero quantities or prices total zero', async () => {\n  assert.equal(await appFor([]).invoices.total('empty'), 0);\n  assert.equal(await appFor([\n    { quantity: 0, unitPriceCents: 100 },\n    { quantity: 2, unitPriceCents: 0 },\n  ]).invoices.total('zero'), 0);\n});\n\ntest('rejects invalid quantities and prices, including on zero-valued lines', async () => {\n  for (const field of ['quantity', 'unitPriceCents']) {\n    for (const value of [-1, 0.5, NaN, Infinity, '2', null, undefined]) {\n      const line = { quantity: 0, unitPriceCents: 0, [field]: value };\n      await assert.rejects(appFor([line]).invoices.total('invalid'), TypeError);\n    }\n  }\n});\n\ntest('repository failures reach the caller', async () => {\n  const failure = new Error('load failed');\n  const app = createApp({ invoices: { async load() { throw failure; } } });\n  await assert.rejects(app.invoices.total('missing'), (error) => error === failure);\n});\n"
+    },
+    "src/features/invoices/model.js": {
+      "sha256": "60ab1c247185c535de8d19f2de5026f9325b411e48fb46d518f139984b1a5583",
+      "content": "export function invoiceTotal(invoice) {\n  return invoice.lines.reduce((total, { quantity, unitPriceCents }) => {\n    if (!Number.isInteger(quantity) || quantity < 0 ||\n        !Number.isInteger(unitPriceCents) || unitPriceCents < 0) {\n      throw new TypeError('Invoice quantities and prices must be nonnegative integers');\n    }\n    return total + quantity * unitPriceCents;\n  }, 0);\n}\n"
+    },
+    "src/features/profile/controller.js": {
+      "sha256": "88d8426c2d2a6dc116863e9f3c7f06783cb0f50df82848c858d5b7f82e86e235",
+      "content": "import { profileLabel } from './model.js';\n\nexport function createProfileController(repository) {\n  return { async label(id) { return profileLabel(await repository.load(id)); } };\n}\n"
+    },
+    "src/features/profile/index.js": {
+      "sha256": "70a61568d68fe1a470c0953f41e15be2dc95bc0079afc8cd009d512ede2d56ab",
+      "content": "export { createProfileController } from './controller.js';\n"
+    },
+    "src/features/profile/model.js": {
+      "sha256": "75467d3446909d8a0fe9fd156acb9cbd2a3306e68b4de72bc72c48c0c23b0c72",
+      "content": "export function profileLabel(profile) {\n  return profile.displayName.trim();\n}\n"
+    }
+  },
+  "changedPaths": [
+    "src/app.js",
+    "src/features/invoices/controller.js",
+    "src/features/invoices/index.js",
+    "src/features/invoices/invoices.test.js",
+    "src/features/invoices/model.js"
+  ]
+}

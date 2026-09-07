@@ -109,6 +109,10 @@ for (const id of [
   "refactor-unrelated-baseline-failure",
   "method-writer-self-validation",
   "route-evolution-automatic-gate-failure",
+  "implementation-module-conventions",
+  "implementation-supporting-lifecycle",
+  "implementation-bounded-presentation",
+  "design-cross-layer-sharing",
 ]) {
   if (!ids.has(id)) fail(`Orchestrator corpus does not cover ${id}`);
 }

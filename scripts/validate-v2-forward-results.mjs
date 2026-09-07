@@ -10,6 +10,8 @@ const testValueResultsPath = join(root, "evals/test-value-forward-results.json")
 const testValueReportPath = join(root, "evals/TEST_VALUE_FORWARD_TEST_REPORT.md");
 const astraResultsPath = join(root, "evals/astra-forward-results.json");
 const astraReportPath = join(root, "evals/ASTRA_FORWARD_TEST_REPORT.md");
+const featureResultsPath = join(root, "evals/feature-method-forward-results.json");
+const featureReportPath = join(root, "evals/FEATURE_METHOD_FORWARD_TEST_REPORT.md");
 const corpusPath = join(root, "evals/orchestrator-routing.jsonl");
 const lockPath = join(root, "examples/fleet-ledger/skills-lock.json");
 const failures = [];
@@ -118,9 +120,14 @@ const currentBindings = {
   reviewerHash: sha256(join(root, ".codex/agents/kf-reviewer.toml")),
   corpusHash,
 };
+const historicalAstraBindings = {
+  skillHash: "8abee45b827290dae583ff1099f14d0d243f0f53f9075794ec063968e27acad9",
+  reviewerHash: "4e7d26b2a98289a23b0458606fbdfc1b243ffe67e0eebc7468aabb1f3fb696cb",
+  corpusHash: "119027f456409d9f269b42bcd7e24d61b13a2eed395f5e18af2bda6e2431076a",
+};
 if (astraResults.schemaVersion !== 1) fail("Astra forward results must use schemaVersion 1");
-for (const [field, expected] of Object.entries(currentBindings)) {
-  if (astraResults[field] !== expected) fail(`Astra forward results have stale ${field}`);
+for (const [field, expected] of Object.entries(historicalAstraBindings)) {
+  if (astraResults[field] !== expected) fail(`Historical Astra forward results changed ${field}`);
   if (!astraReport.includes(expected)) fail(`Astra forward report must name ${field}`);
 }
 const expectedAstraCases = [
@@ -177,6 +184,42 @@ for (const entry of known) {
   if (entry.baseline) validateAstraEntry({ ...entry.baseline, id: entry.id });
 }
 
+const featureResults = JSON.parse(readFileSync(featureResultsPath, "utf8"));
+const featureReport = readFileSync(featureReportPath, "utf8");
+if (featureResults.schemaVersion !== 1) fail("Feature-method results must use schemaVersion 1");
+for (const [field, expected] of Object.entries(currentBindings)) {
+  if (featureResults[field] !== expected) fail(`Feature-method results have stale ${field}`);
+  if (!featureReport.includes(expected)) fail(`Feature-method report must name ${field}`);
+}
+const expectedFeatureCases = [
+  "implementation-module-conventions",
+  "implementation-supporting-lifecycle",
+  "implementation-bounded-presentation",
+  "design-cross-layer-sharing",
+];
+if (JSON.stringify((featureResults.cases ?? []).map((entry) => entry.id)) !== JSON.stringify(expectedFeatureCases)) {
+  fail(`Feature-method results must contain exactly: ${expectedFeatureCases.join(", ")}`);
+}
+for (const entry of featureResults.cases ?? []) {
+  if (entry.passed !== true) fail(`${entry.id} is not recorded as passing`);
+  for (const field of ["prompt", "isolation", "observation", "writeEvidence", "judgment"]) {
+    if (typeof entry[field] !== "string" || !entry[field].trim()) fail(`${entry.id} must record ${field}`);
+  }
+  if (!featureReport.includes(entry.id)) fail(`Feature-method report does not reference ${entry.id}`);
+  for (const prefix of ["evidence", "artifact"]) {
+    const path = entry[`${prefix}Path`];
+    if (typeof path !== "string" || !/^evals\/feature-method-forward\/[a-z0-9-]+\.json$/.test(path)) {
+      fail(`${entry.id} has invalid ${prefix}Path`);
+      continue;
+    }
+    try {
+      if (sha256(join(root, path)) !== entry[`${prefix}Hash`]) fail(`${entry.id} has stale ${prefix}Hash`);
+    } catch {
+      fail(`${entry.id} is missing ${prefix} evidence`);
+    }
+  }
+}
+
 if (failures.length) {
   for (const failure of failures) console.error(`FAIL: ${failure}`);
   process.exit(1);
@@ -185,6 +228,7 @@ if (failures.length) {
 console.log(
   `Validated ${expectedCases.length} historical K Fleet v2 release results and ` +
     `${expectedTestValueCases.length} historical test-value results and ` +
-    `${expectedAstraCases.length} passing current source-bound Astra results; ` +
+    `${expectedAstraCases.length} passing historical Astra results and ` +
+    `${expectedFeatureCases.length} current source-bound feature-method results; ` +
     `${known.length} known baseline failure retained (not a passing adoption gate).`,
 );

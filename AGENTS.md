@@ -34,8 +34,10 @@ workflow behavior rather than framework-specific instructions.
   release smoke observations bound to their exact v2 skill and corpus hashes.
 - `evals/test-value-forward-results.json` and its report preserve historical
   source-bound observations for risk-driven TDD selection and skipping.
-- `evals/astra-forward-results.json` and its report bind the current prompt
-  simplification observations to the skill, reviewer, corpus, and raw evidence.
+- `evals/astra-forward-results.json` and its report preserve historical prompt
+  simplification observations bound to their exact sources and raw evidence.
+- `evals/feature-method-forward-results.json` and its report bind current
+  engineering-method observations to their sources and evidence.
 - `scripts/validate-repository-structure.mjs` validates packaging, references,
   installed copies, companion agents, links, placeholders, and documentation.
 - `scripts/validate-orchestrator-evals.mjs` lints the current corpus without

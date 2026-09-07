@@ -220,10 +220,14 @@ for (const [index, file] of expectedAgentFiles.entries()) {
   }
 }
 
-const placeholderPattern = /\b(?:TODO|TBD|PLACEHOLDER)\b|\[insert\b/i;
+// Match scaffold markers without rejecting ordinary prose about placeholders.
+const placeholderPattern = /\b(?:TODO|TBD|PLACEHOLDER)\b/;
+const bracketPlaceholderPattern = /\[(?:insert|placeholder)\b/i;
 for (const path of markdownFiles(root)) {
   const content = read(path);
-  if (placeholderPattern.test(content)) fail(`${relative(root, path)} contains a placeholder`);
+  if (placeholderPattern.test(content) || bracketPlaceholderPattern.test(content)) {
+    fail(`${relative(root, path)} contains a placeholder`);
+  }
 
   for (const match of content.matchAll(/\[[^\]]+\]\(([^)]+)\)/g)) {
     const target = match[1].split("#", 1)[0];
