@@ -7,7 +7,6 @@ import {
   mkdtempSync,
   readFileSync,
   realpathSync,
-  readdirSync,
   symlinkSync,
   writeFileSync,
 } from "node:fs";
@@ -23,7 +22,7 @@ import {
   validateSleepTarget,
 } from "./kf-projects.mjs";
 
-test("update preserves backup and refreshes the Codex SkillOpt source explicitly", () => {
+test("update refreshes the Codex SkillOpt source without creating skill backups", () => {
   const root = mkdtempSync(join(tmpdir(), "kf-update-"));
   const project = join(root, "project");
   const repo = join(root, "SkillOpt");
@@ -33,7 +32,7 @@ test("update preserves backup and refreshes the Codex SkillOpt source explicitly
   for (const dir of [dirname(target), join(repo, "plugins"), join(repo, ".git"), bin]) {
     mkdirSync(dir, { recursive: true });
   }
-  writeFileSync(target, "original optimized skill\n");
+  writeFileSync(target, "installed skill\n");
   writeFileSync(join(repo, "plugins/run-sleep.sh"), "#!/bin/sh\nexit 0\n");
   writeFileSync(join(bin, "git"), "#!/bin/sh\nexit 0\n");
   writeFileSync(join(bin, "npx"), `#!/bin/sh
@@ -62,10 +61,8 @@ esac
     `${realpathSync(project)}|--yes skills update kf-orchestrate-work --project --yes`,
     `${realpathSync(project)}|--yes skills add https://github.com/microsoft/SkillOpt/tree/main/plugins/codex/skills --agent codex --skill skillopt-sleep --yes`,
   ]);
-  const backups = join(project, ".skillopt-sleep/backups");
-  const entries = readdirSync(backups);
-  assert.equal(entries.length, 1);
-  assert.equal(readFileSync(join(backups, entries[0], "kf-orchestrate-work/SKILL.md"), "utf8"), "original optimized skill\n");
+  assert.equal(existsSync(join(project, ".skillopt-sleep/backups")), false);
+  assert.doesNotMatch(result.stdout, /Backed up current K Fleet skill/);
   assert.equal(existsSync(join(project, ".codex/agents/kf-reviewer.toml")), true);
 });
 

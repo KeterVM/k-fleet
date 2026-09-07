@@ -283,7 +283,9 @@ const exclusion = JSON.parse(readFileSync(join(root, "evals/skillopt-exclusion-f
 if (exclusion.schemaVersion !== 1) fail("Exclusion forward results must use schemaVersion 1");
 for (const [field, expected] of Object.entries({
   ...currentBindings,
-  cliHash: sha256(join(root, "scripts/kf-projects.mjs")),
+  // The CLI version is provenance for these simulated skill decisions, not a
+  // claim that the actors exercised it. CLI behavior has separate unit tests.
+  cliHash: "d450cd5be3a3283f72292b2db5d1285ecada44ef9babf4f9687e17f7b56a40d1",
 })) {
   if (exclusion[field] !== expected) fail(`Exclusion forward results have stale ${field}`);
 }

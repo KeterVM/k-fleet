@@ -339,25 +339,7 @@ function installProject(project) {
   installReviewer(project);
 }
 
-function backupUpgradeTarget(project) {
-  const source = join(project, targetSkillPath);
-  if (!existsSync(source)) return;
-  const stamp = new Date().toISOString().replaceAll(":", "-");
-  const destination = join(
-    project,
-    ".skillopt-sleep",
-    "backups",
-    "kf-projects-upgrade-" + stamp,
-    "kf-orchestrate-work",
-    "SKILL.md",
-  );
-  mkdirSync(dirname(destination), { recursive: true });
-  copyFileSync(source, destination);
-  console.log("Backed up current K Fleet skill: " + destination);
-}
-
 function upgradeProject(project) {
-  backupUpgradeTarget(project);
   run(
     "npx",
     [

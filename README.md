@@ -192,9 +192,8 @@ Use `register`, `unregister`, and `list` to maintain the project set. `install` 
 `update` also fast-forwards the shared SkillOpt checkout. `sleep` supports `status`,
 `harvest`, `dry-run`, `run`, and `unschedule`, with supported additional
 SkillOpt arguments placed after `--`. `adopt` and `schedule` are blocked until
-upstream can preserve the validated target boundary. Installation
-skips existing skills, while update first preserves the current K Fleet target
-under the project's `.skillopt-sleep/backups/` directory.
+upstream can preserve the validated target boundary. Installation skips existing
+skills; update refreshes them without creating K Fleet skill backups.
 Updates refresh SkillOpt-Sleep from its Codex-specific source path to avoid
 ambiguity with the same-named skills for other platforms in the upstream repository.
 
