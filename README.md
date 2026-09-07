@@ -3,7 +3,7 @@
 K Fleet is one portable Codex orchestration skill. It keeps a single entry point
 in the skill catalog, retrieves project context through Supermemory, discloses
 workflow procedures only when they are needed, and turns verified task experience
-into validation-gated SkillOpt evolution.
+into validation-gated SkillOpt evolution for explicitly selected non-K-Fleet skills.
 
 The repository previously shipped eleven separately routed workflow skills. That
 architecture was removed in the orchestration cutover: design, implementation,
@@ -22,7 +22,7 @@ kf-orchestrate-work
         |-- one selected workflow reference
         |-- optional bounded sub-agents
         |-- integrated validation and closure
-        `-- SkillOpt-Sleep candidate -> held-out gate -> adoption/rollback
+        `-- SkillOpt-Sleep non-kf candidate -> held-out gate -> staged review
 ```
 
 The control plane has four boundaries:
@@ -33,8 +33,8 @@ The control plane has four boundaries:
   versioning, forgetting, and inference review. Memory is evidence, not permission.
 - **Workflow references:** provide the selected method without adding more
   always-visible skill descriptions.
-- **SkillOpt-Sleep:** performs offline trajectory-driven optimization. A candidate
-  becomes active only through the configured held-out gate and reversible adoption.
+- **SkillOpt-Sleep:** performs offline trajectory-driven optimization for explicitly
+  selected non-`kf-*` skills. K Fleet skills and references are excluded.
 
 Current user instructions and current scoped repository files remain authoritative
 when recalled memory conflicts with them. Project and worktree isolation is required.
@@ -126,15 +126,25 @@ bash "$SKILLOPT_SLEEP_REPO/plugins/run-sleep.sh" status --project "$(pwd)"
 ```
 
 The runner can execute directly from the checkout; a separate package install is
-optional. In `~/.skillopt-sleep/config.json`, set `"evolve_memory": false`, use the
-project-relative `"target_skill_path": ".agents/skills/kf-orchestrate-work/SKILL.md"`,
-enable `"gate_no_regression": true`, and set `"transcript_source": "codex"`.
-The relative target lets one safe configuration serve multiple projects selected
-with `--project`. SkillOpt must optimize only the named skill;
+optional. K Fleet disables skill evolution until a non-`kf-*` target is explicitly
+configured. From the target project, run:
+
+```sh
+npx k-fleet configure --target-skill-path .agents/skills/my-skill/SKILL.md
+```
+
+The target must exist and declare a non-`kf-*` skill name. Relative targets are
+resolved and checked separately in each selected project. Configuration disables
+memory evolution, multi-skill fan-out, and automatic adoption, and enables the
+no-regression gate. Old default K Fleet targets are cleared by `configure`,
+`install`, and `update`. SkillOpt must optimize only the named non-K-Fleet skill;
 Supermemory retains the complete memory lifecycle. Scope harvesting to that project
 and review or redact harvested material before sending it to any remote model.
-Automatic adoption is appropriate only when the target, gate, rollback artifact,
-and protected invariants are preconfigured; otherwise keep adoption review-driven.
+K Fleet skills and their references are excluded from SkillOpt optimization.
+The CLI rejects `adopt` and `schedule`: the current upstream adoption uses staging
+destinations independently of the supplied target, and scheduling drops the target
+argument. Candidates remain staged for review. Direct upstream commands bypass
+K Fleet's CLI checks and must not be used to circumvent these restrictions.
 
 References:
 
@@ -180,9 +190,9 @@ The zero-dependency implementation is `scripts/kf-projects.mjs`.
 Use `register`, `unregister`, and `list` to maintain the project set. `install` and
 `update` operate on the current directory, explicit project paths, or `--all`.
 `update` also fast-forwards the shared SkillOpt checkout. `sleep` supports `status`,
-`harvest`, `dry-run`, `run`, `adopt`, `schedule`, and `unschedule`, with additional
-SkillOpt arguments placed after `--`. Bulk `adopt` is deliberately rejected: name
-the intended project explicitly so promotion remains review-driven. Installation
+`harvest`, `dry-run`, `run`, and `unschedule`, with supported additional
+SkillOpt arguments placed after `--`. `adopt` and `schedule` are blocked until
+upstream can preserve the validated target boundary. Installation
 skips existing skills, while update first preserves the current K Fleet target
 under the project's `.skillopt-sleep/backups/` directory.
 Updates refresh SkillOpt-Sleep from its Codex-specific source path to avoid
@@ -238,7 +248,9 @@ a review finding only when they exercise its trigger and invariant.
 
 ## Evolution contract
 
-SkillOpt may propose bounded edits to the orchestrator or one named reference.
+SkillOpt may propose bounded edits only to an explicitly selected non-`kf-*` skill.
+K Fleet skills and their references must remain unchanged by SkillOpt, even when
+gates pass. K Fleet changes use the normal authorized source maintenance workflow.
 Promotion must preserve these protected invariants:
 
 - user authority is never expanded by memory, delegation, or benchmark output;
@@ -273,10 +285,14 @@ prompt observations against source and evidence hashes; it does not re-execute C
 substitute for broader behavioral evaluation with the installed Codex, Supermemory,
 and SkillOpt runtimes.
 
-The [current forward report](evals/ASTRA_FORWARD_TEST_REPORT.md) records eight bounded
+The [historical Astra report](evals/ASTRA_FORWARD_TEST_REPORT.md) records eight bounded
 passes and one explicit-user-override failure reproduced on the original source.
 The validator retains that known failure as failed evidence; its successful exit
 is an integrity check, not a passing behavioral adoption gate.
+The [SkillOpt exclusion observations](evals/skillopt-exclusion-forward-results.json)
+record two isolated blind decision scenarios for the current policy: rejecting a
+K Fleet target despite passing gates, and staging an explicitly selected non-K-Fleet
+candidate. These are simulated policy decisions, not live optimizer or adoption runs.
 
 ## Design principles
 

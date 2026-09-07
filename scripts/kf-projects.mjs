@@ -12,7 +12,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { homedir } from "node:os";
-import { dirname, join, parse, relative, resolve } from "node:path";
+import { basename, dirname, isAbsolute, join, parse, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -52,12 +52,13 @@ function usage() {
     "  npx k-fleet register PROJECT...",
     "  npx k-fleet unregister PROJECT...",
     "  npx k-fleet list",
-    "  npx k-fleet configure [--skillopt-repo PATH]",
+    "  npx k-fleet configure [--skillopt-repo PATH] [--target-skill-path PATH]",
     "",
     "Examples:",
     "  npx k-fleet install",
     "  npx k-fleet install ~/src/api ~/src/web",
     "  npx k-fleet update --all",
+    "  npx k-fleet configure --target-skill-path .agents/skills/my-skill/SKILL.md",
     "  npx k-fleet sleep dry-run --all -- --backend mock",
     "  npx k-fleet sleep run ~/src/api -- --backend codex --max-tasks 3",
     "",
@@ -117,26 +118,76 @@ function saveRegistry(registry) {
 }
 
 export function mergeSkillOptConfig(existing = {}) {
+  const target = typeof existing.target_skill_path === "string" &&
+    !protectedSkillPath(existing.target_skill_path)
+    ? existing.target_skill_path : "";
   return {
     ...existing,
     evolve_memory: false,
-    evolve_skill: true,
+    evolve_skill: Boolean(target) && existing.evolve_skill !== false,
     transcript_source: "codex",
-    target_skill_path: targetSkillPath,
+    target_skill_path: target,
+    multi_skill_fanout: false,
+    multi_skill_report: false,
+    auto_adopt: false,
     gate_mode: "on",
     gate_no_regression: true,
   };
 }
 
-export function buildSleepArgs(action, project, extra = []) {
+function protectedSkillPath(path) {
+  return path.split(/[\\/]/).some((part) => /^kf-/i.test(part));
+}
+
+export function validateSleepTarget(project, target) {
+  if (!target) {
+    fail("SkillOpt requires an explicitly configured non-kf-* SKILL.md target");
+  }
+  const root = realpathSync(project);
+  if (protectedSkillPath(relative(root, resolve(root, target)))) {
+    fail("SkillOpt requires an explicitly configured non-kf-* SKILL.md target");
+  }
+  const path = realpathSync(resolve(root, target));
+  const local = relative(root, path);
+  if (local.startsWith("..") || isAbsolute(local) || protectedSkillPath(local) ||
+      basename(path) !== "SKILL.md" || !statSync(path).isFile()) {
+    fail("SkillOpt target must be a non-kf-* SKILL.md inside the selected project");
+  }
+  const frontmatter = readFileSync(path, "utf8").match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  const name = frontmatter?.[1].match(/^name:\s*["']?([a-zA-Z0-9_-]+)["']?\s*$/m)?.[1];
+  if (!name || /^kf-/i.test(name)) {
+    fail("SkillOpt target must declare a non-kf-* skill name");
+  }
+  return path;
+}
+
+export function buildSleepArgs(action, project, extra = [], target = "") {
+  // Upstream adoption uses staging destinations, and scheduling drops target args.
+  // Neither action currently preserves this CLI's target boundary.
+  if (["adopt", "schedule"].includes(action)) {
+    fail("SkillOpt " + action + " is unavailable: upstream does not bind it to the validated target");
+  }
+  const valueOptions = new Set(["--backend", "--model", "--max-tasks", "--max-sessions",
+    "--lookback-hours", "--edit-budget", "--tasks-file", "--preferences", "--codex-path"]);
+  const flagOptions = new Set(["--json", "--progress"]);
+  for (let index = 0; index < extra.length; index++) {
+    const [option, inline] = extra[index].split(/=(.*)/s);
+    if (flagOptions.has(option) && inline === undefined) continue;
+    if (!valueOptions.has(option)) {
+      fail("Unsupported SkillOpt passthrough option: " + option);
+    }
+    const value = inline === undefined ? extra[++index] : inline;
+    if (!value || value.startsWith("--")) fail("Missing value for " + option);
+  }
+  const selected = ["run", "dry-run"].includes(action)
+    ? validateSleepTarget(project, target) : null;
   return [
     action,
     "--project",
     project,
     "--source",
     "codex",
-    "--target-skill-path",
-    targetSkillPath,
+    ...(selected ? ["--target-skill-path", selected] : []),
     ...extra,
   ];
 }
@@ -212,11 +263,17 @@ function resolveSkillOptRepo(registry, requestedRepo, options = {}) {
 }
 
 function configure(registry, requestedRepo, options = {}) {
+  const existing = readJson(sleepConfigPath, {});
+  if (options.target !== undefined) {
+    validateSleepTarget(process.cwd(), options.target);
+    existing.target_skill_path = options.target;
+    existing.evolve_skill = true;
+  }
   const repo = resolveSkillOptRepo(registry, requestedRepo, options);
 
   writeJson(
     sleepConfigPath,
-    mergeSkillOptConfig(readJson(sleepConfigPath, {})),
+    mergeSkillOptConfig(existing),
     true,
   );
   registry.skilloptRepo = repo;
@@ -400,8 +457,9 @@ function main(argv) {
   if (command === "configure") {
     const args = [...manager];
     const repo = takeOption(args, "--skillopt-repo");
+    const target = takeOption(args, "--target-skill-path");
     if (args.length) fail("Unexpected configure arguments: " + args.join(" "));
-    configure(registry, repo, { install: true });
+    configure(registry, repo, { install: true, ...(target ? { target } : {}) });
     return;
   }
   if (command === "bootstrap" || command === "install") {
@@ -443,9 +501,28 @@ function main(argv) {
     const projects = selectProjects(selection, registry, {
       allowAll: action !== "adopt",
     });
+    const config = readJson(sleepConfigPath, {});
+    const commands = projects.map((project) =>
+      buildSleepArgs(action, project, extra, config.target_skill_path));
+    if (["run", "dry-run"].includes(action)) {
+      if (config.evolve_skill !== true) {
+        fail("Configure an explicit non-kf-* target to enable SkillOpt optimization");
+      }
+      const safe = mergeSkillOptConfig(config);
+      for (const key of ["evolve_memory", "evolve_skill", "auto_adopt",
+        "multi_skill_fanout", "multi_skill_report", "gate_mode", "gate_no_regression"]) {
+        if (config[key] !== safe[key]) {
+          fail("Run k-fleet configure with a non-kf-* --target-skill-path before optimization");
+        }
+      }
+      // Upstream reads only its home config; do not validate one file and run another.
+      if (resolve(sleepConfigPath) !== join(homedir(), ".skillopt-sleep", "config.json")) {
+        fail("SkillOpt runtime requires the default home config path");
+      }
+    }
     const runner = getRunner(registry);
-    for (const project of projects) {
-      run("bash", [runner, ...buildSleepArgs(action, project, extra)], {
+    for (const [index, project] of projects.entries()) {
+      run("bash", [runner, ...commands[index]], {
         cwd: project,
       });
     }

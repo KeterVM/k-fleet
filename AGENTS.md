@@ -35,7 +35,8 @@ workflow behavior rather than framework-specific instructions.
   never expands permission; do not call backend REST APIs to emulate integration
   capabilities.
 - SkillOpt-Sleep performs offline trajectory mining, bounded edits, replay, and
-  held-out gates for a named skill target with memory evolution disabled. Normal
+  held-out gates for an explicitly named non-`kf-*` skill with memory evolution disabled.
+  SkillOpt must not modify K Fleet skills or their references. Normal
   task execution records evidence without rewriting the live skill.
 
 ## Conventions
@@ -119,7 +120,9 @@ claims require fresh blind runs with raw observations and judgments.
   delegation, feedback, and learning remain conditional runtime responsibilities,
   not separate catalog entries or compatibility shims.
 - Use Supermemory as the context and experience backend and SkillOpt-Sleep as the
-  offline skill optimizer. Preserve current repository sources as the conflict
+  offline optimizer only for explicitly selected non-`kf-*` skills. Never target
+  K Fleet skills or their references, including through aliases or old staging.
+  Preserve current repository sources as the conflict
   authority, enforce project/worktree isolation, and gate every adopted evolution
   so it is versioned and reversible. Supermemory owns the complete memory lifecycle;
   do not recreate its operations as K Fleet skills or adapters.

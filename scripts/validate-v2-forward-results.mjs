@@ -180,8 +180,10 @@ for (const entry of known) {
   if (entry.baseline?.skillHash !== historicalTestValueSkillHash || entry.baseline?.passed !== false) {
     fail("Known limitation must retain the failed original-source comparison");
   }
-  if (entry.unchangedEvolutionHash !== sha256(join(root, "skills/kf-orchestrate-work/references/evolution.md"))) {
-    fail("Evolution policy changed; reevaluate the known limitation");
+  // This observation predates the explicit exclusion of K Fleet from SkillOpt.
+  // Preserve its original binding; it is not evidence for the current policy.
+  if (entry.unchangedEvolutionHash !== "747333df1a8cca359efca848292e6c2a78562304429175a9ff21151ad308841a") {
+    fail("Historical evolution policy binding changed");
   }
   if (entry.baseline) validateAstraEntry({ ...entry.baseline, id: entry.id });
 }
@@ -246,8 +248,13 @@ function validateTargetedRun(label, resultsPath, reportPath, bindings, ids, evid
 
 validateTargetedRun("Historical feature-method", featureResultsPath, featureReportPath,
   historicalFeatureBindings, expectedFeatureCases, "evals/feature-method-forward");
-const disclosure = validateTargetedRun("Progressive-disclosure", disclosureResultsPath,
-  disclosureReportPath, currentBindings, expectedDisclosureCases, "evals/progressive-disclosure-forward",
+const historicalDisclosureBindings = {
+  skillHash: "f36755783ee5dac0b5560287d25e938b1873d87682abbd4598b61b9a1bd27a47",
+  reviewerHash: "4e7d26b2a98289a23b0458606fbdfc1b243ffe67e0eebc7468aabb1f3fb696cb",
+  corpusHash: "78d1fd2ed5a707a9a7a44d72eb51b3e1c9dd51cee6e63d83c3d81d470b55935e",
+};
+const disclosure = validateTargetedRun("Historical progressive-disclosure", disclosureResultsPath,
+  disclosureReportPath, historicalDisclosureBindings, expectedDisclosureCases, "evals/progressive-disclosure-forward",
   "implementation-module-conventions");
 // A one-release user decision permits shipping with this missing observation.
 // It never turns the blocked evaluation into a passing behavioral result.
@@ -255,9 +262,7 @@ const waiver = disclosure.results.releaseWaiver;
 if (disclosure.results.status !== "incomplete-release-authorized" ||
     waiver?.version !== "2.1.1" || waiver?.caseId !== "implementation-module-conventions" ||
     waiver?.skillHash !== "f36755783ee5dac0b5560287d25e938b1873d87682abbd4598b61b9a1bd27a47" ||
-    waiver?.skillHash !== skillHash ||
     waiver?.corpusHash !== "78d1fd2ed5a707a9a7a44d72eb51b3e1c9dd51cee6e63d83c3d81d470b55935e" ||
-    waiver?.corpusHash !== corpusHash ||
     waiver?.authorization !== "没事 可以都commit和 push 然后release" ||
     !disclosure.report.includes("Release 2.1.1 authorized with one blocked observation")) {
   fail("Progressive-disclosure release waiver must retain its exact user decision and source bindings");
@@ -274,6 +279,34 @@ for (const entry of controls) {
   disclosure.validateEntry(entry, historicalFeatureBindings.skillHash);
 }
 
+const exclusion = JSON.parse(readFileSync(join(root, "evals/skillopt-exclusion-forward-results.json"), "utf8"));
+if (exclusion.schemaVersion !== 1) fail("Exclusion forward results must use schemaVersion 1");
+for (const [field, expected] of Object.entries({
+  ...currentBindings,
+  cliHash: sha256(join(root, "scripts/kf-projects.mjs")),
+})) {
+  if (exclusion[field] !== expected) fail(`Exclusion forward results have stale ${field}`);
+}
+for (const field of ["method", "isolation", "writeEvidence", "limitations"]) {
+  if (typeof exclusion[field] !== "string" || !exclusion[field].trim()) {
+    fail(`Exclusion forward results must record ${field}`);
+  }
+}
+const exclusionIds = ["route-evolution-auto-adopt", "route-evolution-stage"];
+if (JSON.stringify(exclusion.cases?.map((entry) => entry.id)) !== JSON.stringify(exclusionIds)) {
+  fail("Exclusion forward results must contain protected and allowed target scenarios");
+}
+const corpus = readFileSync(corpusPath, "utf8").trim().split("\n").map(JSON.parse);
+for (const entry of exclusion.cases ?? []) {
+  if (entry.prompt !== corpus.find((item) => item.id === entry.id)?.prompt) {
+    fail(`${entry.id} exclusion prompt does not match the bound corpus`);
+  }
+  for (const field of ["rawResponse", "judgment"]) {
+    if (typeof entry[field] !== "string" || !entry[field].trim()) fail(`${entry.id} must record ${field}`);
+  }
+  if (entry.passed !== true) fail(`${entry.id} exclusion decision did not pass`);
+}
+
 if (failures.length) {
   for (const failure of failures) console.error(`FAIL: ${failure}`);
   process.exit(1);
@@ -284,6 +317,7 @@ console.log(
     `${expectedTestValueCases.length} historical test-value results and ` +
     `${expectedAstraCases.length} passing historical Astra results and ` +
     `${expectedFeatureCases.length} historical feature-method results and ` +
-    `${expectedDisclosureCases.length - 1} passing current progressive-disclosure results, 1 blocked observation with an explicit release waiver, and ${controls.length} original-source control; ` +
-    `${known.length} known baseline failure retained (not a passing adoption gate).`,
+    `${expectedDisclosureCases.length - 1} passing historical progressive-disclosure results, 1 blocked observation with a historical release waiver, and ${controls.length} original-source control; ` +
+    `${known.length} known baseline failure retained (not a passing adoption gate); ` +
+    `${exclusionIds.length} current SkillOpt exclusion decision scenarios.`,
 );

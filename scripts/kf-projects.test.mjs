@@ -20,6 +20,7 @@ import {
   buildSleepArgs,
   mergeSkillOptConfig,
   selectProjects,
+  validateSleepTarget,
 } from "./kf-projects.mjs";
 
 test("update preserves backup and refreshes the Codex SkillOpt source explicitly", () => {
@@ -72,29 +73,122 @@ test("config preserves unrelated values and enforces K Fleet boundaries", () => 
   assert.deepEqual(mergeSkillOptConfig({ model: "custom", evolve_memory: true }), {
     model: "custom",
     evolve_memory: false,
-    evolve_skill: true,
+    evolve_skill: false,
     transcript_source: "codex",
-    target_skill_path: ".agents/skills/kf-orchestrate-work/SKILL.md",
+    target_skill_path: "",
+    multi_skill_fanout: false,
+    multi_skill_report: false,
+    auto_adopt: false,
     gate_mode: "on",
     gate_no_regression: true,
   });
 });
 
 test("sleep arguments bind the target to the selected project", () => {
+  const project = realpathSync(mkdtempSync(join(tmpdir(), "kf-target-")));
+  const target = join(project, "my-skill/SKILL.md");
+  mkdirSync(dirname(target));
+  writeFileSync(target, "---\nname: my-skill\n---\nAllowed skill\n");
   assert.deepEqual(
-    buildSleepArgs("run", "/work/api", ["--backend", "codex"]),
+    buildSleepArgs("run", project, ["--backend", "codex"], "my-skill/SKILL.md"),
     [
       "run",
       "--project",
-      "/work/api",
+      project,
       "--source",
       "codex",
       "--target-skill-path",
-      ".agents/skills/kf-orchestrate-work/SKILL.md",
+      target,
       "--backend",
       "codex",
     ],
   );
+});
+
+test("old K Fleet targets are disabled while explicitly named other skills are retained", () => {
+  const old = mergeSkillOptConfig({ target_skill_path: ".agents/skills/kf-orchestrate-work/SKILL.md", evolve_skill: true });
+  assert.equal(old.target_skill_path, "");
+  assert.equal(old.evolve_skill, false);
+  const selected = mergeSkillOptConfig({ target_skill_path: ".agents/skills/my-skill/SKILL.md" });
+  assert.equal(selected.evolve_skill, true);
+  assert.equal(selected.target_skill_path, ".agents/skills/my-skill/SKILL.md");
+  assert.equal(mergeSkillOptConfig({ ...selected, evolve_skill: false }).evolve_skill, false);
+});
+
+test("configure opts in to a validated target and refuses a protected replacement without writes", () => {
+  const root = mkdtempSync(join(tmpdir(), "kf-configure-"));
+  const project = join(root, "project");
+  const repo = join(root, "SkillOpt");
+  const configPath = join(root, "config.json");
+  for (const dir of [join(project, "my-skill"), join(project, "kf-example"), join(repo, "plugins")]) {
+    mkdirSync(dir, { recursive: true });
+  }
+  writeFileSync(join(project, "my-skill/SKILL.md"), "---\nname: my-skill\n---\n");
+  writeFileSync(join(project, "kf-example/SKILL.md"), "---\nname: kf-example\n---\n");
+  writeFileSync(join(repo, "plugins/run-sleep.sh"), "#!/bin/sh\nexit 99\n");
+  writeFileSync(configPath, JSON.stringify({ model: "custom", evolve_skill: false, target_skill_path: "" }));
+  const env = { ...process.env, KFLEET_STATE_DIR: join(root, "state"), SKILLOPT_SLEEP_CONFIG: configPath };
+  const invoke = (target) => spawnSync(process.execPath, [
+    join(dirname(fileURLToPath(import.meta.url)), "kf-projects.mjs"),
+    "configure", "--skillopt-repo", repo, "--target-skill-path", target,
+  ], { cwd: project, env, encoding: "utf8" });
+  const allowed = invoke("my-skill/SKILL.md");
+  assert.equal(allowed.status, 0, allowed.stderr);
+  const saved = readFileSync(configPath, "utf8");
+  const config = JSON.parse(saved);
+  assert.equal(config.target_skill_path, "my-skill/SKILL.md");
+  assert.equal(config.evolve_skill, true);
+  assert.equal(config.model, "custom");
+  assert.equal(config.auto_adopt, false);
+  const rejected = invoke("kf-example/SKILL.md");
+  assert.notEqual(rejected.status, 0);
+  assert.match(rejected.stderr, /non-kf-/);
+  assert.equal(readFileSync(configPath, "utf8"), saved);
+});
+
+test("sleep refuses a legacy K Fleet target before executing the upstream runner", () => {
+  const root = mkdtempSync(join(tmpdir(), "kf-refusal-"));
+  const configPath = join(root, "config.json");
+  const original = JSON.stringify({ evolve_skill: true, target_skill_path: ".agents/skills/kf-orchestrate-work/SKILL.md" });
+  writeFileSync(configPath, original);
+  const result = spawnSync(process.execPath, [
+    join(dirname(fileURLToPath(import.meta.url)), "kf-projects.mjs"), "sleep", "run", root,
+  ], {
+    encoding: "utf8",
+    env: { ...process.env, KFLEET_STATE_DIR: join(root, "state"), SKILLOPT_SLEEP_CONFIG: configPath, SKILLOPT_SLEEP_REPO: join(root, "missing-runner") },
+  });
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /non-kf-/);
+  assert.doesNotMatch(result.stderr, /runner not found/);
+  assert.equal(readFileSync(configPath, "utf8"), original);
+});
+
+test("optimization rejects protected names, symlinks, outside paths and absent targets", () => {
+  const project = mkdtempSync(join(tmpdir(), "kf-protected-"));
+  const protectedDir = join(project, "kf-example");
+  mkdirSync(protectedDir);
+  writeFileSync(join(protectedDir, "SKILL.md"), "---\nname: kf-example\n---\n");
+  symlinkSync(protectedDir, join(project, "alias"));
+  mkdirSync(join(project, "renamed"));
+  writeFileSync(join(project, "renamed/SKILL.md"), "---\nname: 'kf-example'\n---\n");
+  for (const path of ["", "kf-example/SKILL.md", "alias/SKILL.md", "renamed/SKILL.md"]) {
+    assert.throws(() => validateSleepTarget(project, path), /non-kf-/);
+  }
+  const outside = mkdtempSync(join(tmpdir(), "other-skill-"));
+  writeFileSync(join(outside, "SKILL.md"), "---\nname: other-skill\n---\n");
+  assert.throws(() => validateSleepTarget(project, join(outside, "SKILL.md")), /inside the selected project/);
+  assert.throws(() => buildSleepArgs("run", project), /explicitly configured/);
+});
+
+test("unbound adoption, scheduling and passthrough overrides fail before runner invocation", () => {
+  for (const action of ["adopt", "schedule"]) {
+    assert.throws(() => buildSleepArgs(action, "/unused"), /upstream does not bind/);
+  }
+  for (const extra of [["--target-skill-path=x"], ["--project", "/other"], ["--scope=all"],
+    ["--auto-adopt"], ["--auto"], ["--skill-root=x"], ["--source=claude"], ["--all"]]) {
+    assert.throws(() => buildSleepArgs("status", "/unused", extra), /Unsupported/);
+  }
+  assert.deepEqual(buildSleepArgs("status", "/project"), ["status", "--project", "/project", "--source", "codex"]);
 });
 
 test("bulk adoption requires explicit project paths", () => {
@@ -182,7 +276,7 @@ test("install prepares SkillOpt and every selected project", () => {
   const config = JSON.parse(readFileSync(sleepConfig, "utf8"));
   assert.equal(
     config.target_skill_path,
-    ".agents/skills/kf-orchestrate-work/SKILL.md",
+    "",
   );
   assert.equal(readFileSync(log, "utf8").trim().split("\n").length, 4);
   for (const project of projects) {
