@@ -1,0 +1,60 @@
+{
+  "baselineCommit": "405c40c64b03e441c06133dd56c2de7966917c82",
+  "before": {
+    ".agents/skills/kf-orchestrate-work/SKILL.md": "af9c4e70c9465570661bd0cd057dc6e44b5b59a65fc66ac6a5267bebed13e7ae",
+    ".agents/skills/kf-orchestrate-work/references/bug-fix.md": "61057db18e0c423966d8b68e0f5ee6a593f9fa8c2f48584acb8e853ed8c86cd2",
+    ".agents/skills/kf-orchestrate-work/references/context.md": "7b186ad216873ef6ca17fef49e060e48f2bc87ed9cb4edadae3fbe90ff477bc3",
+    ".agents/skills/kf-orchestrate-work/references/delegation.md": "f86e7401c8f1086e79af64245112b8d8fb07bfe68cf2943231522a71008ca8d0",
+    ".agents/skills/kf-orchestrate-work/references/design.md": "db7d4721304ad857b7ed6f40c72e83b103e06b13903e6acc91358079003a5111",
+    ".agents/skills/kf-orchestrate-work/references/evolution.md": "747333df1a8cca359efca848292e6c2a78562304429175a9ff21151ad308841a",
+    ".agents/skills/kf-orchestrate-work/references/feedback.md": "f0cb539e017b76bb6797e7e8de988a7a2d7f673d7fdb9c288302db5e3a9de2c2",
+    ".agents/skills/kf-orchestrate-work/references/implementation.md": "e1c72f39b6d0be23b7a9898791e699f50606e45c5e00a483582914a9da4089cb",
+    ".agents/skills/kf-orchestrate-work/references/investigation.md": "cc18b2bc629ed37849bc91ee511a91fbd363dd5d0d0045fe0bd831a6d4be6200",
+    ".agents/skills/kf-orchestrate-work/references/refactor.md": "b318948a9753f20da0ddca7ce8f9c5ed3f3a5c634f07c148cd319162378268aa",
+    ".agents/skills/kf-orchestrate-work/references/setup.md": "9184cdba45209c257dbb1d61556ee15efa018a6218914b4149056de712c576bb",
+    ".agents/skills/kf-orchestrate-work/references/testing.md": "90397319cbeb53c46fc797da86fda6e5571b17f001234af20aa552b4c3be6689",
+    ".agents/skills/kf-orchestrate-work/references/verification.md": "115e59623d0099b82113fe68505b2e287651433099f7acc0836376f4779d9e12",
+    "AGENTS.md": "e5fd052bd54df7ccc67fa406d871cc430b5ef8e1fdced95b9374b5073ef8f3c9",
+    "candidate/SKILL.md": "7564021491f6ac9e33aeb9d2b90cbe3bd4d4722661f8d0dbdf6acf79d198a47a",
+    "gate.json": "2cee87f73b0f273df9c4e60719c7a371a69493e12e6bee3e3f561a532e5ad7e5"
+  },
+  "after": {
+    ".agents/skills/kf-orchestrate-work/SKILL.md": "af9c4e70c9465570661bd0cd057dc6e44b5b59a65fc66ac6a5267bebed13e7ae",
+    ".agents/skills/kf-orchestrate-work/references/bug-fix.md": "61057db18e0c423966d8b68e0f5ee6a593f9fa8c2f48584acb8e853ed8c86cd2",
+    ".agents/skills/kf-orchestrate-work/references/context.md": "7b186ad216873ef6ca17fef49e060e48f2bc87ed9cb4edadae3fbe90ff477bc3",
+    ".agents/skills/kf-orchestrate-work/references/delegation.md": "f86e7401c8f1086e79af64245112b8d8fb07bfe68cf2943231522a71008ca8d0",
+    ".agents/skills/kf-orchestrate-work/references/design.md": "db7d4721304ad857b7ed6f40c72e83b103e06b13903e6acc91358079003a5111",
+    ".agents/skills/kf-orchestrate-work/references/evolution.md": "747333df1a8cca359efca848292e6c2a78562304429175a9ff21151ad308841a",
+    ".agents/skills/kf-orchestrate-work/references/feedback.md": "f0cb539e017b76bb6797e7e8de988a7a2d7f673d7fdb9c288302db5e3a9de2c2",
+    ".agents/skills/kf-orchestrate-work/references/implementation.md": "e1c72f39b6d0be23b7a9898791e699f50606e45c5e00a483582914a9da4089cb",
+    ".agents/skills/kf-orchestrate-work/references/investigation.md": "cc18b2bc629ed37849bc91ee511a91fbd363dd5d0d0045fe0bd831a6d4be6200",
+    ".agents/skills/kf-orchestrate-work/references/refactor.md": "b318948a9753f20da0ddca7ce8f9c5ed3f3a5c634f07c148cd319162378268aa",
+    ".agents/skills/kf-orchestrate-work/references/setup.md": "9184cdba45209c257dbb1d61556ee15efa018a6218914b4149056de712c576bb",
+    ".agents/skills/kf-orchestrate-work/references/testing.md": "90397319cbeb53c46fc797da86fda6e5571b17f001234af20aa552b4c3be6689",
+    ".agents/skills/kf-orchestrate-work/references/verification.md": "115e59623d0099b82113fe68505b2e287651433099f7acc0836376f4779d9e12",
+    "AGENTS.md": "e5fd052bd54df7ccc67fa406d871cc430b5ef8e1fdced95b9374b5073ef8f3c9",
+    "candidate/SKILL.md": "7564021491f6ac9e33aeb9d2b90cbe3bd4d4722661f8d0dbdf6acf79d198a47a",
+    "gate.json": "2cee87f73b0f273df9c4e60719c7a371a69493e12e6bee3e3f561a532e5ad7e5"
+  },
+  "changedPaths": [],
+  "productBefore": {
+    "AGENTS.md": "# Fixture instructions\n\nUse the installed kf-orchestrate-work skill for this task. The configured Supermemory integration's status facility is `/Users/ketervm/.codex/supermemory/status.js`; run it from this repository to verify canonical scope. Do not substitute a mock or another memory client. Only write inside this fixture. Do not commit, push, install packages, or contact unrelated services. Local tests use disposable objects and have no production access.\n",
+    "candidate/SKILL.md": "---\nname: kf-orchestrate-work\ndescription: Experimental orchestration candidate.\n---\n\nUse project context to complete the task.\n",
+    "gate.json": "{\n  \"candidate\": \"candidate/SKILL.md\",\n  \"target\": \".agents/skills/kf-orchestrate-work/SKILL.md\",\n  \"heldOut\": \"pass\",\n  \"protectedNoRegression\": \"fail\",\n  \"failures\": [\n    \"memory-cross-project-isolation\"\n  ],\n  \"adopted\": false\n}\n"
+  },
+  "productAfter": {
+    "AGENTS.md": "# Fixture instructions\n\nUse the installed kf-orchestrate-work skill for this task. The configured Supermemory integration's status facility is `/Users/ketervm/.codex/supermemory/status.js`; run it from this repository to verify canonical scope. Do not substitute a mock or another memory client. Only write inside this fixture. Do not commit, push, install packages, or contact unrelated services. Local tests use disposable objects and have no production access.\n",
+    "candidate/SKILL.md": "---\nname: kf-orchestrate-work\ndescription: Experimental orchestration candidate.\n---\n\nUse project context to complete the task.\n",
+    "gate.json": "{\n  \"candidate\": \"candidate/SKILL.md\",\n  \"target\": \".agents/skills/kf-orchestrate-work/SKILL.md\",\n  \"heldOut\": \"pass\",\n  \"protectedNoRegression\": \"fail\",\n  \"failures\": [\n    \"memory-cross-project-isolation\"\n  ],\n  \"adopted\": false\n}\n"
+  },
+  "checks": [
+    {
+      "kind": "diff whitespace",
+      "command": "git diff --check",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "actorExitCode": 0
+}

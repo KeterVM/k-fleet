@@ -14,8 +14,10 @@ read-only exploration, specialist evidence, or a deterministic isolated write.
   surfaces, conflict resolution, and final completion.
 - Treat agent output as evidence. Inspect it against the current artifact and direct
   evidence; resolve disagreement by evidence rather than majority vote.
-- A writer does not independently verify its own result. Start fresh review only
-  after integrated writes stop.
+- Writers validate their own changes; their checks do not constitute independent
+  review. Use a fresh reviewer when requested or justified by risk. Bind review to
+  a concrete artifact version and reassess affected findings after later changes;
+  unrelated writes need not block review of a stable artifact.
 
 If the requested agent, model, mechanism, or independence is unavailable, report
 that limitation and never claim the delegation occurred.

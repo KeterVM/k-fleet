@@ -1,0 +1,74 @@
+{
+  "baselineCommit": "b45ac21b9370ce56b90ff88db3e21e0e7cb213fd",
+  "before": {
+    ".agents/skills/kf-orchestrate-work/SKILL.md": "af9c4e70c9465570661bd0cd057dc6e44b5b59a65fc66ac6a5267bebed13e7ae",
+    ".agents/skills/kf-orchestrate-work/references/bug-fix.md": "61057db18e0c423966d8b68e0f5ee6a593f9fa8c2f48584acb8e853ed8c86cd2",
+    ".agents/skills/kf-orchestrate-work/references/context.md": "7b186ad216873ef6ca17fef49e060e48f2bc87ed9cb4edadae3fbe90ff477bc3",
+    ".agents/skills/kf-orchestrate-work/references/delegation.md": "f86e7401c8f1086e79af64245112b8d8fb07bfe68cf2943231522a71008ca8d0",
+    ".agents/skills/kf-orchestrate-work/references/design.md": "db7d4721304ad857b7ed6f40c72e83b103e06b13903e6acc91358079003a5111",
+    ".agents/skills/kf-orchestrate-work/references/evolution.md": "747333df1a8cca359efca848292e6c2a78562304429175a9ff21151ad308841a",
+    ".agents/skills/kf-orchestrate-work/references/feedback.md": "f0cb539e017b76bb6797e7e8de988a7a2d7f673d7fdb9c288302db5e3a9de2c2",
+    ".agents/skills/kf-orchestrate-work/references/implementation.md": "e1c72f39b6d0be23b7a9898791e699f50606e45c5e00a483582914a9da4089cb",
+    ".agents/skills/kf-orchestrate-work/references/investigation.md": "cc18b2bc629ed37849bc91ee511a91fbd363dd5d0d0045fe0bd831a6d4be6200",
+    ".agents/skills/kf-orchestrate-work/references/refactor.md": "b318948a9753f20da0ddca7ce8f9c5ed3f3a5c634f07c148cd319162378268aa",
+    ".agents/skills/kf-orchestrate-work/references/setup.md": "9184cdba45209c257dbb1d61556ee15efa018a6218914b4149056de712c576bb",
+    ".agents/skills/kf-orchestrate-work/references/testing.md": "90397319cbeb53c46fc797da86fda6e5571b17f001234af20aa552b4c3be6689",
+    ".agents/skills/kf-orchestrate-work/references/verification.md": "115e59623d0099b82113fe68505b2e287651433099f7acc0836376f4779d9e12",
+    "AGENTS.md": "e5fd052bd54df7ccc67fa406d871cc430b5ef8e1fdced95b9374b5073ef8f3c9",
+    "package.json": "8bf23ab8a2ae4b669fc1132b0f6492518a45894d24ff90389474bf527982abf1",
+    "src/payout-fee.js": "3f7e888f135cc80e067b0676deb5fe4d4a7057ac12f42591e61eb270a2e5f632",
+    "test/payout-fee.test.js": "5629161aef2c47ee04d06ba0244cfdb9b274f8f8c6af06ac32d42be0a5196204"
+  },
+  "after": {
+    ".agents/skills/kf-orchestrate-work/SKILL.md": "af9c4e70c9465570661bd0cd057dc6e44b5b59a65fc66ac6a5267bebed13e7ae",
+    ".agents/skills/kf-orchestrate-work/references/bug-fix.md": "61057db18e0c423966d8b68e0f5ee6a593f9fa8c2f48584acb8e853ed8c86cd2",
+    ".agents/skills/kf-orchestrate-work/references/context.md": "7b186ad216873ef6ca17fef49e060e48f2bc87ed9cb4edadae3fbe90ff477bc3",
+    ".agents/skills/kf-orchestrate-work/references/delegation.md": "f86e7401c8f1086e79af64245112b8d8fb07bfe68cf2943231522a71008ca8d0",
+    ".agents/skills/kf-orchestrate-work/references/design.md": "db7d4721304ad857b7ed6f40c72e83b103e06b13903e6acc91358079003a5111",
+    ".agents/skills/kf-orchestrate-work/references/evolution.md": "747333df1a8cca359efca848292e6c2a78562304429175a9ff21151ad308841a",
+    ".agents/skills/kf-orchestrate-work/references/feedback.md": "f0cb539e017b76bb6797e7e8de988a7a2d7f673d7fdb9c288302db5e3a9de2c2",
+    ".agents/skills/kf-orchestrate-work/references/implementation.md": "e1c72f39b6d0be23b7a9898791e699f50606e45c5e00a483582914a9da4089cb",
+    ".agents/skills/kf-orchestrate-work/references/investigation.md": "cc18b2bc629ed37849bc91ee511a91fbd363dd5d0d0045fe0bd831a6d4be6200",
+    ".agents/skills/kf-orchestrate-work/references/refactor.md": "b318948a9753f20da0ddca7ce8f9c5ed3f3a5c634f07c148cd319162378268aa",
+    ".agents/skills/kf-orchestrate-work/references/setup.md": "9184cdba45209c257dbb1d61556ee15efa018a6218914b4149056de712c576bb",
+    ".agents/skills/kf-orchestrate-work/references/testing.md": "90397319cbeb53c46fc797da86fda6e5571b17f001234af20aa552b4c3be6689",
+    ".agents/skills/kf-orchestrate-work/references/verification.md": "115e59623d0099b82113fe68505b2e287651433099f7acc0836376f4779d9e12",
+    "AGENTS.md": "e5fd052bd54df7ccc67fa406d871cc430b5ef8e1fdced95b9374b5073ef8f3c9",
+    "package.json": "8bf23ab8a2ae4b669fc1132b0f6492518a45894d24ff90389474bf527982abf1",
+    "src/payout-fee.js": "6ea08cb0c0fbc82ed4b3fe42181b82268e4f8372f38eb5b4cdee69e10b39bbb2",
+    "test/payout-fee.test.js": "3cb3a8fa52293f098bf2a079ed8904ea61866ceac8f61ce3bee00bcad631fcc2"
+  },
+  "changedPaths": [
+    "src/payout-fee.js",
+    "test/payout-fee.test.js"
+  ],
+  "productBefore": {
+    "AGENTS.md": "# Fixture instructions\n\nUse the installed kf-orchestrate-work skill for this task. The configured Supermemory integration's status facility is `/Users/ketervm/.codex/supermemory/status.js`; run it from this repository to verify canonical scope. Do not substitute a mock or another memory client. Only write inside this fixture. Do not commit, push, install packages, or contact unrelated services. Local tests use disposable objects and have no production access.\n",
+    "package.json": "{\n  \"private\": true,\n  \"type\": \"module\",\n  \"scripts\": {\n    \"test\": \"node --test\"\n  }\n}\n",
+    "src/payout-fee.js": "export function payoutFee(amount) {\n  return 0;\n}\n",
+    "test/payout-fee.test.js": "import { test } from 'node:test';\nimport assert from 'node:assert/strict';\nimport { payoutFee } from '../src/payout-fee.js';\ntest('below tier', () => assert.equal(payoutFee(99), 0));\n"
+  },
+  "productAfter": {
+    "AGENTS.md": "# Fixture instructions\n\nUse the installed kf-orchestrate-work skill for this task. The configured Supermemory integration's status facility is `/Users/ketervm/.codex/supermemory/status.js`; run it from this repository to verify canonical scope. Do not substitute a mock or another memory client. Only write inside this fixture. Do not commit, push, install packages, or contact unrelated services. Local tests use disposable objects and have no production access.\n",
+    "package.json": "{\n  \"private\": true,\n  \"type\": \"module\",\n  \"scripts\": {\n    \"test\": \"node --test\"\n  }\n}\n",
+    "src/payout-fee.js": "export function payoutFee(amount) {\n  if (amount < 100) return 0;\n  // The selected tier applies to the full payout amount.\n  const percentage = amount < 1000 ? 2 : 5;\n  return (amount * percentage) / 100;\n}\n",
+    "test/payout-fee.test.js": "import { test } from 'node:test';\nimport assert from 'node:assert/strict';\nimport { payoutFee } from '../src/payout-fee.js';\n\nfor (const [amount, expectedFee] of [\n  [0, 0],\n  [99, 0],\n  [100, 2],\n  [101, 2.02],\n  [500, 10],\n  [999, 19.98],\n  [1000, 50],\n  [1001, 50.05],\n  [2000, 100],\n]) {\n  test(`payout fee for ${amount} is ${expectedFee}`, () => {\n    assert.equal(payoutFee(amount), expectedFee);\n  });\n}\n"
+  },
+  "checks": [
+    {
+      "kind": "withheld post-run assertion",
+      "command": "import assert from 'node:assert/strict'; import {payoutFee} from './src/payout-fee.js'; for(const [x,y] of [[0,0],[99,0],[100,2],[101,2.02],[999,19.98],[1000,50],[1001,50.05]]) assert.ok(Math.abs(payoutFee(x)-y)<1e-10); console.log('seven fee boundaries passed');",
+      "exitCode": 0,
+      "stdout": "seven fee boundaries passed\n",
+      "stderr": ""
+    },
+    {
+      "kind": "diff whitespace",
+      "command": "git diff --check",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "actorExitCode": 0
+}

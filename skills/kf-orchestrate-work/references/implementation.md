@@ -3,44 +3,25 @@
 Use this route for new or intentionally changed observable behavior.
 
 1. Confirm the outcome, compatibility expectations, acceptance evidence, and any
-   accepted design contract. Revalidate design facts before editing.
-2. Inspect the relevant area and multiple analogous implementations when available.
-   Trace the end-to-end success, failure, cancellation, retry, and disposal paths
-   through every affected caller, boundary, state transition, and consumer.
-3. Apply the proportional [engineering checkpoint](design.md) before mutation. It
-   is mandatory for a cross-boundary or ownership, protocol, persistence,
-   concurrency, or lifecycle change and remains part of this implementation route.
-4. Choose the smallest complete implementation. Smallest does not mean the fewest
-   files or the shortest patch: each responsibility needs a clear owner and each
-   abstraction must protect a boundary, invariant, test seam, or repeated repository
-   pattern. Reject forwarding-only layers, duplicated mapping, mixed transport and
-   domain policy, speculative extension points, and convenience wrappers without
-   evidence. Do not avoid a necessary abstraction merely to reduce the diff.
-5. Decide whether to compose the TDD mode using [testing](testing.md). An explicit
-   user request is a strong signal and an authoritative repository requirement is
-   binding, but neither is the only reason to use TDD. Choose it proactively when a
-   stable public seam can give early feedback on meaningful, well-defined behavior
-   with material uncertainty or regression cost, such as defect reproduction,
-   branching rules, state or lifecycle transitions, or critical boundaries. Skip
-   it when the test would only freeze a mechanical or presentational change, when
-   cheaper evidence is sufficient, or when test setup would outweigh the risk it
-   reduces. State the proportional rationale briefly. This route retains product
-   scope and production-structure ownership.
-6. Implement coherent vertical slices. Add or update a test only when it protects a
-   meaningful behavior or risk that cheaper existing evidence would miss: name the
-   plausible regression and exercise a credible public seam. Do not create tests
-   merely to freeze unconditional presentation, static copy, incidental markup,
-   pass-through field wiring, or implementation structure; use proportionate
-   typechecking, static analysis, build, focused diff inspection, or UI inspection
-   for those changes. When deleting or consolidating code, trace every reference and
-   replace removed valuable coverage or record why equivalent public coverage
-   already exists.
+   accepted design contract. Revalidate material facts that may have changed.
+2. Inspect directly affected contracts and execution paths. Expand to callers,
+   consumers, analogous implementations, and failure or lifecycle paths when the
+   change's risk or repository evidence requires it.
+3. Apply the [engineering checkpoint](design.md) before editing when the change has
+   material architectural, compatibility, data-integrity, or lifecycle risk.
+4. Choose the smallest complete implementation. Each responsibility needs a clear
+   owner; abstractions should protect a boundary, invariant, test seam, or established
+   repository pattern. Avoid speculative layers without avoiding necessary structure.
+5. Use [testing](testing.md) when adding or changing tests or deciding whether
+   test-first feedback is valuable. Match validation to meaningful regression risk;
+   mechanical or presentational changes may need only non-test evidence.
+6. Implement coherent vertical slices. When deleting or consolidating code, trace
+   affected references and preserve valuable coverage through equivalent public
+   evidence.
 7. Inspect the integrated diff for misplaced responsibility, reversed dependencies,
    duplicate representations, orphaned paths, and unsafe lifecycle ordering. Run
-   focused behavior tests for changed contracts and failure paths plus proportionate
-   broader checks. Static analysis, formatting, compilation, and generated-code
-   success are supporting evidence, not sufficient behavior evidence by themselves.
+   validation that can detect mistakes in the changed contract. Runtime behavior
+   changes need evidence exercising that behavior; mechanical or presentational
+   changes may use static checks, focused diff inspection, or direct UI inspection.
 
-Report the observable result, changed boundaries, behavior evidence, broader checks,
-deviations from an accepted design, and residual uncertainty. Include the engineering
-checkpoint's decision recap when it applied.
+Report the result, decisive validation, and material limitations or deviations.

@@ -105,6 +105,10 @@ for (const id of [
   "method-tdd-by-risk",
   "method-no-low-value-ui-test",
   "bug-fix-cross-boundary-engineering",
+  "review-green-tests-uncovered-trigger",
+  "refactor-unrelated-baseline-failure",
+  "method-writer-self-validation",
+  "route-evolution-automatic-gate-failure",
 ]) {
   if (!ids.has(id)) fail(`Orchestrator corpus does not cover ${id}`);
 }

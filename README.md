@@ -54,8 +54,10 @@ Substantial work stops when the orchestrator or Supermemory integration is unava
   not current behavior claims.
 - `evals/v2-release-forward-results.json` and its report preserve the bounded blind
   smoke evidence for the exact v2 release sources they name.
-- `evals/test-value-forward-results.json` and its report contain the current paired,
-  source-bound blind observations for risk-driven TDD selection and skipping.
+- `evals/test-value-forward-results.json` and its report preserve the historical
+  source-bound observations for risk-driven TDD selection and skipping.
+- `evals/astra-forward-results.json` and its report bind current prompt
+  simplification observations to the skill, reviewer, corpus, and raw evidence.
 - `scripts/validate-repository-structure.mjs` checks packaging, installed copies,
   links, placeholders, and the companion agent.
 - `scripts/validate-orchestrator-evals.mjs` lints the current orchestration corpus;
@@ -201,22 +203,29 @@ The user describes the outcome normally. K Fleet performs this loop:
 1. Resolve repository, worktree, working directory, authority, and stopping state.
 2. Retrieve focused project context from Supermemory.
 3. Select and load only the required workflow references.
-4. Establish proportional engineering reasoning before mutation: a decisive
-   constraint for local edits, or a compact responsibility, flow, tradeoff, failure,
-   and test contract for cross-boundary changes.
+4. Identify affected invariants and validation before materially risky changes.
+   Explain consequential tradeoffs when useful; routine edits do not require an
+   engineering report or a fixed number of alternatives.
 5. Execute directly or delegate bounded evidence/work with non-overlapping writes.
 6. Validate the integrated artifact with evidence proportionate to the changed
    contract. Choose TDD when test-first feedback materially reduces uncertainty or
    regression risk at a stable behavior seam, and skip it when cheaper evidence is
    sufficient. Add tests only for meaningful behavior or regression risk; do not
    manufacture low-value tests for unconditional presentation or mechanical field
-   wiring. Then report a terminal state.
+   wiring. After relevant checks pass, expand or repeat them only for new changes,
+   failures, or unresolved risk.
 7. Report a compact, sanitized terminal outcome for Supermemory's automatic capture
    and later evolution.
 
 Explicit post-work feedback reporting is also routed through the orchestrator; it
 is no longer a separate skill. Context maintenance and learning are runtime
 responsibilities rather than catalog entries.
+
+Authorization follows the requested outcome across investigation, implementation,
+and validation. Route transitions do not require renewed approval; analysis-only
+and review-only requests remain read-only. Writers check their own changes, while
+independent review is used when requested or justified by risk. Passing tests rebut
+a review finding only when they exercise its trigger and invariant.
 
 ## Evolution contract
 
@@ -238,7 +247,8 @@ new behavioral quality claims about the cutover architecture.
 
 ## Validation
 
-Run:
+Use the change-to-check mapping in [AGENTS.md](AGENTS.md#validation) for focused
+work. Before release or changes spanning multiple surfaces, run:
 
 ```sh
 node scripts/validate-repository-structure.mjs
@@ -249,10 +259,15 @@ cd examples/fleet-ledger && npm test
 ```
 
 The structure and corpus validators are deterministic lint. The v2 forward-results
-validator protects the recorded release hashes and authenticates the current paired
-test-value observations against current hashes; it does not re-execute Codex or
+validator protects historical release and test-value bindings and checks current
+prompt observations against source and evidence hashes; it does not re-execute Codex or
 substitute for broader behavioral evaluation with the installed Codex, Supermemory,
 and SkillOpt runtimes.
+
+The [current forward report](evals/ASTRA_FORWARD_TEST_REPORT.md) records eight bounded
+passes and one explicit-user-override failure reproduced on the original source.
+The validator retains that known failure as failed evidence; its successful exit
+is an integrity check, not a passing behavioral adoption gate.
 
 ## Design principles
 

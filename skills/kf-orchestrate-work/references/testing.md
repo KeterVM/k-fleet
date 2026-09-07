@@ -49,8 +49,8 @@ validation when requirements are still exploratory, the change is mechanical or
 presentational, existing evidence already covers the risk, or the test harness cost
 is greater than the uncertainty it removes. The existence of nearby tests, a generic
 request to run relevant checks, or observable change by itself is not a reason to use
-TDD. Apply the test value gate to every slice and briefly record why TDD was selected
-or skipped.
+TDD. Explain the choice only when it affects confidence or departs from an agreed
+workflow; no per-slice rationale is required.
 
 For each observable vertical slice:
 

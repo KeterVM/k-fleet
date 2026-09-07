@@ -3,17 +3,20 @@
 Use this route for an internal structural improvement with unchanged observable
 behavior.
 
-1. Define the concrete maintainability target and the public behavior that must
-   remain stable.
-2. Establish a passing baseline from existing checks and inspect affected contracts,
-   exports, errors, formats, ordering, side effects, and performance-sensitive paths.
-3. Apply the proportional [engineering checkpoint](design.md) before mutation when
-   the restructure crosses a boundary or changes ownership, protocols, persistence,
-   concurrency, or lifecycle ordering. The refactor route retains equivalence scope.
+1. Define the concrete maintainability target and public behavior that must remain
+   stable.
+2. Record the baseline from relevant existing checks and inspect affected contracts
+   and performance-sensitive paths. Distinguish pre-existing failures from this
+   change; unrelated failures do not require fixing old debt. If a baseline cannot
+   run, report the limitation and use available evidence that can detect accidental
+   behavior changes.
+3. Apply the [engineering checkpoint](design.md) before editing when the restructure
+   has material architectural, compatibility, data-integrity, or lifecycle risk.
 4. Restructure one coherent unit using established repository patterns. Keep the
    change reversible and avoid speculative generalization or unrelated cleanup.
-5. Re-run equivalence evidence, proportionate broader checks, and inspect the final
-   diff for accidental behavior changes.
+5. Re-run equivalence evidence and inspect the final diff for accidental behavior
+   changes. Broaden checks only where risk or new evidence warrants it.
 
 If the requested result intentionally changes behavior, use implementation. If the
-baseline already violates an accepted contract, use bug fix.
+target behavior violates an accepted contract and correction is authorized, use bug
+fix for that correction.

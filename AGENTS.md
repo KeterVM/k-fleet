@@ -32,8 +32,10 @@ workflow behavior rather than framework-specific instructions.
   architecture unless explicitly regenerated against the current source hash.
 - `evals/v2-release-forward-results.json` and its report preserve the bounded blind
   release smoke observations bound to their exact v2 skill and corpus hashes.
-- `evals/test-value-forward-results.json` and its report contain the current paired,
-  source-bound blind observations for risk-driven TDD selection and skipping.
+- `evals/test-value-forward-results.json` and its report preserve historical
+  source-bound observations for risk-driven TDD selection and skipping.
+- `evals/astra-forward-results.json` and its report bind the current prompt
+  simplification observations to the skill, reviewer, corpus, and raw evidence.
 - `scripts/validate-repository-structure.mjs` validates packaging, references,
   installed copies, companion agents, links, placeholders, and documentation.
 - `scripts/validate-orchestrator-evals.mjs` lints the current corpus without
@@ -52,24 +54,22 @@ workflow behavior rather than framework-specific instructions.
 
 - `kf-orchestrate-work` owns task routing, authority, selected workflow execution,
   delegation, integration, validation, terminal evidence, and final task state.
-- Supermemory owns scoped source documents, extracted facts, inferences,
-  preferences, terminal episodes, versioned updates, forgetting, and memory review.
-  It supplies evidence and never expands permission or silently overrides a current
-  scoped repository source. K Fleet must not ship fallback memory skills, implement
-  a second memory client, or call backend REST APIs to emulate a missing integration.
+- Backend ownership, source authority, isolation, and evolution boundaries are
+  recorded in [Learned Rules](#learned-rules). Supermemory supplies evidence and
+  never expands permission; do not call backend REST APIs to emulate integration
+  capabilities.
 - Conditional references hold detailed methods. Keep the entry point concise and
   link each reference at its decision point; do not recreate public method skills.
-- SkillOpt-Sleep owns offline trajectory mining, bounded candidate edits, replay,
-  and held-out gates for an explicitly named skill target. Keep its memory evolution
-  disabled because Supermemory owns memory consolidation. Normal task execution
-  records evidence but does not rewrite the live skill in the hot path.
-- The reviewer is advisory and read-only. The orchestrator retains correction,
-  integration, conflict resolution, and completion.
+- SkillOpt-Sleep performs offline trajectory mining, bounded edits, replay, and
+  held-out gates for a named skill target with memory evolution disabled. Normal
+  task execution records evidence without rewriting the live skill.
+- The orchestrator retains correction, integration, conflict resolution, and
+  completion when using the optional reviewer described in Learned Rules.
 
 ## Conventions
 
-- Keep exactly one installable K Fleet skill unless real evaluated usage justifies
-  a deliberate public-surface change.
+- Public-surface and setup constraints are recorded in Learned Rules; a surface
+  change needs evaluated usage and a deliberate policy decision.
 - Prefix the skill directory and frontmatter name with `kf-`; keep directory and
   frontmatter names identical.
 - Use only supported `name` and `description` frontmatter unless a verified need
@@ -79,17 +79,11 @@ workflow behavior rather than framework-specific instructions.
 - Put bootstrap, routing, authority, stopping, and reference-selection rules in
   `SKILL.md`. Put substantial route procedures and backend-specific contracts in
   purpose-labelled references.
-- Guard `/kf-orchestrate-work setup` with a successful scoped Supermemory runtime
-  check before any target write. When the integration is missing or unready, make
-  no project change, direct the user to install or configure it, and stop. Setup
-  must preserve unrelated guidance and must not install or globally configure the
-  memory backend itself.
-- Preserve the hard cutover: do not restore standalone context-maintenance,
-  learning, delegation, feedback, or primary workflow skills as compatibility
-  shims. Recover a missing invariant inside the orchestrator or its reference.
-- Require Supermemory to derive scope from canonical repository and worktree
-  identity. Treat recalled inferences as unapproved evidence and leave memory
-  promotion, update, rejection, forgetting, and rollback to that integration.
+- Setup must preserve unrelated guidance and must not install or globally configure
+  the memory backend itself. Recover missing workflow invariants inside the
+  orchestrator or its references.
+- Supermemory derives scope from canonical repository and worktree identity;
+  recalled inferences remain unapproved evidence.
 - Test orchestration through observable route, method, sequence, authority,
   stopping, memory-isolation, and evolution-gate decisions rather than exact prose.
 - Do not transfer historical behavioral scores to the cutover architecture. New
@@ -113,12 +107,20 @@ installation block.
 
 ## Validation
 
-For every change, verify frontmatter, directory/name agreement, reference routing,
-broken links, placeholders, README accuracy, installed fixture parity, and reviewer
-parity. Treat structural lint, corpus lint, fixture tests, and independent behavioral
-evaluation as distinct evidence.
+Keep frontmatter, directory/name agreement, reference routing, links, placeholders,
+README accuracy, installed fixture parity, and reviewer parity valid. Select checks
+by changed surface; structural lint, corpus lint, fixture tests, and independent
+behavioral evaluation are distinct evidence:
 
-Run:
+- Documentation or packaging: structure validation and affected documentation checks.
+- CLI behavior: CLI unit tests plus structure validation.
+- Skill, reviewer, or corpus: structure, corpus, and forward-result binding validation;
+  materially changed behavior also needs isolated blind forward tests.
+- Fixture behavior: fixture tests and installed-copy parity.
+
+Run the complete integration suite before release or when a change spans these
+surfaces. Once relevant checks pass, rerun only for new changes, failures, or
+unresolved risks:
 
 ```sh
 node scripts/validate-repository-structure.mjs

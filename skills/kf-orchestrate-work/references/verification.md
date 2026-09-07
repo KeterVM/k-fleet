@@ -12,9 +12,11 @@ artifact. Do not modify the reviewed artifact in this route.
    evidence; static analysis alone does not establish those properties.
 3. Report findings with evidence, affected location, impact, and confidence. State
    checks not run and residual risk.
-4. If correction is authorized, issue the verdict first, hand mutation to bug fix,
-   implementation, or refactor, then independently reverify the integrated result
-   against the original criteria.
+4. If correction is already authorized, carry the findings into bug fix,
+   implementation, or refactor without renewed approval. Validate the integrated
+   correction against the original criteria; use a separate reviewer when an
+   independent verdict is requested or justified by risk. Review-only requests
+   remain read-only.
 
 A writer's own checks support implementation completion but do not count as an
 independent verdict.

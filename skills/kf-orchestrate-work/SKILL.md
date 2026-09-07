@@ -1,6 +1,6 @@
 ---
 name: kf-orchestrate-work
-description: Orchestrate substantive repository work through one K Fleet entry point, or initialize a target repository after installation when explicitly invoked with setup. Consume project-scoped context supplied by Supermemory, select only the required workflow procedure, execute within the user's authority, and close with verified evidence. Use for any non-trivial repository task; stop, including during setup, if the required Supermemory runtime is unavailable.
+description: Coordinate substantive repository work with scoped context, workflow selection, and verified completion. Also use for explicit /kf-orchestrate-work setup.
 ---
 
 # Orchestrate Work
@@ -22,8 +22,7 @@ configured Supermemory integration is ready and correctly scoped.
 2. Require the configured Supermemory integration. Verify its project/worktree
    scope and consume the focused context it supplies before substantial exploration
    or mutation. If the integration is unavailable or its scope cannot be verified,
-   stop substantive work and report the failure. Do not implement a second memory
-   client or call backend REST APIs as a fallback. Use the integration's installed
+   stop substantive work and report the failure. Use the integration's installed
    status surface when a runtime check is needed. A connected direct integration
    that reports automatic recall/capture and the correct canonical scope satisfies
    this gate; an optional Supermemory MCP transport is not additionally required.
@@ -48,24 +47,20 @@ configured Supermemory integration is ready and correctly scoped.
 
 ## Control loop
 
-- Keep one substantive route in control at a time. A method such as TDD or
-  delegation assists that route; it does not take over its outcome or authority.
-- Preserve explicit handoffs. Design may hand an accepted contract to execution;
-  investigation reports its diagnosis before an authorized correction; independent
-  verification reports before and after a separately owned correction.
-- Before any production mutation that crosses architectural boundaries or changes
-  ownership, protocols, persistence, concurrency, or lifecycle ordering, read and
-  apply the engineering checkpoint in [design](references/design.md). It assists the
-  active implementation, bug-fix, or refactor route without taking over its scope.
+- Let the user's outcome control scope; combine routes and methods as needed within
+  existing authorization. A route transition does not require renewed permission.
+- For changes with material architectural, compatibility, data-integrity, or
+  lifecycle risk, apply the engineering checkpoint in [design](references/design.md)
+  before editing.
 - Use repository evidence and analogous implementations before inventing a local
   convention. Choose the smallest complete change and avoid unrelated cleanup.
 - Check the current integrated artifact, not summaries from tools or sub-agents.
   Run focused validation and proportionate broader checks, then inspect the final
-  diff before claiming completion.
-- End with a compact terminal account of intent, scope, route and methods, decisive
-  evidence, changed boundaries, checks, outcome, corrections, remaining uncertainty,
-  and source revision so the Supermemory integration can capture the useful episode.
-  Do not duplicate that capture through a K Fleet-owned memory client.
+  diff before claiming completion. After relevant checks pass, broaden or repeat
+  them only for new changes, failures, or unresolved risks.
+- Report the outcome, decisive validation, and material limitations for Supermemory's
+  automatic capture. Include decisions, corrections, and revision when useful;
+  reserve a full workflow account for explicitly requested feedback.
 - Reusable learning enters the evolution pipeline as evidence. It does not directly
   edit this skill, repository policy, or memory marked as authoritative.
 
@@ -73,8 +68,9 @@ configured Supermemory integration is ready and correctly scoped.
 
 Supermemory owns recall, capture, explicit memory operations, versioning, forgetting,
 and inference review. K Fleet consumes recalled context and produces useful terminal
-evidence; it does not ship fallback memory skills or emulate missing Supermemory
-capabilities. When a user explicitly requests a memory operation, use the configured
+evidence; it does not ship fallback memory skills, implement a second memory client,
+or call backend REST APIs to emulate missing capabilities. When a user explicitly
+requests a memory operation, use the configured
 Supermemory integration's own surface. If that surface is unavailable, report the
 missing capability instead of substituting another store.
 
@@ -84,6 +80,12 @@ The user owns product decisions and permission for external or materially broade
 actions. K Fleet owns routing, bounded execution, integration, evidence quality,
 and the final task state. Memory retrieval, delegation, and automatic evolution do
 not broaden authorization.
+
+Authorization follows the requested outcome through investigation, implementation,
+and validation. Continue those steps when already authorized; keep analysis-only
+and review-only requests read-only. Resolve routine implementation choices from
+available evidence. Ask only when a material product or authority decision remains
+unresolved, while continuing independent authorized work.
 
 Finish only when the requested outcome and applicable acceptance evidence are
 satisfied, or when a concrete blocker or authority boundary is reported. Name
