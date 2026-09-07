@@ -1,7 +1,7 @@
 {
   "name": "k-fleet",
   "version": "2.1.1",
-  "description": "Install, update, and operate K Fleet and SkillOpt-Sleep across Codex projects",
+  "description": "Install and update K Fleet skills across Codex projects",
   "type": "module",
   "bin": {
     "k-fleet": "scripts/kf-projects.mjs"
@@ -27,7 +27,6 @@
   "keywords": [
     "codex",
     "agent-skills",
-    "skillopt",
     "orchestration"
   ],
   "license": "Apache-2.0",

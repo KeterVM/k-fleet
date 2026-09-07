@@ -45,6 +45,6 @@ identify unrelated failures without silently expanding the task.
 Complete the requested outcome and required validation, or name a concrete blocker
 or authority boundary. Report decisive evidence, corrections, and material gaps for
 automatic capture. Do not claim independent review, memory capture, runtime success,
-or evolution without corresponding evidence. Task evidence may justify a proposed
-method revision, but adoption still follows the [evolution contract](evolution.md);
+or method improvements without corresponding evidence. Task evidence may justify a proposed
+method revision, but adoption still follows the [learning boundaries](learning.md);
 normal execution does not rewrite live skills or user policy.

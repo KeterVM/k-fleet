@@ -10,7 +10,7 @@ Return a self-contained, sanitized packet containing:
 - route and methods actually observed, distinguished from inferred selection;
 - memory reads and writes by class and scope without sensitive content;
 - material decisions, effects, checks, corrections, and unresolved uncertainty;
-- evidence suitable for a later SkillOpt or maintainer review.
+- evidence suitable for later maintainer review.
 
 Do not resume the completed task, manufacture hidden invocation evidence, modify the
 target project unless one report file is explicitly requested, trigger adoption, or

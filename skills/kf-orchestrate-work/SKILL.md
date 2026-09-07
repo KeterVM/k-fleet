@@ -44,7 +44,7 @@ For conditional work, read only its reference:
   design and implementation together; use an independent reviewer when requested
   or justified by risk, not one agent per skill.
 - Explicit post-work usage report: [feedback](references/feedback.md).
-- Proposed reusable method changes or a SkillOpt cycle: [evolution](references/evolution.md).
+- Proposed reusable method changes: [learning](references/learning.md).
 
 ## Integrate and close
 

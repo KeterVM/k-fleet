@@ -45,8 +45,8 @@ or broaden them only for new changes, failures, or unresolved risk. Describe kno
 safe local workflows accurately; never assume a suite is disposable or isolated
 without repository evidence.
 
-Retain actual user constraints, source authority, memory isolation, and evolution
-gates. A stronger model is not evidence that these boundaries are obsolete. Treat
+Retain actual user constraints, source authority, memory isolation, and maintenance
+boundaries. A stronger model is not evidence that these boundaries are obsolete. Treat
 skill adherence and repository-policy adherence as separate obligations; apply
 known project rules at consequential decisions without ritual rereading.
 
@@ -60,7 +60,7 @@ known project rules at consequential decisions without ritual rereading.
   and identify a stopping or strategy-change condition.
 - Double-loop learning: distinguish an implementation defect from a failure of the
   method or its premises. Propose revisions when evidence warrants them, through
-  existing authorized maintenance and evolution boundaries.
+  existing authorized maintenance boundaries.
 
 These foundations guide work across routes; they do not require four skills or four
 agents. Retain the current architecture until an explicit design decision and

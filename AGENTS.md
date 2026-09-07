@@ -10,7 +10,7 @@ workflow behavior rather than framework-specific instructions.
 ## Repository map
 
 - `README.md` documents the architecture, runtime prerequisites, installation,
-  operation, evolution contract, and validation commands.
+  operation, and maintenance guidance.
 - `skills/` contains `kf-orchestrate-work`, `kf-define-requirements`,
   `kf-design-codebase`, `kf-implement`, `kf-write-tests`, and `kf-verify`. Each skill owns its instructions and references;
   the orchestrator owns setup and task coordination.
@@ -26,14 +26,12 @@ workflow behavior rather than framework-specific instructions.
 - `kf-orchestrate-work` owns task routing, authority, delegation, integration,
   terminal evidence, and final task state. Requirements, codebase design,
   implementation, test writing, and verification skills own their respective methods.
-- Backend ownership, source authority, isolation, and evolution boundaries are
+- Backend ownership, source authority, isolation, and maintenance boundaries are
   recorded in [Learned Rules](#learned-rules). Supermemory supplies evidence and
   never expands permission; do not call backend REST APIs to emulate integration
   capabilities.
-- SkillOpt-Sleep performs offline trajectory mining, bounded edits, replay, and
-  held-out gates for an explicitly named non-`kf-*` skill with memory evolution disabled.
-  SkillOpt must not modify K Fleet skills or their references. Normal
-  task execution records evidence without rewriting the live skill.
+- Normal task execution records evidence without rewriting live skills. Changes to
+  reusable guidance use explicit, versioned source maintenance.
 
 ## Conventions
 
@@ -98,13 +96,10 @@ presence does not require this repository to maintain a test harness.
   to an affected decision; never require every method for every task. Do not create
   one agent per skill or retain old routing shims. See
   [Workflow method composition](docs/workflow-methods.md) for the selection contract.
-- Use Supermemory as the context and experience backend and SkillOpt-Sleep as the
-  offline optimizer only for explicitly selected non-`kf-*` skills. Never target
-  K Fleet skills or their references, including through aliases or old staging.
-  Preserve current repository sources as the conflict
-  authority, enforce project/worktree isolation, and gate every adopted evolution
-  so it is versioned and reversible. Supermemory owns the complete memory lifecycle;
-  do not recreate its operations as K Fleet skills or adapters.
+- Use Supermemory as the context and experience backend. Current repository sources
+  remain authoritative and project/worktree isolation is required. Supermemory owns
+  the complete memory lifecycle; do not recreate its operations as skills or adapters.
+  Skill changes require authorized, versioned, reversible source maintenance.
 - Keep `kf_reviewer` optional, read-only, model-neutral, and advisory. It must not
   fix its findings or claim readiness independently of the orchestrator, which
   retains correction, integration, conflict resolution, and completion.
@@ -131,8 +126,8 @@ They operate at different levels, not as four equivalent formal theories:
 - **Double-loop learning:** distinguish correcting an implementation from revising
   the assumptions, methods, or evaluation criteria that produced it. Repeated or
   otherwise sufficient evidence may justify a proposed revision; one failure does
-  not automatically justify another rule. Apply existing authority and evolution
-  gates before adoption; learning never grants permission to change user goals.
+  not automatically justify another rule. Apply existing authority and maintenance
+  boundaries before adoption; learning never grants permission to change user goals.
 
 For material decisions, be able to answer these questions using proportionate
 working evidence, without requiring a fixed report for every task:

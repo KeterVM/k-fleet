@@ -6,6 +6,10 @@ Notable changes to K Fleet are recorded here.
 
 ### Changed
 
+- Removed SkillOpt integration, its installation and configuration side effects,
+  and the CLI's optimizer commands. Updates remove the retired project-local
+  `skillopt-sleep` entry; shared checkouts and user-wide settings are not touched.
+
 - Promoted requirements, codebase design, implementation, test writing, and
   verification into five self-contained methods alongside the orchestrator.
   Removed replaced methods and draft copies; installation migrates retired names.

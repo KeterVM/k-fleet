@@ -22,7 +22,7 @@ agreed capability boundary.
 4. Explain the decisions or outcomes the guidance is intended to improve. Report
    actual observations and limitations without presenting mechanical checks as
    proof of effectiveness.
-5. Keep runtime authority, source-over-memory, scope, and evolution boundaries
+5. Keep runtime authority, source-over-memory, scope, and maintenance boundaries
    intact. Do not add test suites, evaluation infrastructure, or examples unless
    explicitly requested.
 6. Open a pull request using the repository template.

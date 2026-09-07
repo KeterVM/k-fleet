@@ -56,10 +56,9 @@ Or install from this GitHub source:
 npx --yes github:KeterVM/k-fleet install
 ```
 
-The CLI installs the six skills and `skillopt-sleep` under `.agents/skills/`,
+The CLI installs the six skills under `.agents/skills/`,
 records `skills-lock.json`, copies the reviewer into `.codex/agents/`, and
-registers the project. It prepares a shared SkillOpt checkout and merges its
-configuration, backing up existing settings.
+registers the project.
 
 Restart Codex, then run:
 
@@ -88,25 +87,10 @@ npx k-fleet list
 ```
 
 `register` and `unregister` maintain `~/.k-fleet/projects.json`. Installation
-preserves existing current skills; updates refresh them and the shared SkillOpt
-checkout. When retired `kf-design` or `kf-investigate` entries are present,
+preserves existing current skills; updates refresh them. When retired `kf-design`,
+`kf-investigate`, or `skillopt-sleep` entries are present,
 installation also refreshes the catalog, then removes those directories and lock
 entries after replacements install successfully. Restart Codex after updates.
-
-[SkillOpt-Sleep](https://github.com/microsoft/SkillOpt/blob/main/docs/sleep/README.md)
-can optimize an explicitly selected **non-`kf-*`** skill. From its target project:
-
-```sh
-npx k-fleet configure --target-skill-path .agents/skills/my-skill/SKILL.md
-npx k-fleet sleep dry-run -- --backend mock
-```
-
-The path must identify an existing non-K-Fleet skill inside each selected project.
-Memory evolution and automatic adoption stay disabled; candidates require gated,
-versioned, reversible review. K Fleet skills and references are excluded.
-The CLI supports `status`, `harvest`, `dry-run`, `run`, and `unschedule`;
-`adopt` and `schedule` are blocked because upstream does not preserve the
-validated target boundary. Supermemory owns the complete memory lifecycle.
 
 ## Maintenance
 
