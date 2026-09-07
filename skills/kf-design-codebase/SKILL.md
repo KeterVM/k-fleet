@@ -1,6 +1,6 @@
 ---
 name: kf-design-codebase
-description: Design a codebase's directory organization, module responsibilities, interfaces, and internal dependencies for an understood change, keeping complexity proportional to current needs.
+description: Choose how an understood change fits an existing codebase, resolving responsibilities, interfaces, and dependencies while keeping overall complexity proportional to current needs.
 ---
 
 # Design codebase
@@ -23,16 +23,27 @@ evidence without claiming unobserved capture or execution.
 
 ## Method
 
-Translate understood behavior into explicit ownership, contracts, and placement.
-Inspect relevant code and project conventions; reuse adequate existing design.
-Resolve decisions that materially affect correctness or scope while continuing
-independently understood work. A bounded edit within sound boundaries does not
-need a new design exercise.
+Choose the simplest design that delivers the intended behavior within the current
+system. Understand the relevant behavior and constraints before deciding where
+the change belongs. Reuse adequate design and evidence; a bounded edit within
+sound boundaries does not need a new design exercise or a repository-wide survey.
 
 Treat accepted system architecture, technology choices, and deployment boundaries
 as inputs. Revisit an affected premise when evidence requires it, without silently
 expanding internal code design into a system redesign. Leave coding style and
 line-level implementation choices to implementation under the project contract.
+
+## Fit the change to the system
+
+Trace the relevant path from its actual entry points through rules, state, and
+dependencies to the outcome. Identify what can already serve the change and what
+must differ. Choose to extend, replace, or add a responsibility because of current
+needs; do not turn each requested detail into another component by default.
+
+Resolve uncertainties that could invalidate the design before investing in work
+that depends on them. Prefer evidence that can change the decision; continue
+independent authorized work when that evidence is unavailable, keeping dependent
+assumptions explicit. Routine technical choices remain the agent's responsibility.
 
 ## Turn responsibilities into code boundaries
 
@@ -54,61 +65,46 @@ Distinguish effects that must commit or roll back together from effects allowed
 to complete later. Extracting modules must preserve these guarantees rather than
 giving each fragment an independent commit.
 
-## Map responsibilities to directories
-
-Inspect the existing source layout, module entry points, tests, build rules, and
-framework discovery conventions. Choose locations that make ownership and related
-changes easy to find. Group by business capability, technical responsibility, or
-a combination according to the actual change patterns and project constraints;
-do not impose one layout on every codebase.
-
-Keep module internals together and make the supported import boundary clear.
-Give shared code a concrete responsibility and owner instead of using a generic
-shared or utils directory as a destination for anything reused. Place tests and
-supporting files consistently with the project and the behavior they validate.
-Directory nesting should convey useful ownership, not merely mirror call layers.
-
-For new or changed layout, show only the relevant paths and explain what belongs
-there. A directory tree supports the design but does not replace the contracts.
-For existing code, account for affected imports, public exports, tests, and tooling
-before proposing moves. Preserve a sound layout for a local change; avoid unrelated
-repository reorganization and empty directories for hypothetical features.
-
-## Keep the design proportional
+## Judge the overall cost
 
 Start with the simplest structure that satisfies current behavior and invariants.
 For each proposed layer, interface, package, or extension mechanism, identify the
-present responsibility or constraint it serves and the indirection it adds. If a
-direct implementation preserves the required boundaries with less coordination,
-prefer it. Do not make future flexibility a sufficient reason on its own.
+present responsibility or constraint it serves and the indirection it adds.
+Consider the burden on callers and maintainers as well as the local implementation.
+Repeated decisions, synchronized copies of state, or required knowledge of internals
+can mean a boundary has moved complexity rather than contained it. Check the reason;
+adapters and separate implementations may still protect necessary boundaries.
 
-Small projects can use few modules and concrete dependencies. Do not require a
-layering template or file count, or collapse unrelated rules merely to reduce it.
-Stop when ownership, contracts, placement, and critical failure behavior are clear
-enough to implement.
+Prefer a direct implementation when it preserves those boundaries with less
+coordination. Future flexibility alone is insufficient justification. Do not impose
+a layering template or collapse unrelated rules to reduce file or line counts.
 
-## Use likely changes to challenge the structure
+Where a boundary is uncertain, challenge it with a plausible change grounded in
+the task. Trace which responsibilities would change and why; repeated changes to
+one rule or unrelated edits warrant reconsideration. This is a brief design probe,
+not permission to build hypothetical features or evidence of reduced maintenance
+cost by itself.
 
-Choose a plausible variation grounded in the requested behavior or existing
-project: changing a business rule, adding a caller, or replacing an external
-dependency. Trace which responsibilities would need to change and why. This is a
-design check, not permission to implement the variation.
+## Let placement reflect responsibility
 
-If the trace requires unrelated edits, knowledge of another module's internals,
-or repeated changes to the same rule, reconsider the boundary before expanding
-the implementation. Some changes legitimately cross modules; judge the reasons
-and contracts rather than minimizing the number of touched files. Keep the check
-brief for straightforward work and record consequential tradeoffs where useful.
+Keep related internals together and supported import boundaries clear. Give shared
+code a concrete owner and purpose. Follow relevant layout, build, test, and framework
+discovery conventions; account for affected imports, exports, and tooling when moving
+code. Preserve sound existing layout and avoid unrelated reorganization.
+
+Show relevant paths when placement changes and explain the responsibility they
+express. A directory tree should make the design easier to find and understand;
+it does not establish ownership or justify another layer on its own.
 
 ## Carry decisions into implementation
 
-Leave enough context to implement the chosen directory placement, ownership,
+Stop designing when ownership, contracts, placement, and critical failure behavior
+are clear enough to implement. Leave enough context to implement the chosen ownership,
 interfaces, dependency direction, consistency guarantees, and material tradeoffs.
 Use the conversation or an existing artifact unless a durable document is needed.
 Identify observable checks for important contracts; do not prescribe every
 function in advance.
 
 Continue implementation when authorized, without a new approval gate. Respect
-design-only requests. Revisit affected decisions if implementation evidence
-invalidates them rather than preserving a diagram at the expense of correctness.
-Do not claim reduced modification cost from a design probe alone.
+design-only requests. Revisit affected decisions when implementation evidence
+invalidates them; record material tradeoffs without requiring a fixed report.

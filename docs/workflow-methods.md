@@ -10,8 +10,8 @@ run it once; a later explicit setup request can refresh the same managed block.
 | Need | Capability | Result to carry forward |
 | --- | --- | --- |
 | Material uncertainty about intended behavior | `kf-define-requirements` | Scope, observable acceptance criteria, unresolved assumptions |
-| Unresolved internal ownership or organization | `kf-design-codebase` | Module contracts, dependency and transaction ownership, relevant paths |
-| An understood code change | `kf-implement` | Integrated behavior and the implementer's checks |
+| Unresolved fit, responsibility, or complexity within the codebase | `kf-design-codebase` | A justified design with clear contracts, ownership, and placement |
+| An understood code change | `kf-implement` | Complete integrated behavior, warranted design corrections, and relevant checks |
 | Missing automated protection | `kf-write-tests` | Discriminating tests and their actual execution results |
 | Determine whether delivery satisfies the request and has related problems | `kf-verify` | Verified behavior, reproducible findings, and unverified obligations |
 | Address a reusable capability gap exposed by work | `kf-evolve-skills` | Selected or created guidance, actual-use observations, and a retain/revise/undo decision |
@@ -32,7 +32,10 @@ Overlap is intentional: implementation owns its self-checks, test writing owns t
 quality of automated checks, and verification assesses delivery against the goal.
 They can share applicable test results without treating the implementer's report
 as the sole source of truth. The coordinating agent owns task scope, routing,
-integration, and final completion.
+engineering decisions, integration, and final completion. Method selection does
+not transfer responsibility for whether the overall solution makes sense. User
+corrections and implementation friction can expose a decision to revisit before
+verification; investigate the cause and keep corrections within the task's scope.
 
 Capability improvement closes a separate feedback loop: observed gap, diagnosis,
 existing-skill inspection, discovery or creation, actual use, and retention or

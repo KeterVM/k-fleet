@@ -26,14 +26,15 @@ evidence without claiming unobserved capture or execution.
 Determine whether the requested behavior is implemented and whether the delivery
 has other material problems. Start from the original request, accepted scope,
 project instructions, and current artifacts, not only the implementer's summary
-or tests. Evidence quality supports this work; collecting check results alone is
-not a substitute for checking the feature.
+or tests. Assess whether the parts work together to deliver the intended result;
+collecting check results alone is not a substitute for checking the feature.
 
 ## Establish what must work
 
 Map the important requirements to observable behavior and actual entry points.
-Identify missing behavior, incomplete wiring, or assumptions that narrowed the
-request. Reuse adequate acceptance criteria; resolve consequential ambiguities
+Identify missing behavior, incomplete wiring, assumptions that narrowed the
+request, or hidden manual steps needed to make it work. Reuse adequate acceptance
+criteria; resolve consequential ambiguities
 instead of silently choosing the implementation as the specification.
 
 Inspect the affected callers, dependencies, permissions, and state to select
@@ -56,8 +57,10 @@ Exercise related existing behavior where the change could cause regressions.
 
 Inspect for material problems that successful scenarios may miss: unreachable
 paths, bypassed invariants, resource lifetime issues, incompatible contracts, or
-unbounded work. Confirm a concrete trigger and impact before reporting a defect;
-separate structural tradeoffs and unresolved risks from demonstrated failures.
+unbounded work. Check whether the change leaves duplicated responsibility or
+unnecessary coordination in affected callers. Explain concrete consequences before
+reporting a problem; distinguish demonstrated failures and maintenance costs from
+structural preferences or unresolved risks.
 
 ## Fill meaningful evidence gaps
 

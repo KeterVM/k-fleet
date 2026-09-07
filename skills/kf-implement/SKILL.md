@@ -1,6 +1,6 @@
 ---
 name: kf-implement
-description: Implement understood software changes using established code boundaries, project code style, and disciplined reuse, then validate the integrated behavior.
+description: Deliver understood software changes through existing capabilities, test design decisions against implementation evidence, and validate the complete integrated behavior.
 ---
 
 # Implement
@@ -23,11 +23,12 @@ evidence without claiming unobserved capture or execution.
 
 ## Method
 
-Translate an understood change into working, readable code. Reuse accepted design
-and existing boundaries. A routine edit does not need a separate design exercise;
-if ownership, interfaces, or consistency guarantees are materially unresolved,
-settle that decision before encoding an accidental contract. Continue independent
-work without adding a routine approval checkpoint.
+Own the integrated result of the change. Understand its relevant entry points,
+rules, state, and expected outcome; reuse accepted design and existing capabilities.
+Settle materially unresolved ownership or interface decisions before encoding an
+accidental contract. A routine edit needs no separate design exercise or approval
+checkpoint. Prioritize evidence for assumptions that could invalidate dependent
+work, while continuing independent authorized work.
 
 ## Establish the local coding contract
 
@@ -43,7 +44,7 @@ for behavior already supported by the project. Use comments to explain constrain
 or non-obvious decisions; keep names and control flow clear enough to explain the
 ordinary operation without narrating each line.
 
-## Apply DRY to knowledge and rules
+## Build on existing capabilities
 
 Before adding logic, look for its existing owner and supported reuse points.
 Keep one authoritative implementation of a business rule when callers must agree
@@ -56,21 +57,35 @@ helper to combine them. Distinguish repeated business decisions from intentional
 validation at different trust boundaries. When extracting shared behavior, check
 that its contract fits the actual callers and preserves their error semantics.
 
-Choose the simplest implementation that satisfies current obligations. Avoid
-speculative extension points, generic frameworks, and configuration for imagined
-requirements. Prefer explicit, cohesive operations over clever indirection.
+Require a present purpose for added abstractions, dependencies, state, or
+configuration. Prefer explicit, cohesive operations with less overall coordination;
+local brevity does not justify making callers manage more of the implementation.
 
-## Preserve the design while coding
+## Test the design against implementation
 
 Implement through the intended interfaces and real entry points. Keep business
 rules with their owner, and preserve dependency direction, transaction scope,
 authorization, concurrency guarantees, and resource cleanup. Do not bypass an
 invariant or split an atomic operation to make a local function easier to write.
 
-When implementation evidence contradicts a design premise, revisit the affected
-decision and make the resulting change clear. Resolve routine details locally;
-seek user input only when the correction changes a material product obligation
-or exceeds existing authorization.
+Accumulating exceptions, repeated mapping, or fragile coordination can reveal a
+poor fit. Investigate their cause before adding another workaround; revise the
+affected decision when the evidence warrants it. These are signals to reason about,
+not blanket prohibitions on necessary adapters or special cases.
+
+When the user corrects a result, identify the underlying behavior or responsibility
+at issue and check related effects within scope. A local patch is sufficient when
+it resolves that cause. Resolve routine technical details and make consequential
+design changes clear; ask only when a correction changes a material product
+obligation or exceeds existing authorization.
+
+## Complete the change
+
+Follow the behavior through its real callers and dependencies. Finish the wiring,
+failure handling, and resource cleanup required for usable behavior. When replacing
+an existing path, update affected consumers and remove code or configuration made
+obsolete by this change. Preserve actual compatibility obligations; do not leave
+parallel paths by accident or use cleanup to justify unrelated refactoring.
 
 ## Validate behavior and inspect the diff
 
@@ -78,9 +93,9 @@ Use the project's relevant checks and tests for changed behavior and failure pat
 Run configured formatting, linting, or type checks as appropriate; do not invent
 new tooling or low-value tests for a routine reversible edit.
 
-Inspect the final diff for duplicated rules, inconsistent conventions, accidental
-public contracts, boundary bypasses, and unnecessary abstraction. Re-check the
-applicable project contract before declaring completion. Correct demonstrated
-problems within scope and report decisive evidence and remaining limitations.
+Inspect the integrated change for duplicated responsibility, extra caller burden,
+inconsistent conventions, accidental public contracts, and boundary bypasses.
+Re-check the applicable project contract before declaring completion. Correct
+demonstrated problems within scope and report decisive evidence and limitations.
 Passing tests establishes tested behavior, not maintainability or production
 readiness by itself.

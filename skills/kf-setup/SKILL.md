@@ -44,15 +44,16 @@ Manage exactly one block between `<!-- k-fleet:start -->` and
 <!-- k-fleet:start -->
 ## K Fleet
 
-The main agent coordinates this task and owns scope, integration, and completion.
+The main agent owns scope, engineering decisions, integration, and completion.
 Select available methods as needed; do not run a fixed sequence or one agent per skill:
 
 - `kf-define-requirements`: clarify intended behavior and acceptance criteria.
-- `kf-design-codebase`: design module boundaries, dependencies, and directories.
-- `kf-implement`: implement under project conventions and disciplined reuse.
+- `kf-design-codebase`: fit changes to the codebase with clear responsibilities
+  and proportionate complexity.
+- `kf-implement`: deliver complete changes and revisit design when evidence warrants.
 - `kf-write-tests`: add meaningful automated checks when needed.
 - `kf-verify`: verify functionality and related problems.
-- `kf-evolve-skills`: address a reusable capability gap by finding or creating
+- `kf-evolve-skills`: address a reusable capability gap by reusing, revising, or adding
   guidance, then assess it in actual use.
 
 Reuse sufficient design and evidence; tests can come first. Return to affected

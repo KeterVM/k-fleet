@@ -1,12 +1,12 @@
 ---
 name: kf-evolve-skills
-description: Address a demonstrated capability gap during K Fleet work by finding and installing a suitable skill or creating focused guidance, then assessing it in actual use.
+description: Address a demonstrated capability gap during K Fleet work by reusing, revising, finding, or creating focused guidance, then assessing it in actual use.
 ---
 
 # Evolve skills
 
 Close the loop from observed friction to a useful capability: identify the gap,
-reuse or create guidance, apply it, and decide whether to retain or revise it.
+reuse, revise, or add guidance, apply it, and decide whether to retain it.
 Do this when a task exposes a reusable method gap or the user requests capability
 improvement. A single well-understood gap can suffice; every error does not call
 for another skill. Keep the original task and its completion in view.
@@ -31,11 +31,13 @@ and ask only when the necessary authority is missing, not at every phase.
 Use the current task, corrections, and scoped prior experience to identify which
 decision or operation failed, what guidance was available, and what better behavior
 would look like. Distinguish missing knowledge from unclear requirements, a code
-defect, unavailable tools, missing access, or failure to use an existing skill.
-Skills supply methods; they cannot supply absent credentials or tools.
+defect, unavailable tools, missing access, or failure to apply existing guidance.
+Check whether conflicting instructions, misplaced emphasis, or procedural overhead
+obstructed judgment. Skills cannot supply absent credentials or tools.
 
 Inspect relevant installed skills before searching. Reuse adequate guidance or
-fix the actual problem instead of duplicating a capability. For recurring
+fix the actual problem instead of duplicating a capability. An authorized revision
+may remove, combine, or refocus instructions; improvement need not add more. For recurring
 project-specific facts, use the project's guidance rather than a new portable
 skill. If the gap is not reusable or blocks no necessary work, complete the task
 directly and report the observation without growing the catalog.
@@ -83,7 +85,7 @@ or change a core skill as part of unrelated feature work.
 
 ## Apply, observe, and retain
 
-Before use, state the task behavior the addition should improve and the observation
+Before use, state the task behavior the guidance should improve and the observation
 that would show it did not help. Apply it to the current authorized task or another
 representative authorized use. Compare the resulting decisions and outcome with
 the original gap; include added complexity or unnecessary work in that judgment.
@@ -91,7 +93,7 @@ Do not create evaluation infrastructure or unrelated tasks merely to exercise it
 
 Retain guidance that addresses the gap within scope. Revise or undo a demonstrated
 bad addition when authorized, preserving subsequent user edits and shared copies.
-If no meaningful use is available yet, report it as installed or created but
+If no meaningful use is available yet, report it as installed, created, or revised but
 unproven. Do not claim a closed loop or effectiveness from discovery, formatting,
 or installation alone, and do not repeat search or edits without new evidence.
 

@@ -13,11 +13,11 @@ the integrated result, guided by reminders in the project's root `AGENTS.md`.
 | --- | --- |
 | `kf-setup` | On explicit request, initialize or refresh root `AGENTS.md` reminders |
 | `kf-define-requirements` | Intended behavior, scope, and acceptance criteria |
-| `kf-design-codebase` | Directories, module contracts, dependencies, and consistency |
-| `kf-implement` | Implementation under project code style and disciplined reuse |
+| `kf-design-codebase` | Fit changes to the codebase with clear ownership and proportionate complexity |
+| `kf-implement` | Complete integrated changes, disciplined reuse, and evidence-based design corrections |
 | `kf-write-tests` | Meaningful automated checks and regression protection |
 | `kf-verify` | Functionality, related defects, regressions, and runtime problems |
-| `kf-evolve-skills` | Find, install, or create guidance for observed capability gaps and assess it in use |
+| `kf-evolve-skills` | Reuse, revise, find, or create guidance for observed capability gaps and assess it in use |
 
 Each skill is self-contained. One agent can use several methods, skip unnecessary
 steps, write tests first, or revisit a decision when evidence changes. Codebase
@@ -25,7 +25,7 @@ design favors the simplest structure that meets current needs.
 
 When work exposes a reusable capability gap, `kf-evolve-skills` checks existing
 guidance, uses `find-skills` for discovery and `skill-creator` for authoring when
-available, then assesses the addition in actual work. It includes a fallback when
+available, then assesses the guidance in actual work. It includes a fallback when
 those helpers are absent. Authorized additions default to project scope; a failed
 experiment can be revised or undone. Installation alone is not proof of improvement.
 

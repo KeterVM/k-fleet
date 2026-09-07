@@ -25,7 +25,10 @@ evidence without claiming unobserved capture or execution.
 
 Turn an incomplete feature request into enough shared understanding to make the
 next engineering decision well. Reuse an adequate brief; a clear, bounded change
-does not need another requirements exercise or a formal document.
+does not need another requirements exercise or a formal document. Prioritize
+unknowns that could change feasibility, scope, or the choice of approach; resolve
+them before they become premises for dependent work. Infer routine details from
+available evidence instead of returning every engineering choice to the user.
 
 ## Establish the intended behavior
 
