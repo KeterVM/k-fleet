@@ -1,78 +1,68 @@
 ---
 name: kf-implement
-description: Implement software changes from an understood goal or design, translating responsibilities into code boundaries and validating behavior and change impact.
+description: Implement understood software changes using established code boundaries, project code style, and disciplined reuse, then validate the integrated behavior.
 ---
 
 # Implement
 
-Deliver working behavior with a structure whose responsibilities and dependencies
-can be explained. Reuse accepted requirements and design, and inspect the relevant
-code and project conventions before choosing where the change belongs. Resolve
-missing decisions that materially affect correctness or scope; proceed with
-independently understood work without adding a routine approval checkpoint.
+Translate an understood change into working, readable code. Reuse accepted design
+and existing boundaries. A routine edit does not need a separate design exercise;
+if ownership, interfaces, or consistency guarantees are materially unresolved,
+settle that decision before encoding an accidental contract. Continue independent
+work without adding a routine approval checkpoint.
 
-## Turn responsibilities into code boundaries
+## Establish the local coding contract
 
-Before a substantive change, identify which responsibility owns each business rule
-and state transition, what callers need from it, and which dependencies it needs.
-Use these answers to choose code boundaries. A route group, section comment, or
-separate file alone does not establish a business module if callers still reach
-through it to manipulate its internal state or duplicate its rules.
+Read applicable project instructions before the first write. Inspect nearby code,
+formatter and linter configuration, language settings, and relevant tests. Follow
+the project's intentional naming, file layout, imports, types, error handling,
+and asynchronous conventions. Prefer configured tooling over personal style;
+when sources conflict, follow authoritative project guidance and state material
+ambiguity. Do not copy a demonstrated defect just to match adjacent code.
 
-Separate responsibilities when they have distinct rules, consumers, or reasons to
-change. Keep tightly related behavior together when splitting it would require
-exposing internals or coordinating fragments of one invariant. Follow useful local
-patterns, but inspect whether they preserve these properties for the new change.
-Do not require a service/repository stack, interface for every function, or a
-particular file count. For a small bounded edit, reuse sound existing boundaries.
+Keep the diff focused. Avoid formatting unrelated files or introducing a dependency
+for behavior already supported by the project. Use comments to explain constraints
+or non-obvious decisions; keep names and control flow clear enough to explain the
+ordinary operation without narrating each line.
 
-Keep transport parsing and response mapping from becoming the owner of unrelated
-business rules. Make the supported entry points and dependency direction clear
-enough that another caller can use the behavior without bypassing its invariants.
-Extract boundaries when justified by actual responsibilities, not hypothetical
-future platforms or consumers.
+## Apply DRY to knowledge and rules
 
-## Preserve invariants across boundaries
+Before adding logic, look for its existing owner and supported reuse points.
+Keep one authoritative implementation of a business rule when callers must agree
+and changes should propagate together. Call the owner rather than copying its
+logic or reaching through its interface to manipulate internal state.
 
-For operations that span responsibilities, identify who coordinates the operation
-and owns commit, rollback, and required side effects. Distinguish effects that must
-succeed together from effects allowed to complete later. Do not lose atomicity by
-giving every extracted module an independent commit, or introduce asynchronous
-infrastructure without a requirement that justifies it.
+Similar syntax alone does not justify shared code. Keep independent concepts
+separate when they have different reasons to change; do not create a flag-heavy
+helper to combine them. Distinguish repeated business decisions from intentional
+validation at different trust boundaries. When extracting shared behavior, check
+that its contract fits the actual callers and preserves their error semantics.
 
-Place authorization, validation, and concurrency decisions where the protected
-operation cannot bypass them. Avoid duplicating a business decision across callers;
-distinguish useful boundary validation from multiple competing implementations of
-the same rule. Make failures and resource ownership explicit where dependencies
-can fail or must be closed.
+Choose the simplest implementation that satisfies current obligations. Avoid
+speculative extension points, generic frameworks, and configuration for imagined
+requirements. Prefer explicit, cohesive operations over clever indirection.
 
-## Use likely changes to challenge the structure
+## Preserve the design while coding
 
-Choose a plausible variation grounded in the requested behavior or existing
-project: changing a business rule, adding a caller, or replacing an external
-dependency. Trace which responsibilities would need to change and why. This is a
-design check, not permission to implement the variation.
+Implement through the intended interfaces and real entry points. Keep business
+rules with their owner, and preserve dependency direction, transaction scope,
+authorization, concurrency guarantees, and resource cleanup. Do not bypass an
+invariant or split an atomic operation to make a local function easier to write.
 
-If the trace requires unrelated edits, knowledge of another module's internals,
-or repeated changes to the same rule, reconsider the boundary before expanding
-the implementation. Some changes legitimately cross modules; judge the reasons
-and contracts rather than minimizing the number of touched files. Keep the check
-brief for straightforward work and record consequential tradeoffs where useful.
+When implementation evidence contradicts a design premise, revisit the affected
+decision and make the resulting change clear. Resolve routine details locally;
+seek user input only when the correction changes a material product obligation
+or exceeds existing authorization.
 
-## Complete and inspect the integrated result
+## Validate behavior and inspect the diff
 
-Implement coherent slices through real entry points. Use checks that establish
-the requested behavior and relevant failure semantics, including cross-boundary
-invariants when the change depends on them. Select validation by risk; routine
-reversible edits do not require a new test suite.
+Use the project's relevant checks and tests for changed behavior and failure paths.
+Run configured formatting, linting, or type checks as appropriate; do not invent
+new tooling or low-value tests for a routine reversible edit.
 
-After behavior passes, inspect the resulting responsibility ownership and
-dependency flow. Check whether implementation shortcuts undermined the intended
-boundaries. Correct demonstrated problems within the authorized scope; avoid
-unrelated restructuring. If evidence invalidates the design, revisit the affected
-decision rather than silently weakening the requirement.
-
-Report what works, the evidence that supports it, and material structural tradeoffs
-or unverified obligations. Passing tests supports the tested behavior; it does not
-by itself establish maintainability. Do not claim improved change cost without
-observing a representative change, or production readiness from local checks.
+Inspect the final diff for duplicated rules, inconsistent conventions, accidental
+public contracts, boundary bypasses, and unnecessary abstraction. Re-check the
+applicable project contract before declaring completion. Correct demonstrated
+problems within scope and report decisive evidence and remaining limitations.
+Passing tests establishes tested behavior, not maintainability or production
+readiness by itself.
