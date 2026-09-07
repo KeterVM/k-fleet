@@ -12,7 +12,8 @@ workflow behavior rather than framework-specific instructions.
 - `README.md` documents the architecture, runtime prerequisites, installation,
   operation, and maintenance guidance.
 - `skills/` contains `kf-orchestrate-work`, `kf-define-requirements`,
-  `kf-design-codebase`, `kf-implement`, `kf-write-tests`, and `kf-verify`. Each skill owns its instructions and references;
+  `kf-design-codebase`, `kf-implement`, `kf-write-tests`, `kf-verify`, and
+  `kf-evolve-skills`. Each skill owns its instructions and references;
   the orchestrator owns setup and task coordination.
 - `.codex/agents/kf-reviewer.toml` defines the companion reviewer.
 - `scripts/kf-projects.mjs` implements the zero-dependency `k-fleet` npm CLI exposed
@@ -25,13 +26,16 @@ workflow behavior rather than framework-specific instructions.
 
 - `kf-orchestrate-work` owns task routing, authority, delegation, integration,
   terminal evidence, and final task state. Requirements, codebase design,
-  implementation, test writing, and verification skills own their respective methods.
+  implementation, test writing, verification, and capability-improvement skills
+  own their respective methods.
 - Backend ownership, source authority, isolation, and maintenance boundaries are
   recorded in [Learned Rules](#learned-rules). Supermemory supplies evidence and
   never expands permission; do not call backend REST APIs to emulate integration
   capabilities.
-- Normal task execution records evidence without rewriting live skills. Changes to
-  reusable guidance use explicit, versioned source maintenance.
+- Task feedback can trigger `kf-evolve-skills` for authorized skill discovery,
+  installation, or creation. It must diagnose the gap, inspect available guidance,
+  and assess actual use before claiming improvement. Ordinary implementation does
+  not silently rewrite core skills; changes remain scoped, versioned, and reversible.
 
 ## Conventions
 
@@ -87,12 +91,14 @@ presence does not require this repository to maintain a test harness.
   direct the user to install or configure the integration. The bootstrap must point
   to `kf-orchestrate-work`, state source-over-memory and project/worktree isolation,
   and stop substantive work when the required runtime is missing.
-- Keep six public skills: `kf-orchestrate-work`, `kf-define-requirements`,
-  `kf-design-codebase`, `kf-implement`, `kf-write-tests`, and `kf-verify`. Each skill must be self-contained: its required
+- Keep seven public skills: `kf-orchestrate-work`, `kf-define-requirements`,
+  `kf-design-codebase`, `kf-implement`, `kf-write-tests`, `kf-verify`, and
+  `kf-evolve-skills`. Each skill must be self-contained: its required
   instructions and file references stay inside its own directory. The orchestrator
   selects methods by skill name; do not link into another skill's files to complete
-  a method. Context maintenance, delegation, feedback, and learning remain conditional
-  responsibilities. Select methods as needed, including test-first work and returning
+  a method. Context maintenance, delegation, and feedback remain conditional
+  responsibilities; capability improvement uses `kf-evolve-skills`. Select methods
+  as needed, including test-first work and returning
   to an affected decision; never require every method for every task. Do not create
   one agent per skill or retain old routing shims. See
   [Workflow method composition](docs/workflow-methods.md) for the selection contract.
@@ -100,6 +106,11 @@ presence does not require this repository to maintain a test harness.
   remain authoritative and project/worktree isolation is required. Supermemory owns
   the complete memory lifecycle; do not recreate its operations as skills or adapters.
   Skill changes require authorized, versioned, reversible source maintenance.
+- Use `find-skills` and `skill-creator` when available for capability improvement;
+  keep a self-contained fallback rather than bundling copies or requiring them for
+  all work. Inspect candidate content and dependencies before installation. Prefer
+  project scope and preserve unrelated skills. Do not create new skills for every
+  failure or claim that installation alone closes the feedback loop.
 - Keep `kf_reviewer` optional, read-only, model-neutral, and advisory. It must not
   fix its findings or claim readiness independently of the orchestrator, which
   retains correction, integration, conflict resolution, and completion.

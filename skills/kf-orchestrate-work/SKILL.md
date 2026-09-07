@@ -1,12 +1,12 @@
 ---
 name: kf-orchestrate-work
-description: Coordinate repository tasks using requirements, codebase design, implementation, test writing, and verification as needed; also handles K Fleet setup.
+description: Coordinate repository work across focused engineering methods and capability improvements as needed; also handles K Fleet setup.
 ---
 
 # Orchestrate work
 
 Own the requested outcome, authority, integration, and final task state. K Fleet
-installs this orchestrator and five self-contained methods the same agent can use,
+installs this orchestrator and six self-contained methods the same agent can use,
 not a requirement to spawn agents or run every phase.
 
 For explicit `/kf-orchestrate-work setup`, use [setup](references/setup.md) and
@@ -22,6 +22,7 @@ once for the active task and scope. Reuse it across methods unless scope or fact
 | Implement an understood change, fix a known defect, or refactor | `kf-implement` |
 | Write meaningful automated checks or regression protection, including test-first work | `kf-write-tests` |
 | Verify delivered functionality and identify related defects or regressions | `kf-verify` |
+| Resolve a demonstrated reusable capability gap by finding or creating a skill | `kf-evolve-skills` |
 
 Select only the methods the task needs. A small understood change can go directly
 to implementation and its checks. An accepted design can satisfy design work;
@@ -44,7 +45,7 @@ For conditional work, read only its reference:
   design and implementation together; use an independent reviewer when requested
   or justified by risk, not one agent per skill.
 - Explicit post-work usage report: [feedback](references/feedback.md).
-- Proposed reusable method changes: [learning](references/learning.md).
+- Interpret task feedback before changing reusable guidance: [learning](references/learning.md).
 
 ## Integrate and close
 
@@ -59,3 +60,8 @@ A first implementation or a subagent's success is not completion. Finish when th
 requested outcome and applicable evidence are satisfied, or report a concrete
 blocker or authority boundary. Report decisive checks and material uncertainty for
 Supermemory's automatic capture; never claim unavailable execution or evidence.
+
+When feedback exposes a reusable capability gap, select kf-evolve-skills within
+the task's authorization; do not trigger it after every failure or completion.
+Carry the observed gap into selection and bring actual use results back into the
+task. Do not install guidance merely to produce a learning outcome.

@@ -1,7 +1,7 @@
 # K Fleet
 
-K Fleet is a portable Codex workflow package: one orchestrator coordinates five
-engineering methods, using Supermemory for scoped project context. Describe the
+K Fleet is a portable Codex workflow package: one orchestrator coordinates six
+methods, using Supermemory for scoped project context. Describe the
 outcome normally; the agent selects the methods needed and owns the integrated
 result.
 
@@ -15,10 +15,17 @@ result.
 | `kf-implement` | Implementation under project code style and disciplined reuse |
 | `kf-write-tests` | Meaningful automated checks and regression protection |
 | `kf-verify` | Functionality, related defects, regressions, and runtime problems |
+| `kf-evolve-skills` | Find, install, or create guidance for observed capability gaps and assess it in use |
 
 Each skill is self-contained. One agent can use several methods, skip unnecessary
 steps, write tests first, or revisit a decision when evidence changes. Codebase
 design favors the simplest structure that meets current needs.
+
+When work exposes a reusable capability gap, `kf-evolve-skills` checks existing
+guidance, uses `find-skills` for discovery and `skill-creator` for authoring when
+available, then assesses the addition in actual work. It includes a fallback when
+those helpers are absent. Authorized additions default to project scope; a failed
+experiment can be revised or undone. Installation alone is not proof of improvement.
 
 The optional [`kf_reviewer`](.codex/agents/kf-reviewer.toml) supplies an independent,
 read-only review. Installation includes its configuration; invoking it is optional.
@@ -56,7 +63,7 @@ Or install from this GitHub source:
 npx --yes github:KeterVM/k-fleet install
 ```
 
-The CLI installs the six skills under `.agents/skills/`,
+The CLI installs the seven K Fleet skills under `.agents/skills/`,
 records `skills-lock.json`, copies the reviewer into `.codex/agents/`, and
 registers the project.
 

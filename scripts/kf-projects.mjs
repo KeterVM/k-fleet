@@ -24,6 +24,7 @@ const kFleetSkills = [
   "kf-implement",
   "kf-write-tests",
   "kf-verify",
+  "kf-evolve-skills",
 ];
 const retiredSkills = ["kf-design", "kf-investigate", "skillopt-sleep"];
 const kFleetSource = process.env.KFLEET_SKILL_SOURCE || "KeterVM/k-fleet";

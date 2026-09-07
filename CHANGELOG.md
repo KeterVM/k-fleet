@@ -6,6 +6,10 @@ Notable changes to K Fleet are recorded here.
 
 ### Changed
 
+- Added `kf-evolve-skills` to turn observed capability gaps into inspected skill
+  reuse or creation, followed by actual-use feedback. The orchestrator routes to
+  it as needed; discovery and authoring use available helpers without bundling them.
+
 - Removed SkillOpt integration, its installation and configuration side effects,
   and the CLI's optimizer commands. Updates remove the retired project-local
   `skillopt-sleep` entry; shared checkouts and user-wide settings are not touched.

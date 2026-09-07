@@ -1,6 +1,6 @@
 # Workflow method composition
 
-K Fleet's five method skills are complementary capabilities, not a mandatory
+K Fleet's six method skills are complementary capabilities, not a mandatory
 sequence. The orchestrator selects only what the task needs; each method remains
 usable on its own. This maintainer note explains the installed selection contract;
 runtime routing lives in the orchestrator's own instructions.
@@ -12,6 +12,7 @@ runtime routing lives in the orchestrator's own instructions.
 | An understood code change | `kf-implement` | Integrated behavior and the implementer's checks |
 | Missing automated protection | `kf-write-tests` | Discriminating tests and their actual execution results |
 | Determine whether delivery satisfies the request and has related problems | `kf-verify` | Verified behavior, reproducible findings, and unverified obligations |
+| Address a reusable capability gap exposed by work | `kf-evolve-skills` | Selected or created guidance, actual-use observations, and a retain/revise/undo decision |
 
 Reuse sufficient inputs and evidence rather than recreating them at every step.
 A small understood fix can proceed directly to implementation and focused
@@ -30,3 +31,10 @@ quality of automated checks, and verification assesses delivery against the goal
 They can share applicable test results without treating the implementer's report
 as the sole source of truth. The coordinating agent owns task scope, routing,
 integration, and final completion.
+
+Capability improvement closes a separate feedback loop: observed gap, diagnosis,
+existing-skill inspection, discovery or creation, actual use, and retention or
+correction. It can help the current task or a later authorized task; it is not a
+mandatory final phase. Missing tools, access, or product decisions should be
+resolved at their own source. Search or installation success alone does not prove
+that the new guidance improves the work.
