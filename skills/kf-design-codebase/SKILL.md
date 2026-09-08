@@ -87,6 +87,25 @@ cost by itself.
 
 ## Let placement reflect responsibility
 
+When architecture or code organization needs a decision, distinguish the architecture
+pattern (such as layered, clean, hexagonal, or vertical slice) from directory grouping
+(by layer, feature, or domain). They can be combined; Controller / Service / Repository
+is one option, not a required template.
+
+Choose evidence according to the uncertainty: ask the user when their preference or
+a material tradeoff would change the choice, or inspect the current working directory's
+manifests, framework versions, configuration, and existing code. Where external guidance
+would help, consult official documentation for the relevant framework version or inspect
+maintained, widely used GitHub projects with comparable scope and stack. Check actual
+code and constraints; popularity alone does not establish fit. Distinguish framework
+requirements from recommendations and examples, and cite sources used for the decision.
+These are conditional options, not a mandatory research sequence or approval gate.
+
+Make the chosen architecture and directory organization explicit where affected, along
+with responsibility boundaries, allowed dependency directions, and naming and placement
+rules for new code. Explain how the choice fits the project; external examples do not
+override user constraints or justify unrelated restructuring.
+
 Keep related internals together and supported import boundaries clear. Give shared
 code a concrete owner and purpose. Follow relevant layout, build, test, and framework
 discovery conventions; account for affected imports, exports, and tooling when moving
