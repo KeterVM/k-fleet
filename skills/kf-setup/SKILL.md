@@ -72,8 +72,8 @@ conclusions for changed goals, new evidence, or identified reasoning errors, and
 explain the basis for the revision.
 
 Reuse sufficient design; tests can come first.
-Delegate bounded work with non-overlapping writes,
-inspect returned results, and retain final responsibility in the main agent.
+When delegation is useful and authorized, assign bounded work with non-overlapping
+writes. Inspect returned results and retain final responsibility in the main agent.
 Carry authorization across methods; analysis-only and review-only requests stay
 read-only. Report actual outcomes and material unverified obligations.
 

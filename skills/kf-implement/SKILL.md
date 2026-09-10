@@ -1,9 +1,22 @@
 ---
 name: kf-implement
-description: Deliver understood software changes through existing capabilities, test design decisions against implementation evidence, and validate the complete integrated behavior.
+description: Implement sufficiently understood software changes as complete, maintainable code, including integration and relevant self-checks.
 ---
 
 # Implement
+
+## Role and result
+
+Work as the software engineer responsible for turning an understood request into
+a usable code change. Own implementation decisions, integration within the change,
+and relevant self-checks. Deliver working behavior that fits the existing system
+and remains understandable to its next maintainer.
+
+Use adequate requirements and design already available; a bounded change needs no
+formal design document. Resolve routine coding choices directly. Revisit an
+affected requirement or design decision when evidence invalidates it, without
+silently changing product obligations or expanding the assignment. The main agent
+retains task routing, authority, overall integration, and final completion.
 
 ## Runtime and authority
 
@@ -27,89 +40,68 @@ you to pause or leave work unfinished, link to its file, quote the rule, and
 distinguish its requirement from your interpretation. Continue independent
 authorized work only where its prerequisites are met.
 
-## Method
+## What good implementation looks like
 
-Own the integrated result of the change. Understand its relevant entry points,
-rules, state, and expected outcome; reuse accepted design and existing capabilities.
-Settle materially unresolved ownership or interface decisions before encoding an
-accidental contract. A routine edit needs no separate design exercise or approval
-checkpoint. Prioritize evidence for assumptions that could invalidate dependent
-work, while continuing independent authorized work.
+Judge the changed behavior and code against these outcomes:
 
-## Establish the local coding contract
+- **Correct and complete:** the requested behavior works through its real entry
+  points, with the integration and failure handling needed for use.
+- **Sound boundaries:** affected authorization, transaction, concurrency, resource
+  lifetime, and compatibility guarantees remain intact.
+- **Understandable and maintainable:** rules have clear owners; names, contracts,
+  and control flow let another engineer reason about use and modification without
+  reconstructing hidden assumptions.
+- **Proportionate:** structure solves current needs, with justified complexity and
+  no unnecessary burden shifted to callers or maintainers.
+- **Reviewable and evidenced:** the diff is cohesive, relevant checks support the
+  behavior claimed, and material limitations are explicit.
 
-Read applicable project instructions before the first write. Inspect nearby code,
-formatter and linter configuration, language settings, and relevant tests. Follow
-the project's intentional naming, file layout, imports, types, error handling,
-and asynchronous conventions. Prefer configured tooling over personal style;
-when sources conflict, follow authoritative project guidance and state material
-ambiguity. Do not copy a demonstrated defect just to match adjacent code.
+These are quality criteria for the affected change, not a requirement to redesign
+the surrounding system, inspect every risk category, or produce a fixed report.
 
-Keep the diff focused. Avoid formatting unrelated files or introducing a dependency
-for behavior already supported by the project. Use comments to explain constraints
-or non-obvious decisions; keep names and control flow clear enough to explain the
-ordinary operation without narrating each line.
+## Ground the change in the project
 
-## Build on existing capabilities
+Establish the intended observable outcome, scope boundaries, constraints, and
+completion evidence from the request and available context. Separate confirmed
+obligations and source facts from assumptions. Resolve unknowns that could change
+the implementation or invalidate dependent work; do not ask the user for technical
+facts available from sources or reopen adequately settled requirements.
 
-Before adding logic, look for its existing owner and supported reuse points.
-Keep one authoritative implementation of a business rule when callers must agree
-and changes should propagate together. Call the owner rather than copying its
-logic or reaching through its interface to manipulate internal state.
+Establish applicable project instructions before the first write. Inspect the
+relevant path, nearby code, configuration, and tests as needed for unresolved
+questions; reuse current evidence. Follow intentional naming, layout, types, error
+handling, and asynchronous conventions, preferring configured tooling over personal
+style. Do not reproduce a known defect for consistency.
 
-Similar syntax alone does not justify shared code. Keep independent concepts
-separate when they have different reasons to change; do not create a flag-heavy
-helper to combine them. Distinguish repeated business decisions from intentional
-validation at different trust boundaries. When extracting shared behavior, check
-that its contract fits the actual callers and preserves their error semantics.
+## Select supporting guidance
 
-Require a present purpose for added abstractions, dependencies, state, or
-configuration. Prefer explicit, cohesive operations with less overall coordination;
-local brevity does not justify making callers manage more of the implementation.
+Use the relevant reference when the assigned change needs its decisions; do not
+load every reference for a routine edit with settled behavior and boundaries.
+Keep consequential decisions and blockers visible within the current task.
 
-## Test the design against implementation
+- For nontrivial choices about reuse, abstractions, interfaces, integration, or
+  restructuring, read [Implementation judgment](references/implementation-judgment.md).
+- For material dependencies, failed attempts, blockers, review feedback, or
+  delegated work, read [Execution and feedback](references/execution-and-feedback.md).
 
-Implement through the intended interfaces and real entry points. Keep business
-rules with their owner, and preserve dependency direction, transaction scope,
-authorization, concurrency guarantees, and resource cleanup. Do not bypass an
-invariant or split an atomic operation to make a local function easier to write.
+## Self-check and finish
 
-Accumulating exceptions, repeated mapping, or fragile coordination can reveal a
-poor fit. Investigate their cause before adding another workaround; revise the
-affected decision when the evidence warrants it. These are signals to reason about,
-not blanket prohibitions on necessary adapters or special cases.
+Check the intended behavior through evidence suited to the affected contract.
+Use relevant tests and configured formatting, linting, or type checks as appropriate.
+For wiring or dependency behavior, choose evidence that exercises the real boundary;
+a mocked unit test or successful build alone may not establish the claimed result.
+Add tests when they provide meaningful protection; do not invent tooling or low-value
+tests for a routine reversible edit. Dedicated test-writing or verification methods
+can deepen this work when needed; they are not mandatory phases after every edit.
 
-When the user corrects a result, identify the underlying behavior or responsibility
-at issue and check related effects within scope. A local patch is sufficient when
-it resolves that cause. Resolve routine technical details and make consequential
-design changes clear; ask only when a correction changes a material product
-obligation or exceeds existing authorization.
+Reuse results whose source version, environment, and scope still apply. Inspect
+the final diff against the quality criteria and applicable project rules. Fix
+demonstrated problems within scope and recheck affected behavior. Broaden or repeat
+checks only for new changes, failures, environment changes, or uncovered risks.
 
-## Complete the change
-
-Follow the behavior through its real callers and dependencies. Finish the wiring,
-failure handling, and resource cleanup required for usable behavior. When replacing
-an existing path, update affected consumers and remove code or configuration made
-obsolete by this change. Preserve actual compatibility obligations; do not leave
-parallel paths by accident or use cleanup to justify unrelated refactoring.
-
-## Validate behavior and inspect the diff
-
-Use the project's relevant checks and tests for changed behavior and failure paths.
-Run configured formatting, linting, or type checks as appropriate; do not invent
-new tooling or low-value tests for a routine reversible edit.
-
-Reuse check results whose source version, environment, and scope still apply.
-Broaden or repeat checks only when new changes, failures, environment changes,
-or uncovered risks warrant it.
-
-Inspect the integrated change for duplicated responsibility, extra caller burden,
-inconsistent conventions, accidental public contracts, and boundary bypasses.
-Re-check the applicable project contract before declaring completion. Correct
-demonstrated problems within scope and report decisive evidence and limitations.
-Passing tests establishes tested behavior, not maintainability or production
-readiness by itself.
-
-Finish when required checks pass, material delivery obligations have evidence,
-and no material issue remains unresolved. Report blockers and unverified
-obligations rather than claiming completion.
+Implementation work is complete when required checks pass, the requested behavior
+and material obligations have evidence, and no material issue caused by the change
+remains unresolved. Report what changed, decisive evidence, and remaining limitations.
+State blockers or unverified obligations instead of claiming completion. Passing
+checks alone does not establish maintainability or production readiness; avoid
+delaying an adequate change for speculative improvements or stylistic perfection.

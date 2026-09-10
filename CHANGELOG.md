@@ -4,6 +4,39 @@ Notable changes to K Fleet are recorded here.
 
 ## Unreleased
 
+## [3.1.0] - 2026-09-10
+
+### Changed
+
+- Clarified roles, deliverables, quality criteria, and completion boundaries for
+  requirements, codebase design, implementation, test writing, and verification.
+- Split detailed methods into 18 references selected by the decisions a task needs,
+  keeping authority, applicability, and stopping rules in each skill's entry point.
+- Strengthened domain modeling, cross-module behavior, design tradeoffs, and
+  acceptance criteria that account for the complete user outcome.
+- Added verification environment and tool selection by affected deliverable and
+  behavior, with explicit limits for unavailable runtime evidence.
+- Expanded test guidance for meaningful cases and assertions, dependency fidelity,
+  isolation, concurrency, regression checks, and integration with existing runners.
+- Made skill discovery, authoring, and actual-use assessment conditional branches;
+  a local revision or assessment does not require searching for or installing skills.
+- Made delegation in the setup reminder conditional on usefulness and authorization.
+  The seven public skills, explicit-only setup, Supermemory boundaries, and CLI
+  installation contract remain unchanged.
+
+### Validation
+
+- All seven skills pass frontmatter and naming validation; all 18 internal reference
+  links resolve within their owning skills. Runtime and authority contracts were
+  checked for preservation, including setup's explicit-only invocation policy.
+- These are structural checks. The revised instructions have not yet been assessed
+  in representative software tasks, and no behavioral improvement is claimed.
+
+## Development notes before 3.1.0
+
+These previously unreleased notes retain intermediate development history; they
+are not a description of the current catalog or the changes in 3.1.0.
+
 ### Changed
 
 - Replaced the orchestrator skill with explicit-only `kf-setup`. The main agent

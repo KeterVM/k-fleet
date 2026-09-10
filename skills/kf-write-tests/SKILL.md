@@ -5,6 +5,19 @@ description: Write or improve automated tests for specified behavior, regression
 
 # Write tests
 
+## Role and result
+
+Work as the test engineer responsible for turning behavior contracts into useful
+automated protection. Deliver tests that expose meaningful wrong behavior, fit the
+project's test system, and remain understandable to maintainers, with actual execution
+results and explicit limits. More cases, assertions, or covered lines alone are not
+the result.
+
+Use this method for requested tests, a concrete protection gap, a regression, or
+test-first work. Reuse adequate coverage. Tests support implementation and delivery
+verification; writing them does not by itself establish that the whole feature works.
+The main agent retains task routing, authority, integration, and final completion.
+
 ## Runtime and authority
 
 For substantive work, establish the canonical repository/worktree, applicable
@@ -27,68 +40,67 @@ you to pause or leave work unfinished, link to its file, quote the rule, and
 distinguish its requirement from your interpretation. Continue independent
 authorized work only where its prerequisites are met.
 
-## Method
+## What good tests look like
 
-Turn behavior contracts into tests that can expose meaningful failures. Read the
-applicable project instructions, relevant requirements, code, and existing tests.
-Reuse the project's test runner and conventions. Establish which behavior needs
-protection before adding cases; more assertions or coverage alone is not the goal.
+- **Meaningful:** cases protect requested behavior or a credible regression and
+  derive expectations from the contract rather than incidental implementation.
+- **Discriminating:** assertions reject relevant wrong outcomes, including forbidden
+  effects, instead of merely confirming that code ran.
+- **Faithful and controlled:** the boundary preserves the behavior being claimed,
+  while unrelated variability and shared state do not obscure the result.
+- **Clear and maintainable:** setup, action, expectations, and failures explain the
+  scenario; behavior-preserving refactors do not cause unnecessary test rewrites.
+- **Proportionate:** protection justifies runtime, setup, and maintenance cost, and
+  fits the project's supported workflow.
 
-## Derive cases from the contract
+Apply these criteria to the affected tests, without requiring every test category,
+a coverage target not set by the project, or a new test framework.
 
-Identify the observable result and invariants for the operation under test.
-Distinguish intended behavior from incidental implementation details. Use source
-code to understand entry points and failure mechanisms, not as the sole oracle
-for what the result should be. Resolve material ambiguity rather than freezing
-an accidental behavior in an assertion.
+## Establish the protection needed
 
-Select relevant normal, boundary, and failure cases. Include authorization,
-retries, state transitions, concurrency, or rollback when the behavior depends on
-them; do not mechanically add every category to every change. Prefer a few cases
-that distinguish correct from plausible incorrect behavior over many redundant
-examples. Check existing coverage before duplicating it.
+Identify the observable outcome, relevant invariants, and why protection is needed
+from the request, project rules, and current sources. Use code to understand entry
+points and failure mechanisms, not as the sole authority for expected behavior.
+Resolve consequential ambiguity instead of freezing accidental behavior into tests.
 
-## Choose a boundary that can reveal the failure
+Inspect existing tests and configuration as needed to find the gap, supported runner,
+discovery rules, fixtures, and execution environment. Adapt to the affected deliverable
+and contract, not just its language or project label. Reuse adequate test infrastructure
+and conventions; add tooling only for a concrete need within the authorized scope,
+accounting for its maintenance cost.
 
-Use unit tests for isolated rules, integration tests for cooperating components
-and real dependency semantics, and end-to-end tests when the complete user path
-is the behavior at risk. Choose the narrowest scope that still exercises the
-relevant failure; do not substitute a mocked unit test for a database transaction
-or an integration contract that needs verification.
+## Select supporting guidance
 
-Keep the subject and the behavior being claimed real. Use doubles at boundaries
-when they make unrelated dependencies controllable, and assert observable effects
-rather than a copy of the mock setup. Avoid coupling tests to private helpers,
-internal call order, or incidental markup unless those details are the contract.
+Use the relevant reference for open decisions rather than loading all references
+for a straightforward test with a settled contract and established pattern.
 
-Control time, randomness, identity, and external failures where needed. Give tests
-their own state and resource cleanup so order and parallel execution do not alter
-results. Prefer synchronization on observable events over fixed sleeps. Exercise
-actual concurrency when claiming protection against races.
+- For case selection, assertions, regression examples, or test readability, read
+  [Cases and assertions](references/cases-and-assertions.md).
+- For test scope, project-specific execution surfaces, real dependencies, or mocks
+  and fakes, read [Boundaries and doubles](references/boundaries-and-doubles.md).
+- For asynchronous behavior, shared state, instability, test-first execution, or
+  changes to shared test infrastructure, read
+  [Isolation and execution](references/isolation-and-execution.md).
 
-## Make each assertion discriminate
+## Run and finish
 
-Assert the meaningful outcome, relevant state changes, and required absence of
-side effects on failure. Do not derive expected values by calling the same logic
-being tested or make assertions so permissive that the wrong behavior passes.
-Keep setup readable enough to show why the result follows from the scenario.
+Run the relevant tests and required project checks in permitted environments.
+Confirm that the new or changed tests were discovered and executed, not merely that
+the command exited successfully. Diagnose failures; do not weaken expectations,
+silently skip cases, or update snapshots solely to make the suite green.
 
-For a defect, reproduce its triggering conditions and, when feasible, demonstrate
-that the regression test fails for the original defect and passes with the fix.
-Confirm that failure is caused by the asserted behavior rather than a setup error.
-For test-first work, use the same distinction before implementing the behavior.
-Do not revert shared work or modify a live environment to obtain a failing run;
-use safe isolation where comparison is needed.
+If a test exposes a product defect, preserve the reproduction. Fix product code
+only when authorized; test-only work does not grant that permission. Continue through
+authorized implementation and correction, including test-first work, without an
+extra approval stop. Respect read-only requests and actual environment limitations.
 
-## Run and report
+Finish when the requested protection is integrated into the supported test workflow,
+relevant checks have results or explicit blockers, and introduced test defects are
+resolved. Test-only work can finish with a confirmed product failure reported;
+that does not mean the product is correct or the suite passes. Do not add speculative
+cases or repeat unchanged checks after sufficient evidence is available.
 
-Run the relevant tests and investigate failures. Do not weaken expectations,
-silently skip cases, or update snapshots solely to make the suite green. If a test
-exposes a product defect, preserve a clear reproduction; fix product code only
-when authorized by the task. Test-only requests do not authorize changing the
-contract or concealing a failure.
-
-Expand execution when the change affects shared fixtures or other test consumers.
-Report the protected behavior, actual results, and meaningful limits, including
-mocked or unexecuted boundaries. Distinguish a test written from a test run, and a
-passing regression from one demonstrated to catch the original defect.
+Report the protected behavior, actual execution results, and limits such as substituted
+or unexecuted boundaries. Distinguish tests written, tests run, and regression tests
+demonstrated to detect the original defect. The coordinating agent owns the conclusion
+about overall delivery.

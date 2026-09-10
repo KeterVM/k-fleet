@@ -5,6 +5,20 @@ description: Verify that delivered software implements the requested functionali
 
 # Verify
 
+## Role and result
+
+Work as the software verification engineer responsible for assessing whether the
+delivery satisfies the requested behavior and has material related problems.
+Deliver a conclusion supported by evidence, actionable findings, and explicit
+unverified obligations. Check the original request, accepted scope, project rules,
+and current artifacts; the implementer's summary and tests are inputs, not the
+sole authority for what should work.
+
+Assess the parts together through the behavior they must deliver. Implementation
+self-checks and automated tests can supply evidence without replacing this judgment.
+Verification does not require a separate agent. The main agent retains task routing,
+authority, overall integration, and final completion.
+
 ## Runtime and authority
 
 For substantive work, establish the canonical repository/worktree, applicable
@@ -27,74 +41,72 @@ you to pause or leave work unfinished, link to its file, quote the rule, and
 distinguish its requirement from your interpretation. Continue independent
 authorized work only where its prerequisites are met.
 
-## Method
+## What good verification looks like
 
-Determine whether the requested behavior is implemented and whether the delivery
-has other material problems. Start from the original request, accepted scope,
-project instructions, and current artifacts, not only the implementer's summary
-or tests. Assess whether the parts work together to deliver the intended result;
-collecting check results alone is not a substitute for checking the feature.
+- **Grounded in the contract:** expectations come from the requested behavior and
+  applicable constraints, including obligations the implementation may have omitted.
+- **Discriminating evidence:** checks could expose relevant wrong behavior and
+  exercise the boundaries needed to support the conclusion.
+- **Proportionate coverage:** attention follows consequential failure and regression
+  risks, while adequate current evidence is reused.
+- **Actionable findings:** problems have a supported trigger, consequence, and
+  location or affected boundary; uncertainty and preference remain distinguishable.
+- **Calibrated conclusions:** passed, failed, and unverified obligations are clear
+  for the version and environment examined, without claiming more than was checked.
 
-## Establish what must work
+These are criteria for the assessment, not a requirement to run every kind of test
+or prove the absence of all defects.
 
-Map the important requirements to observable behavior and actual entry points.
-Identify missing behavior, incomplete wiring, assumptions that narrowed the
-request, or hidden manual steps needed to make it work. Reuse adequate acceptance
-criteria; resolve consequential ambiguities
-instead of silently choosing the implementation as the specification.
+## Establish the verification scope
 
-Inspect the affected callers, dependencies, permissions, and state to select
-plausible failure and regression scenarios. Keep the scope proportional to the
-change. Include relevant code and integration risks without turning every feature
-verification into a repository-wide audit or unrelated architecture redesign.
+Map material requirements to observable outcomes and actual entry points. Reuse
+adequate acceptance criteria; resolve consequential ambiguity instead of treating
+the implementation as the specification. Look for missing behavior, incomplete
+wiring, assumptions that narrowed the request, or hidden manual steps needed for use.
 
-## Exercise the delivered behavior
+Identify the affected deliverable, how users or callers run it, and the available
+verification environment and tools. Use project guidance and configuration, reusing
+established context. Let the behavior being claimed determine which interfaces and
+dependencies must be exercised; a project label alone does not select the checks.
 
-Choose the evidence needed for each material obligation: existing automated tests,
-additional tests, real application interaction, targeted code inspection, or a
-runtime probe. Use actual entry points for behavior whose wiring or integration
-matters. Type checks and mocked tests cannot by themselves prove that a user flow
-or real dependency works.
+Inspect affected callers, dependencies, permissions, and state to identify credible
+failure and regression paths. Prioritize by consequence, exposure, and uncertainty,
+without omitting required project checks. Include relevant code and integration
+risks without expanding into an unrelated redesign or repository-wide audit.
 
-Check normal use and relevant boundary or failure conditions, such as denied
-access, invalid input, retries, partial failure, or changed state. Verify the
-result and required side effects, including what must not happen on failure.
-Exercise related existing behavior where the change could cause regressions.
+Use permitted environments and disposable state where mutation is allowed. Respect
+read-only reviews: use non-mutating probes or propose persistent tests. Verification
+access does not authorize production mutations, external messages, or deployment.
+In verification-only work, report product defects without fixing product code;
+when correction is already authorized, continue through the fix and relevant checks.
 
-Inspect for material problems that successful scenarios may miss: unreachable
-paths, bypassed invariants, resource lifetime issues, incompatible contracts, or
-unbounded work. Check whether the change leaves duplicated responsibility or
-unnecessary coordination in affected callers. Explain concrete consequences before
-reporting a problem; distinguish demonstrated failures and maintenance costs from
-structural preferences or unresolved risks.
+## Select supporting guidance
 
-## Fill meaningful evidence gaps
+Use the relevant reference for the decisions the task requires; do not load all
+references for a routine check with settled expectations and sufficient evidence.
 
-Reuse current evidence when its source version, environment, and tested scope
-still apply. Avoid rerunning an unchanged check merely to produce another result.
-When durable regression protection or a missing behavior check warrants new tests,
-write them using the project's conventions; use kf-write-tests when available.
-This workflow remains usable without that skill: derive expectations from the
-contract, keep relevant boundaries real, and run the resulting tests.
+- When choosing how to run or observe a deliverable, or when the required runtime
+  or tools are uncertain, read
+  [Environments and tools](references/environments-and-tools.md).
+- To choose checks, exercise real behavior, or assess whether existing results
+  support a claim, read [Evidence and coverage](references/evidence-and-coverage.md).
+- For failures, conflicting results, suspected defects, or finding severity, read
+  [Diagnosis and findings](references/diagnosis-and-findings.md).
+- When corrections or missing regression protection require further work, read
+  [Corrections and rechecks](references/corrections-and-rechecks.md).
 
-Use disposable local state and permitted environments. Respect read-only reviews;
-in that mode propose persistent tests or use non-mutating probes. Verify access
-does not authorize production mutations, external messages, or deployment.
-Distinguish environment blockers from product failures and state what remains
-unverified when an appropriate environment is unavailable.
+## Finish the assessment
 
-## Report problems and verify corrections
+Finish when required checks are accounted for, material obligations have supporting
+results or explicit gaps, and observed problems are characterized enough to act on.
+Do not count a blocked check as passed or abandon available checks merely because
+another check is blocked. Continue authorized correction work within scope before
+claiming the requested task is complete; report blockers when it cannot proceed.
 
-For each confirmed problem, record the trigger or reproduction, expected versus
-actual behavior, relevant location, and impact. Keep enough evidence for correction
-without treating speculative concerns as defects. In verification-only work,
-report findings without modifying product code; when correction is already
-authorized, continue through the fix and targeted regression checks.
-
-After a correction, recheck the failing scenario and affected neighboring behavior.
-Revisit earlier results when changed code or environment invalidates them. Clearly
-distinguish passed, failed, and unverified obligations in the final assessment.
-Tie the conclusion to the actual version and scope checked; do not infer complete
-delivery from a green suite that omits required behavior, or production readiness
-from local checks. Supply the assessment to the coordinating agent when delegated;
-do not claim authority over the whole task's completion.
+An assessment can finish with defects or unverified obligations; that is not a
+claim that delivery is complete. State the version and scope examined, decisive
+results, findings, and material limitations. Distinguish a demonstrated failure
+from its suspected cause, and an environmental limit from a product defect.
+Do not infer complete delivery from a green suite missing required behavior, or
+production readiness from local checks. When delegated, supply the assessment to
+the coordinating agent without claiming authority over the whole task's completion.

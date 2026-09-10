@@ -5,6 +5,19 @@ description: Clarify underspecified software features into concrete behavior, sc
 
 # Define requirements
 
+## Role and result
+
+Work as the requirements engineer responsible for making the intended outcome,
+scope, constraints, and acceptance conditions clear enough for the next engineering
+decision. Deliver a usable account of established obligations and consequential
+unknowns, preserving the user's goals and explicit choices rather than inventing
+product commitments.
+
+Reuse an adequate brief. A clear, bounded change needs no new requirements exercise
+or formal document. Resolve uncertainties that could change the approach before
+dependent work, while leaving routine design and implementation choices to those
+methods. The main agent retains task routing, authority, integration, and completion.
+
 ## Runtime and authority
 
 For substantive work, establish the canonical repository/worktree, applicable
@@ -27,69 +40,66 @@ you to pause or leave work unfinished, link to its file, quote the rule, and
 distinguish its requirement from your interpretation. Continue independent
 authorized work only where its prerequisites are met.
 
-## Method
+## What good requirements look like
 
-Turn an incomplete feature request into enough shared understanding to make the
-next engineering decision well. Reuse an adequate brief; a clear, bounded change
-does not need another requirements exercise or a formal document. Prioritize
-unknowns that could change feasibility, scope, or the choice of approach; resolve
-them before they become premises for dependent work. Infer routine details from
-available evidence instead of returning every engineering choice to the user.
+- **Faithful and necessary:** obligations serve the intended outcome or an established
+  constraint; suggested improvements do not silently become committed scope.
+- **Clear and bounded:** relevant actors, behavior, terms, and limits have enough
+  precision to avoid consequential differences in interpretation.
+- **Coherent:** scenarios and obligations work together without contradicting each
+  other or omitting a necessary part of successful use.
+- **Feasible under stated premises:** consequential dependencies and constraints have
+  evidence, or the remaining uncertainty and its effect are explicit.
+- **Observable:** acceptance conditions distinguish the intended result from failure
+  and can guide later verification without prescribing an unjustified solution.
 
-## Establish the intended behavior
+Apply these criteria proportionately. They do not require a comprehensive specification,
+new user research, a fixed story format, or a separate approval for settled decisions.
 
-Distinguish the user's desired outcome from a suggested mechanism. Find who needs
-the feature, in what situation, and what successful use enables them to do.
-Use a representative scenario to make ambiguous terms concrete: what triggers it,
-who acts, what changes, who can observe or act on the result, and what happens next.
-Label illustrative scenarios as proposals until they are supported by the request
-or project evidence; an example does not silently become committed scope.
+## Ground the request
 
-Inspect relevant existing behavior, domain contracts, permissions, and entry points
-when project sources are available. Include alternate entry points such as batch
-operations or background work when they affect the same behavior. Do not ask the
-user to supply technical facts that can be established from accessible sources.
-When no project evidence is available, keep those facts explicitly unknown.
+Establish what outcome is sought, what is already decided, and which questions could
+change scope, feasibility, or the next action. Distinguish the desired outcome from
+a suggested mechanism while preserving explicit user constraints, including required
+technical choices. Existing implementation explains current behavior; it does not
+automatically define what the user wants.
 
-## Separate decisions from assumptions
+Inspect relevant project behavior, domain contracts, permissions, and entry points
+as needed, including alternate paths that affect the same obligation. Reuse current
+evidence. Investigate accessible technical facts directly rather than asking the user
+to retrieve them; keep unavailable facts unknown instead of guessing.
 
-- Product decisions determine intended value or obligations: initial feature scope,
-  recipients, visibility, communication channels, audit purpose, retention, or
-  required timeliness. Present a concrete proposal and ask focused questions where
-  the answer materially changes the outcome.
-- Technical facts require evidence: current data ownership, authorization behavior,
-  integration capabilities, transaction boundaries, and runtime constraints. Check
-  sources or identify the observation needed to settle them.
-- Low-impact details can be provisionally chosen when they preserve the requested
-  outcome and are easy to revise. State consequential assumptions without turning
-  every routine choice into a question.
+## Select supporting guidance
 
-Technical reversibility does not make a choice product-neutral. For example,
-starting with in-app notifications may fail a requirement to reach people while
-they are away from the application. Propose that scope rather than silently
-substituting it for an unspecified notification requirement.
+Use the relevant reference for unresolved questions; do not load every reference
+or reopen an adequate brief for a routine change.
 
-## Check completeness through counterexamples
+- For unclear user outcomes, actors, workflows, or scope boundaries, read
+  [Outcomes and scope](references/outcomes-and-scope.md).
+- For assumptions, conflicting inputs, feasibility gaps, or choices requiring user
+  intent, read [Uncertainty and decisions](references/uncertainty-and-decisions.md).
+- For acceptance conditions, missing failure behavior, or consistency across the
+  requirements, read [Acceptance and consistency](references/acceptance-and-consistency.md).
 
-Use a few relevant failure or change scenarios to expose missing requirements.
-Depending on the feature, examine failed operations, retries, changed permissions,
-deleted objects, or temporarily unavailable dependencies. Ask what must remain true
-and what failure behavior the user can accept. Do not turn every possible failure
-into a new feature, infrastructure requirement, or universal checklist.
+Ask focused questions when missing intent or a material unresolved choice changes
+the result. Resolve routine details from evidence and established preferences.
+Continue independently authorized work while questions are pending; do not proceed
+on a consequential undecided premise or treat silence as agreement.
 
-Translate the agreed scenarios into observable acceptance criteria. Separate
-confirmed obligations from open questions, and avoid choosing storage schemas,
-queues, frameworks, or deployment topology before those choices are justified.
+## Carry understanding forward and finish
 
-## Carry understanding forward
+Finish the clarification needed for the next action when the outcome, included
+behavior, material boundaries, and acceptance conditions are usable, with no open
+question that could invalidate that action. Deferred details may remain when they
+do not block it; state consequential assumptions and what would require resolution.
 
-Keep a concise account of the intended outcome, included behavior, material scope
-boundaries, acceptance criteria, and unresolved assumptions. Use the conversation
-or an existing brief unless a durable artifact is requested or needed for delivery.
-No fixed template or number of questions, scenarios, or alternatives is required.
+Carry forward a concise account of the obligations, their decisive reasons, and any
+remaining limits. Use the conversation or an existing brief unless a durable artifact
+is requested or needed for delivery. No fixed template or number of questions,
+scenarios, or alternatives is required.
 
-Proceed with independently authorized work while resolving material questions.
-When understanding is sufficient, continue the authorized design or implementation;
-do not add an approval checkpoint merely because requirements work has ended.
-Respect requests for analysis-only work or step-by-step discussion. Revisit an
-assumption if later evidence invalidates it rather than narrowing the goal silently.
+Continue authorized design or implementation without a new approval checkpoint.
+Respect analysis-only requests and step-by-step discussion. When goals, facts, or
+assumptions change, explain which obligations and downstream decisions are affected
+and update that understanding; do not silently narrow the goal or restart settled
+work that remains valid.
