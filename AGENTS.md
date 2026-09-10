@@ -143,6 +143,15 @@ They operate at different levels, not as four equivalent formal theories:
   not automatically justify another rule. Apply existing authority and maintenance
   boundaries before adoption; learning never grants permission to change user goals.
 
+Before consequential decisions, verify factual premises that could change the
+conclusion; distinguish facts, inferences, and user preferences. Reuse sufficient
+evidence, using current source, version-matched official documentation, or runtime
+observations as appropriate. Investigate answerable factual questions directly;
+ask when missing user intent or a material choice requires user input. Make material
+uncertainty explicit. When challenged, recheck the relevant premises; revise
+conclusions for changed goals, new evidence, or identified reasoning errors, and
+explain the basis for the revision.
+
 For material decisions, be able to answer these questions using proportionate
 working evidence, without requiring a fixed report for every task:
 

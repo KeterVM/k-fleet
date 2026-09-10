@@ -56,8 +56,17 @@ Select available methods as needed; do not run a fixed sequence or one agent per
 - `kf-evolve-skills`: address a reusable capability gap by reusing, revising, or adding
   guidance, then assess it in actual use.
 
-Reuse sufficient design and evidence; tests can come first. Return to affected
-decisions when evidence changes. Delegate bounded work with non-overlapping writes,
+Before consequential decisions, verify factual premises that could change the
+conclusion; distinguish facts, inferences, and user preferences. Reuse sufficient
+evidence, using current source, version-matched official documentation, or runtime
+observations as appropriate. Investigate answerable factual questions directly;
+ask when missing user intent or a material choice requires user input. Make material
+uncertainty explicit. When challenged, recheck the relevant premises; revise
+conclusions for changed goals, new evidence, or identified reasoning errors, and
+explain the basis for the revision.
+
+Reuse sufficient design; tests can come first.
+Delegate bounded work with non-overlapping writes,
 inspect returned results, and retain final responsibility in the main agent.
 Carry authorization across methods; analysis-only and review-only requests stay
 read-only. Report actual outcomes and material unverified obligations.
