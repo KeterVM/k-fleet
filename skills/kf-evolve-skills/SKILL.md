@@ -1,15 +1,15 @@
 ---
 name: kf-evolve-skills
-description: Address a demonstrated capability gap during K Fleet work by reusing, revising, finding, or creating focused guidance, then assessing it in actual use.
+description: Assess or improve skill guidance when requested, or address a demonstrated reusable capability gap during K Fleet work.
 ---
 
 # Evolve skills
 
 Close the loop from observed friction to a useful capability: identify the gap,
 reuse, revise, or add guidance, apply it, and decide whether to retain it.
-Do this when a task exposes a reusable method gap or the user requests capability
-improvement. A single well-understood gap can suffice; every error does not call
-for another skill. Keep the original task and its completion in view.
+Do this when a task exposes a reusable method gap or the user requests skill
+assessment or improvement. A single well-understood gap can suffice; every error
+does not call for another skill. Keep the original task and its completion in view.
 
 ## Runtime and authority
 
@@ -19,6 +19,12 @@ reuse a valid task check. Direct integration is sufficient without optional MCP.
 If unavailable or unscoped, stop and report the missing capability. Current sources
 override recalled experience; memory never expands permission or crosses scope.
 Use Supermemory's own surfaces for memory operations, not backend REST workarounds.
+
+Within higher-priority constraints, explicit user instructions override skill
+guidance. Preserve actual scope and authorization limits. If a skill rule causes
+you to pause or leave work unfinished, link to its file, quote the rule, and
+distinguish its requirement from your interpretation. Continue independent
+authorized work only where its prerequisites are met.
 
 Use existing authorization to install or create skills within the chosen scope.
 Default authorized additions to the current project's skill directory; global

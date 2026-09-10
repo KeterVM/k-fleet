@@ -1,9 +1,24 @@
 # Skill authoring guidance
 
-Reference supplied by the user: “Rethinking skills and prompts for GPT-6 Astra”.
-This document records its applicable guidance and the user's engineering foundations
-for future K Fleet skill maintenance. The supplied text had no verified publication
-URL; model-specific observations are hypotheses to test, not portable guarantees.
+This document combines the user's engineering foundations with applicable guidance
+from the sources below, checked against their original content on 2026-09-10:
+
+- Eric Provencher, [Rethinking skills and prompts for GPT-6 Astra](https://x.com/pvncher/status/2095991462416490862),
+  published 2026-09-04: focused descriptions, progressive disclosure, and revisiting
+  excessive reading, testing, and premature stopping rules.
+- Angel Brodin, [instruction-conflict audit](https://x.com/angelbrodin/status/2095882076088086848),
+  published 2026-09-04: examine autonomy, clarification, approval, and completion
+  together while preserving intentional safeguards.
+- OpenAI, [GPT-6 Astra prompting guidance](https://developers.openai.com/api/docs/guides/latest-model#prompting-best-practices):
+  official guidance on instruction priority, follow-through, and proportionate verification.
+- OpenAI, [skill loading](https://learn.chatgpt.com/docs/customization/overview#skills)
+  and [skill-writing practices](https://learn.chatgpt.com/docs/build-skills#best-practices):
+  metadata-based discovery, conditional loading, and focused applicability.
+
+The authors' practice observations are distinct from official model guidance;
+neither establishes effectiveness on K Fleet tasks. Model-specific observations
+are hypotheses to assess in actual use, not portable guarantees. Recheck evolving
+documentation against the model and runtime in use when a decision depends on it.
 
 ## Write instructions that change decisions
 

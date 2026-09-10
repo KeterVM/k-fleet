@@ -21,6 +21,12 @@ Normal task execution does not rewrite live skills or policy. Instruction change
 require authorized, versioned, reversible source maintenance. Report actual
 evidence without claiming unobserved capture or execution.
 
+Within higher-priority constraints, explicit user instructions override skill
+guidance. Preserve actual scope and authorization limits. If a skill rule causes
+you to pause or leave work unfinished, link to its file, quote the rule, and
+distinguish its requirement from your interpretation. Continue independent
+authorized work only where its prerequisites are met.
+
 ## Method
 
 Turn behavior contracts into tests that can expose meaningful failures. Read the

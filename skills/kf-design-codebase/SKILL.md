@@ -1,6 +1,6 @@
 ---
 name: kf-design-codebase
-description: Choose how an understood change fits an existing codebase, resolving responsibilities, interfaces, and dependencies while keeping overall complexity proportional to current needs.
+description: Resolve open responsibility, interface, or structural decisions for an understood code change, keeping complexity proportional to current needs.
 ---
 
 # Design codebase
@@ -20,6 +20,12 @@ store. Preserve read-only requests and existing authorization across methods.
 Normal task execution does not rewrite live skills or policy. Instruction changes
 require authorized, versioned, reversible source maintenance. Report actual
 evidence without claiming unobserved capture or execution.
+
+Within higher-priority constraints, explicit user instructions override skill
+guidance. Preserve actual scope and authorization limits. If a skill rule causes
+you to pause or leave work unfinished, link to its file, quote the rule, and
+distinguish its requirement from your interpretation. Continue independent
+authorized work only where its prerequisites are met.
 
 ## Method
 

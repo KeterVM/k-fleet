@@ -21,6 +21,12 @@ Normal task execution does not rewrite live skills or policy. Instruction change
 require authorized, versioned, reversible source maintenance. Report actual
 evidence without claiming unobserved capture or execution.
 
+Within higher-priority constraints, explicit user instructions override skill
+guidance. Preserve actual scope and authorization limits. If a skill rule causes
+you to pause or leave work unfinished, link to its file, quote the rule, and
+distinguish its requirement from your interpretation. Continue independent
+authorized work only where its prerequisites are met.
+
 ## Method
 
 Own the integrated result of the change. Understand its relevant entry points,
@@ -93,9 +99,17 @@ Use the project's relevant checks and tests for changed behavior and failure pat
 Run configured formatting, linting, or type checks as appropriate; do not invent
 new tooling or low-value tests for a routine reversible edit.
 
+Reuse check results whose source version, environment, and scope still apply.
+Broaden or repeat checks only when new changes, failures, environment changes,
+or uncovered risks warrant it.
+
 Inspect the integrated change for duplicated responsibility, extra caller burden,
 inconsistent conventions, accidental public contracts, and boundary bypasses.
 Re-check the applicable project contract before declaring completion. Correct
 demonstrated problems within scope and report decisive evidence and limitations.
 Passing tests establishes tested behavior, not maintainability or production
 readiness by itself.
+
+Finish when required checks pass, material delivery obligations have evidence,
+and no material issue remains unresolved. Report blockers and unverified
+obligations rather than claiming completion.

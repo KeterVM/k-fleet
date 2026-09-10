@@ -14,7 +14,7 @@ run it once; a later explicit setup request can refresh the same managed block.
 | An understood code change | `kf-implement` | Complete integrated behavior, warranted design corrections, and relevant checks |
 | Missing automated protection | `kf-write-tests` | Discriminating tests and their actual execution results |
 | Determine whether delivery satisfies the request and has related problems | `kf-verify` | Verified behavior, reproducible findings, and unverified obligations |
-| Address a reusable capability gap exposed by work | `kf-evolve-skills` | Selected or created guidance, actual-use observations, and a retain/revise/undo decision |
+| Requested skill assessment or improvement, or a reusable capability gap exposed by work | `kf-evolve-skills` | Evidence-backed assessment; for authorized changes, actual-use observations or an explicit unproven status |
 
 Reuse sufficient inputs and evidence rather than recreating them at every step.
 A small understood fix can proceed directly to implementation and focused

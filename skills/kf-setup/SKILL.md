@@ -10,6 +10,12 @@ normal coding task, or a newly opened project must not trigger setup automatical
 This skill configures project reminders; the main agent coordinates ordinary work
 directly using the method skills.
 
+Within higher-priority constraints, explicit user instructions override skill
+guidance. Preserve actual scope and authorization limits. If a skill rule causes
+you to pause or leave work unfinished, link to its file, quote the rule, and
+distinguish its requirement from your interpretation. Continue independent
+authorized work only where its prerequisites are met.
+
 ## Resolve the target and runtime
 
 Resolve the active worktree's repository root, or the current directory when no
@@ -48,13 +54,13 @@ The main agent owns scope, engineering decisions, integration, and completion.
 Select available methods as needed; do not run a fixed sequence or one agent per skill:
 
 - `kf-define-requirements`: clarify intended behavior and acceptance criteria.
-- `kf-design-codebase`: fit changes to the codebase with clear responsibilities
-  and proportionate complexity.
+- `kf-design-codebase`: resolve open responsibility, interface, or structural
+  decisions with proportionate complexity.
 - `kf-implement`: deliver complete changes and revisit design when evidence warrants.
 - `kf-write-tests`: add meaningful automated checks when needed.
 - `kf-verify`: verify functionality and related problems.
-- `kf-evolve-skills`: address a reusable capability gap by reusing, revising, or adding
-  guidance, then assess it in actual use.
+- `kf-evolve-skills`: assess or improve guidance when requested, or address a
+  reusable capability gap; assess changes in actual use.
 
 Before consequential decisions, verify factual premises that could change the
 conclusion; distinguish facts, inferences, and user preferences. Reuse sufficient
@@ -70,6 +76,12 @@ Delegate bounded work with non-overlapping writes,
 inspect returned results, and retain final responsibility in the main agent.
 Carry authorization across methods; analysis-only and review-only requests stay
 read-only. Report actual outcomes and material unverified obligations.
+
+Within higher-priority constraints, explicit user instructions override skill
+guidance. Preserve actual scope and authorization limits. If a skill rule causes
+you to pause or leave work unfinished, link to its file, quote the rule, and
+distinguish its requirement from your interpretation. Continue independent
+authorized work only where its prerequisites are met.
 
 Require connected, scoped Supermemory recall/capture before substantive work.
 Current instructions and repository sources override memory; keep memory isolated

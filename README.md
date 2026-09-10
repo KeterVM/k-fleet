@@ -13,11 +13,11 @@ the integrated result, guided by reminders in the project's root `AGENTS.md`.
 | --- | --- |
 | `kf-setup` | On explicit request, initialize or refresh root `AGENTS.md` reminders |
 | `kf-define-requirements` | Intended behavior, scope, and acceptance criteria |
-| `kf-design-codebase` | Fit changes to the codebase with clear ownership and proportionate complexity |
+| `kf-design-codebase` | Resolve open responsibility, interface, or structural decisions with proportionate complexity |
 | `kf-implement` | Complete integrated changes, disciplined reuse, and evidence-based design corrections |
 | `kf-write-tests` | Meaningful automated checks and regression protection |
 | `kf-verify` | Functionality, related defects, regressions, and runtime problems |
-| `kf-evolve-skills` | Reuse, revise, find, or create guidance for observed capability gaps and assess it in use |
+| `kf-evolve-skills` | Assess or improve guidance on request, or address observed capability gaps and assess changes in use |
 
 Each skill is self-contained. One agent can use several methods, skip unnecessary
 steps, write tests first, or revisit a decision when evidence changes. Codebase
