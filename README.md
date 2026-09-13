@@ -1,5 +1,7 @@
 # K Fleet
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 K Fleet is optimized specifically for Astra. Results with other models are not
 guaranteed.
 
