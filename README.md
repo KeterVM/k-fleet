@@ -9,6 +9,49 @@ K Fleet provides six engineering methods and a user-triggered setup skill, using
 Supermemory for scoped project context. The main agent selects methods and owns
 the integrated result, guided by reminders in the project's root `AGENTS.md`.
 
+## Why K Fleet
+
+K Fleet aims to make engineering judgment explicit throughout a task: understand
+the real goal, choose a suitable approach, deliver usable behavior, and correct
+mistakes using evidence. Generating plausible code is only part of that work.
+An implementation can follow the wrong assumption, leave cooperating components
+disconnected, or pass tests that miss the user's actual requirement.
+
+The skills package reusable decision criteria for those problems: when to clarify
+a requirement, when a design needs more thought, what evidence supports delivery,
+and when to stop or change course. Keeping those methods in project-installed files
+makes them inspectable and maintainable across tasks. Guidance is loaded as needed;
+a small, understood fix can proceed directly without a full engineering ceremony.
+
+For example, a request to add notifications may leave the delivery channel unclear.
+Clarify it if that choice changes successful use, define who owns sending and retry
+behavior, then implement and verify the relevant path. A passing test of the send
+function does not establish that the application invokes it. If work repeatedly
+misses that connection, investigate whether the method needs revision as well as
+fixing the code. Each action should resolve a real uncertainty or delivery gap.
+
+## Core ideas
+
+Four complementary foundations guide the design. They operate at different levels
+and do not imply a fixed workflow, skill count, or agent count.
+
+| Foundation | How it guides work |
+| --- | --- |
+| **First principles** | Separate the goal, established facts, constraints, and assumptions. Derive the needed capabilities and check that they jointly serve the intended scenario, using relevant engineering knowledge and evidence. |
+| **Methodology** | Choose an explicit method for the task and its conditions. Reuse sufficient requirements and design; select only the methods needed for the next decision. Following a method alone does not prove correctness. |
+| **Control theory** | Compare observable results with the intended behavior, correct deviations, and define when to stop or change strategy. Useful evidence and corrective action form the feedback loop; repeated attempts alone do not guarantee convergence. |
+| **Double-loop learning** | Distinguish fixing an implementation from revising the assumptions, methods, or evaluation criteria that produced it. Propose such revisions when evidence warrants them, within existing authorization and maintenance boundaries. |
+
+These ideas shape ownership and continuity as well as individual decisions. The main
+agent retains responsibility for integration and completion across methods, carrying
+authorized work through relevant checks and corrections. Supermemory supplies scoped
+context and experience; current instructions and repository sources remain authoritative.
+Learning does not grant permission to change user goals or silently rewrite skills.
+
+The intended value is better decisions and completed outcomes with proportionate
+effort. That value must be demonstrated in actual work; installing the package,
+following its steps, or shortening its instructions is not proof of improvement.
+
 ## Skills
 
 | Skill | Responsibility |
