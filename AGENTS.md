@@ -31,10 +31,10 @@ workflow behavior rather than framework-specific instructions.
   root `AGENTS.md` reminders on explicit user request. Requirements, codebase design,
   implementation, test writing, verification, and capability-improvement skills
   own their respective methods.
-- Backend ownership, source authority, isolation, and maintenance boundaries are
-  recorded in [Learned Rules](#learned-rules). Supermemory supplies evidence and
-  never expands permission; do not call backend REST APIs to emulate integration
-  capabilities.
+- Backend choice, source authority, isolation, and maintenance boundaries are
+  recorded in [Learned Rules](#learned-rules). External memory is optional and
+  supplies evidence, never permission. Users or projects choose their integration;
+  K Fleet does not implement backend operations or adapters.
 - Task feedback can trigger `kf-evolve-skills` for authorized skill discovery,
   installation, or creation. It must diagnose the gap, inspect available guidance,
   and assess actual use before claiming improvement. Ordinary implementation does
@@ -54,12 +54,12 @@ workflow behavior rather than framework-specific instructions.
 - Put method applicability, authority, stopping, and reference-selection rules in
   `SKILL.md`. Put substantial procedures and backend-specific contracts in
   purpose-labelled references, linked at the relevant decision point.
-- Setup must preserve unrelated guidance and must not install or globally configure
-  the memory backend itself. Keep root reminders concise and method procedures
+- Setup must preserve unrelated guidance and must not install or configure memory
+  integrations or their hooks. Keep root reminders concise and method procedures
   inside their skills. CLI installation only installs files and reminds the user
   to run `/kf-setup`; it never invokes setup or edits root instructions.
-- Supermemory derives scope from canonical repository and worktree identity;
-  recalled inferences remain unapproved evidence.
+- Memory integrations must respect canonical repository/worktree identity and
+  authorized scope; recalled inferences remain unapproved evidence.
 - Keep detailed target-project facts in that project's guidance or source documents,
   not in the portable K Fleet skill.
 - Add dependencies, build tooling, generated files, or scripts only to solve a
@@ -90,12 +90,12 @@ presence does not require this repository to maintain a test harness.
   Retain the repository map, architecture invariants, conventions, and validation
   contract; never replace this guide with the installation bootstrap.
   Apply the minimal managed bootstrap only to repositories that install K Fleet,
-  through explicitly requested idempotent `kf-setup` and only after its scoped
-  Supermemory runtime check passes. Otherwise setup must stop without writing and
-  direct the user to install or configure the integration. The bootstrap must remind
-  the main agent to select methods as needed, retain task ownership, enforce
-  source-over-memory and project/worktree isolation,
-  and stop substantive work when the required runtime is missing.
+  through explicitly requested idempotent `kf-setup`. Setup does not require a memory
+  backend or connectivity check. The bootstrap must remind the main agent to select
+  methods as needed, retain task ownership, enforce source-over-memory and
+  project/worktree isolation, and continue from current conversation and sources
+  when optional memory is absent. Preserve explicit project memory requirements;
+  pause only work that depends on missing evidence or a required memory operation.
 - Keep seven public skills: `kf-setup`, `kf-define-requirements`,
   `kf-design-codebase`, `kf-implement`, `kf-write-tests`, `kf-verify`, and
   `kf-evolve-skills`. Each skill must be self-contained: its required
@@ -107,9 +107,12 @@ presence does not require this repository to maintain a test harness.
   to an affected decision; never require every method for every task. Do not create
   one agent per skill or retain old routing shims. See
   [Workflow method composition](docs/workflow-methods.md) for the selection contract.
-- Use Supermemory as the context and experience backend. Current repository sources
-  remain authoritative and project/worktree isolation is required. Supermemory owns
-  the complete memory lifecycle; do not recreate its operations as skills or adapters.
+- Keep engineering methods independent of external memory. Users or projects may
+  choose Supermemory, a graph-based integration, another backend, or none. Integrations
+  own their memory lifecycle; use their supported interfaces within authorization,
+  without adding backend implementations or adapters to K Fleet. Current sources
+  remain authoritative and project/worktree isolation is required. Missing optional
+  memory does not block ordinary work or justify claims of persistent capture.
   Skill changes require authorized, versioned, reversible source maintenance.
 - Use `find-skills` and `skill-creator` when available for capability improvement;
   keep a self-contained fallback rather than bundling copies or requiring them for

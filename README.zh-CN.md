@@ -4,9 +4,9 @@
 
 K Fleet 专门针对 Astra 进行优化，不保证在其他模型上的效果。
 
-K Fleet 提供六种工程方法和一个由用户主动触发的初始化技能，使用 Supermemory
-管理按项目隔离的上下文。主 agent 根据项目根目录 `AGENTS.md` 中的提醒选择方法，
-并对整合后的最终结果负责。
+K Fleet 提供六种工程方法和一个由用户主动触发的初始化技能。主 agent 根据项目根目录
+`AGENTS.md` 中的提醒选择方法，并对整合后的最终结果负责。
+外部记忆是可选能力，用户和项目可以选择适合自身需求的集成。
 
 ## 为什么需要 K Fleet
 
@@ -37,7 +37,7 @@ K Fleet 希望让工程判断贯穿整个任务：理解真实目标、选择适
 | **双环学习** | 区分修复实现与修订产生该实现的假设、方法或评价标准。证据充分时提出修订，并遵守已有授权和维护边界。 |
 
 这些思想也体现在责任归属和任务连续性上。主 agent 在方法切换时始终负责整合与完成，
-将已授权工作推进到相关检查和必要修正。Supermemory 提供按范围隔离的上下文与经验，
+将已授权工作推进到相关检查和必要修正。可选的记忆集成提供按范围隔离的上下文与经验，
 当前指令和仓库源文件仍是权威依据。学习不会赋予改变用户目标或悄悄重写技能的权限。
 
 我们希望以与任务相称的投入，获得更好的决策和完整的交付结果。
@@ -70,21 +70,7 @@ K Fleet 希望让工程判断贯穿整个任务：理解真实目标、选择适
 
 ## 安装
 
-需要 Node.js 20+ 和官方
-[Supermemory Codex 集成](https://supermemory.ai/docs/integrations/codex)。
-请先在用户范围内安装并配置该集成：
-
-```sh
-npx codex-supermemory@latest install
-npx codex-supermemory status
-```
-
-支持托管版和[本地部署的 Supermemory](https://supermemory.ai/docs/self-hosting/overview)。
-使用本地后端时，请固定 `SUPERMEMORY_DATA_DIR`，在 `~/.codex/supermemory.json`
-中配置 API 密钥和 URL，并在启动 Codex 的环境中设置
-`SUPERMEMORY_ISOLATE_WORKTREES=true`。
-K Fleet 要求自动回忆和捕获功能连接正常，且作用域正确；不要求使用可选的 MCP 传输。
-当前指令和仓库文件优先于记忆，记忆不会赋予额外权限，也不能跨越项目或 worktree 的范围。
+需要 Node.js 20+，不要求安装外部记忆服务。
 
 在目标仓库中运行：
 
@@ -108,9 +94,24 @@ CLI 会将七个 K Fleet 技能安装到 `.agents/skills/`，记录 `skills-lock
 /kf-setup
 ```
 
-初始化会先检查 Supermemory，再向目标项目的 `AGENTS.md` 写入可重复执行的托管区块，
-保留已有指导。如果所需运行时不可用，它会停止且不写入文件。
-初始化不会安装或配置记忆后端，也不会被自动选择；日常任务直接使用各方法技能。
+初始化会以幂等方式更新目标项目 `AGENTS.md` 中的托管区块，保留已有指导。
+它不要求记忆后端或记忆连接检查，也不会安装或配置记忆集成。
+初始化不会被自动选择；日常任务直接使用各方法技能。
+
+## 可选记忆
+
+可以只依靠当前对话和仓库源文件使用 K Fleet，也可以按项目需要添加记忆集成。
+Supermemory、图记忆系统或其他后端都可以独立选择；K Fleet 不提供适配器，
+也不要求特定的存储或检索模型。
+
+如果选择 Supermemory，请按照其 [Codex 集成说明](https://github.com/supermemoryai/codex-supermemory)
+配置基于 hooks 的自动回忆与捕获。所选集成应单独配置，包括权限和项目/worktree 隔离。
+记忆生命周期由集成负责，K Fleet 的工程方法无需编排它的 hooks。
+
+没有安装可选记忆或服务暂时不可用时，继续依据当前证据工作。
+只有依赖缺失证据或明确要求的记忆操作的部分才需要暂停。
+当前指令和仓库源文件优先于召回的上下文，记忆不会赋予额外权限。
+持久化回忆与捕获取决于所配置的集成，没有证据时不能声称已完成。
 
 ## 使用
 
@@ -135,6 +136,8 @@ npx k-fleet@latest list
 如果存在已停用的 `kf-orchestrate-work`、`kf-design`、`kf-investigate` 或
 `skillopt-sleep`，安装也会刷新技能目录，并在替代技能安装成功后删除旧目录及对应的锁定条目。
 更新后请重启 Codex，并在需要时手动运行 `/kf-setup`，刷新项目中的旧版提醒。
+若要移除旧版 K Fleet 对 Supermemory 的强制要求，请更新技能后显式运行 `/kf-setup`。
+它会替换托管提醒，同时保留独立的项目指令，包括项目明确要求使用某个记忆后端的规则。
 
 ## 维护
 

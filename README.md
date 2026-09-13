@@ -5,9 +5,10 @@
 K Fleet is optimized specifically for Astra. Results with other models are not
 guaranteed.
 
-K Fleet provides six engineering methods and a user-triggered setup skill, using
-Supermemory for scoped project context. The main agent selects methods and owns
-the integrated result, guided by reminders in the project's root `AGENTS.md`.
+K Fleet provides six engineering methods and a user-triggered setup skill. The main
+agent selects methods and owns the integrated result, guided by reminders in the
+project's root `AGENTS.md`. External memory is optional; users and projects choose
+the integration that fits their needs.
 
 ## Why K Fleet
 
@@ -44,8 +45,8 @@ and do not imply a fixed workflow, skill count, or agent count.
 
 These ideas shape ownership and continuity as well as individual decisions. The main
 agent retains responsibility for integration and completion across methods, carrying
-authorized work through relevant checks and corrections. Supermemory supplies scoped
-context and experience; current instructions and repository sources remain authoritative.
+authorized work through relevant checks and corrections. Optional memory integrations
+supply scoped context and experience; current instructions and repository sources remain authoritative.
 Learning does not grant permission to change user goals or silently rewrite skills.
 
 The intended value is better decisions and completed outcomes with proportionate
@@ -81,22 +82,7 @@ Skills do not require a separate agent each.
 
 ## Installation
 
-Requires Node.js 20+ and the official
-[Supermemory Codex integration](https://supermemory.ai/docs/integrations/codex).
-Install and configure that integration at user scope first:
-
-```sh
-npx codex-supermemory@latest install
-npx codex-supermemory status
-```
-
-Hosted and [local Supermemory](https://supermemory.ai/docs/self-hosting/overview)
-are supported. For a local backend, keep `SUPERMEMORY_DATA_DIR` fixed, configure
-its API key and URL in `~/.codex/supermemory.json`, and set
-`SUPERMEMORY_ISOLATE_WORKTREES=true` in the environment that starts Codex.
-K Fleet requires connected, correctly scoped automatic recall and capture;
-optional MCP transport is not required. Current instructions and repository files
-override memory, which never grants permission or crosses project/worktree scope.
+Requires Node.js 20+. No external memory service is required.
 
 From the target repository:
 
@@ -120,10 +106,28 @@ registers the project. Installation does not run setup or edit `AGENTS.md`.
 /kf-setup
 ```
 
-Setup checks Supermemory before writing an idempotent block in the target's
-`AGENTS.md`, preserving existing guidance. If the required runtime is unavailable,
-it stops without writing. It does not install or configure the memory backend.
-Setup is never selected automatically; ordinary tasks use the methods directly.
+Setup writes an idempotent block in the target's `AGENTS.md`, preserving existing
+guidance. It requires neither a memory backend nor a memory connectivity check,
+and does not install or configure memory integrations. Setup is never selected
+automatically; ordinary tasks use the methods directly.
+
+## Optional memory
+
+Use K Fleet with the current conversation and repository sources alone, or add a
+memory integration chosen for your project. Supermemory, a graph-based memory system,
+and other backends are independent choices; K Fleet does not provide adapters or
+require a particular storage or retrieval model.
+
+For Supermemory, follow its [Codex integration instructions](https://github.com/supermemoryai/codex-supermemory)
+for hook-based recall and capture. Configure any chosen integration separately,
+including its permissions and project/worktree isolation. The integration owns the
+memory lifecycle; K Fleet methods do not need to orchestrate its hooks.
+
+When optional memory is absent or unavailable, continue from current evidence.
+Only work that depends on missing evidence or an explicitly required memory operation
+needs to pause. Current instructions and repository sources override recalled context,
+which never grants permission. Persistent recall and capture depend on the configured
+integration and must not be claimed without evidence.
 
 ## Usage
 
@@ -150,6 +154,9 @@ preserves existing current skills; updates refresh them. When retired
 installation also refreshes the catalog, then removes those directories and lock
 entries after replacements install successfully. Restart Codex after updates and
 manually run `/kf-setup` to refresh old project reminders when needed.
+To remove a legacy K Fleet requirement for Supermemory, update the skills and run
+`/kf-setup` explicitly; it replaces the managed reminder while preserving separate
+project instructions, including any explicit requirement for a memory backend.
 
 ## Maintenance
 

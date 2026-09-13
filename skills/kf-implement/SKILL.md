@@ -23,14 +23,17 @@ behavior and boundaries needs no formal design or additional reading.
 ## Runtime and authority
 
 Before substantive work, establish canonical repository/worktree scope, project
-instructions, authorization, and the stopping condition. Require scoped Supermemory
-automatic recall/capture; reuse a valid task check. Direct integration suffices
-without optional MCP. If unavailable or unscoped, stop and report the gap.
+instructions, authorization, and the stopping condition. External memory is optional
+unless the task or project explicitly requires it. Use current conversation and
+repository sources when memory is absent or unavailable; report material gaps and
+pause only work that depends on missing evidence or a required memory operation.
 
 Current instructions and scoped sources override memory; recalled inferences grant
-no permission and must stay isolated to this repository/worktree. Use Supermemory's
-own surfaces, never backend REST workarounds or another store. Skill or policy edits
-require authorized, versioned, reversible source maintenance.
+no permission. Use only context with appropriate project/worktree scope. The user
+or project chooses any memory integration, which owns its recall, storage, and
+retrieval. Use its supported interfaces within authorization; do not invent a
+replacement backend or adapter. Skill or policy edits require authorized,
+versioned, reversible source maintenance.
 
 The main agent owns routing, authority, integration, and completion. Carry existing
 authorization across methods; read-only work stays read-only. Within higher-priority

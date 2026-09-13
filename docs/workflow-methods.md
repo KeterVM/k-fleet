@@ -43,3 +43,17 @@ correction. It can help the current task or a later authorized task; it is not a
 mandatory final phase. Missing tools, access, or product decisions should be
 resolved at their own source. Search or installation success alone does not prove
 that the new guidance improves the work.
+
+## Optional memory
+
+Engineering methods use the current task and repository evidence independently of
+external memory. Users or projects choose whether to add Supermemory, a graph-based
+integration, another backend, or none. Memory can carry context and experience across
+tasks; its absence does not prevent current-task feedback or authorized skill revision.
+
+The integration owns recall, capture, storage, and retrieval. K Fleet supplies no
+backend adapter and does not configure hooks. Current instructions and scoped sources
+override recalled inferences, which never grant permission. Preserve project/worktree
+isolation and explicit project memory requirements. If memory is unavailable, continue
+work supported by current evidence and pause only the parts requiring missing evidence
+or a required memory operation; do not claim unobserved persistence.

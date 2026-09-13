@@ -16,19 +16,15 @@ you to pause or leave work unfinished, link to its file, quote the rule, and
 distinguish its requirement from your interpretation. Continue independent
 authorized work only where its prerequisites are met.
 
-## Resolve the target and runtime
+## Resolve the target and available methods
 
 Resolve the active worktree's repository root, or the current directory when no
 repository exists. Use another target only when explicitly named. Inspect
 applicable guidance without treating ancestor files as writable.
 
-Before writing, use the installed Supermemory integration's status surface from
-the target root to verify connectivity, canonical repository/worktree scope, and
-automatic recall/capture. A direct integration is sufficient; optional MCP is not
-a separate prerequisite. If unavailable or unscoped, make no project changes,
-report the missing capability, and direct the user to configure the official Codex
-integration before rerunning setup. Do not install the backend or change global
-configuration as part of setup.
+Setup does not require a memory backend or a memory connectivity check. Preserve
+any explicit project requirements for memory; do not install or configure an
+integration, hooks, or global settings as part of setup.
 
 Check that the six method skills named below are available through supported skill
 discovery. If a method is missing, report it and the need to install or update
@@ -77,17 +73,21 @@ preserve scope and permission limits. If a skill rule halts work, link and quote
 distinguishing the rule from your interpretation. Continue independent authorized
 work whose prerequisites are met.
 
-Require connected, scoped Supermemory recall/capture before substantive work;
-current instructions and repository sources override memory. Isolate memory to this
-repository/worktree. Stop work requiring a missing runtime or method and report the
-gap; do not invent fallbacks. Run `kf-setup` only on explicit user request.
+External memory is optional unless the task or project explicitly requires it.
+Use current conversation and repository sources when it is absent or unavailable;
+pause only work that depends on missing evidence or a required memory operation.
+The user or project chooses the integration. Current instructions and sources
+override memory; use only appropriately scoped project/worktree context, never as
+permission. Report missing capabilities without inventing backends or adapters.
+Run `kf-setup` only on explicit user request.
 <!-- k-fleet:end -->
 ```
 
 If the file is absent, create it with `# Repository Instructions` and the block.
 If no markers exist, append the block with a blank-line boundary, preserving all
 existing content. If exactly one well-formed pair exists, replace only that block,
-including a legacy reminder requiring kf-orchestrate-work. If the block already
+including legacy reminders requiring kf-orchestrate-work or Supermemory. Preserve
+explicit project requirements outside the managed block. If the block already
 matches, leave the file unchanged.
 
 For duplicated, reversed, nested, or incomplete markers, stop before writing and
@@ -99,7 +99,7 @@ the whole guide with a template.
 
 Inspect the resulting root file for one complete block and preservation of
 unrelated guidance. Report the target, whether it was created, updated, or
-unchanged, and the observed runtime and method availability. Do not claim that
+unchanged, and the observed method availability. Do not claim that
 setup proves skill effectiveness.
 
 Setup ends here unless the user separately included substantive work in the

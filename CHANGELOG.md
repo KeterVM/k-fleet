@@ -4,6 +4,28 @@ Notable changes to K Fleet are recorded here.
 
 ## Unreleased
 
+### Changed
+
+- Made external memory optional and independent of the engineering methods. Users
+  and projects can choose Supermemory, a graph-based integration, another backend,
+  or none; integrations retain ownership of their memory lifecycle.
+- Removed mandatory memory connectivity checks from setup and ordinary methods.
+  Work continues from current conversation and repository evidence unless it needs
+  missing evidence or an explicitly required memory operation. Source authority,
+  project/worktree isolation, and authorization boundaries still apply.
+- Updated the managed setup reminder and both READMEs. Updating skills and explicitly
+  rerunning `/kf-setup` replaces legacy managed Supermemory requirements while
+  preserving separate project rules. K Fleet does not configure memory hooks or
+  provide backend adapters.
+
+### Validation
+
+- All seven skills pass frontmatter and naming validation; all 18 internal reference
+  links resolve within their owning skills. README commands and link targets match
+  across languages, and setup remains explicit-only.
+- These are instruction and structural checks; no graph backend interoperability or
+  behavioral improvement has been established by this change.
+
 ## [3.1.0] - 2026-09-10
 
 ### Changed

@@ -14,11 +14,13 @@ does not call for another skill. Keep the original task and its completion in vi
 ## Runtime and authority
 
 Establish the canonical repository/worktree, project guidance, authorization, and
-stopping condition. Require configured, scoped Supermemory recall/capture support;
-reuse a valid task check. Direct integration is sufficient without optional MCP.
-If unavailable or unscoped, stop and report the missing capability. Current sources
-override recalled experience; memory never expands permission or crosses scope.
-Use Supermemory's own surfaces for memory operations, not backend REST workarounds.
+stopping condition. External memory is optional unless explicitly required by the
+task or project. Use current conversation and repository evidence when it is absent
+or unavailable; pause only work that depends on missing evidence or a required
+memory operation. Current sources override recalled experience; use only memory
+with appropriate project/worktree scope, never as permission. The user or project
+chooses any integration, which owns memory operations through its supported
+interfaces. Do not invent a replacement backend or adapter.
 
 Within higher-priority constraints, explicit user instructions override skill
 guidance. Preserve actual scope and authorization limits. If a skill rule causes
@@ -76,6 +78,6 @@ change is accounted for, including any blocked work; do not repeat searches or e
 without new evidence.
 
 Report the original gap, selected source or created path, scope, observed result,
-and next decision for Supermemory's automatic capture. Keep the summary within
-the active project. The main agent integrates the result and returns to the
-original task; adding a skill alone does not complete that task.
+and next decision in the task. Keep the summary within the active project and
+claim persistent capture only when observed. The main agent integrates the result
+and returns to the original task; adding a skill alone does not complete that task.
