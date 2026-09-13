@@ -8,10 +8,6 @@ official Astra skill-authoring blog was added and checked on 2026-09-13:
   published 2026-09-11: concise applicability, progressive disclosure, proportionate
   reading and testing, and explicit completion boundaries. Shared repository skills
   may serve different models, so model-specific observations need scoped evidence.
-
-- Eric Provencher, [Rethinking skills and prompts for GPT-6 Astra](https://x.com/pvncher/status/2095991462416490862),
-  published 2026-09-04: focused descriptions, progressive disclosure, and revisiting
-  excessive reading, testing, and premature stopping rules.
 - Angel Brodin, [instruction-conflict audit](https://x.com/angelbrodin/status/2095882076088086848),
   published 2026-09-04: examine autonomy, clarification, approval, and completion
   together while preserving intentional safeguards.
