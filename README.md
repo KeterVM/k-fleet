@@ -46,7 +46,6 @@ Use current project instructions and source files if other context gives differe
 A change to a method does not give permission to change user requirements or skills.
 
 Use decisions and results from actual tasks to examine skill quality.
-Installation, completed procedures, and shorter instructions alone are not a measure of better results.
 
 ## Skills
 
@@ -67,13 +66,16 @@ New facts can make a different decision necessary.
 Use the simplest code structure that can do the necessary work.
 
 If a method is not sufficient for a task, `kf-evolve-skills` first examines the available skill instructions.
-It can use `find-skills` to find other skills and `skill-creator` to write skills.
+It can use these helper skills:
+
+- [`find-skills`](https://github.com/vercel-labs/skills/tree/main/skills/find-skills) comes from Vercel's `vercel-labs/skills` repository. It finds other skills.
+- [`skill-creator`](https://github.com/openai/skills/tree/main/skills/.system/skill-creator) comes from OpenAI's `openai/skills` repository. It helps write skills.
+
 These two helper skills are optional.
 It then examines the instructions in actual work.
 
 The default location for new skills is the current project.
 The agent can add, correct, or remove skills as permitted by the task.
-Installation alone is not a measure of better results.
 
 The optional [`kf_reviewer`](.codex/agents/kf-reviewer.toml) agent examines the code independently.
 This agent has read-only access.
@@ -121,13 +123,20 @@ Setup does not add duplicate sections when you run it again.
 Setup starts only when you tell the agent to do setup.
 Other tasks use the method skills directly.
 
-## Optional memory
+## Other skills and plugins
 
-You can use K Fleet with only the current conversation and repository files.
-You can also select a memory system for the project.
-Examples include Supermemory and graph-based memory systems.
-K Fleet does not supply backend adapters.
-You can select the storage and retrieval model.
+K Fleet does not limit your choice of other skills or plugins.
+Select them for your project.
+
+We recommend clear goals and the necessary context for Astra.
+Let it analyze the task and select its methods.
+We do not recommend skills or plugins that automatically produce many specifications (specs) or architecture decision records (ADRs).
+This recommendation applies when these documents restrict how the agent works.
+Write documents when the task needs them, and record useful information.
+
+We recommend memory plugins such as graph memory or [Supermemory](https://github.com/supermemoryai/codex-supermemory).
+They help the agent keep and find context across tasks.
+Memory plugins are optional.
 
 ## Operation
 

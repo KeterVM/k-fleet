@@ -46,7 +46,6 @@ K Fleet 以四个思想为基础。
 改进方法不代表可以自行改变用户需求或修改技能。
 
 通过实际任务中的决策和结果，判断技能质量。
-安装技能、完成步骤或缩短指令，都不能单独证明效果变好。
 
 ## 技能
 
@@ -67,13 +66,16 @@ K Fleet 以四个思想为基础。
 代码结构应尽可能简单，同时满足任务需要。
 
 现有方法无法满足任务需要时，`kf-evolve-skills` 会先检查已有技能指令。
-它可以使用 `find-skills` 查找其他技能，使用 `skill-creator` 编写技能。
+它可以使用以下辅助技能：
+
+- [`find-skills`](https://github.com/vercel-labs/skills/tree/main/skills/find-skills)：来自 Vercel 的 `vercel-labs/skills` 仓库，用于查找其他技能。
+- [`skill-creator`](https://github.com/openai/skills/tree/main/skills/.system/skill-creator)：来自 OpenAI 的 `openai/skills` 仓库，用于编写技能。
+
 这两个辅助技能都是可选的。
 之后，它会通过实际工作评估这些指令。
 
 新增技能默认安装在当前项目中。
 agent 可以在任务授权范围内添加、修改或删除技能。
-完成安装本身不能证明效果变好。
 
 可选的 [`kf_reviewer`](.codex/agents/kf-reviewer.toml) agent 负责独立审查代码。
 它只有读取权限。
@@ -120,12 +122,17 @@ npx --yes github:KeterVM/k-fleet install
 只有明确要求初始化时，agent 才会执行初始化。
 其他任务直接使用方法技能。
 
-## 可选记忆
+## 搭配其他技能和插件
 
-你可以只使用当前对话和仓库文件。
-也可以按项目需要选择记忆系统，例如 Supermemory 或图记忆系统。
-K Fleet 不提供后端适配器。
-你可以自行选择存储和检索模型。
+K Fleet 不限定你使用的其他技能或插件。
+你可以按项目需要自由搭配。
+
+我们建议给 Astra 清楚的目标和必要的上下文，让它自主分析任务和选择方法。
+不建议使用自动生成大量规格文档（spec）或架构决策记录（ADR），并用这些文档限制 agent 工作方式的技能或插件。
+文档应记录有用的信息，按任务需要编写。
+
+我们推荐搭配图记忆（graph memory）或 [Supermemory](https://github.com/supermemoryai/codex-supermemory) 这类记忆插件，帮助 agent 跨任务保留和查找上下文。
+记忆插件是可选的。
 
 ## 使用
 
