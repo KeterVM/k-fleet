@@ -38,11 +38,19 @@ remembered APIs, search snippets, and popularity alone do not establish suitabil
 Compare candidates against the actual requirements and project constraints: behavior
 and edge cases, runtime compatibility, maintenance and security status, licensing,
 and integration or operational cost where material. Prefer a suitable maintained
-solution over reimplementing its mechanism. Keep project-specific policy and glue
+solution over reimplementing its mechanism. Readability and maintainability gains
+can justify a new dependency even when existing code could implement the behavior;
+show what becomes easier to understand or change. Assess concrete costs rather than
+treating the addition of a dependency as a disadvantage by itself.
+Keep project-specific policy and glue
 with the project rather than forcing business rules into a library's model.
 
 Reuse adequate current evidence and stop when it supports a choice; do not require
 a fixed number of libraries, a separate report, or fresh web research for every edit.
+If multiple viable libraries remain uncertain after focused research, summarize
+their relevant differences, remaining uncertainty, and your recommendation, then
+ask the user to choose before adoption or dependent implementation. A clearly
+supported choice within existing authorization needs no extra approval.
 For a material choice, briefly record the selected library and version, supporting
 sources, and decisive tradeoff in the task or an existing project artifact. Custom
 implementation needs a concrete reason, such as an unmet contract, incompatible

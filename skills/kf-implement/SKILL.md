@@ -59,6 +59,11 @@ and standard-library or framework capabilities. Before writing a custom general-
 mechanism, research suitable maintained libraries using current primary sources,
 unless adequate evidence already settles the choice. Prefer a suitable existing
 solution; explain the concrete gap or cost that justifies custom implementation.
+Improved readability and maintainability are sufficient reasons to add a suitable
+dependency within project constraints; minimizing dependency count is not a goal
+in itself. If multiple viable options remain uncertain after focused research,
+present their differences and a recommendation, and ask the user before committing
+to one. Continue independent work while that choice is pending.
 
 Before adding code, identify its responsibility and destination file. Put distinct
 responsibilities in separate files with clear interfaces; sharing a feature or entry

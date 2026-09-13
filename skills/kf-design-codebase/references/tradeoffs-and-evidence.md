@@ -16,6 +16,12 @@ and material dependency costs. Prefer suitable reuse; justify custom constructio
 with a concrete gap or constraint. Carry this evidence into implementation so the
 same settled choice does not require another search.
 
+Treat improved readability and maintainability as sufficient benefits for adding a
+suitable dependency within project constraints; fewer dependencies are not inherently
+better. If focused research leaves multiple viable options uncertain, present their
+differences and a recommendation to the user and resolve the choice before dependent
+work. Continue work that does not depend on that decision.
+
 Assess the affected whole: callers, state ownership, dependencies, integration,
 operation, and maintenance. For a proposed interface, layer, package, or extension
 mechanism, identify the present responsibility or constraint it serves. Local
