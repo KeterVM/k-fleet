@@ -16,6 +16,8 @@ workflow behavior rather than framework-specific instructions.
   `kf-evolve-skills`. Each skill owns its instructions and references;
   setup manages target-project reminders and the main agent coordinates work.
 - `.codex/agents/kf-reviewer.toml` defines the companion reviewer.
+- `.agents/skills/kf-research-skills/` contains this source repository's maintenance
+  research skill. It is outside the seven public skills and consumer installation.
 - `scripts/kf-projects.mjs` implements the zero-dependency `k-fleet` npm CLI exposed
   by `package.json`.
 - `docs/` records skill-authoring guidance and workflow composition.
@@ -167,6 +169,11 @@ the public-entry-point contract is an explicit design choice, not a consequence
 of these four foundations.
 
 ### Skill authoring reference
+
+Use the project-local `kf-research-skills` when creating, assessing, or materially
+revising skills depends on unsettled engineering or agent-behavior premises. Reuse
+adequate evidence for routine changes. Keep this maintenance capability out of the
+public catalog, CLI installation list, and consumer setup reminders.
 
 When creating or materially revising skills, consult the applicable guidance in
 [Skill authoring guidance](docs/skill-authoring.md), distilled from the user-supplied
