@@ -5,103 +5,78 @@ description: Implement sufficiently understood software changes as complete, mai
 
 # Implement
 
-## Role and result
-
-Work as the software engineer responsible for turning an understood request into
-a usable code change. Own implementation decisions, integration within the change,
-and relevant self-checks. Deliver working behavior that fits the existing system
-and remains understandable to its next maintainer.
-
-Use adequate requirements and design already available; a bounded change needs no
-formal design document. Resolve routine coding choices directly. Revisit an
-affected requirement or design decision when evidence invalidates it, without
-silently changing product obligations or expanding the assignment. The main agent
-retains task routing, authority, overall integration, and final completion.
-
-## Runtime and authority
-
-For substantive work, establish the canonical repository/worktree, applicable
-project instructions, user scope, and stopping condition. Require the configured
-Supermemory integration with verified scope and automatic recall/capture support;
-reuse a valid task-scoped check. Direct integration is sufficient without optional
-MCP transport. If unavailable or unscoped, stop and report the missing capability.
-
-Current instructions and scoped sources override memory. Recalled inferences do
-not grant authority or cross project/worktree boundaries. Use Supermemory's own
-surface for memory operations; never emulate it with backend REST calls or another
-store. Preserve read-only requests and existing authorization across methods.
-Normal task execution does not rewrite live skills or policy. Instruction changes
-require authorized, versioned, reversible source maintenance. Report actual
-evidence without claiming unobserved capture or execution.
-
-Within higher-priority constraints, explicit user instructions override skill
-guidance. Preserve actual scope and authorization limits. If a skill rule causes
-you to pause or leave work unfinished, link to its file, quote the rule, and
-distinguish its requirement from your interpretation. Continue independent
-authorized work only where its prerequisites are met.
-
-## What good implementation looks like
-
-Judge the changed behavior and code against these outcomes:
-
-- **Correct and complete:** the requested behavior works through its real entry
-  points, with the integration and failure handling needed for use.
-- **Sound boundaries:** affected authorization, transaction, concurrency, resource
-  lifetime, and compatibility guarantees remain intact.
-- **Understandable and maintainable:** rules have clear owners; names, contracts,
-  and control flow let another engineer reason about use and modification without
-  reconstructing hidden assumptions.
-- **Proportionate:** structure solves current needs, with justified complexity and
-  no unnecessary burden shifted to callers or maintainers.
-- **Reviewable and evidenced:** the diff is cohesive, relevant checks support the
-  behavior claimed, and material limitations are explicit.
-
-These are quality criteria for the affected change, not a requirement to redesign
-the surrounding system, inspect every risk category, or produce a fixed report.
-
-## Ground the change in the project
-
-Establish the intended observable outcome, scope boundaries, constraints, and
-completion evidence from the request and available context. Separate confirmed
-obligations and source facts from assumptions. Resolve unknowns that could change
-the implementation or invalidate dependent work; do not ask the user for technical
-facts available from sources or reopen adequately settled requirements.
-
-Establish applicable project instructions before the first write. Inspect the
-relevant path, nearby code, configuration, and tests as needed for unresolved
-questions; reuse current evidence. Follow intentional naming, layout, types, error
-handling, and asynchronous conventions, preferring configured tooling over personal
-style. Do not reproduce a known defect for consistency.
+Turn an understood request into usable, maintainable behavior, including integration
+and relevant self-checks. Reuse sufficient requirements and design; resolve routine
+coding choices directly. Revisit decisions invalidated by evidence without changing
+product obligations or expanding scope.
 
 ## Select supporting guidance
 
-Use the relevant reference when the assigned change needs its decisions; do not
-load every reference for a routine edit with settled behavior and boundaries.
-Keep consequential decisions and blockers visible within the current task.
+Load a reference only for decisions the change needs; a bounded edit with settled
+behavior and boundaries needs no formal design or additional reading.
 
-- For nontrivial choices about reuse, abstractions, interfaces, integration, or
-  restructuring, read [Implementation judgment](references/implementation-judgment.md).
-- For material dependencies, failed attempts, blockers, review feedback, or
-  delegated work, read [Execution and feedback](references/execution-and-feedback.md).
+- For nontrivial reuse, abstraction, interface, integration, or restructuring choices,
+  read [Implementation judgment](references/implementation-judgment.md).
+- For material dependencies, failed attempts, blockers, review feedback, or delegated
+  work, read [Execution and feedback](references/execution-and-feedback.md).
+
+## Runtime and authority
+
+Before substantive work, establish canonical repository/worktree scope, project
+instructions, authorization, and the stopping condition. Require scoped Supermemory
+automatic recall/capture; reuse a valid task check. Direct integration suffices
+without optional MCP. If unavailable or unscoped, stop and report the gap.
+
+Current instructions and scoped sources override memory; recalled inferences grant
+no permission and must stay isolated to this repository/worktree. Use Supermemory's
+own surfaces, never backend REST workarounds or another store. Skill or policy edits
+require authorized, versioned, reversible source maintenance.
+
+The main agent owns routing, authority, integration, and completion. Carry existing
+authorization across methods; read-only work stays read-only. Within higher-priority
+constraints, explicit user instructions override skill guidance. If a skill rule
+halts work, link and quote it, distinguishing the rule from your interpretation.
+Continue independent authorized work whose prerequisites are met. Report only
+observed evidence, including capture and execution.
+
+## Implement against the contract
+
+Derive the observable outcome and completion evidence from the request and current
+sources. Distinguish obligations and facts from assumptions; investigate technical
+unknowns that could invalidate the change, and ask only for missing material intent.
+Establish applicable instructions before writing. Inspect affected paths, nearby
+code, configuration, and tests as needed; reuse current evidence and intentional
+project conventions, without reproducing known defects for consistency.
+
+Judge the affected change by these outcomes:
+
+- Requested behavior works through its real entry points, including necessary
+  integration and failure handling.
+- Relevant authorization, transaction, concurrency, resource-lifetime, and
+  compatibility guarantees hold.
+- Ownership, names, contracts, and control flow make use and modification
+  understandable without hidden coordination.
+- Structure serves current needs at justified complexity and maintenance cost.
+- The diff is cohesive, reviewable, and supported by relevant evidence.
+
+Apply these criteria to the change; do not turn them into a surrounding redesign,
+an exhaustive risk checklist, or a fixed report. Keep material decisions and blockers
+visible.
 
 ## Self-check and finish
 
-Check the intended behavior through evidence suited to the affected contract.
 Use relevant tests and configured formatting, linting, or type checks as appropriate.
-For wiring or dependency behavior, choose evidence that exercises the real boundary;
-a mocked unit test or successful build alone may not establish the claimed result.
-Add tests when they provide meaningful protection; do not invent tooling or low-value
-tests for a routine reversible edit. Dedicated test-writing or verification methods
-can deepen this work when needed; they are not mandatory phases after every edit.
+Exercise real boundaries for wiring and dependency claims; mocked tests or a build
+alone may be insufficient. Add tests for meaningful protection, not routine reversible
+edits with no such need. Dedicated test-writing and verification methods are optional.
 
-Reuse results whose source version, environment, and scope still apply. Inspect
-the final diff against the quality criteria and applicable project rules. Fix
-demonstrated problems within scope and recheck affected behavior. Broaden or repeat
-checks only for new changes, failures, environment changes, or uncovered risks.
+Reuse results whose version, environment, and scope still apply. Inspect the final
+diff against the contract and project rules, fix demonstrated problems within scope,
+and recheck affected behavior. Repeat or broaden checks only for changes, failures,
+environment differences, or uncovered risks.
 
-Implementation work is complete when required checks pass, the requested behavior
-and material obligations have evidence, and no material issue caused by the change
-remains unresolved. Report what changed, decisive evidence, and remaining limitations.
-State blockers or unverified obligations instead of claiming completion. Passing
-checks alone does not establish maintainability or production readiness; avoid
-delaying an adequate change for speculative improvements or stylistic perfection.
+Finish when required checks pass, material obligations have evidence, and no material
+issue caused by the change remains unresolved. Report changes, decisive results, and
+limits; state blockers or unverified obligations instead of claiming completion.
+Passing checks alone does not prove maintainability or production readiness.
+Speculative improvements and stylistic perfection must not delay an adequate change.

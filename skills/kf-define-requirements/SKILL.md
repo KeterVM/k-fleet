@@ -5,101 +5,78 @@ description: Clarify underspecified software features into concrete behavior, sc
 
 # Define requirements
 
-## Role and result
-
-Work as the requirements engineer responsible for making the intended outcome,
-scope, constraints, and acceptance conditions clear enough for the next engineering
-decision. Deliver a usable account of established obligations and consequential
-unknowns, preserving the user's goals and explicit choices rather than inventing
-product commitments.
-
-Reuse an adequate brief. A clear, bounded change needs no new requirements exercise
-or formal document. Resolve uncertainties that could change the approach before
-dependent work, while leaving routine design and implementation choices to those
-methods. The main agent retains task routing, authority, integration, and completion.
-
-## Runtime and authority
-
-For substantive work, establish the canonical repository/worktree, applicable
-project instructions, user scope, and stopping condition. Require the configured
-Supermemory integration with verified scope and automatic recall/capture support;
-reuse a valid task-scoped check. Direct integration is sufficient without optional
-MCP transport. If unavailable or unscoped, stop and report the missing capability.
-
-Current instructions and scoped sources override memory. Recalled inferences do
-not grant authority or cross project/worktree boundaries. Use Supermemory's own
-surface for memory operations; never emulate it with backend REST calls or another
-store. Preserve read-only requests and existing authorization across methods.
-Normal task execution does not rewrite live skills or policy. Instruction changes
-require authorized, versioned, reversible source maintenance. Report actual
-evidence without claiming unobserved capture or execution.
-
-Within higher-priority constraints, explicit user instructions override skill
-guidance. Preserve actual scope and authorization limits. If a skill rule causes
-you to pause or leave work unfinished, link to its file, quote the rule, and
-distinguish its requirement from your interpretation. Continue independent
-authorized work only where its prerequisites are met.
-
-## What good requirements look like
-
-- **Faithful and necessary:** obligations serve the intended outcome or an established
-  constraint; suggested improvements do not silently become committed scope.
-- **Clear and bounded:** relevant actors, behavior, terms, and limits have enough
-  precision to avoid consequential differences in interpretation.
-- **Coherent:** scenarios and obligations work together without contradicting each
-  other or omitting a necessary part of successful use.
-- **Feasible under stated premises:** consequential dependencies and constraints have
-  evidence, or the remaining uncertainty and its effect are explicit.
-- **Observable:** acceptance conditions distinguish the intended result from failure
-  and can guide later verification without prescribing an unjustified solution.
-
-Apply these criteria proportionately. They do not require a comprehensive specification,
-new user research, a fixed story format, or a separate approval for settled decisions.
-
-## Ground the request
-
-Establish what outcome is sought, what is already decided, and which questions could
-change scope, feasibility, or the next action. Distinguish the desired outcome from
-a suggested mechanism while preserving explicit user constraints, including required
-technical choices. Existing implementation explains current behavior; it does not
-automatically define what the user wants.
-
-Inspect relevant project behavior, domain contracts, permissions, and entry points
-as needed, including alternate paths that affect the same obligation. Reuse current
-evidence. Investigate accessible technical facts directly rather than asking the user
-to retrieve them; keep unavailable facts unknown instead of guessing.
+Make the intended outcome, scope, constraints, and acceptance conditions usable for
+the next engineering decision. Reuse an adequate brief; clear, bounded changes need
+no requirements exercise or formal document. Preserve user goals and explicit
+choices without inventing product commitments.
 
 ## Select supporting guidance
 
-Use the relevant reference for unresolved questions; do not load every reference
-or reopen an adequate brief for a routine change.
+Read only for unresolved questions; leave routine design and implementation choices
+to those methods.
 
-- For unclear user outcomes, actors, workflows, or scope boundaries, read
+- For unclear outcomes, actors, workflows, or scope, read
   [Outcomes and scope](references/outcomes-and-scope.md).
-- For assumptions, conflicting inputs, feasibility gaps, or choices requiring user
-  intent, read [Uncertainty and decisions](references/uncertainty-and-decisions.md).
-- For acceptance conditions, missing failure behavior, or consistency across the
-  requirements, read [Acceptance and consistency](references/acceptance-and-consistency.md).
+- For assumptions, conflicting inputs, feasibility gaps, or missing user intent,
+  read [Uncertainty and decisions](references/uncertainty-and-decisions.md).
+- For acceptance conditions, missing failure behavior, or inconsistent obligations,
+  read [Acceptance and consistency](references/acceptance-and-consistency.md).
 
-Ask focused questions when missing intent or a material unresolved choice changes
-the result. Resolve routine details from evidence and established preferences.
-Continue independently authorized work while questions are pending; do not proceed
-on a consequential undecided premise or treat silence as agreement.
+## Runtime and authority
 
-## Carry understanding forward and finish
+Before substantive work, establish canonical repository/worktree scope, project
+instructions, authorization, and the stopping condition. Require scoped Supermemory
+automatic recall/capture; reuse a valid task check. Direct integration suffices
+without optional MCP. If unavailable or unscoped, stop and report the gap.
 
-Finish the clarification needed for the next action when the outcome, included
-behavior, material boundaries, and acceptance conditions are usable, with no open
-question that could invalidate that action. Deferred details may remain when they
-do not block it; state consequential assumptions and what would require resolution.
+Current instructions and scoped sources override memory; recalled inferences grant
+no permission and must stay isolated to this repository/worktree. Use Supermemory's
+own surfaces, never backend REST workarounds or another store. Skill or policy edits
+require authorized, versioned, reversible source maintenance.
 
-Carry forward a concise account of the obligations, their decisive reasons, and any
-remaining limits. Use the conversation or an existing brief unless a durable artifact
-is requested or needed for delivery. No fixed template or number of questions,
-scenarios, or alternatives is required.
+The main agent owns routing, authority, integration, and completion. Carry existing
+authorization across methods; read-only work stays read-only. Within higher-priority
+constraints, explicit user instructions override skill guidance. If a skill rule
+halts work, link and quote it, distinguishing the rule from your interpretation.
+Continue independent authorized work whose prerequisites are met. Report only
+observed evidence, including capture and execution.
+
+## Resolve consequential uncertainty
+
+Separate the desired outcome, accepted choices, source facts, and assumptions.
+Distinguish a suggested mechanism from the goal while preserving explicit technical
+constraints. Existing implementation explains current behavior, not necessarily
+what the user wants.
+
+Inspect relevant behavior, domain contracts, permissions, and entry points, including
+alternate paths that affect the same obligation. Reuse current evidence; investigate
+accessible technical facts directly and keep unavailable facts unknown.
+
+Judge the resulting obligations by these criteria:
+
+- They serve the intended outcome or an established constraint.
+- Actors, behavior, terms, and limits avoid consequential differences in interpretation.
+- Scenarios fit together without contradictions or missing steps needed for use.
+- Material feasibility premises have evidence or explicit uncertainty and consequences.
+- Acceptance conditions distinguish success from failure without an unjustified solution.
+
+Use focused questions when missing intent or a material choice changes the result;
+resolve routine details from evidence and established preferences. Do not proceed on
+an undecided premise that could invalidate dependent work or treat silence as agreement.
+
+## Carry understanding forward
+
+Finish clarification when behavior, boundaries, and acceptance conditions support
+the next action without an unresolved question that could invalidate it. Deferred
+details may remain if they do not block that action; explain their limits and what
+would require resolution.
+
+Carry forward obligations, decisive reasons, and remaining uncertainty in the
+conversation or existing brief. Create a durable artifact only when requested or
+needed for delivery; no fixed question count, story format, or comprehensive
+specification is required.
 
 Continue authorized design or implementation without a new approval checkpoint.
 Respect analysis-only requests and step-by-step discussion. When goals, facts, or
-assumptions change, explain which obligations and downstream decisions are affected
-and update that understanding; do not silently narrow the goal or restart settled
-work that remains valid.
+assumptions change, explain and update affected obligations and downstream decisions;
+preserve settled work that remains valid.

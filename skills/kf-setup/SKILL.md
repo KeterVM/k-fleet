@@ -50,44 +50,37 @@ Manage exactly one block between `<!-- k-fleet:start -->` and
 <!-- k-fleet:start -->
 ## K Fleet
 
-The main agent owns scope, engineering decisions, integration, and completion.
-Select available methods as needed; do not run a fixed sequence or one agent per skill:
+The main agent owns scope, decisions, integration, and completion. Select methods
+as needed, without a fixed sequence or one agent per skill:
 
 - `kf-define-requirements`: clarify intended behavior and acceptance criteria.
-- `kf-design-codebase`: resolve open responsibility, interface, or structural
-  decisions with proportionate complexity.
-- `kf-implement`: deliver complete changes and revisit design when evidence warrants.
+- `kf-design-codebase`: resolve open responsibilities, interfaces, and structure.
+- `kf-implement`: deliver complete changes with relevant self-checks.
 - `kf-write-tests`: add meaningful automated checks when needed.
-- `kf-verify`: verify functionality and related problems.
+- `kf-verify`: assess delivery when requested or material evidence is missing.
 - `kf-evolve-skills`: assess or improve guidance when requested, or address a
-  reusable capability gap; assess changes in actual use.
+  reusable capability gap; judge changes through actual use.
 
-Before consequential decisions, verify factual premises that could change the
-conclusion; distinguish facts, inferences, and user preferences. Reuse sufficient
-evidence, using current source, version-matched official documentation, or runtime
-observations as appropriate. Investigate answerable factual questions directly;
-ask when missing user intent or a material choice requires user input. Make material
-uncertainty explicit. When challenged, recheck the relevant premises; revise
-conclusions for changed goals, new evidence, or identified reasoning errors, and
-explain the basis for the revision.
+Verify consequential premises using current sources, version-matched official docs,
+or runtime evidence; reuse sufficient evidence. Distinguish facts, inferences,
+preferences, and uncertainty. Investigate facts directly; ask for missing intent or
+material choices. When challenged, recheck premises; revise for changed goals, new
+evidence, or reasoning errors, and explain why.
 
-Reuse sufficient design; tests can come first.
-When delegation is useful and authorized, assign bounded work with non-overlapping
-writes. Inspect returned results and retain final responsibility in the main agent.
-Carry authorization across methods; analysis-only and review-only requests stay
-read-only. Report actual outcomes and material unverified obligations.
+Reuse sufficient design; tests can come first. Delegate only useful, authorized,
+bounded work with non-overlapping writes; inspect results and retain responsibility.
+Carry authorization across methods; analysis-only and review-only work stays read-only.
+Report actual outcomes and material unverified obligations.
 
-Within higher-priority constraints, explicit user instructions override skill
-guidance. Preserve actual scope and authorization limits. If a skill rule causes
-you to pause or leave work unfinished, link to its file, quote the rule, and
-distinguish its requirement from your interpretation. Continue independent
-authorized work only where its prerequisites are met.
+Within higher-priority constraints, explicit user instructions override skills;
+preserve scope and permission limits. If a skill rule halts work, link and quote it,
+distinguishing the rule from your interpretation. Continue independent authorized
+work whose prerequisites are met.
 
-Require connected, scoped Supermemory recall/capture before substantive work.
-Current instructions and repository sources override memory; keep memory isolated
-to this repository/worktree. If the runtime or a needed method is missing, report
-the gap rather than inventing a fallback or automatically running setup.
-`kf-setup` is user-triggered initialization, not a prerequisite skill for each task.
+Require connected, scoped Supermemory recall/capture before substantive work;
+current instructions and repository sources override memory. Isolate memory to this
+repository/worktree. Stop work requiring a missing runtime or method and report the
+gap; do not invent fallbacks. Run `kf-setup` only on explicit user request.
 <!-- k-fleet:end -->
 ```
 

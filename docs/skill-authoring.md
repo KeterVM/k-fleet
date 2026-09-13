@@ -1,7 +1,13 @@
 # Skill authoring guidance
 
 This document combines the user's engineering foundations with applicable guidance
-from the sources below, checked against their original content on 2026-09-10:
+from the sources below. The original sources were checked on 2026-09-10; the
+official Astra skill-authoring blog was added and checked on 2026-09-13:
+
+- OpenAI, Eric Provencher, [Rethinking skills and prompts for GPT-6 Astra](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra),
+  published 2026-09-11: concise applicability, progressive disclosure, proportionate
+  reading and testing, and explicit completion boundaries. Shared repository skills
+  may serve different models, so model-specific observations need scoped evidence.
 
 - Eric Provencher, [Rethinking skills and prompts for GPT-6 Astra](https://x.com/pvncher/status/2095991462416490862),
   published 2026-09-04: focused descriptions, progressive disclosure, and revisiting
