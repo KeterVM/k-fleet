@@ -12,24 +12,17 @@ the integration that fits their needs.
 
 ## Why K Fleet
 
-K Fleet aims to make engineering judgment explicit throughout a task: understand
-the real goal, choose a suitable approach, deliver usable behavior, and correct
-mistakes using evidence. Generating plausible code is only part of that work.
-An implementation can follow the wrong assumption, leave cooperating components
-disconnected, or pass tests that miss the user's actual requirement.
+AI can start coding before it understands the request, leave parts of a feature
+disconnected, or pass tests while the feature still fails in actual use.
 
-The skills package reusable decision criteria for those problems: when to clarify
-a requirement, when a design needs more thought, what evidence supports delivery,
-and when to stop or change course. Keeping those methods in project-installed files
-makes them inspectable and maintainable across tasks. Guidance is loaded as needed;
-a small, understood fix can proceed directly without a full engineering ceremony.
+K Fleet packages ways to handle these problems into skills: clarify unclear
+requirements, think through complex changes, and check that the finished feature
+actually works. When the same mistakes keep happening, examine how the work is
+being done as well.
 
-For example, a request to add notifications may leave the delivery channel unclear.
-Clarify it if that choice changes successful use, define who owns sending and retry
-behavior, then implement and verify the relevant path. A passing test of the send
-function does not establish that the application invokes it. If work repeatedly
-misses that connection, investigate whether the method needs revision as well as
-fixing the code. Each action should resolve a real uncertainty or delivery gap.
+The aim is to save you from repeating these expectations and help the AI judge
+when the job is done. Simple changes can proceed directly; use whichever methods
+the task needs without running the whole workflow every time.
 
 ## Core ideas
 
