@@ -47,6 +47,12 @@ Establish applicable instructions before writing. Inspect affected paths, nearby
 code, configuration, and tests as needed; reuse current evidence and intentional
 project conventions, without reproducing known defects for consistency.
 
+Choose implementations that satisfy the outcome, responsibility boundaries, and
+required constraints before minimizing edit size or effort. Reuse existing code
+where it fits those obligations. If it does not, correct the affected ownership or
+revisit that design decision within scope; a smaller diff does not justify leaving
+the requested problem unresolved.
+
 Judge the affected change by these outcomes:
 
 - Requested behavior works through its real entry points, including necessary

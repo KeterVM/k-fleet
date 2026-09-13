@@ -47,6 +47,12 @@ choices from assumptions. Trace affected entry points, rules, state, and depende
 to the outcome; reuse sufficient evidence rather than surveying the repository.
 Identify existing capabilities and the change needed.
 
+First establish which designs satisfy the requested outcome, responsibility
+boundaries, and required constraints; compare change and maintenance costs among
+those designs. Fewer edits cannot compensate for unmet obligations or misplaced
+ownership. When structure is the subject of the request, assess existing boundaries
+as candidates rather than treating their preservation as an accepted constraint.
+
 Judge the affected design by these criteria:
 
 - The parts jointly deliver important success and failure scenarios.

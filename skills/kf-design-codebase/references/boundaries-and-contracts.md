@@ -30,6 +30,8 @@ to merge; adapters and separate representations can protect necessary boundaries
 
 Share code when it expresses the same responsibility with a coherent owner.
 Similar syntax alone does not justify coupling independently changing rules.
+Sharing a server, protocol, client, or generation tool can justify common technical
+mechanisms; it does not by itself establish common ownership of business concepts.
 Choose extension, replacement, or a new component for a present need rather than
 turning each requirement into a component. Avoid cyclic ownership and make allowed
 dependency directions explicit.
@@ -54,8 +56,12 @@ to impose. Choose organization for the actual responsibility and dependency rule
 
 Keep related internals together, supported import boundaries clear, and shared code
 under a concrete owner. Follow applicable naming, layout, build, test, and framework
-discovery conventions. Preserve sound existing organization; account for imports,
-exports, and tooling when moving code.
+discovery conventions. Preserve existing organization where its ownership and
+dependencies fit the task, not merely because it is already in place. For disputed
+placement, trace a concrete change grounded in the task: which rules, owners, and
+callers would change, and what unrelated knowledge would they need? Use that evidence
+to retain or revise the boundary. Account for imports, exports, and tooling when
+moving code.
 
 Show relevant paths when placement changes, explaining their responsibility and
 allowed dependencies. Separate folders do not establish boundaries when callers

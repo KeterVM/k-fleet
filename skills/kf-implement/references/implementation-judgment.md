@@ -6,9 +6,10 @@ and completion rules in SKILL.md.
 
 ## Choose implementation by fit and responsibility
 
-When approaches differ materially, weigh fit with existing contracts, implementation
-and maintenance cost, failure risk, and ease of correction. Prefer an adequate
-established approach; do not require alternative designs for an obvious local edit.
+First determine whether an approach meets the task's contracts and responsibility
+boundaries. Among suitable approaches, weigh implementation and maintenance cost,
+failure risk, and ease of correction. Prefer an established approach when it meets
+those conditions; do not require alternative designs for an obvious local edit.
 Investigate a consequential uncertain premise with focused inspection or a permitted
 probe when the result could change the choice. Stop expanding research once the
 remaining uncertainty does not affect a sound next decision or required evidence.
@@ -45,6 +46,9 @@ Use names that express domain meaning and interfaces that make required inputs,
 effects, and failures clear. Comments should supply intent, constraints, or other
 information the code cannot communicate; do not narrate obvious operations.
 Keep the diff focused on the requested behavior and necessary supporting changes.
+For structural work, include the ownership and dependency changes needed to resolve
+the requested problem. If delivery is staged, keep each increment's ownership clear
+and track remaining obligations; moving fewer files is not evidence of completion.
 Make substantial restructuring distinguishable from behavior changes when that
 helps review, without imposing commits or approval gates. Avoid unrelated formatting
 or cleanup; do not defer a defect introduced by the change as future polish.

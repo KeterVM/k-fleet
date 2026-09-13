@@ -2,8 +2,9 @@
 
 ## Compare choices against the task
 
-Start from an adequate existing design or the simplest direct approach that meets
-the current obligations. Compare plausible alternatives only where the choice is
+Use an existing design as the baseline when it meets the current obligations and
+responsibility boundaries; otherwise identify the necessary correction before
+optimizing migration cost. Compare plausible alternatives only where the choice is
 consequential; do not manufacture a fixed number of options for a settled decision.
 Explain what the selected approach improves, what it costs, and why that tradeoff
 fits the established priorities.
