@@ -1,8 +1,17 @@
 # Changelog
 
 Notable changes to K Fleet are recorded here.
+Earlier entries describe their versions. Use the README for current installation and operation.
 
-## Unreleased
+## [3.2.0] - 2026-09-13
+
+### Added
+
+- Added a Simplified Chinese README and links to the sources of the optional
+  `find-skills` and `skill-creator` helpers.
+- Added the repository-local `kf-research-skills` maintenance skill. It is outside
+  the seven public skills and consumer installation.
+- Included the Chinese README and changelog in the npm package file list.
 
 ### Changed
 
@@ -15,13 +24,30 @@ Notable changes to K Fleet are recorded here.
   isolation, and authorization boundaries still apply.
 - Updated the managed setup reminder and both READMEs. Updating skills and explicitly
   rerunning `/kf-setup` replaces legacy managed reminders while preserving separate
-  project rules. README memory guidance now states only the optional backend choice.
+  project rules.
+- Refined skill selection and reference loading to reduce repeated guidance and
+  unnecessary reads. Methods remain conditional, and setup remains explicit-only.
+- Explained K Fleet's purpose and four engineering foundations in both READMEs.
+  Simplified the English and Chinese wording. Added guidance for combining skills
+  and plugins, with optional memory plugins and task-driven documentation.
+- Corrected the obsolete no-versioned-releases statement in the security policy.
+  Added release maintenance instructions and clarified that CLI versions and
+  downloaded skill revisions can differ.
+
+### Update
+
+- Update the project skills and restart Codex. Run `/kf-setup` explicitly to replace
+  old managed reminders that require a memory provider. Separate project rules are
+  preserved.
+- GitHub releases and npm publication are separate. The CLI downloads skills from
+  the repository's default branch rather than pinning them to its package version.
 
 ### Validation
 
-- All seven skills pass frontmatter and naming validation; all 18 internal reference
-  links resolve within their owning skills. README commands and link targets match
-  across languages, and setup remains explicit-only.
+- Checked public skill frontmatter, directory/name agreement, internal references,
+  local documentation links, and setup's explicit-only policy.
+- Checked CLI syntax and package contents. README commands and link targets match
+  across languages.
 - These are instruction and structural checks; no graph backend interoperability or
   behavioral improvement has been established by this change.
 

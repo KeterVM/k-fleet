@@ -1,6 +1,6 @@
 {
   "name": "k-fleet",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Install and update K Fleet skills across Codex projects",
   "type": "module",
   "bin": {
@@ -11,7 +11,9 @@
     "scripts/kf-projects.mjs",
     "LICENSE",
     "NOTICE",
-    "README.md"
+    "README.md",
+    "README.zh-CN.md",
+    "CHANGELOG.md"
   ],
   "engines": {
     "node": ">=20"

@@ -108,6 +108,8 @@ npx --yes github:KeterVM/k-fleet install
 - 注册当前项目。
 
 安装不会启动初始化，也不会修改 `AGENTS.md`。
+CLI 从本 GitHub 仓库的默认分支下载技能。
+固定 CLI 版本不会同时固定技能源码版本。
 
 安装完成后，关闭并重新启动 Codex。
 在每个项目中手动运行一次：
@@ -186,6 +188,8 @@ CLI 没有外部包依赖。
 - [维护者指南](AGENTS.md)
 - [方法组合说明](docs/workflow-methods.md)
 - [技能编写指导](docs/skill-authoring.md)
+- [变更日志](CHANGELOG.md)
+- [GitHub 版本发布](https://github.com/KeterVM/k-fleet/releases)
 
 本仓库不维护测试套件、评测语料或示例项目。
 报告技能质量时，应说明实际任务中的决策和结果。

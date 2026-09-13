@@ -108,6 +108,8 @@ The command-line interface (CLI) does these tasks:
 - It registers the project.
 
 Installation does not start setup or change `AGENTS.md`.
+The CLI downloads skills from this GitHub repository's default branch.
+The CLI version does not fix the skill revision.
 
 After installation, close Codex.
 Then start Codex again.
@@ -190,6 +192,8 @@ For maintenance instructions, refer to these documents:
 - [Maintainer guide](AGENTS.md)
 - [Method composition](docs/workflow-methods.md)
 - [Skill-authoring guidance](docs/skill-authoring.md)
+- [Changelog](CHANGELOG.md)
+- [GitHub releases](https://github.com/KeterVM/k-fleet/releases)
 
 This repository has no test suites, evaluation corpora, or example projects.
 Use decisions and results from actual tasks in reports about skill quality.
