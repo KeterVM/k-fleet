@@ -53,6 +53,12 @@ available environments. Choose checks by the behavior claimed, prioritizing
 consequence, exposure, and uncertainty while retaining required project checks.
 Assess cooperating parts together without expanding into an unrelated repository audit.
 
+When assessing structure or maintainability, inspect whether affected files combine
+independent responsibilities. Ground a finding in the distinct rules, dependencies,
+or change scenarios and their maintenance consequence, rather than file length or
+preferred layout. Separate functions in one file and a passing suite do not establish
+responsibility separation; also check extracted modules for hidden coupling.
+
 Judge evidence and findings by these criteria:
 
 - Checks could expose plausible wrong behavior through the relevant boundaries.

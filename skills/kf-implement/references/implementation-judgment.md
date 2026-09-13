@@ -27,6 +27,22 @@ Avoid speculative capabilities, while making focused improvements that keep the
 affected code understandable and changeable. The smallest textual patch is not
 automatically the simplest implementation.
 
+## Place code with its owner
+
+Extend an existing file only when the new behavior belongs to its responsibility.
+Otherwise use an appropriate existing module or a focused new file, and keep the
+entry point responsible for composition. For example, adding persistence to a UI
+flow should call the persistence owner rather than embed storage implementation in
+the screen. Do not move unrelated responsibilities into a generic utils or helpers
+file, or leave a nominally extracted module dependent on its caller's internals.
+
+Extract the affected responsibility with an explicit interface and update callers,
+imports, exports, and discovery or packaging configuration as needed. Preserve
+invariants, state ownership, and dependency direction; avoid circular imports or
+duplicated state introduced by extraction. A small coherent script or module may
+remain one file. Split for independent responsibilities, not arbitrary size limits,
+and keep unrelated legacy cleanup outside the change.
+
 ## Preserve contracts while making the behavior usable
 
 Implement through real entry points and intended interfaces. Keep rules with their

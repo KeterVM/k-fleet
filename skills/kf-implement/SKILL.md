@@ -15,7 +15,8 @@ product obligations or expanding scope.
 Load a reference only for decisions the change needs; a bounded edit with settled
 behavior and boundaries needs no formal design or additional reading.
 
-- For nontrivial reuse, abstraction, interface, integration, or restructuring choices,
+- For file placement, mixed responsibilities, or nontrivial reuse, abstraction,
+  interface, integration, or restructuring choices,
   read [Implementation judgment](references/implementation-judgment.md).
 - For material dependencies, failed attempts, blockers, review feedback, or delegated
   work, read [Execution and feedback](references/execution-and-feedback.md).
@@ -53,6 +54,13 @@ where it fits those obligations. If it does not, correct the affected ownership 
 revisit that design decision within scope; a smaller diff does not justify leaving
 the requested problem unresolved.
 
+Before adding code, identify its responsibility and destination file. Put distinct
+responsibilities in separate files with clear interfaces; sharing a feature or entry
+point does not make them one responsibility. Keep cohesive implementation details
+together. When the affected file already mixes responsibilities, isolate the work
+being added or changed within scope rather than extending the mixture. Resolve
+unclear ownership before dependent implementation.
+
 Judge the affected change by these outcomes:
 
 - Requested behavior works through its real entry points, including necessary
@@ -79,6 +87,11 @@ Reuse results whose version, environment, and scope still apply. Inspect the fin
 diff against the contract and project rules, fix demonstrated problems within scope,
 and recheck affected behavior. Repeat or broaden checks only for changes, failures,
 environment differences, or uncovered risks.
+
+Check changed files for mixed responsibilities using their rules, dependencies, and
+reasons to change. Correct mixtures introduced or extended by this change; splitting
+code into functions inside the same file is insufficient when the responsibilities
+are independent. Judge cohesion directly, without file-count or line-count targets.
 
 Finish when required checks pass, material obligations have evidence, and no material
 issue caused by the change remains unresolved. Report changes, decisive results, and

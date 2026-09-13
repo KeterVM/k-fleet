@@ -63,6 +63,19 @@ callers would change, and what unrelated knowledge would they need? Use that evi
 to retain or revise the boundary. Account for imports, exports, and tooling when
 moving code.
 
+Make file boundaries reflect responsibility boundaries. Do not put independently
+changing responsibilities in one file merely because they support the same feature
+or entry point. For example, a screen or command may compose presentation, business
+operations, and persistence through interfaces; their implementations belong with
+their respective owners. Separate functions or classes in one file do not by
+themselves provide this separation.
+
+Use a concrete change scenario to decide placement: if changing a storage mechanism
+requires navigating unrelated presentation or business implementation in the same
+file, separate those responsibilities. Keep cohesive private helpers, types, and
+invariants with their owner. File length is an inspection signal, not a split rule;
+neither one file per function nor a mandatory layer hierarchy follows from this.
+
 Show relevant paths when placement changes, explaining their responsibility and
 allowed dependencies. Separate folders do not establish boundaries when callers
 still manipulate internals. A new layer must serve a contract or constraint beyond
