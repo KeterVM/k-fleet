@@ -27,6 +27,33 @@ Avoid speculative capabilities, while making focused improvements that keep the
 affected code understandable and changeable. The smallest textual patch is not
 automatically the simplest implementation.
 
+## Research reuse before custom implementation
+
+Establish what the capability must do and check what the project already provides.
+For a general-purpose mechanism not adequately covered, search for maintained
+libraries before building it. Verify plausible candidates against their official
+documentation, source repository, and package metadata for the relevant version;
+remembered APIs, search snippets, and popularity alone do not establish suitability.
+
+Compare candidates against the actual requirements and project constraints: behavior
+and edge cases, runtime compatibility, maintenance and security status, licensing,
+and integration or operational cost where material. Prefer a suitable maintained
+solution over reimplementing its mechanism. Keep project-specific policy and glue
+with the project rather than forcing business rules into a library's model.
+
+Reuse adequate current evidence and stop when it supports a choice; do not require
+a fixed number of libraries, a separate report, or fresh web research for every edit.
+For a material choice, briefly record the selected library and version, supporting
+sources, and decisive tradeoff in the task or an existing project artifact. Custom
+implementation needs a concrete reason, such as an unmet contract, incompatible
+constraints, or disproportionate dependency cost. If research is unavailable, state
+the evidence gap rather than claiming no suitable library exists.
+
+Respect dependency policies and existing authorization. When adopting a library,
+complete the manifest, lockfile, configuration, and real integration checks relevant
+to its use. Use a focused probe only for unresolved compatibility or behavior that
+could change the choice; installation alone does not establish fit.
+
 ## Place code with its owner
 
 Extend an existing file only when the new behavior belongs to its responsibility.

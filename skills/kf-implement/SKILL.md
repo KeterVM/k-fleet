@@ -15,8 +15,8 @@ product obligations or expanding scope.
 Load a reference only for decisions the change needs; a bounded edit with settled
 behavior and boundaries needs no formal design or additional reading.
 
-- For file placement, mixed responsibilities, or nontrivial reuse, abstraction,
-  interface, integration, or restructuring choices,
+- For library selection, file placement, mixed responsibilities, or nontrivial
+  reuse, abstraction, interface, integration, or restructuring choices,
   read [Implementation judgment](references/implementation-judgment.md).
 - For material dependencies, failed attempts, blockers, review feedback, or delegated
   work, read [Execution and feedback](references/execution-and-feedback.md).
@@ -53,6 +53,12 @@ required constraints before minimizing edit size or effort. Reuse existing code
 where it fits those obligations. If it does not, correct the affected ownership or
 revisit that design decision within scope; a smaller diff does not justify leaving
 the requested problem unresolved.
+
+Before implementing a feature, check reusable project code, installed dependencies,
+and standard-library or framework capabilities. Before writing a custom general-purpose
+mechanism, research suitable maintained libraries using current primary sources,
+unless adequate evidence already settles the choice. Prefer a suitable existing
+solution; explain the concrete gap or cost that justifies custom implementation.
 
 Before adding code, identify its responsibility and destination file. Put distinct
 responsibilities in separate files with clear interfaces; sharing a feature or entry

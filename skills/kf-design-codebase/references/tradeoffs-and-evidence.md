@@ -9,6 +9,13 @@ consequential; do not manufacture a fixed number of options for a settled decisi
 Explain what the selected approach improves, what it costs, and why that tradeoff
 fits the established priorities.
 
+Before choosing a custom general-purpose component, check project, standard-library,
+and framework capabilities, then research suitable maintained libraries where the
+gap remains. Use current primary sources to compare required behavior, compatibility,
+and material dependency costs. Prefer suitable reuse; justify custom construction
+with a concrete gap or constraint. Carry this evidence into implementation so the
+same settled choice does not require another search.
+
 Assess the affected whole: callers, state ownership, dependencies, integration,
 operation, and maintenance. For a proposed interface, layer, package, or extension
 mechanism, identify the present responsibility or constraint it serves. Local
