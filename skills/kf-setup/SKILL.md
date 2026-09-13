@@ -22,9 +22,7 @@ Resolve the active worktree's repository root, or the current directory when no
 repository exists. Use another target only when explicitly named. Inspect
 applicable guidance without treating ancestor files as writable.
 
-Setup does not require a memory backend or a memory connectivity check. Preserve
-any explicit project requirements for memory; do not install or configure an
-integration, hooks, or global settings as part of setup.
+Preserve explicit project requirements. Setup must not change global settings.
 
 Check that the six method skills named below are available through supported skill
 discovery. If a method is missing, report it and the need to install or update
@@ -73,12 +71,8 @@ preserve scope and permission limits. If a skill rule halts work, link and quote
 distinguishing the rule from your interpretation. Continue independent authorized
 work whose prerequisites are met.
 
-External memory is optional unless the task or project explicitly requires it.
-Use current conversation and repository sources when it is absent or unavailable;
-pause only work that depends on missing evidence or a required memory operation.
-The user or project chooses the integration. Current instructions and sources
-override memory; use only appropriately scoped project/worktree context, never as
-permission. Report missing capabilities without inventing backends or adapters.
+Current instructions and repository sources are authoritative; contextual inferences
+grant no permission. Use context only within its authorized project/worktree scope.
 Run `kf-setup` only on explicit user request.
 <!-- k-fleet:end -->
 ```
@@ -86,7 +80,7 @@ Run `kf-setup` only on explicit user request.
 If the file is absent, create it with `# Repository Instructions` and the block.
 If no markers exist, append the block with a blank-line boundary, preserving all
 existing content. If exactly one well-formed pair exists, replace only that block,
-including legacy reminders requiring kf-orchestrate-work or Supermemory. Preserve
+including older managed reminders. Preserve
 explicit project requirements outside the managed block. If the block already
 matches, leave the file unchanged.
 

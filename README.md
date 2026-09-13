@@ -107,9 +107,8 @@ registers the project. Installation does not run setup or edit `AGENTS.md`.
 ```
 
 Setup writes an idempotent block in the target's `AGENTS.md`, preserving existing
-guidance. It requires neither a memory backend nor a memory connectivity check,
-and does not install or configure memory integrations. Setup is never selected
-automatically; ordinary tasks use the methods directly.
+guidance. Setup is never selected automatically; ordinary tasks use the methods
+directly.
 
 ## Optional memory
 
@@ -117,17 +116,6 @@ Use K Fleet with the current conversation and repository sources alone, or add a
 memory integration chosen for your project. Supermemory, a graph-based memory system,
 and other backends are independent choices; K Fleet does not provide adapters or
 require a particular storage or retrieval model.
-
-For Supermemory, follow its [Codex integration instructions](https://github.com/supermemoryai/codex-supermemory)
-for hook-based recall and capture. Configure any chosen integration separately,
-including its permissions and project/worktree isolation. The integration owns the
-memory lifecycle; K Fleet methods do not need to orchestrate its hooks.
-
-When optional memory is absent or unavailable, continue from current evidence.
-Only work that depends on missing evidence or an explicitly required memory operation
-needs to pause. Current instructions and repository sources override recalled context,
-which never grants permission. Persistent recall and capture depend on the configured
-integration and must not be claimed without evidence.
 
 ## Usage
 
@@ -154,9 +142,6 @@ preserves existing current skills; updates refresh them. When retired
 installation also refreshes the catalog, then removes those directories and lock
 entries after replacements install successfully. Restart Codex after updates and
 manually run `/kf-setup` to refresh old project reminders when needed.
-To remove a legacy K Fleet requirement for Supermemory, update the skills and run
-`/kf-setup` explicitly; it replaces the managed reminder while preserving separate
-project instructions, including any explicit requirement for a memory backend.
 
 ## Maintenance
 

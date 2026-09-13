@@ -52,7 +52,7 @@ workflow behavior rather than framework-specific instructions.
 - Keep method descriptions discriminating. Setup must remain user-triggered with
   `policy.allow_implicit_invocation: false` in its `agents/openai.yaml`.
 - Put method applicability, authority, stopping, and reference-selection rules in
-  `SKILL.md`. Put substantial procedures and backend-specific contracts in
+  `SKILL.md`. Put substantial procedures and task-specific contracts in
   purpose-labelled references, linked at the relevant decision point.
 - Setup must preserve unrelated guidance and must not install or configure memory
   integrations or their hooks. Keep root reminders concise and method procedures
@@ -90,12 +90,10 @@ presence does not require this repository to maintain a test harness.
   Retain the repository map, architecture invariants, conventions, and validation
   contract; never replace this guide with the installation bootstrap.
   Apply the minimal managed bootstrap only to repositories that install K Fleet,
-  through explicitly requested idempotent `kf-setup`. Setup does not require a memory
-  backend or connectivity check. The bootstrap must remind the main agent to select
-  methods as needed, retain task ownership, enforce source-over-memory and
-  project/worktree isolation, and continue from current conversation and sources
-  when optional memory is absent. Preserve explicit project memory requirements;
-  pause only work that depends on missing evidence or a required memory operation.
+  through explicitly requested idempotent `kf-setup`. The bootstrap must remind
+  the main agent to select methods as needed, retain task ownership, and enforce
+  source authority and project/worktree isolation. Preserve explicit project
+  requirements; pause only work that depends on missing evidence or capabilities.
 - Keep seven public skills: `kf-setup`, `kf-define-requirements`,
   `kf-design-codebase`, `kf-implement`, `kf-write-tests`, `kf-verify`, and
   `kf-evolve-skills`. Each skill must be self-contained: its required
@@ -107,12 +105,12 @@ presence does not require this repository to maintain a test harness.
   to an affected decision; never require every method for every task. Do not create
   one agent per skill or retain old routing shims. See
   [Workflow method composition](docs/workflow-methods.md) for the selection contract.
-- Keep engineering methods independent of external memory. Users or projects may
-  choose Supermemory, a graph-based integration, another backend, or none. Integrations
-  own their memory lifecycle; use their supported interfaces within authorization,
-  without adding backend implementations or adapters to K Fleet. Current sources
-  remain authoritative and project/worktree isolation is required. Missing optional
-  memory does not block ordinary work or justify claims of persistent capture.
+- Keep engineering methods independent of external memory. Users or projects choose
+  their preferred integration or none. Keep provider names, backend configuration,
+  connectivity checks, hook handling, and memory-operation instructions out of public
+  skills and managed reminders. K Fleet supplies no backend implementations or
+  adapters. Current sources remain authoritative and project/worktree isolation is
+  required; optional integrations do not add prerequisites to ordinary methods.
   Skill changes require authorized, versioned, reversible source maintenance.
 - Use `find-skills` and `skill-creator` when available for capability improvement;
   keep a self-contained fallback rather than bundling copies or requiring them for

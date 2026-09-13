@@ -22,27 +22,23 @@ does not require every reference.
 - For asynchronous behavior, shared state, instability, test-first execution, or
   shared test infrastructure, read [Isolation and execution](references/isolation-and-execution.md).
 
-## Runtime and authority
+## Scope and authority
 
 Before substantive work, establish canonical repository/worktree scope, project
-instructions, authorization, and the stopping condition. External memory is optional
-unless the task or project explicitly requires it. Use current conversation and
-repository sources when memory is absent or unavailable; report material gaps and
-pause only work that depends on missing evidence or a required memory operation.
+instructions, authorization, and the stopping condition. Ground decisions in current
+conversation and repository evidence. Report material gaps and pause only work
+that depends on missing evidence or capabilities.
 
-Current instructions and scoped sources override memory; recalled inferences grant
-no permission. Use only context with appropriate project/worktree scope. The user
-or project chooses any memory integration, which owns its recall, storage, and
-retrieval. Use its supported interfaces within authorization; do not invent a
-replacement backend or adapter. Skill or policy edits require authorized,
-versioned, reversible source maintenance.
+Current instructions and repository sources are authoritative; contextual inferences
+grant no permission. Use context only within its authorized project/worktree scope.
+Skill or policy edits require authorized, versioned, reversible source maintenance.
 
 The main agent owns routing, authority, integration, and completion. Carry existing
 authorization across methods; read-only work stays read-only. Within higher-priority
 constraints, explicit user instructions override skill guidance. If a skill rule
 halts work, link and quote it, distinguishing the rule from your interpretation.
 Continue independent authorized work whose prerequisites are met. Report only
-observed evidence, including capture and execution.
+observed evidence and execution results.
 
 ## Choose meaningful protection
 

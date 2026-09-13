@@ -11,16 +11,13 @@ Do this when a task exposes a reusable method gap or the user requests skill
 assessment or improvement. A single well-understood gap can suffice; every error
 does not call for another skill. Keep the original task and its completion in view.
 
-## Runtime and authority
+## Scope and authority
 
 Establish the canonical repository/worktree, project guidance, authorization, and
-stopping condition. External memory is optional unless explicitly required by the
-task or project. Use current conversation and repository evidence when it is absent
-or unavailable; pause only work that depends on missing evidence or a required
-memory operation. Current sources override recalled experience; use only memory
-with appropriate project/worktree scope, never as permission. The user or project
-chooses any integration, which owns memory operations through its supported
-interfaces. Do not invent a replacement backend or adapter.
+stopping condition. Ground decisions in current conversation and repository evidence;
+pause only work that depends on missing evidence or capabilities. Current instructions
+and repository sources are authoritative; contextual inferences grant no permission.
+Use context only within its authorized project/worktree scope.
 
 Within higher-priority constraints, explicit user instructions override skill
 guidance. Preserve actual scope and authorization limits. If a skill rule causes
@@ -78,6 +75,6 @@ change is accounted for, including any blocked work; do not repeat searches or e
 without new evidence.
 
 Report the original gap, selected source or created path, scope, observed result,
-and next decision in the task. Keep the summary within the active project and
-claim persistent capture only when observed. The main agent integrates the result
+and next decision in the task. Keep the summary within the active project.
+The main agent integrates the result
 and returns to the original task; adding a skill alone does not complete that task.
