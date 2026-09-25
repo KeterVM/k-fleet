@@ -4,7 +4,7 @@
 
 Use K Fleet with Astra. Results can be different with other models.
 
-K Fleet has six engineering methods and one setup skill.
+K Fleet has eleven product and engineering methods and one setup skill.
 A skill is a file with instructions for an artificial intelligence (AI) agent.
 The main agent selects the necessary methods and is responsible for the complete task.
 The project root `AGENTS.md` file has reminders for the main agent.
@@ -20,8 +20,10 @@ Tests can give successful results when a feature does not operate correctly.
 K Fleet gives the agent methods for these problems:
 
 - Make unclear requirements clear.
+- Investigate product value and design how users complete their tasks.
 - Prepare a design for complex changes.
 - Do tests to make sure that the feature operates correctly.
+- Release the product, support its operation, and assess actual user outcomes.
 - If the same errors occur again, examine the work method.
 
 These methods give the agent instructions that you do not have to give again for each task.
@@ -52,11 +54,16 @@ Use decisions and results from actual tasks to examine skill quality.
 | Skill | Task |
 | --- | --- |
 | `kf-setup` | Add or replace root `AGENTS.md` reminders only when the user tells the agent to do setup. |
+| `kf-discover-product` | Investigate uncertain user problems, alternatives, and product value before committing to a solution. |
 | `kf-define-requirements` | Make the intended behavior, scope, and acceptance criteria clear. |
+| `kf-design-experience` | Design user journeys, interactions, content, and presentation; distinguish inspection from observed usability. |
 | `kf-design-codebase` | Prepare a design for code responsibilities, interfaces, and structure. Use only the complexity necessary for the task. |
 | `kf-implement` | Make complete code changes with clear responsibilities, names, placement, and dependencies. Reuse suitable code and correct design problems exposed during implementation. |
 | `kf-write-tests` | Write useful automated tests and regression tests. |
 | `kf-verify` | Examine functionality, defects, regressions, runtime problems, and affected code structure. |
+| `kf-release-product` | Prepare or execute authorized delivery, including migration, recovery, and checks in the intended environment or channel. |
+| `kf-operate-product` | Establish live operation, diagnose incidents, and verify recovery using service and user-impact evidence. |
+| `kf-evaluate-product` | Assess whether the product delivers its intended benefit using trustworthy measurements and user feedback. |
 | `kf-evolve-skills` | Examine skill instructions at the user's request or when a task identifies a method problem. Examine changes in actual work. |
 
 Each skill has all the instructions and files necessary for its method.
@@ -64,6 +71,17 @@ One agent can use more than one method.
 The agent can use only the necessary methods or write tests before the code.
 New facts can make a different decision necessary.
 Use the simplest code structure that can do the necessary work.
+
+Product discovery asks which problem is worth solving; requirements define the
+agreed behavior. Experience design addresses how people use the product; codebase
+design addresses how the code is organized. Verification, successful release, and
+evidence of product value are different outcomes. Select these methods as needed;
+they are not twelve mandatory phases or twelve agents.
+
+Release and operation reuse existing authorization. A preparation or assessment
+request does not itself permit production changes, publication, or user contact.
+No particular design, analytics, or hosting tool is required. Use specialist skills
+for tasks such as security assessment or platform-specific execution when needed.
 
 If a method is not sufficient for a task, `kf-evolve-skills` first examines the available skill instructions.
 It can use these helper skills:
@@ -102,7 +120,7 @@ npx --yes github:KeterVM/k-fleet install
 
 The command-line interface (CLI) does these tasks:
 
-- It installs the seven skills in `.agents/skills/`.
+- It installs the twelve skills in `.agents/skills/`.
 - It records the skills in `skills-lock.json`.
 - It copies the reviewer configuration to `.codex/agents/`.
 - It registers the project.
@@ -110,6 +128,8 @@ The command-line interface (CLI) does these tasks:
 Installation does not start setup or change `AGENTS.md`.
 The CLI downloads skills from this GitHub repository's default branch.
 The CLI version does not fix the skill revision.
+The CLI does fix which skill names it requests. If a published npm CLI predates a
+catalog expansion, use the GitHub command above to obtain the current CLI and catalog.
 
 After installation, close Codex.
 Then start Codex again.
@@ -172,7 +192,7 @@ Installation also replaces these retired skills if it finds them:
 - `kf-investigate`
 - `skillopt-sleep`
 
-If it finds a retired skill, installation first installs or updates all seven current skills.
+If it finds a retired skill, installation first installs or updates all twelve current skills.
 It then removes the retired skill directories and their lock entries.
 If the replacement installation is not successful, it does not remove the retired skills.
 

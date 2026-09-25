@@ -24,7 +24,7 @@ applicable guidance without treating ancestor files as writable.
 
 Preserve explicit project requirements. Setup must not change global settings.
 
-Check that the six method skills named below are available through supported skill
+Check that the eleven method skills named below are available through supported skill
 discovery. If a method is missing, report it and the need to install or update
 K Fleet, without automatically invoking an installer or writing incomplete guidance.
 
@@ -47,11 +47,16 @@ Manage exactly one block between `<!-- k-fleet:start -->` and
 The main agent owns scope, decisions, integration, and completion. Select methods
 as needed, without a fixed sequence or one agent per skill:
 
+- `kf-discover-product`: investigate uncertain user problems and product value.
 - `kf-define-requirements`: clarify intended behavior and acceptance criteria.
+- `kf-design-experience`: resolve user journeys, interactions, and presentation.
 - `kf-design-codebase`: resolve open responsibilities, interfaces, and structure.
 - `kf-implement`: deliver complete changes with relevant self-checks.
 - `kf-write-tests`: add meaningful automated checks when needed.
 - `kf-verify`: assess delivery when requested or material evidence is missing.
+- `kf-release-product`: prepare or execute authorized delivery and release checks.
+- `kf-operate-product`: establish operation or diagnose and recover live service.
+- `kf-evaluate-product`: assess user or business outcomes and guide iteration.
 - `kf-evolve-skills`: assess or improve guidance when requested, or address a
   reusable capability gap; judge changes through actual use.
 

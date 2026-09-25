@@ -3,6 +3,40 @@
 Notable changes to K Fleet are recorded here.
 Earlier entries describe their versions. Use the README for current installation and operation.
 
+## [Unreleased]
+
+### Added
+
+- Added five self-contained product lifecycle skills: `kf-discover-product`,
+  `kf-design-experience`, `kf-release-product`, `kf-operate-product`, and
+  `kf-evaluate-product`, each with two conditionally selected references.
+- Defined separate decisions and completion evidence for product value, user
+  experience, release, service operation, and product outcomes. Retained task scope,
+  existing authorization, and explicit limits for unavailable user or runtime evidence.
+
+### Changed
+
+- Expanded the public catalog from seven to twelve skills by explicit user decision.
+  Updated the CLI installation list, setup reminder, maintainer guide, method
+  composition, and both READMEs. Methods remain selectable independently.
+- Documented that older npm CLI versions retain their old skill-name list even
+  though skill contents come from the default branch. The GitHub install route
+  obtains the current CLI while an npm release is pending.
+
+### Validation
+
+- Validated the five new skills and updated setup skill with the skill-authoring
+  validator. Checked catalog agreement, local documentation links, all 29 internal
+  skill links, setup's explicit-only policy, and CLI syntax.
+- Installed and updated all twelve skills from the local source in an isolated
+  temporary target using the actual CLI and skills installer. Checked installed
+  content, lock entries, reviewer configuration, and project registration; existing
+  `AGENTS.md` content was preserved and the maintenance skill was excluded.
+- Inspected npm dry-run package contents. Public skills continue to be fetched
+  separately; this change does not publish a new npm version.
+- Product-task effectiveness remains unproven. Structural and installation checks
+  do not establish better product decisions or successful live operation.
+
 ## [3.2.0] - 2026-09-13
 
 ### Added

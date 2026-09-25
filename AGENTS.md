@@ -11,13 +11,14 @@ workflow behavior rather than framework-specific instructions.
 
 - `README.md` documents the architecture, runtime prerequisites, installation,
   operation, and maintenance guidance.
-- `skills/` contains `kf-setup`, `kf-define-requirements`,
-  `kf-design-codebase`, `kf-implement`, `kf-write-tests`, `kf-verify`, and
-  `kf-evolve-skills`. Each skill owns its instructions and references;
+- `skills/` contains twelve public skills: setup, product discovery, requirements,
+  experience design, codebase design, implementation, test writing, verification,
+  release, operation, product evaluation, and skill improvement. Each skill owns
+  its instructions and references;
   setup manages target-project reminders and the main agent coordinates work.
 - `.codex/agents/kf-reviewer.toml` defines the companion reviewer.
 - `.agents/skills/kf-research-skills/` contains this source repository's maintenance
-  research skill. It is outside the seven public skills and consumer installation.
+  research skill. It is outside the twelve public skills and consumer installation.
 - `scripts/kf-projects.mjs` implements the zero-dependency `k-fleet` npm CLI exposed
   by `package.json`.
 - `docs/` records skill-authoring guidance and workflow composition.
@@ -28,9 +29,10 @@ workflow behavior rather than framework-specific instructions.
 
 - The main agent owns task routing, authority, delegation, integration,
   terminal evidence, and final task state. `kf-setup` only initializes or refreshes
-  root `AGENTS.md` reminders on explicit user request. Requirements, codebase design,
-  implementation, test writing, verification, and capability-improvement skills
-  own their respective methods.
+  root `AGENTS.md` reminders on explicit user request. Product and engineering
+  skills own their respective methods. Product evaluation assesses user or business
+  outcomes; skill improvement assesses the agent's methods. Release and operation
+  carry existing authority without granting new production or external-action rights.
 - Backend choice, source authority, isolation, and maintenance boundaries are
   recorded in [Learned Rules](#learned-rules). External memory is optional and
   supplies evidence, never permission. Users or projects choose their integration;
@@ -94,9 +96,11 @@ presence does not require this repository to maintain a test harness.
   the main agent to select methods as needed, retain task ownership, and enforce
   source authority and project/worktree isolation. Preserve explicit project
   requirements; pause only work that depends on missing evidence or capabilities.
-- Keep seven public skills: `kf-setup`, `kf-define-requirements`,
-  `kf-design-codebase`, `kf-implement`, `kf-write-tests`, `kf-verify`, and
-  `kf-evolve-skills`. Each skill must be self-contained: its required
+- Keep twelve public skills: `kf-setup`, `kf-discover-product`,
+  `kf-define-requirements`, `kf-design-experience`, `kf-design-codebase`,
+  `kf-implement`, `kf-write-tests`, `kf-verify`, `kf-release-product`,
+  `kf-operate-product`, `kf-evaluate-product`, and `kf-evolve-skills`.
+  Each skill must be self-contained: its required
   instructions and file references stay inside its own directory. The main agent
   selects methods by skill name; do not link into another skill's files to complete
   a method. Context maintenance, delegation, and feedback remain conditional

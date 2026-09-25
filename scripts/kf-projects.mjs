@@ -19,11 +19,16 @@ import { fileURLToPath } from "node:url";
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const kFleetSkills = [
   "kf-setup",
+  "kf-discover-product",
   "kf-define-requirements",
+  "kf-design-experience",
   "kf-design-codebase",
   "kf-implement",
   "kf-write-tests",
   "kf-verify",
+  "kf-release-product",
+  "kf-operate-product",
+  "kf-evaluate-product",
   "kf-evolve-skills",
 ];
 const retiredSkills = ["kf-orchestrate-work", "kf-design", "kf-investigate", "skillopt-sleep"];
