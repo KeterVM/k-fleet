@@ -19,6 +19,30 @@ tested scope still apply. A relevant environment difference limits a claim; it d
 not automatically make all local evidence useless. Choose an additional check only
 when it resolves a material gap, rather than rerunning everything for a fresh result.
 
+## Inspect structural claims in the code
+
+For affected components and boundaries, compare the accepted design and project
+conventions with the delivered code, including relevant callers:
+
+- Check whether a name communicates the concept or role actually supplied by the
+  public operations. Trace ambiguous terminology to caller misunderstanding or
+  conflicting representations; a disliked suffix alone is not a defect.
+- Check whether paths follow an explainable local grouping and responsibility owner.
+  Shared code should have a coherent contract, while private details stay with their
+  owner. Do not require a preferred feature or layer hierarchy.
+- Follow actual imports, exports, calls, and state access across the boundary. Look
+  for forbidden dependency directions, cycles, duplicate rule ownership, or callers
+  that reconstruct internal sequencing. Folder separation does not prevent these.
+- Use a task-grounded change scenario to inspect where edits would be needed and why.
+  Distinguish necessary interface propagation from unrelated knowledge or synchronized
+  copies that make a change fragile. Check both oversized owners and excessive
+  fragmentation; class, file, and line counts cannot decide either.
+
+Report the location, violated contract or concrete maintenance consequence, and
+supporting caller or dependency trace. Keep a reasoned change walkthrough distinct
+from an executed result or measured maintenance cost. Reuse configured boundary checks
+where useful; do not introduce a new structural test harness merely for this review.
+
 ## Cover the behavior and its consequences
 
 Exercise normal use and relevant boundary or failure conditions, such as denied

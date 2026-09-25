@@ -1,8 +1,8 @@
 # Implementation judgment
 
-Use for nontrivial implementation choices about reuse, abstractions, interfaces,
-integration, or restructuring within the assigned change. Apply the role, authority,
-and completion rules in SKILL.md.
+Use for new or substantially changed components, unclear names or placement, and
+nontrivial choices about reuse, interfaces, integration, or restructuring. Apply the
+role, authority, and completion rules in SKILL.md within the assigned change.
 
 ## Choose implementation by fit and responsibility
 
@@ -62,11 +62,51 @@ complete the manifest, lockfile, configuration, and real integration checks rele
 to its use. Use a focused probe only for unresolved compatibility or behavior that
 could change the choice; installation alone does not establish fit.
 
+## Establish the responsibility before its representation
+
+For the affected behavior, identify the domain concept or technical capability, the
+rules and state it owns, and the callers it serves. Inspect the existing owner and
+its consumers before creating a parallel one. Different operations on one invariant
+may belong together; unrelated rules do not become one responsibility because a
+screen, command, or request invokes them together.
+
+Choose a class, function, value type, or module according to that responsibility and
+the language/framework contract. A class can own state, lifetime, invariants, or an
+implementation of a required interface; an independent calculation may fit a function.
+Do not create classes, interfaces, or forwarding layers merely to resemble an
+architecture. Check whether the abstraction hides relevant knowledge or instead
+makes callers coordinate more objects, sequencing, or shared state.
+
+## Make names describe the contract
+
+Reuse established domain terms for the same concept and distinguish genuinely
+different concepts. Identify whether a component represents a domain value, operation,
+coordinator, or external adapter before naming it. Check its name against its public
+operations, inputs, results, and effects from a caller's perspective; technical roles
+such as storage or transport should be apparent where they affect correct use.
+
+Names such as Manager, Handler, Service, or Data need a specific meaning in the
+project; neither these suffixes nor longer names establish a clear responsibility.
+If a component is difficult to name without listing unrelated jobs, recheck its
+ownership before polishing the spelling. Preserve meaningful language and framework
+conventions rather than imposing a suffix ban or one universal naming scheme. Keep
+class, file, and directory names semantically consistent without requiring identical
+spelling. Account for compatibility when changing public names.
+
 ## Place code with its owner
 
 Extend an existing file only when the new behavior belongs to its responsibility.
 Otherwise use an appropriate existing module or a focused new file, and keep the
-entry point responsible for composition. For example, adding persistence to a UI
+entry point responsible for composition. Determine what the affected parent directory
+groups: a domain, feature, technical layer, or framework-discovered artifact. New
+siblings should follow an explainable organizing rule; nested feature and layer
+groupings can be coherent. Follow required discovery paths and preserve an existing
+layout where it fits ownership, rather than copying an accidental nearby placement.
+
+Keep private implementation near its owner. Put shared code under a concrete owner
+when consumers share a stable responsibility, not just similar syntax or access to
+the same API. Do not promote feature-specific code to a global directory merely
+because a second caller appears. For example, adding persistence to a UI
 flow should call the persistence owner rather than embed storage implementation in
 the screen. Do not move unrelated responsibilities into a generic utils or helpers
 file, or leave a nominally extracted module dependent on its caller's internals.
@@ -77,6 +117,15 @@ invariants, state ownership, and dependency direction; avoid circular imports or
 duplicated state introduced by extraction. A small coherent script or module may
 remain one file. Split for independent responsibilities, not arbitrary size limits,
 and keep unrelated legacy cleanup outside the change.
+
+For a new or changed boundary, trace a plausible change grounded in the task, such
+as replacing a storage adapter or changing a business rule. Identify which owners,
+contracts, and callers should change and compare that expectation with actual imports
+and knowledge of internals. An adapter replacement that requires unrelated business
+edits, or one policy copied across several modules, calls for reconsidering the
+boundary. Separate representations with necessary mapping can still be appropriate.
+Fix the affected cause, not just the directory tree. A clear local decision needs no
+new design document; make consequential ownership or dependency changes explicit.
 
 ## Preserve contracts while making the behavior usable
 
@@ -93,9 +142,9 @@ adapters and special cases remain valid.
 
 ## Keep the change explainable
 
-Use names that express domain meaning and interfaces that make required inputs,
-effects, and failures clear. Comments should supply intent, constraints, or other
-information the code cannot communicate; do not narrate obvious operations.
+Use interfaces that make required inputs, effects, and failures clear. Comments should
+supply intent, constraints, or other information the code cannot communicate; do not
+narrate obvious operations.
 Keep the diff focused on the requested behavior and necessary supporting changes.
 For structural work, include the ownership and dependency changes needed to resolve
 the requested problem. If delivery is staged, keep each increment's ownership clear

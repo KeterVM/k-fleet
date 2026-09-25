@@ -16,8 +16,8 @@ Read only for decisions the assessment needs:
 
 - For uncertain execution surfaces, environments, or tools, read
   [Environments and tools](references/environments-and-tools.md).
-- For selecting checks or judging whether results establish real behavior, read
-  [Evidence and coverage](references/evidence-and-coverage.md).
+- For selecting checks, assessing changed structure, or judging behavioral evidence,
+  read [Evidence and coverage](references/evidence-and-coverage.md).
 - For failures, conflicting results, suspected defects, or severity, read
   [Diagnosis and findings](references/diagnosis-and-findings.md).
 - For corrections or missing regression protection, read
@@ -53,11 +53,13 @@ available environments. Choose checks by the behavior claimed, prioritizing
 consequence, exposure, and uncertainty while retaining required project checks.
 Assess cooperating parts together without expanding into an unrelated repository audit.
 
-When assessing structure or maintainability, inspect whether affected files combine
-independent responsibilities. Ground a finding in the distinct rules, dependencies,
-or change scenarios and their maintenance consequence, rather than file length or
-preferred layout. Separate functions in one file and a passing suite do not establish
-responsibility separation; also check extracted modules for hidden coupling.
+For added or materially changed components and boundaries, or a requested structural
+assessment, inspect names, directory ownership, interfaces, and actual dependencies
+together. Check for mixed responsibilities, scattered ownership of one rule, and
+caller knowledge that defeats an intended boundary. Ground findings in a misleading
+contract, project-rule violation, or concrete change scenario and its consequence;
+separate them from preferred spelling or layout. Neither separate files nor a passing
+suite establishes a sound structure. Keep inspection limited to the affected scope.
 
 Judge evidence and findings by these criteria:
 

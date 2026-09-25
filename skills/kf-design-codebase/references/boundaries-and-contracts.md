@@ -14,6 +14,13 @@ presentation, or transport needs. Resolve ambiguity that changes behavior with t
 requirements owner; do not invent business rules to make a design convenient.
 Reuse a sufficient model; a local change needs no comprehensive domain taxonomy.
 
+Carry the relevant vocabulary into component names and contracts. Distinguish a
+domain concept from an operation, coordinator, or technical adapter rather than
+calling each a generic service. A role name must describe the responsibility its
+public interface actually offers. Difficulty naming an owner without enumerating
+unrelated jobs is a reason to inspect the boundary, not simply invent a broader name.
+Leave local spelling and implementation form to language and framework conventions.
+
 ## Decide what belongs together
 
 Assign ownership to the affected rules, state, and transitions before choosing
@@ -54,6 +61,13 @@ hexagonal, or vertical-slice designs can use different arrangements by layer,
 feature, or domain; Controller / Service / Repository is one option, not a template
 to impose. Choose organization for the actual responsibility and dependency rules.
 
+Identify the organizing rule of the affected parent directory and how new children
+fit it. Feature grouping with technical subdivisions can be coherent; unexplained
+mixing of domain, layer, and miscellaneous buckets at the same level obscures
+ownership. Keep private details within their owner and make supported cross-module
+access explicit. Shared placement needs a shared responsibility and concrete owner;
+multiple callers alone do not justify moving code into a global common directory.
+
 Keep related internals together, supported import boundaries clear, and shared code
 under a concrete owner. Follow applicable naming, layout, build, test, and framework
 discovery conventions. Preserve existing organization where its ownership and
@@ -77,6 +91,8 @@ invariants with their owner. File length is an inspection signal, not a split ru
 neither one file per function nor a mandatory layer hierarchy follows from this.
 
 Show relevant paths when placement changes, explaining their responsibility and
-allowed dependencies. Separate folders do not establish boundaries when callers
-still manipulate internals. A new layer must serve a contract or constraint beyond
-making the tree look uniform.
+allowed dependencies. Carry forward enough vocabulary, public entry points, and
+the decisive change scenario for implementation to preserve these choices, using
+the existing task or artifact without prescribing every class. Separate folders do
+not establish boundaries when callers still manipulate internals. A new layer must
+serve a contract or constraint beyond making the tree look uniform.

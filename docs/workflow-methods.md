@@ -22,6 +22,13 @@ verification. Test-first work can write a failing behavior test before code exis
 A verification-only request does not authorize product-code correction. Respect
 analysis-only requests even when a later capability could continue the work.
 
+Understood behavior does not imply settled code organization. Implementation owns
+local choices about responsibility, interfaces, representation, names, and paths,
+including when no design method was selected. Design resolves consequential ownership
+or contract decisions and carries their rationale forward. Verification checks the
+resulting names, placement, and actual dependencies when those components or boundaries
+change. These are complementary responsibilities, not a mandatory three-stage route.
+
 Return to the affected decision when evidence changes it: a verification failure
 may require an implementation fix, a revised module contract, or clarification of
 intended behavior. Revisit only what the new evidence invalidates, then verify the

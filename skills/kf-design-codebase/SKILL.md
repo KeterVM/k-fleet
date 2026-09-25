@@ -58,6 +58,8 @@ Judge the affected design by these criteria:
 - The parts jointly deliver important success and failure scenarios.
 - Rules and state have clear owners; interfaces avoid hidden caller coordination.
 - Boundaries keep implementation knowledge local rather than scattering one rule.
+- Domain terms, component roles, paths, and allowed dependencies express the same
+  ownership model; implementation need not invent a conflicting one.
 - Structure earns its integration and maintenance cost through current needs.
 - Decisions and assumptions can guide implementation and be challenged by observable
   evidence; a directory tree or architecture label alone is insufficient.

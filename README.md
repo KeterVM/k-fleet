@@ -54,9 +54,9 @@ Use decisions and results from actual tasks to examine skill quality.
 | `kf-setup` | Add or replace root `AGENTS.md` reminders only when the user tells the agent to do setup. |
 | `kf-define-requirements` | Make the intended behavior, scope, and acceptance criteria clear. |
 | `kf-design-codebase` | Prepare a design for code responsibilities, interfaces, and structure. Use only the complexity necessary for the task. |
-| `kf-implement` | Make complete code changes. Use applicable available code. Correct the design when facts or test results identify a problem. |
+| `kf-implement` | Make complete code changes with clear responsibilities, names, placement, and dependencies. Reuse suitable code and correct design problems exposed during implementation. |
 | `kf-write-tests` | Write useful automated tests and regression tests. |
-| `kf-verify` | Examine functionality, defects, regressions, and runtime problems. |
+| `kf-verify` | Examine functionality, defects, regressions, runtime problems, and affected code structure. |
 | `kf-evolve-skills` | Examine skill instructions at the user's request or when a task identifies a method problem. Examine changes in actual work. |
 
 Each skill has all the instructions and files necessary for its method.
