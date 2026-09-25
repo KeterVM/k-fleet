@@ -76,5 +76,4 @@ without new evidence.
 
 Report the original gap, selected source or created path, scope, observed result,
 and next decision in the task. Keep the summary within the active project.
-The main agent integrates the result
-and returns to the original task; adding a skill alone does not complete that task.
+Adding a skill alone does not complete the original task.

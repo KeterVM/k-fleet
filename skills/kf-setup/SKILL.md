@@ -7,8 +7,7 @@ description: Initialize or refresh K Fleet reminders in a project's root AGENTS.
 
 Run only on an explicit user setup request. Installation, missing guidance, a
 normal coding task, or a newly opened project must not trigger setup automatically.
-This skill configures project reminders; the main agent coordinates ordinary work
-directly using the method skills.
+This skill configures project reminders.
 
 Within higher-priority constraints, explicit user instructions override skill
 guidance. Preserve actual scope and authorization limits. If a skill rule causes
@@ -24,7 +23,7 @@ applicable guidance without treating ancestor files as writable.
 
 Preserve explicit project requirements. Setup must not change global settings.
 
-Check that the eleven method skills named below are available through supported skill
+Check that the method skills named below are available through supported skill
 discovery. If a method is missing, report it and the need to install or update
 K Fleet, without automatically invoking an installer or writing incomplete guidance.
 
@@ -44,8 +43,7 @@ Manage exactly one block between `<!-- k-fleet:start -->` and
 <!-- k-fleet:start -->
 ## K Fleet
 
-The main agent owns scope, decisions, integration, and completion. Select methods
-as needed, without a fixed sequence or one agent per skill:
+Select methods as needed:
 
 - `kf-discover-product`: investigate uncertain user problems and product value.
 - `kf-define-requirements`: clarify intended behavior and acceptance criteria.
@@ -66,8 +64,7 @@ preferences, and uncertainty. Investigate facts directly; ask for missing intent
 material choices. When challenged, recheck premises; revise for changed goals, new
 evidence, or reasoning errors, and explain why.
 
-Reuse sufficient design; tests can come first. Delegate only useful, authorized,
-bounded work with non-overlapping writes; inspect results and retain responsibility.
+Reuse sufficient design; tests can come first.
 Carry authorization across methods; analysis-only and review-only work stays read-only.
 Report actual outcomes and material unverified obligations.
 

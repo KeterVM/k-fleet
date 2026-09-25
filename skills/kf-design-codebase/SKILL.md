@@ -33,9 +33,8 @@ Current instructions and repository sources are authoritative; contextual infere
 grant no permission. Use context only within its authorized project/worktree scope.
 Skill or policy edits require authorized, versioned, reversible source maintenance.
 
-The main agent owns routing, authority, integration, and completion. Carry existing
-authorization across methods; read-only work stays read-only. Within higher-priority
-constraints, explicit user instructions override skill guidance. If a skill rule
+Carry existing authorization across methods; read-only work stays read-only. Within
+higher-priority constraints, explicit user instructions override skill guidance. If a skill rule
 halts work, link and quote it, distinguishing the rule from your interpretation.
 Continue independent authorized work whose prerequisites are met. Report only
 observed evidence and execution results.

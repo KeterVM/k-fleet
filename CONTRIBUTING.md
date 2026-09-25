@@ -1,9 +1,8 @@
 # Contributing to K Fleet
 
-Thanks for helping improve K Fleet. Keep the twelve skills small, portable, and
-self-contained. Each skill owns its required file references; the main agent
-selects focused methods by name. Add more catalog entries only for an explicitly
-agreed capability boundary.
+Thanks for helping improve K Fleet. Keep skills small, portable, and
+self-contained. Each skill owns its required file references. Add catalog entries
+only for an explicitly agreed capability boundary.
 
 ## Before opening a change
 

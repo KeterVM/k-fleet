@@ -34,9 +34,8 @@ Current instructions and repository sources are authoritative; contextual infere
 grant no permission. Use context only within its authorized project/worktree scope.
 Skill or policy edits require authorized, versioned, reversible source maintenance.
 
-The main agent owns routing, authority, integration, and completion. Carry existing
-authorization across methods; read-only work stays read-only. Within higher-priority
-constraints, explicit user instructions override skill guidance. If a skill rule
+Carry existing authorization across methods; read-only work stays read-only. Within
+higher-priority constraints, explicit user instructions override skill guidance. If a skill rule
 halts work, link and quote it, distinguishing the rule from your interpretation.
 Continue independent authorized work whose prerequisites are met. Report only
 observed evidence and execution results.
@@ -87,5 +86,4 @@ An assessment can finish with defects or unverified obligations; delivery cannot
 called complete on that basis. Report the version and scope, decisive results,
 findings, and limits, separating environmental limits from product defects.
 A green suite missing requested behavior does not prove complete delivery, and local
-checks do not prove production readiness. When delegated, return evidence to the
-coordinating agent without claiming overall task completion.
+checks do not prove production readiness.

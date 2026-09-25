@@ -2,7 +2,7 @@
 
 ## Purpose
 
-K Fleet is the source repository for a portable Codex orchestration package.
+K Fleet is the source repository for portable Codex product and engineering skills.
 
 Keep the package small, inspectable, language-independent, and based on observable
 workflow behavior rather than framework-specific instructions.
@@ -11,14 +11,13 @@ workflow behavior rather than framework-specific instructions.
 
 - `README.md` documents the architecture, runtime prerequisites, installation,
   operation, and maintenance guidance.
-- `skills/` contains twelve public skills: setup, product discovery, requirements,
+- `skills/` contains public skills for setup, product discovery, requirements,
   experience design, codebase design, implementation, test writing, verification,
   release, operation, product evaluation, and skill improvement. Each skill owns
-  its instructions and references;
-  setup manages target-project reminders and the main agent coordinates work.
+  its instructions and references; setup manages target-project reminders.
 - `.codex/agents/kf-reviewer.toml` defines the companion reviewer.
 - `.agents/skills/kf-research-skills/` contains this source repository's maintenance
-  research skill. It is outside the twelve public skills and consumer installation.
+  research skill. It is outside the public catalog and consumer installation.
 - `scripts/kf-projects.mjs` implements the zero-dependency `k-fleet` npm CLI exposed
   by `package.json`.
 - `docs/` records skill-authoring guidance and workflow composition.
@@ -27,9 +26,8 @@ workflow behavior rather than framework-specific instructions.
 
 ## Architecture responsibilities
 
-- The main agent owns task routing, authority, delegation, integration,
-  terminal evidence, and final task state. `kf-setup` only initializes or refreshes
-  root `AGENTS.md` reminders on explicit user request. Product and engineering
+- `kf-setup` only initializes or refreshes root `AGENTS.md` reminders on explicit
+  user request. Product and engineering
   skills own their respective methods. Product evaluation assesses user or business
   outcomes; skill improvement assesses the agent's methods. Release and operation
   carry existing authority without granting new production or external-action rights.
@@ -92,22 +90,15 @@ presence does not require this repository to maintain a test harness.
   Retain the repository map, architecture invariants, conventions, and validation
   contract; never replace this guide with the installation bootstrap.
   Apply the minimal managed bootstrap only to repositories that install K Fleet,
-  through explicitly requested idempotent `kf-setup`. The bootstrap must remind
-  the main agent to select methods as needed, retain task ownership, and enforce
-  source authority and project/worktree isolation. Preserve explicit project
-  requirements; pause only work that depends on missing evidence or capabilities.
-- Keep twelve public skills: `kf-setup`, `kf-discover-product`,
-  `kf-define-requirements`, `kf-design-experience`, `kf-design-codebase`,
-  `kf-implement`, `kf-write-tests`, `kf-verify`, `kf-release-product`,
-  `kf-operate-product`, `kf-evaluate-product`, and `kf-evolve-skills`.
-  Each skill must be self-contained: its required
-  instructions and file references stay inside its own directory. The main agent
-  selects methods by skill name; do not link into another skill's files to complete
-  a method. Context maintenance, delegation, and feedback remain conditional
-  responsibilities; capability improvement uses `kf-evolve-skills`. Select methods
-  as needed, including test-first work and returning
-  to an affected decision; never require every method for every task. Do not create
-  one agent per skill or retain old routing shims. See
+  through explicitly requested idempotent `kf-setup`. Keep method selection,
+  source authority, and project/worktree isolation in the reminders. Preserve
+  explicit project requirements; pause only work that depends on missing evidence
+  or capabilities.
+- Each skill must be self-contained: its required instructions and file references
+  stay inside its own directory. Refer to other methods by skill name; do not link
+  into another skill's files to complete a method. Capability improvement uses
+  `kf-evolve-skills`. Select methods as needed, including test-first work and returning
+  to an affected decision; never require every method for every task. See
   [Workflow method composition](docs/workflow-methods.md) for the selection contract.
 - Keep engineering methods independent of external memory. Users or projects choose
   their preferred integration or none. Keep provider names, backend configuration,
@@ -121,9 +112,8 @@ presence does not require this repository to maintain a test harness.
   all work. Inspect candidate content and dependencies before installation. Prefer
   project scope and preserve unrelated skills. Do not create new skills for every
   failure or claim that installation alone closes the feedback loop.
-- Keep `kf_reviewer` optional, read-only, model-neutral, and advisory. It must not
-  fix its findings or claim readiness independently of the main agent, which
-  retains correction, integration, conflict resolution, and completion.
+- Keep `kf_reviewer` optional, read-only, model-neutral, and advisory. It reports
+  findings and evidence without fixing them or declaring overall task readiness.
 - Judge instruction changes by the decisions and outcomes they are intended to
   improve. Keep claims tied to actual observations; do not treat formatting or
   scripted checks as evidence of skill effectiveness.
@@ -169,9 +159,8 @@ working evidence, without requiring a fixed report for every task:
    to propose revising the method or its assumptions?
 
 Treat these principles as a design framework whose value must be demonstrated in
-observable decisions and outcomes. They do not prescribe a skill or agent count;
-the public-entry-point contract is an explicit design choice, not a consequence
-of these four foundations.
+observable decisions and outcomes. Public capability boundaries are explicit design
+choices, not a consequence of these four foundations.
 
 ### Skill authoring reference
 

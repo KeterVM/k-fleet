@@ -4,10 +4,9 @@
 
 Use K Fleet with Astra. Results can be different with other models.
 
-K Fleet has eleven product and engineering methods and one setup skill.
+K Fleet provides product and engineering methods, plus project setup.
 A skill is a file with instructions for an artificial intelligence (AI) agent.
-The main agent selects the necessary methods and is responsible for the complete task.
-The project root `AGENTS.md` file has reminders for the main agent.
+The project root `AGENTS.md` file has project reminders.
 
 You can use K Fleet with or without external memory.
 
@@ -34,7 +33,6 @@ For a simple change, use only the necessary methods.
 
 Four ideas are the basis of K Fleet.
 They apply to different parts of engineering work.
-They do not set the number of skills or agents.
 
 | Idea | How to use the idea |
 | --- | --- |
@@ -43,7 +41,6 @@ They do not set the number of skills or agents.
 | **Control theory** | Compare actual results with the necessary results. Correct the differences. Identify when to stop or change the method. The same procedure can cause the same error again. |
 | **Double-loop learning** | Find the cause of the error in the code, assumptions, method, or assessment criteria. Use facts and test results before you change the method. Obey the limits of the task approval. |
 
-The main agent connects the changed parts and completes the approved checks and corrections.
 Use current project instructions and source files if other context gives different information.
 A change to a method does not give permission to change user requirements or skills.
 
@@ -67,16 +64,14 @@ Use decisions and results from actual tasks to examine skill quality.
 | `kf-evolve-skills` | Examine skill instructions at the user's request or when a task identifies a method problem. Examine changes in actual work. |
 
 Each skill has all the instructions and files necessary for its method.
-One agent can use more than one method.
-The agent can use only the necessary methods or write tests before the code.
+Use only the necessary methods; tests can come before code.
 New facts can make a different decision necessary.
 Use the simplest code structure that can do the necessary work.
 
 Product discovery asks which problem is worth solving; requirements define the
 agreed behavior. Experience design addresses how people use the product; codebase
 design addresses how the code is organized. Verification, successful release, and
-evidence of product value are different outcomes. Select these methods as needed;
-they are not twelve mandatory phases or twelve agents.
+evidence of product value are different outcomes. Select these methods as needed.
 
 Release and operation reuse existing authorization. A preparation or assessment
 request does not itself permit production changes, publication, or user contact.
@@ -98,8 +93,7 @@ The agent can add, correct, or remove skills as permitted by the task.
 The optional [`kf_reviewer`](.codex/agents/kf-reviewer.toml) agent examines the code independently.
 This agent has read-only access.
 Installation includes its configuration.
-The reviewer gives its results to the main agent.
-The main agent is responsible for corrections and the complete task.
+Its output is advisory findings and supporting evidence.
 
 ## Installation
 
@@ -120,7 +114,7 @@ npx --yes github:KeterVM/k-fleet install
 
 The command-line interface (CLI) does these tasks:
 
-- It installs the twelve skills in `.agents/skills/`.
+- It installs the public skills in `.agents/skills/`.
 - It records the skills in `skills-lock.json`.
 - It copies the reviewer configuration to `.codex/agents/`.
 - It registers the project.
@@ -192,7 +186,7 @@ Installation also replaces these retired skills if it finds them:
 - `kf-investigate`
 - `skillopt-sleep`
 
-If it finds a retired skill, installation first installs or updates all twelve current skills.
+If it finds a retired skill, installation first installs or updates the current catalog.
 It then removes the retired skill directories and their lock entries.
 If the replacement installation is not successful, it does not remove the retired skills.
 

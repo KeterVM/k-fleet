@@ -1,8 +1,8 @@
 # Workflow method composition
 
-K Fleet's eleven method skills are complementary capabilities, not a mandatory
-sequence. The main agent selects only what the task needs; each method remains
-usable on its own. This maintainer note explains the installed selection contract;
+K Fleet's method skills are complementary capabilities, not a mandatory
+sequence. Select only what the task needs; each method remains usable on its own.
+This maintainer note explains the installed selection contract;
 root reminders are written by the user-triggered `kf-setup`. Setup is not a task
 phase and is never invoked automatically. Installation only prompts the user to
 run it once; a later explicit setup request can refresh the same managed block.
@@ -51,10 +51,8 @@ approval gates between them.
 Overlap is intentional: implementation owns its self-checks, test writing owns the
 quality of automated checks, and verification assesses delivery against the goal.
 They can share applicable test results without treating the implementer's report
-as the sole source of truth. The coordinating agent owns task scope, routing,
-engineering decisions, integration, and final completion. Method selection does
-not transfer responsibility for whether the overall solution makes sense. User
-corrections and implementation friction can expose a decision to revisit before
+as the sole source of truth. User corrections and implementation friction can
+expose a decision to revisit before
 verification; investigate the cause and keep corrections within the task's scope.
 
 Capability improvement closes a separate feedback loop: observed gap, diagnosis,
@@ -95,12 +93,12 @@ are not additional public methods in this expansion.
 
 ## Catalog expansion decision — 2026-09-25
 
-The user approved expanding from seven to twelve public skills after reviewing the
+The user approved expanding product lifecycle coverage after reviewing the
 gap between engineering change delivery and a complete product lifecycle. Add
 product discovery, experience design, release, operation, and product evaluation
 because they have distinct decisions, evidence, and completion conditions. Keep
-the existing seven methods and setup behavior; do not turn lifecycle coverage into
-a mandatory itinerary or one agent per skill. Update the CLI's explicit install
+the existing methods and setup behavior; do not turn lifecycle coverage into
+a mandatory itinerary. Update the CLI's explicit install
 list and setup reminders together with the public catalog.
 
 The assessment used current repository instructions and these primary sources,
@@ -109,7 +107,7 @@ checked on 2026-09-25:
 - [Design Council, Double Diamond](https://www.designcouncil.org.uk/our-resources/the-double-diamond/):
   distinguishes investigating the problem, defining it, developing alternatives,
   and testing solutions. Supports separate discovery and experience decisions;
-  does not prescribe a skill count or prove an agent's research is valid.
+  does not prove an agent's research is valid.
 - [Google SRE, Canarying Releases](https://sre.google/workbook/canarying-releases/):
   explains exposure and evaluation of changes under real workload. Supports release
   evidence beyond pre-release tests; canary infrastructure is not required for all

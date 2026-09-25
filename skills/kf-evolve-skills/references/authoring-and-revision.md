@@ -9,7 +9,7 @@ Use skill-creator when available for the authorized revision or creation. Withou
 it, author a self-contained SKILL.md with matching directory and frontmatter name,
 a discriminating description, decision criteria, and the needed workflow. Inspect
 project conventions and existing names before writing. Do not shadow core K Fleet
-entries or duplicate the main agent's coordination role.
+entries.
 
 Write the guidance that changes the deficient decision, including when it applies
 and when a simpler approach is sufficient. Avoid turning the last incident into

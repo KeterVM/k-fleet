@@ -71,5 +71,4 @@ and continue only independent work. Report the recommendation, decisive evidence
 uncertainty, and what actual-use observation would challenge the proposed guidance.
 Assess that use when available and authorized; otherwise label effectiveness unproven.
 Do not manufacture example projects, test suites, or evaluation infrastructure to
-claim a closed feedback loop. Hand results back to the main agent for integration
-and completion of the original request.
+claim a closed feedback loop. Report findings in the context of the original request.
