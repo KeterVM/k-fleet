@@ -3,6 +3,17 @@
 Notable changes to K Fleet are recorded here.
 Earlier entries describe their versions. Use the README for current installation and operation.
 
+## [Unreleased]
+
+### Changed
+
+- Refreshed both READMEs against the current skills and CLI. Removed unsupported
+  model and memory-plugin recommendations, clarified runtime prerequisites and
+  command behavior, and documented how npm tags, CLI catalogs, and skill sources differ.
+- Replaced mandatory restart instructions with conditional troubleshooting and
+  corrected explicit skill invocation examples. Updated CLI completion messages
+  and maintainer guidance to match current Codex documentation.
+
 ## [3.3.0] - 2026-09-25
 
 ### Added

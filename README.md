@@ -2,19 +2,19 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-Use K Fleet with Astra. Results can be different with other models.
+K Fleet provides Codex skills for product discovery, experience design, software
+delivery, release, operation, and evaluation. Each skill contains focused instructions
+and supporting references. Use the methods that fit the task.
 
-K Fleet provides product and engineering methods, plus project setup.
-A skill is a file with instructions for an artificial intelligence (AI) agent.
-The project root `AGENTS.md` file has project reminders.
-
-You can use K Fleet with or without external memory.
+The CLI installs and updates these files across projects. Optional project reminders
+are managed by an explicit `kf-setup` request. External memory is not required.
 
 ## Why K Fleet
 
-An AI agent can write code when the requirements are not clear.
-It can also make parts that do not operate together.
-Tests can give successful results when a feature does not operate correctly.
+Working code alone does not establish a useful product. Requirements can be unclear,
+users can struggle to finish a task, and successful tests can miss integration or
+release problems. K Fleet provides methods for examining these decisions and the
+evidence needed to complete the work.
 
 K Fleet gives the agent methods for these problems:
 
@@ -25,9 +25,8 @@ K Fleet gives the agent methods for these problems:
 - Release the product, support its operation, and assess actual user outcomes.
 - If the same errors occur again, examine the work method.
 
-These methods give the agent instructions that you do not have to give again for each task.
-They also help the agent identify when the task is complete.
-For a simple change, use only the necessary methods.
+For a simple change, use only the necessary methods. Following a skill's instructions
+does not by itself prove that the result is correct or valuable.
 
 ## Core ideas
 
@@ -66,7 +65,7 @@ Use decisions and results from actual tasks to examine skill quality.
 Each skill has all the instructions and files necessary for its method.
 Use only the necessary methods; tests can come before code.
 New facts can make a different decision necessary.
-Use the simplest code structure that can do the necessary work.
+Choose code structure that satisfies the required behavior and responsibility boundaries.
 
 Product discovery asks which problem is worth solving; requirements define the
 agreed behavior. Experience design addresses how people use the product; codebase
@@ -78,18 +77,6 @@ request does not itself permit production changes, publication, or user contact.
 No particular design, analytics, or hosting tool is required. Use specialist skills
 for tasks such as security assessment or platform-specific execution when needed.
 
-If a method is not sufficient for a task, `kf-evolve-skills` first examines the available skill instructions.
-It can use these helper skills:
-
-- [`find-skills`](https://github.com/vercel-labs/skills/tree/main/skills/find-skills) comes from Vercel's `vercel-labs/skills` repository. It finds other skills.
-- [`skill-creator`](https://github.com/openai/skills/tree/main/skills/.system/skill-creator) comes from OpenAI's `openai/skills` repository. It helps write skills.
-
-These two helper skills are optional.
-It then examines the instructions in actual work.
-
-The default location for new skills is the current project.
-The agent can add, correct, or remove skills as permitted by the task.
-
 The optional [`kf_reviewer`](.codex/agents/kf-reviewer.toml) agent examines the code independently.
 This agent has read-only access.
 Installation includes its configuration.
@@ -97,8 +84,9 @@ Its output is advisory findings and supporting evidence.
 
 ## Installation
 
-Use Node.js version 20 or a subsequent version.
-An external memory service is not necessary.
+Use Node.js 20 or later, with `npm` and `npx` available, plus Git and network access
+to npm and GitHub. The CLI invokes `npx skills add` to install skill files; these
+requirements also apply when starting K Fleet with Bun.
 
 From the target repository, run this command:
 
@@ -106,7 +94,13 @@ From the target repository, run this command:
 npx --yes k-fleet@latest install
 ```
 
-To install from GitHub, run this alternative command:
+With Bun, the equivalent command is:
+
+```sh
+bunx k-fleet@latest install
+```
+
+To use the current GitHub source instead of the published npm CLI:
 
 ```sh
 npx --yes github:KeterVM/k-fleet install
@@ -120,39 +114,37 @@ The command-line interface (CLI) does these tasks:
 - It registers the project.
 
 Installation does not start setup or change `AGENTS.md`.
-The CLI downloads skills from this GitHub repository's default branch.
-The CLI version does not fix the skill revision.
-The CLI does fix which skill names it requests. If a published npm CLI predates a
-catalog expansion, use the GitHub command above to obtain the current CLI and catalog.
+The CLI version determines which skill names it requests. Skill contents come from
+this repository's default branch, so pinning the CLI version does not pin the skills.
+The reviewer configuration comes from the CLI package.
 
-After installation, close Codex.
-Then start Codex again.
-In each project, run this command one time:
+Codex [detects skill changes automatically](https://learn.chatgpt.com/docs/build-skills#create-a-skill).
+If installed skills do not appear, restart Codex. To initialize project reminders,
+explicitly request `kf-setup` in Codex; in the CLI or IDE, you can
+[mention the skill](https://learn.chatgpt.com/docs/build-skills#how-chatgpt-and-codex-use-skills):
 
 ```text
-/kf-setup
+$kf-setup
 ```
 
 Setup adds or replaces its section in the project root `AGENTS.md` file.
 It keeps other project instructions.
 Setup does not add duplicate sections when you run it again.
-Setup starts only when you tell the agent to do setup.
-Other tasks use the method skills directly.
+Setup runs only when explicitly requested. It is not a prerequisite for using the
+other skills and can be run again to refresh the managed reminders.
 
-## Other skills and plugins
+## Optional extensions
 
-K Fleet does not limit your choice of other skills or plugins.
-Select them for your project.
+Use other skills and plugins when the project needs them. `kf-evolve-skills` checks
+available guidance before proposing an addition or revision. When available, it can
+use [`find-skills`](https://github.com/vercel-labs/skills/tree/main/skills/find-skills)
+for discovery and [`skill-creator`](https://github.com/openai/skills/tree/main/skills/.system/skill-creator)
+for authoring; neither is installed or required by K Fleet. Authorized additions
+default to project scope, and effectiveness must be assessed through actual use.
 
-We recommend clear goals and the necessary context for Astra.
-Let it analyze the task and select its methods.
-We do not recommend skills or plugins that automatically produce many specifications (specs) or architecture decision records (ADRs).
-This recommendation applies when these documents restrict how the agent works.
-Write documents when the task needs them, and record useful information.
-
-We recommend memory plugins such as graph memory or [Supermemory](https://github.com/supermemoryai/codex-supermemory).
-They help the agent keep and find context across tasks.
-Memory plugins are optional.
+External memory is optional and chosen by the project. K Fleet does not install,
+configure, or operate memory integrations. Documents and other supporting tools
+should serve a concrete task need.
 
 ## Operation
 
@@ -165,41 +157,62 @@ The CLI uses the current project unless you give other paths or `--all`.
 The `--all` option applies to registered projects.
 
 ```sh
-npx k-fleet@latest install /absolute/path/to/api /absolute/path/to/web
-npx k-fleet@latest update --all
-npx k-fleet@latest status --all
-npx k-fleet@latest list
+npx --yes k-fleet@latest install /absolute/path/to/api /absolute/path/to/web
+npx --yes k-fleet@latest update --all
+npx --yes k-fleet@latest status --all
+npx --yes k-fleet@latest list
 ```
 
-For Bun, use `bunx k-fleet@latest update`.
-To update all registered projects, add `--all`.
-Use `@latest` to prevent use of a cached older CLI version.
+With Bun:
 
-The `register` and `unregister` commands change the records in `~/.k-fleet/projects.json`.
-Installation keeps installed skills from the current catalog.
-Updates replace these skills with their current versions.
+```sh
+bunx k-fleet@latest update --all
+```
 
-Installation also replaces these retired skills if it finds them:
+| Command | Behavior |
+| --- | --- |
+| `install` | Add missing catalog skills, preserve existing current entries, copy the reviewer configuration, and register the project. |
+| `update` | Refresh all skills in the running CLI's catalog, including missing entries, and refresh the reviewer configuration. |
+| `status` | Check for expected files. This does not compare installed contents or versions with the source. |
+| `list` | List registered projects. |
+| `register` / `unregister` | Add or remove project paths in `~/.k-fleet/projects.json`; these commands do not install or delete skills. |
 
-- `kf-orchestrate-work`
-- `kf-design`
-- `kf-investigate`
-- `skillopt-sleep`
+`--all` selects registered projects; it does not scan the filesystem. Explicit paths
+and `--all` cannot be combined. Installation and update preserve unrelated skills.
+Recognized retired entries are removed after their replacements install successfully;
+see the [CLI source](scripts/kf-projects.mjs) for the migration list.
 
-If it finds a retired skill, installation first installs or updates the current catalog.
-It then removes the retired skill directories and their lock entries.
-If the replacement installation is not successful, it does not remove the retired skills.
+To refresh project reminders after an update, explicitly request `kf-setup`.
 
-After an update, close Codex.
-Then start Codex again.
-If an update to the project reminders is necessary, run `/kf-setup` manually.
+### If new skills are missing
+
+[`@latest`](https://docs.npmjs.com/cli/v11/commands/npm-dist-tag) names npm's published
+distribution tag. It does not mean the latest GitHub commit or guarantee that a
+package runner bypasses its cache; [Bun also caches packages](https://bun.sh/docs/pm/bunx).
+Check what npm currently publishes:
+
+```sh
+npm view k-fleet dist-tags --json
+```
+
+An older CLI may update existing skills without requesting newly added names. Use
+an explicit published version as `k-fleet@<version>`, or obtain the current CLI from
+GitHub and update registered projects:
+
+```sh
+npx --yes github:KeterVM/k-fleet update --all
+```
+
+A GitHub Release does not publish to npm. If files are present but Codex has not
+detected them, restart Codex; refreshing discovery cannot fix missing files.
 
 ## Maintenance
 
 The `skills/` directory has the skill source files.
 The `.codex/agents/` directory has the reviewer configuration.
 The `scripts/kf-projects.mjs` file has the CLI code.
-The CLI has no external package dependencies.
+The CLI has no declared npm dependencies; installation delegates to the external
+`skills` CLI through `npx`.
 
 For maintenance instructions, refer to these documents:
 

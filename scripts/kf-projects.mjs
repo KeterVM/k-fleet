@@ -257,14 +257,14 @@ function main(argv) {
     for (const project of projects) installProject(project);
     registry.projects.push(...projects);
     saveRegistry(registry);
-    console.log("Restart Codex, then manually run /kf-setup once in each project to initialize AGENTS.md. Installation does not run setup.");
+    console.log("To initialize project reminders, explicitly request kf-setup in Codex (CLI/IDE: $kf-setup). Installation does not run setup or edit AGENTS.md. If installed skills do not appear, restart Codex.");
     return;
   }
   for (const project of projects) {
     if (command === "status") printStatus(project);
     else upgradeProject(project);
   }
-  if (command !== "status") console.log("Restart Codex to discover updated skills. To refresh project reminders, manually run /kf-setup; update does not edit AGENTS.md.");
+  if (command !== "status") console.log("To refresh project reminders, explicitly request kf-setup in Codex (CLI/IDE: $kf-setup); update does not edit AGENTS.md. If updated skills do not appear, restart Codex.");
 }
 
 const invokedPath = process.argv[1] ? resolve(process.argv[1]) : "";

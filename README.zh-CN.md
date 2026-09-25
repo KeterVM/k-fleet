@@ -2,19 +2,17 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-建议搭配 Astra 使用 K Fleet。其他模型的效果可能不同。
+K Fleet 为 Codex 提供产品发现、体验设计、软件交付、发布、运维和效果评估技能。
+每个技能包含聚焦于具体方法的指令和参考材料，按任务需要选用。
 
-K Fleet 提供产品与工程方法，以及项目初始化功能。
-技能是一组写在文件中的 AI agent 工作指令。
-项目根目录的 `AGENTS.md` 文件保存项目提醒。
-
-使用 K Fleet 不需要外部记忆。你也可以按需添加。
+CLI 负责跨项目安装和更新这些文件。项目提醒由明确请求执行的 `kf-setup` 管理。
+外部记忆不是使用前提。
 
 ## 为什么需要 K Fleet
 
-AI agent 有时会在需求不清楚时就开始写代码。
-写好的各个部分，也可能没有连接起来。
-即使测试全部通过，功能仍可能无法正常使用。
+代码能够运行，不代表产品有用。需求可能尚未明确，用户可能无法完成任务，
+通过的测试也可能遗漏集成或发布问题。K Fleet 提供相应方法，帮助检查这些决策，
+明确完成工作需要什么证据。
 
 K Fleet 为这些问题提供相应的方法：
 
@@ -25,9 +23,7 @@ K Fleet 为这些问题提供相应的方法：
 - 发布产品、支持持续运行，并评估实际用户效果。
 - 同类错误反复出现时，检查工作方法。
 
-有了这些指令，你就不必在每个任务中重复交代要求。
-agent 也能据此判断任务是否完成。
-简单修改只需使用必要的方法。
+简单修改只需使用必要的方法。遵循技能指令本身，不代表结果正确或有价值。
 
 ## 核心思想
 
@@ -66,7 +62,7 @@ K Fleet 以四个思想为基础。
 每个技能都包含其方法需要的指令和文件。
 按需选择方法，也可以先写测试再写代码。
 新事实可能要求重新作出决定。
-代码结构应尽可能简单，同时满足任务需要。
+代码结构应满足预期行为和职责边界。
 
 产品发现判断什么问题值得解决，需求定义明确已经确定要做的行为。
 体验设计负责用户怎样使用产品，代码设计负责代码怎样组织。
@@ -77,18 +73,6 @@ K Fleet 以四个思想为基础。
 这些方法不依赖特定的设计、分析或托管工具。
 安全评估、特定平台操作等工作，可按需使用专项技能。
 
-现有方法无法满足任务需要时，`kf-evolve-skills` 会先检查已有技能指令。
-它可以使用以下辅助技能：
-
-- [`find-skills`](https://github.com/vercel-labs/skills/tree/main/skills/find-skills)：来自 Vercel 的 `vercel-labs/skills` 仓库，用于查找其他技能。
-- [`skill-creator`](https://github.com/openai/skills/tree/main/skills/.system/skill-creator)：来自 OpenAI 的 `openai/skills` 仓库，用于编写技能。
-
-这两个辅助技能都是可选的。
-之后，它会通过实际工作评估这些指令。
-
-新增技能默认安装在当前项目中。
-agent 可以在任务授权范围内添加、修改或删除技能。
-
 可选的 [`kf_reviewer`](.codex/agents/kf-reviewer.toml) agent 负责独立审查代码。
 它只有读取权限。
 安装时会包含它的配置。
@@ -96,8 +80,8 @@ agent 可以在任务授权范围内添加、修改或删除技能。
 
 ## 安装
 
-需要 Node.js 20 或更高版本。
-不需要外部记忆服务。
+需要 Node.js 20 或更高版本、可用的 `npm` 和 `npx`、Git，以及访问 npm 和 GitHub 的网络。
+CLI 会调用 `npx skills add` 安装技能文件，因此使用 Bun 启动 K Fleet 时也需要这些条件。
 
 在目标仓库中运行：
 
@@ -105,7 +89,13 @@ agent 可以在任务授权范围内添加、修改或删除技能。
 npx --yes k-fleet@latest install
 ```
 
-也可以从 GitHub 安装：
+使用 Bun 时，等价命令为：
+
+```sh
+bunx k-fleet@latest install
+```
+
+如果需要使用当前 GitHub 源码，而不是 npm 已发布的 CLI：
 
 ```sh
 npx --yes github:KeterVM/k-fleet install
@@ -119,35 +109,33 @@ npx --yes github:KeterVM/k-fleet install
 - 注册当前项目。
 
 安装不会启动初始化，也不会修改 `AGENTS.md`。
-CLI 从本 GitHub 仓库的默认分支下载技能。
-固定 CLI 版本不会同时固定技能源码版本。
-CLI 版本会固定它请求安装的技能名称。如果 npm 已发布的 CLI 早于目录扩展，
-使用上面的 GitHub 命令获取当前 CLI 和技能目录。
+CLI 版本决定请求安装哪些技能，技能内容来自本仓库默认分支。
+因此，固定 CLI 版本不会同时固定技能源码版本。审查 agent 的配置来自 CLI 包。
 
-安装完成后，关闭并重新启动 Codex。
-在每个项目中手动运行一次：
+Codex 会[自动发现技能变更](https://learn.chatgpt.com/docs/build-skills#create-a-skill)。
+如果已安装的技能没有出现，再重启 Codex。需要初始化项目提醒时，明确请求使用 `kf-setup`；
+在 CLI 或 IDE 中，可以[提及该技能](https://learn.chatgpt.com/docs/build-skills#how-chatgpt-and-codex-use-skills)：
 
 ```text
-/kf-setup
+$kf-setup
 ```
 
 初始化会在项目根目录的 `AGENTS.md` 文件中添加或更新自己的区块。
 它会保留其他项目指令。
 再次运行不会重复添加区块。
-只有明确要求初始化时，agent 才会执行初始化。
-其他任务直接使用方法技能。
+初始化只在明确请求时执行，不是使用其他技能的前置步骤。
+需要刷新提醒时，可以再次执行。
 
-## 搭配其他技能和插件
+## 可选扩展
 
-K Fleet 不限定你使用的其他技能或插件。
-你可以按项目需要自由搭配。
+按项目需要搭配其他技能和插件。`kf-evolve-skills` 会先检查已有指导，再提出新增或修改建议。
+可用时，它可以使用 [`find-skills`](https://github.com/vercel-labs/skills/tree/main/skills/find-skills)
+发现技能，使用 [`skill-creator`](https://github.com/openai/skills/tree/main/skills/.system/skill-creator)
+编写技能；K Fleet 不会安装它们，也不依赖它们才能工作。
+已授权的新增技能默认采用项目范围，实际效果需要通过使用来评估。
 
-我们建议给 Astra 清楚的目标和必要的上下文，让它自主分析任务和选择方法。
-不建议使用自动生成大量规格文档（spec）或架构决策记录（ADR），并用这些文档限制 agent 工作方式的技能或插件。
-文档应记录有用的信息，按任务需要编写。
-
-我们推荐搭配图记忆（graph memory）或 [Supermemory](https://github.com/supermemoryai/codex-supermemory) 这类记忆插件，帮助 agent 跨任务保留和查找上下文。
-记忆插件是可选的。
+外部记忆由项目自行选择。K Fleet 不安装、配置或操作记忆集成。
+文档和其他辅助工具应服务于具体任务需要。
 
 ## 使用
 
@@ -161,40 +149,58 @@ CLI 默认操作当前项目。
 `--all` 用于操作所有已注册项目。
 
 ```sh
-npx k-fleet@latest install /absolute/path/to/api /absolute/path/to/web
-npx k-fleet@latest update --all
-npx k-fleet@latest status --all
-npx k-fleet@latest list
+npx --yes k-fleet@latest install /absolute/path/to/api /absolute/path/to/web
+npx --yes k-fleet@latest update --all
+npx --yes k-fleet@latest status --all
+npx --yes k-fleet@latest list
 ```
 
-使用 Bun 时，运行 `bunx k-fleet@latest update`。
-加上 `--all` 可以更新所有已注册项目。
-指定 `@latest` 可以避免使用缓存中的旧版 CLI。
+使用 Bun：
 
-`register` 和 `unregister` 用于修改 `~/.k-fleet/projects.json` 中的记录。
-安装会保留已安装且仍在技能列表中的技能。
-更新会用当前版本替换这些技能。
+```sh
+bunx k-fleet@latest update --all
+```
 
-安装时如果发现以下已停用技能，也会替换它们：
+| 命令 | 行为 |
+| --- | --- |
+| `install` | 补齐技能列表中缺失的技能，保留已有的当前技能，复制审查配置并注册项目。 |
+| `update` | 刷新当前 CLI 所列的全部技能，包括补齐缺失项，并刷新审查配置。 |
+| `status` | 检查预期文件是否存在，不比较已安装内容或版本是否与源码一致。 |
+| `list` | 列出已注册项目。 |
+| `register` / `unregister` | 在 `~/.k-fleet/projects.json` 中添加或移除项目路径，不安装或删除技能。 |
 
-- `kf-orchestrate-work`
-- `kf-design`
-- `kf-investigate`
-- `skillopt-sleep`
+`--all` 只选择已注册项目，不扫描整个文件系统；不能与显式路径同时使用。
+安装和更新会保留无关技能。已识别的旧版条目会在替代技能安装成功后移除，
+具体迁移名单见 [CLI 源码](scripts/kf-projects.mjs)。
 
-CLI 会先安装或更新当前目录中的全部技能。
-成功后，再删除旧技能目录及其锁定条目。
-如果替代技能安装失败，旧技能会保留。
+更新后如需刷新项目提醒，明确请求使用 `kf-setup`。
 
-更新完成后，关闭并重新启动 Codex。
-需要更新项目提醒时，手动运行 `/kf-setup`。
+### 新技能没有出现时
+
+[`@latest`](https://docs.npmjs.com/cli/v11/commands/npm-dist-tag) 指向 npm 已发布的分发标签，
+不代表 GitHub 最新提交，也不保证包运行器跳过缓存；[Bun 同样会缓存包](https://bun.sh/docs/pm/bunx)。
+先检查 npm 当前发布的标签：
+
+```sh
+npm view k-fleet dist-tags --json
+```
+
+旧 CLI 可能只更新已有技能，而没有请求新增的技能名称。
+可以用 `k-fleet@<version>` 指定一个已发布版本，或直接获取 GitHub 当前 CLI 更新已注册项目：
+
+```sh
+npx --yes github:KeterVM/k-fleet update --all
+```
+
+创建 GitHub Release 不会自动发布 npm 包。如果文件已安装但 Codex 尚未发现，再重启 Codex；
+刷新技能发现不能补齐缺失的文件。
 
 ## 维护
 
 `skills/` 存放技能源文件。
 `.codex/agents/` 存放审查 agent 的配置。
 `scripts/kf-projects.mjs` 存放 CLI 代码。
-CLI 没有外部包依赖。
+CLI 没有声明 npm 依赖；安装时通过 `npx` 调用外部 `skills` CLI。
 
 维护时请参阅：
 

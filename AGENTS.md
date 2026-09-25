@@ -57,7 +57,7 @@ workflow behavior rather than framework-specific instructions.
 - Setup must preserve unrelated guidance and must not install or configure memory
   integrations or their hooks. Keep root reminders concise and method procedures
   inside their skills. CLI installation only installs files and reminds the user
-  to run `/kf-setup`; it never invokes setup or edits root instructions.
+  to explicitly request `kf-setup`; it never invokes setup or edits root instructions.
 - Memory integrations must respect canonical repository/worktree identity and
   authorized scope; recalled inferences remain unapproved evidence.
 - Keep detailed target-project facts in that project's guidance or source documents,
