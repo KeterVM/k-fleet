@@ -3,7 +3,7 @@
 Notable changes to K Fleet are recorded here.
 Earlier entries describe their versions. Use the README for current installation and operation.
 
-## [Unreleased]
+## [3.3.0] - 2026-09-25
 
 ### Added
 
@@ -16,6 +16,15 @@ Earlier entries describe their versions. Use the README for current installation
 
 ### Changed
 
+- Clarified that unresolved user intent must be answered before dependent design,
+  code, or tests, including small fixes and refactors. Routine implementation choices
+  within an established goal remain autonomous.
+- Strengthened responsibility boundaries, domain naming, file placement, dependency
+  direction, and maintained-library selection. Minimal edit counts do not justify
+  misplaced ownership or a custom replacement for a suitable maintained library.
+- Required complete migrations for renames and replacements, with retained
+  compatibility serving an established contract or an explicit transition need.
+  Verification now checks obsolete names, entry points, and forwarding remnants.
 - Expanded the public catalog to cover the product lifecycle by explicit user decision.
   Updated the CLI installation list, setup reminder, maintainer guide, method
   composition, and both READMEs. Methods remain selectable independently.
@@ -25,6 +34,16 @@ Earlier entries describe their versions. Use the README for current installation
 - Documented that older npm CLI versions retain their old skill-name list even
   though skill contents come from the default branch. The GitHub install route
   obtains the current CLI while an npm release is pending.
+
+### Update
+
+- Use `npx --yes github:KeterVM/k-fleet update` to obtain the current CLI and skills.
+  After npm publication, `npx --yes k-fleet@3.3.0 update` is also available. Add
+  `--all` to update all registered projects.
+- Restart Codex after updating. Run `/kf-setup` explicitly when you want to refresh
+  the managed project reminders; installation and update do not change `AGENTS.md`.
+- CLI versions determine the requested skill names; skill contents still come from
+  the repository's default branch. GitHub releases and npm publication are separate.
 
 ### Validation
 
@@ -36,7 +55,7 @@ Earlier entries describe their versions. Use the README for current installation
   content, lock entries, reviewer configuration, and project registration; existing
   `AGENTS.md` content was preserved and the maintenance skill was excluded.
 - Inspected npm dry-run package contents. Public skills continue to be fetched
-  separately; this change does not publish a new npm version.
+  separately. npm publication is a separate maintainer action.
 - Product-task effectiveness remains unproven. Structural and installation checks
   do not establish better product decisions or successful live operation.
 - After simplifying the guidance, revalidated affected skill entries, reviewer TOML,
