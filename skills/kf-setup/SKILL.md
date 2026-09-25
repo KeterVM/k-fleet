@@ -48,10 +48,10 @@ Select methods as needed:
 - `kf-discover-product`: investigate uncertain user problems and product value.
 - `kf-define-requirements`: clarify intended behavior and acceptance criteria.
 - `kf-design-experience`: resolve user journeys, interactions, and presentation.
-- `kf-design-codebase`: resolve open responsibilities, interfaces, and structure.
+- `kf-design-codebase`: design or assess structure, responsibilities, and ecosystem reuse.
 - `kf-implement`: deliver complete changes with relevant self-checks.
 - `kf-write-tests`: add meaningful automated checks when needed.
-- `kf-verify`: assess delivery when requested or material evidence is missing.
+- `kf-verify`: verify delivery or review code, including ecosystem reuse opportunities.
 - `kf-release-product`: prepare or execute authorized delivery and release checks.
 - `kf-operate-product`: establish operation or diagnose and recover live service.
 - `kf-evaluate-product`: assess user or business outcomes and guide iteration.

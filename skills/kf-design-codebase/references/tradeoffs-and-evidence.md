@@ -2,8 +2,9 @@
 
 ## Compare choices against the task
 
-Use an existing design as the baseline when it meets the current obligations and
-responsibility boundaries; otherwise identify the necessary correction before
+Use an existing design as a comparison baseline, not evidence that its custom
+mechanisms should be retained. When it fails current obligations or responsibility
+boundaries, identify the necessary correction before
 optimizing migration cost. Compare plausible alternatives only where the choice is
 consequential; do not manufacture a fixed number of options for a settled decision.
 Explain what the selected approach improves, what it costs, and why that tradeoff
@@ -23,9 +24,10 @@ into implementation so the same settled choice does not require another search.
 
 Treat improved readability and maintainability as sufficient benefits for adding a
 suitable dependency within project constraints; fewer dependencies are not inherently
-better. If focused research leaves multiple viable options uncertain, present their
-differences and a recommendation to the user and resolve the choice before dependent
-work. Continue work that does not depend on that decision.
+better. Resolve routine technical tradeoffs from the evidence and explain the choice;
+multiple viable options alone do not require user selection. Ask only when missing
+intent, material cost commitments, compatibility obligations, or authority prevent
+a sound choice. Continue work independent of that answer.
 
 Assess the affected whole: callers, state ownership, dependencies, integration,
 operation, and maintenance. For a proposed interface, layer, package, or extension

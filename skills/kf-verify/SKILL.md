@@ -1,13 +1,13 @@
 ---
 name: kf-verify
-description: Assess delivery when verification is requested or material behavior lacks sufficient evidence; identify defects and unverified obligations.
+description: Verify delivery or review scoped code for defects, structural problems, ecosystem reuse opportunities, and unverified obligations.
 ---
 
 # Verify
 
 Assess whether delivery satisfies the requested behavior, with supported conclusions,
 actionable findings, and explicit evidence gaps. Use this method for requested
-verification or material uncertainty beyond sufficient implementation self-checks.
+verification, code review, or material uncertainty beyond sufficient implementation self-checks.
 Reuse applicable tests and results; verification does not require a separate agent.
 
 ## Select supporting guidance
@@ -16,9 +16,9 @@ Read only for decisions the assessment needs:
 
 - For uncertain execution surfaces, environments, or tools, read
   [Environments and tools](references/environments-and-tools.md).
-- For selecting checks, assessing changed structure, or judging behavioral evidence,
+- For selecting checks, assessing structure or ecosystem reuse, or judging behavioral evidence,
   read [Evidence and coverage](references/evidence-and-coverage.md).
-- For failures, conflicting results, suspected defects, or severity, read
+- For failures, conflicting results, improvement findings, or severity, read
   [Diagnosis and findings](references/diagnosis-and-findings.md).
 - For corrections or missing regression protection, read
   [Corrections and rechecks](references/corrections-and-rechecks.md).
@@ -60,11 +60,21 @@ contract, project-rule violation, or concrete change scenario and its consequenc
 separate them from preferred spelling or layout. Neither separate files nor a passing
 suite establishes a sound structure. Keep inspection limited to the affected scope.
 
+In the requested review or verification scope, identify custom general-purpose
+mechanisms and compare suitable mainstream libraries and frameworks, even when the
+code works without reported maintenance problems. Reuse adequate current selection
+evidence; otherwise research candidates using current primary sources. Report
+supported opportunities to reduce custom mechanisms separately from defects; no
+runtime failure is required. Check retained custom code has a concrete reason and
+adopted libraries are actually integrated, not merely installed. Follow
+[Evidence and coverage](references/evidence-and-coverage.md) for comparison evidence.
+
 Judge evidence and findings by these criteria:
 
 - Checks could expose plausible wrong behavior through the relevant boundaries.
 - Current results are reused where version, environment, and scope still apply.
-- Findings have supported triggers, consequences, and locations or affected boundaries.
+- Defects have supported triggers and consequences; improvements have supported
+  comparisons and adoption tradeoffs. Both identify locations or affected boundaries.
 - Facts, suspected causes, uncertainty, and preferences remain distinguishable.
 - Passed, failed, and unverified obligations limit the conclusion to what was checked.
 

@@ -1,5 +1,20 @@
 # Isolation and execution
 
+## Choose ecosystem tooling for general-purpose test mechanisms
+
+Check the supported runner and framework facilities, then research suitable mainstream,
+maintained alternatives using current official documentation and package metadata,
+or reuse selection evidence that still applies. Compare required behavior, discovery,
+isolation, runtime compatibility, and material adoption costs. Prefer supported tooling
+over building or retaining a custom mechanism merely because it already works.
+Record the decisive reason for exceptions; popularity alone does not prove suitability.
+Resolve routine tooling choices within the established task and dependency policies;
+ask only for missing material intent or authority. Keep migrations within scope.
+
+Verify that tooling preserves the behavior the test claims to exercise, including
+real dependency integration where material. Do not replace that evidence with mocks
+or test the library's internals when the obligation is the project's use of it.
+
 ## Control state and timing without hiding the behavior
 
 Give tests their own data and resources, with cleanup that also runs after failure.

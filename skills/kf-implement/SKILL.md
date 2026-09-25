@@ -70,9 +70,10 @@ adding a custom general-purpose implementation needs a concrete unmet requiremen
 constraint, or disproportionate adoption cost; existing code working is not enough.
 Improved readability and maintainability are sufficient reasons to add a suitable
 dependency within project constraints; minimizing dependency count is not a goal
-in itself. If multiple viable options remain uncertain after focused research,
-present their differences and a recommendation, and ask the user before committing
-to one. Continue independent work while that choice is pending.
+in itself. Resolve routine technical tradeoffs from the evidence and explain the
+choice. Ask only when missing intent, material cost commitments, compatibility
+obligations, or authority prevent a sound choice; multiple viable options alone
+do not require user selection. Continue independent work while an answer is pending.
 
 Before adding or substantially extending a component, connect its domain meaning or
 technical role to the rules and state it owns, its interface and allowed dependencies,

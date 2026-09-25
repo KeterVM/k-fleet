@@ -50,10 +50,11 @@ with the project rather than forcing business rules into a library's model.
 
 Reuse adequate current evidence and stop when it supports a choice; do not require
 a fixed number of libraries, a separate report, or fresh web research for every edit.
-If multiple viable libraries remain uncertain after focused research, summarize
-their relevant differences, remaining uncertainty, and your recommendation, then
-ask the user to choose before adoption or dependent implementation. A clearly
-supported choice within existing authorization needs no extra approval.
+Resolve routine choices between viable libraries from the requirements and evidence.
+Investigate answerable technical uncertainty directly. Ask only when missing intent,
+material cost commitments, compatibility obligations, or authority prevent a sound
+choice; present the relevant differences and recommendation with that question.
+A supported choice within existing authorization needs no extra approval.
 For a material choice, briefly record the selected library and version, supporting
 sources, and decisive tradeoff in the task or an existing project artifact. Custom
 implementation, whether retained or new, needs a concrete reason, such as an unmet

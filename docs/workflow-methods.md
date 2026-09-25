@@ -12,10 +12,10 @@ run it once; a later explicit setup request can refresh the same managed block.
 | Uncertain product problem, audience, or value | `kf-discover-product` | Supported opportunity, evidence limits, and the next product decision |
 | Material uncertainty about intended behavior | `kf-define-requirements` | Scope, observable acceptance criteria, unresolved assumptions |
 | Unsettled user journey, interaction, or presentation | `kf-design-experience` | Usable flows, content, states, and design evidence or untested assumptions |
-| Unresolved fit, responsibility, or complexity within the codebase | `kf-design-codebase` | A justified design with clear contracts, ownership, and placement |
+| Unresolved design or requested assessment of structure and ecosystem reuse | `kf-design-codebase` | A justified design with clear contracts, ownership, placement, and reuse choices |
 | An understood code change | `kf-implement` | Complete integrated behavior, warranted design corrections, and relevant checks |
 | Missing automated protection | `kf-write-tests` | Discriminating tests and their actual execution results |
-| Determine whether delivery satisfies the request and has related problems | `kf-verify` | Verified behavior, reproducible findings, and unverified obligations |
+| Verify delivery or review scoped code and ecosystem reuse | `kf-verify` | Verified behavior, defects, supported engineering improvements, and explicit evidence gaps |
 | Prepare or deliver a version to its users or environment | `kf-release-product` | Artifact and destination identity, migration and recovery conditions, observed release state |
 | Operational readiness, live reliability problems, or incidents | `kf-operate-product` | Service evidence, operational changes or verified recovery, remaining impact and ownership |
 | Uncertain user or business benefit from a product or change | `kf-evaluate-product` | Supported outcome assessment, measurement limits, and an evidence-based next action |
@@ -61,6 +61,47 @@ correction. It can help the current task or a later authorized task; it is not a
 mandatory final phase. Missing tools, access, or product decisions should be
 resolved at their own source. Search or installation success alone does not prove
 that the new guidance improves the work.
+
+## Ecosystem reuse across methods
+
+Default to suitable mainstream, maintained libraries and frameworks for general-purpose
+capabilities. This applies to new implementation and assessment of existing custom
+mechanisms, even when they work without reported problems. Retaining or adding custom
+mechanisms needs a concrete unmet requirement, constraint, or disproportionate adoption
+cost. This is the user's chosen engineering policy, not a claim that popularity proves
+suitability or that every existing framework must be replaced.
+
+Codebase design owns consequential selection and requested assessment; implementation
+owns local selection and integration even when no separate design method is used.
+Test writing applies the same principle to general-purpose testing infrastructure.
+Verification and the optional read-only reviewer independently check for overlooked
+reuse opportunities and actual integration. Each must work without requiring another
+skill's files or a separate agent. Reuse current selection evidence across methods;
+changed requirements, versions, environments, or unsupported premises warrant focused
+research, not a mandatory repeat survey. Resolve routine technical choices directly;
+ask only for missing material intent, commitments, compatibility obligations, or authority.
+
+Separate confirmed defects, supported improvement findings, and unverified leads.
+An improvement needs a concrete custom mechanism, a suitable sourced alternative,
+responsibilities it removes, expected benefits, and material adoption costs; it does
+not need an observed failure. Its presence alone does not declare delivery blocked.
+An explicit project-rule violation is assessed against that obligation. The scope
+comes from the request: a diff, module, or repository assessment. Read-only findings
+do not authorize corrections or unrelated framework migrations.
+
+Discovery and requirements establish needs and constraints; experience design owns
+user interactions. Release checks delivery of the chosen artifact; operation can
+surface new evidence for a design decision. Product evaluation assesses outcomes,
+not dependency popularity. Skill evolution improves the method and setup supplies
+concise selection reminders; neither owns routine software library research.
+
+The boundary separates this explicit user preference from review evidence. Google's
+[code review guidance](https://google.github.io/eng-practices/review/reviewer/looking-for.html),
+checked 2026-09-26, supports reviewing design and unnecessary complexity beyond runtime
+defects; it does not establish a universal preference for third-party dependencies.
+These instructions have been inspected for consistency, not behaviorally validated.
+In actual use, observe whether reviews find supported reuse opportunities without
+duplicate research, unsupported findings, or scope expansion.
 
 ## Product lifecycle boundaries
 

@@ -43,6 +43,34 @@ supporting caller or dependency trace. Keep a reasoned change walkthrough distin
 from an executed result or measured maintenance cost. Reuse configured boundary checks
 where useful; do not introduce a new structural test harness merely for this review.
 
+## Check ecosystem reuse within the assessed scope
+
+Identify general-purpose mechanisms such as parsing, validation, retries, caching,
+or scheduling. Their responsibility triggers the comparison; code size alone does
+not establish a problem, and no failure or prior maintenance incident is needed.
+For a diff review, examine changed code and relevant context; a module or repository
+assessment uses its requested scope. Finding an alternative does not authorize edits
+or an unrelated framework migration.
+
+Reuse applicable selection evidence or research mainstream, maintained libraries and
+frameworks through official documentation, source, and package metadata for the
+relevant version. Compare required behavior and edge cases, runtime compatibility,
+licensing, maintenance status, and material integration or migration costs. Existing
+standard-library, framework, and installed dependency capabilities count as candidates.
+Popularity alone is not proof of fit, and no fixed candidate count is required.
+
+For a supported improvement, identify the custom mechanism and location, a suitable
+alternative and sources, responsibilities the alternative would take over, expected
+clarity or reliability benefits, and material adoption costs. Check any existing
+retention rationale against current constraints. Working code, green tests, and no
+reported problems do not justify retention by themselves. Separate an evidence-backed
+recommendation from an unverified lead; do not claim measured savings or reliability
+without observations. If research is unavailable, report the comparison as incomplete.
+
+For an adopted dependency, inspect real entry points, configuration, callers, and
+relevant integration evidence. A manifest entry or approved design does not establish
+that the intended behavior uses the dependency correctly.
+
 ## Cover the behavior and its consequences
 
 For a rename or replacement, trace consumers to the intended final contract and

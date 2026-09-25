@@ -1,12 +1,14 @@
 ---
 name: kf-design-codebase
-description: Resolve open responsibility, interface, or structural decisions for an understood code change, keeping complexity proportional to current needs.
+description: Design or assess code responsibilities, interfaces, structure, and ecosystem reuse for an understood change or requested codebase assessment.
 ---
 
 # Design codebase
 
 Resolve how an understood change fits the codebase through implementable decisions
-about responsibility, contracts, dependencies, and placement. Reuse adequate design;
+about responsibility, contracts, dependencies, and placement. Also use for requested
+assessment of existing design, including opportunities to replace custom general-purpose
+mechanisms with mainstream libraries or frameworks. Reuse adequate design;
 a bounded edit within sound boundaries needs no design exercise. Accepted architecture,
 technology, and deployment choices remain inputs unless evidence warrants revisiting
 an affected premise. Leave line-level choices to implementation.

@@ -3,6 +3,37 @@
 Notable changes to K Fleet are recorded here.
 Earlier entries describe their versions. Use the README for current installation and operation.
 
+## [3.3.2] - 2026-09-26
+
+### Changed
+
+- Default to suitable mainstream libraries and frameworks for general-purpose
+  capabilities in design, implementation, and testing. Compare affected custom
+  mechanisms even when they work; retaining or adding them needs a concrete reason.
+- Extend design assessment, verification, and the optional read-only reviewer to
+  identify supported ecosystem reuse opportunities without requiring a runtime
+  failure. Distinguish defects, engineering improvements, and unverified leads.
+- Reuse current selection evidence across methods and resolve routine technical
+  choices directly. Preserve review scope, project constraints, and authority;
+  findings do not authorize unrelated migrations or automatically block releases.
+- Align method boundaries, setup selection reminders, and both READMEs. Keep each
+  skill self-contained and the reviewer optional, read-only, and advisory.
+
+### Update
+
+- Run `npx --yes k-fleet@3.3.2 update` after npm publication, or
+  `npx --yes github:KeterVM/k-fleet update`. Add `--all` for registered projects.
+- Explicitly request `kf-setup` to refresh project reminders (CLI/IDE: `$kf-setup`).
+
+### Validation
+
+- Checked affected skill metadata, internal links, instruction consistency, reviewer
+  configuration, setup invocation policy, matching README guidance, and CLI syntax.
+- Inspected npm dry-run package contents, including both READMEs, the changelog,
+  CLI, and reviewer configuration. Public skills remain separately downloaded.
+- These are static and packaging checks; effectiveness on actual implementation
+  and review tasks remains unproven. No evaluation harness was added.
+
 ## [3.3.1] - 2026-09-25
 
 ### Changed

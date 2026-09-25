@@ -19,8 +19,8 @@ does not require every reference.
   [Cases and assertions](references/cases-and-assertions.md).
 - For test scope, execution surfaces, real dependencies, or doubles, read
   [Boundaries and doubles](references/boundaries-and-doubles.md).
-- For asynchronous behavior, shared state, instability, test-first execution, or
-  shared test infrastructure, read [Isolation and execution](references/isolation-and-execution.md).
+- For test tooling, asynchronous behavior, shared state, instability, test-first
+  execution, or shared test infrastructure, read [Isolation and execution](references/isolation-and-execution.md).
 
 ## Scope and authority
 
@@ -50,6 +50,13 @@ Inspect existing tests and configuration as needed for the gap, runner, discover
 fixtures, and environment. Choose the boundary by the claimed behavior, not the
 project's language or label. New tooling needs a concrete authorized purpose that
 justifies its maintenance cost.
+
+For general-purpose test infrastructure in scope, default to suitable mainstream
+testing libraries and framework facilities. Research options or reuse adequate
+current evidence before adding or retaining custom mechanisms, even when they work.
+Keep project-specific cases and fixtures local; custom runners, assertion engines,
+or scheduling mechanisms need a concrete reason. This does not require changing an
+adequate established test framework for every test addition.
 
 Judge the affected tests by these criteria:
 

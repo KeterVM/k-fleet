@@ -53,10 +53,10 @@ Use decisions and results from actual tasks to examine skill quality.
 | `kf-discover-product` | Investigate uncertain user problems, alternatives, and product value before committing to a solution. |
 | `kf-define-requirements` | Make the intended behavior, scope, and acceptance criteria clear. |
 | `kf-design-experience` | Design user journeys, interactions, content, and presentation; distinguish inspection from observed usability. |
-| `kf-design-codebase` | Prepare a design for code responsibilities, interfaces, and structure. Use only the complexity necessary for the task. |
+| `kf-design-codebase` | Design or assess code responsibilities, interfaces, structure, and mainstream library or framework choices. |
 | `kf-implement` | Make complete code changes with clear responsibilities, names, placement, and dependencies. Reuse suitable code and correct design problems exposed during implementation. |
 | `kf-write-tests` | Write useful automated tests and regression tests. |
-| `kf-verify` | Examine functionality, defects, regressions, runtime problems, and affected code structure. |
+| `kf-verify` | Verify delivery or review scoped code for defects, structural problems, and supported ecosystem reuse opportunities. |
 | `kf-release-product` | Prepare or execute authorized delivery, including migration, recovery, and checks in the intended environment or channel. |
 | `kf-operate-product` | Establish live operation, diagnose incidents, and verify recovery using service and user-impact evidence. |
 | `kf-evaluate-product` | Assess whether the product delivers its intended benefit using trustworthy measurements and user feedback. |
@@ -66,6 +66,13 @@ Each skill has all the instructions and files necessary for its method.
 Use only the necessary methods; tests can come before code.
 New facts can make a different decision necessary.
 Choose code structure that satisfies the required behavior and responsibility boundaries.
+
+For general-purpose capabilities, default to suitable mainstream libraries and frameworks.
+Design, implementation, and review compare affected custom mechanisms even when they
+work without reported problems; retaining or adding them needs a concrete reason.
+Reuse current selection evidence and resolve routine technical choices directly.
+Reviews distinguish defects, supported improvements, and unverified leads; findings
+do not authorize unrelated migrations. Test writing applies this policy to tooling.
 
 Product discovery asks which problem is worth solving; requirements define the
 agreed behavior. Experience design addresses how people use the product; codebase

@@ -30,14 +30,20 @@ evidence accurately; do not invent a run or demand unsafe reproduction.
 
 A plausible concern with missing premises remains a risk to investigate, not a
 confirmed defect. An unavailable environment leaves affected behavior unverified;
-it does not establish a product failure. For maintainability findings, identify
-the concrete burden on affected changes or callers rather than a preferred pattern.
-Keep optional improvements distinct from contract violations.
+it does not establish a product failure. Engineering improvement findings can be
+valid without a runtime failure or measured maintenance incident: identify a concrete
+mechanism, a supported alternative, the responsibilities or complexity it removes,
+and material adoption costs. A preferred pattern or popularity alone is insufficient.
+Keep confirmed defects, supported improvements, and unverified leads distinct. A
+supported violation of an explicit project reuse rule is a contract issue; an
+improvement recommendation alone does not establish a release blocker.
 
 ## Make findings useful for correction
 
-Give the trigger or reproduction, expected and actual behavior, relevant location
-or boundary, and impact. Separate the demonstrated consequence from an uncertain
+For defects, give the trigger or reproduction, expected and actual behavior, relevant
+location or boundary, and impact. For improvements, give the location, comparison
+evidence, expected benefit, and adoption tradeoff without inventing a failure trigger.
+Separate the demonstrated consequence from an uncertain
 root cause. Identify whether the change introduced or exposed the problem when
 evidence supports that distinction; do not label a pre-existing issue a regression
 merely because it was discovered now.
