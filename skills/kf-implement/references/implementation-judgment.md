@@ -93,6 +93,12 @@ conventions rather than imposing a suffix ban or one universal naming scheme. Ke
 class, file, and directory names semantically consistent without requiring identical
 spelling. Account for compatibility when changing public names.
 
+Include only distinctions useful in the current context. A project with one storage
+implementation can use OrderRepository without repeating Postgres in every class
+name; add the technology qualifier when callers or composition need to distinguish
+implementations. Directory context may already supply that distinction. Do not create
+an interface and implementation pair solely to justify separate names.
+
 ## Place code with its owner
 
 Extend an existing file only when the new behavior belongs to its responsibility.
@@ -134,11 +140,53 @@ owner and preserve dependency direction and affected authorization, transaction,
 concurrency, resource lifetime, and compatibility guarantees. Do not bypass an invariant or split an atomic operation to simplify a local function.
 Complete affected callers, wiring, configuration, failure handling, and cleanup.
 Update usage documentation when the change alters how the code is used or operated.
-Remove paths made obsolete by this change while preserving compatibility obligations.
+Complete renames and replacements as described below, preserving established
+compatibility obligations.
 
 Repeated exceptions, mapping, or fragile coordination can reveal a poor fit.
 Investigate the cause and revise the affected decision when warranted; necessary
 adapters and special cases remain valid.
+
+## Complete the migration instead of hiding the old contract
+
+For a rename or replacement, establish what the task changes: the wire format, an
+internal concept, a public contract, or the implementation behind a stable interface.
+Trace affected definitions and consumers, including serialization, imports, exports,
+construction or dependency registration, and relevant tests or generated sources.
+Update the in-scope dependency chain to the intended model, regenerate through project
+tooling where needed, and remove superseded paths once their consumers have migrated.
+Do not create work beyond the authorized scope or claim out-of-scope consumers were
+migrated.
+
+If a field is being renamed from status to statusNum, changing only the JSON property
+mapping while leaving the superseded internal name and callers is not completion of
+that rename. If only the wire contract changes and status remains an intentional
+domain concept, mapping at that boundary can be correct; establish that distinction
+from the task and model rather than assuming it to save edits. Check value semantics
+and types as well as spelling. A serialization naming convention is not itself a
+compatibility defect.
+
+When replacing a class, migrate affected callers to the intended owner instead of
+retaining the old class solely to forward to the new one. Refactoring the internals
+of an intentionally stable facade is different: retain it when its contract and
+responsibility remain part of the design. An extra wrapper, alias, fallback, or
+dual-read path needs a concrete obligation, such as independently deployed consumers,
+persisted data, or a required public API. Existing code or fewer changed files alone
+does not establish that obligation.
+
+For necessary transitional compatibility, identify the protected consumer or data,
+why it cannot move in the current change, and the removal condition and remaining
+migration owner. Keep the bridge at the relevant boundary; report unfinished migration
+explicitly. A permanent adapter needs an ongoing responsibility, not a fictional
+removal date. Resolve consequential unknown compatibility requirements before breaking
+them, using available evidence first; do not invent compatibility requirements to
+avoid an authorized migration.
+
+Before declaring the migration complete, search the affected scope for old names,
+registrations, and paths and account for remaining uses. Check the intended entry
+points actually reach the new implementation and relevant contracts still hold.
+Passing tests through an old forwarding shell does not demonstrate that its callers
+were migrated.
 
 ## Keep the change explainable
 

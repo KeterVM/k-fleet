@@ -60,11 +60,18 @@ state, or are costly to undo. A local choice with clear ownership may remain eas
 to change; a public contract or data migration may not. Source control alone does
 not make effects on deployed consumers or stored data reversible.
 
-When replacing existing structure, account for compatibility and the transition,
-including any period when old and new behavior coexist. Establish ordering and
-recovery constraints where they affect correctness. Use an incremental change when
-it reduces risk without leaving ambiguous ownership or indefinite parallel paths.
-Do not bundle unrelated cleanup into the design.
+When replacing existing structure, identify the intended final owners and consumers
+and any established compatibility obligations. Migrate consumers that can move within
+the authorized change; do not preserve old names or forwarding classes just to reduce
+the diff. Distinguish replacing a public contract from changing the implementation
+behind a deliberately stable interface.
+
+Where coexistence is necessary, name the consumer or persisted data it protects and
+why it cannot migrate now. Establish ordering and recovery constraints where they
+affect correctness, and give a temporary bridge a removal condition and migration
+owner. A permanent adapter must have an ongoing responsibility. Use incremental
+delivery for a concrete transition need without treating an intermediate bridge as
+the completed replacement. Do not bundle unrelated cleanup into the design.
 
 Defer a choice only when doing so preserves a usable implementation path and avoids
 costly commitment; identify the event or evidence that would make the choice necessary.

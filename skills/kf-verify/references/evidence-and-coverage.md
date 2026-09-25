@@ -45,6 +45,15 @@ where useful; do not introduce a new structural test harness merely for this rev
 
 ## Cover the behavior and its consequences
 
+For a rename or replacement, trace consumers to the intended final contract and
+implementation. Inspect remaining old identifiers, serialization aliases, forwarding
+classes, and registrations in the affected scope. A passing call through an old
+wrapper or a renamed JSON key does not establish that the requested migration is
+complete. Check that retained mappings or facades serve an intentional domain or
+public boundary; temporary bridges need a protected consumer, migration owner, and
+removal condition. Report unexplained leftovers or pending migration separately from
+working new behavior, while preserving documented compatibility obligations.
+
 Exercise normal use and relevant boundary or failure conditions, such as denied
 access, invalid input, retries, partial completion, or changed state. Check observable
 results and required effects, including effects that must not occur on failure.

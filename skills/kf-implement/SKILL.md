@@ -81,6 +81,14 @@ new or changed boundary, trace a task-grounded change through its owners and cal
 Use existing evidence for settled choices; no fixed report or directory template is
 required.
 
+For renames and replacements, complete the authorized migration through affected
+models, callers, and wiring, then remove obsolete names and entry points. Do not
+retain aliases, serialization workarounds, or forwarding classes merely to avoid
+updating consumers. Preserve a compatibility boundary only for an established
+contract or transition need; distinguish it from unfinished migration. Read
+[Implementation judgment](references/implementation-judgment.md) when making that
+choice, including when a field mapping or wrapper appears to be a small edit.
+
 Judge the affected change by these outcomes:
 
 - Requested behavior works through its real entry points, including necessary
