@@ -44,6 +44,12 @@ observed evidence and execution results.
 Derive the observable outcome and completion evidence from the request and current
 sources. Distinguish obligations and facts from assumptions; investigate technical
 unknowns that could invalidate the change, and ask only for missing material intent.
+If plausible readings would change the target, scope, behavior, data meaning, or
+compatibility obligations and existing decisions do not settle them, ask and wait
+before dependent edits. Stating an assumption is not clarification. Continue only
+work valid regardless of the pending answer; do not encode a guessed requirement in
+code or tests. Apply this boundary even when implementing without a separate
+requirements method; routine means within an established goal remain your decision.
 Establish applicable instructions before writing. Inspect affected paths, nearby
 code, configuration, and tests as needed; reuse current evidence and intentional
 project conventions, without reproducing known defects for consistency.

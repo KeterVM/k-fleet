@@ -1,6 +1,6 @@
 ---
 name: kf-define-requirements
-description: Clarify underspecified software features into concrete behavior, scope, and acceptance criteria before consequential design choices.
+description: Clarify ambiguous software requests, including fixes and refactors, into agreed behavior, scope, and acceptance criteria before dependent changes.
 ---
 
 # Define requirements
@@ -51,6 +51,13 @@ Inspect relevant behavior, domain contracts, permissions, and entry points, incl
 alternate paths that affect the same obligation. Reuse current evidence; investigate
 accessible technical facts directly and keep unavailable facts unknown.
 
+Before dependent edits, check whether the request admits plausible interpretations
+that change the target, scope, observable behavior, data meaning, or compatibility
+obligations. If current instructions and established decisions do not settle that
+difference, ask the user a focused question and wait for the answer. A short request,
+a small diff, or an easy rollback does not make the intended change clear. Do not
+choose the easiest interpretation or announce an assumption and start modifying code.
+
 Judge the resulting obligations by these criteria:
 
 - They serve the intended outcome or an established constraint.
@@ -59,9 +66,13 @@ Judge the resulting obligations by these criteria:
 - Material feasibility premises have evidence or explicit uncertainty and consequences.
 - Acceptance conditions distinguish success from failure without an unjustified solution.
 
-Use focused questions when missing intent or a material choice changes the result;
-resolve routine details from evidence and established preferences. Do not proceed on
-an undecided premise that could invalidate dependent work or treat silence as agreement.
+Ask early once the missing decision is identifiable; explain the concrete difference
+between likely interpretations and recommend one when justified. Investigate facts
+that can settle the ambiguity, but do not keep reading code to guess a user preference.
+Resolve routine means within an established goal from evidence and preferences.
+While waiting, continue only work valid under the unresolved interpretations; do not
+modify dependent code or encode a guessed outcome in tests. Silence, a default option,
+or an unanswered question does not settle the decision.
 
 ## Carry understanding forward
 
@@ -75,7 +86,9 @@ conversation or existing brief. Create a durable artifact only when requested or
 needed for delivery; no fixed question count, story format, or comprehensive
 specification is required.
 
-Continue authorized design or implementation without a new approval checkpoint.
+Once the needed answers are established, continue authorized design or implementation
+without a new approval checkpoint. Clarifying missing intent is not re-requesting
+permission for settled work.
 Respect analysis-only requests and step-by-step discussion. When goals, facts, or
 assumptions change, explain and update affected obligations and downstream decisions;
 preserve settled work that remains valid.

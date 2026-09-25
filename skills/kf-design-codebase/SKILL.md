@@ -68,6 +68,11 @@ Make consequential quality goals concrete through relevant load, failure, access
 maintenance conditions and acceptable outcomes. Use established requirements and
 measurements, not invented targets or an exhaustive quality checklist. Investigate
 answerable technical questions; ask for missing intent only when it changes the choice.
+When plausible interpretations change the target, scope, behavior, data meaning, or
+compatibility obligation and established decisions do not settle the difference,
+ask and wait before committing dependent design or code. Existing code establishes
+facts, not the user's choice between those outcomes. Continue only work independent
+of that answer; a declared assumption does not resolve missing intent.
 
 Resolve assumptions that could invalidate dependent work before committing to it.
 Keep material decisions and blockers visible, without turning a local design into

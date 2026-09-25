@@ -9,9 +9,10 @@
 - Technical facts require evidence: data ownership, authorization behavior,
   integration capabilities, transaction boundaries, or runtime constraints. Inspect
   sources or identify the observation needed to settle the fact.
-- Low-impact details may be provisionally chosen when they preserve the requested
-  outcome and are easy to revise. Keep consequential assumptions visible without
-  sending every routine engineering choice back to the user.
+- Routine implementation details may be chosen when alternatives satisfy the same
+  established outcome, scope, and contracts. Ease of revision alone does not make
+  an unresolved product or scope choice routine. Explicitly delegated discretion
+  permits choices within that delegation; it does not supply missing user goals.
 
 Technical reversibility does not make a choice product-neutral. For example, in-app
 notifications may not meet a need to reach someone away from the application.
@@ -20,11 +21,21 @@ behavior.
 
 ## Resolve uncertainty where it affects work
 
+Compare plausible readings against the concrete change they would produce. Clarify
+when they differ over which entity or flow changes, which consumers are included,
+what behavior or data meaning changes, or which contracts remain stable. For example,
+"change status" may leave both the target field and the intended value semantics
+unclear; "clean up old records" may leave archiving versus deletion unresolved.
+Use the surrounding request and established requirements first; do not manufacture
+intent ambiguity merely because several implementations can satisfy the same goal.
+
 Prioritize unknowns that could change feasibility, acceptance, or the cost of a
-dependent decision. Ask for missing intent with enough context to show the practical
-consequence, using a grounded recommendation when possible. Avoid a long questionnaire
-whose answers would not change the next action, and do not ask again for a decision
-already supported by the current task.
+dependent decision. Ask the smallest question that separates the live alternatives,
+explaining their practical consequences and a grounded recommendation where possible.
+Avoid a vague request for more detail or a questionnaire whose answers would not
+change the next action. When only part of the answer arrives, preserve that decision
+and clarify only the remaining difference that blocks dependent work. Do not ask
+again for a decision already supported by the current task.
 
 For a factual unknown, choose a targeted source check or permitted observation.
 Record what is established and what remains inferred. Evidence that an integration
@@ -38,6 +49,9 @@ be reconciled, surface the tradeoff instead of silently picking the easier versi
 Offer feasible alternatives with their effects on the outcome, preserving the user's
 decision over material scope changes.
 
-Continue work that does not depend on the missing answer. A provisional assumption
-may support only work whose consequences remain within established authorization;
-elapsed time or lack of a reply does not resolve a material product choice.
+Continue inspection and work whose correctness does not depend on the missing answer.
+Do not implement a preferred branch while the question is pending, even if labeled
+provisional, or turn it into an acceptance test that makes the guess look confirmed.
+Elapsed time, lack of a reply, or a preselected option does not resolve the choice.
+If no answer is available, leave the dependent change pending and state the precise
+decision needed. Resume once it is answered without asking for approval again.

@@ -22,6 +22,14 @@ verification. Test-first work can write a failing behavior test before code exis
 A verification-only request does not authorize product-code correction. Respect
 analysis-only requests even when a later capability could continue the work.
 
+Missing intent can surface in any method, including a small fix or refactor. When
+plausible interpretations change the target, scope, behavior, data meaning, or
+compatibility obligations, resolve the difference from established decisions or ask
+the user before dependent edits. Stating an assumption and proceeding does not resolve
+it. Continue independent work while waiting, then resume authorized delivery without
+another approval gate. Routine implementation choices within settled goals remain
+the agent's responsibility.
+
 Understood behavior does not imply settled code organization. Implementation owns
 local choices about responsibility, interfaces, representation, names, and paths,
 including when no design method was selected. Design resolves consequential ownership
