@@ -27,18 +27,21 @@ Avoid speculative capabilities, while making focused improvements that keep the
 affected code understandable and changeable. The smallest textual patch is not
 automatically the simplest implementation.
 
-## Research reuse before custom implementation
+## Research mainstream libraries and frameworks before implementation
 
-Establish what the capability must do and check what the project already provides.
-For a general-purpose mechanism not adequately covered, search for maintained
-libraries before building it. Verify plausible candidates against their official
+Establish what each feature's general-purpose capabilities must do and check what
+the project already provides. Research mainstream, maintained libraries and frameworks
+before implementation, including alternatives to affected custom mechanisms that
+already work without reported maintenance problems. Reuse adequate current selection
+evidence where applicable. Verify plausible candidates against their official
 documentation, source repository, and package metadata for the relevant version;
 remembered APIs, search snippets, and popularity alone do not establish suitability.
 
 Compare candidates against the actual requirements and project constraints: behavior
 and edge cases, runtime compatibility, maintenance and security status, licensing,
-and integration or operational cost where material. Prefer a suitable maintained
-solution over reimplementing its mechanism. Readability and maintainability gains
+and integration or operational cost where material. Default to adopting a suitable
+mainstream solution and its supported conventions over retaining or reimplementing
+its mechanism. Readability, reliability, and maintainability gains
 can justify a new dependency even when existing code could implement the behavior;
 show what becomes easier to understand or change. Assess concrete costs rather than
 treating the addition of a dependency as a disadvantage by itself.
@@ -53,8 +56,11 @@ ask the user to choose before adoption or dependent implementation. A clearly
 supported choice within existing authorization needs no extra approval.
 For a material choice, briefly record the selected library and version, supporting
 sources, and decisive tradeoff in the task or an existing project artifact. Custom
-implementation needs a concrete reason, such as an unmet contract, incompatible
-constraints, or disproportionate dependency cost. If research is unavailable, state
+implementation, whether retained or new, needs a concrete reason, such as an unmet
+contract, incompatible constraints, or disproportionate adoption cost. Working code,
+the absence of reported problems, and fewer dependencies alone are not reasons.
+Keep comparisons within the affected scope; this preference does not authorize an
+unrelated framework migration or repository-wide replacement. If research is unavailable, state
 the evidence gap rather than claiming no suitable library exists.
 
 Respect dependency policies and existing authorization. When adopting a library,

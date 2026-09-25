@@ -9,12 +9,17 @@ consequential; do not manufacture a fixed number of options for a settled decisi
 Explain what the selected approach improves, what it costs, and why that tradeoff
 fits the established priorities.
 
-Before choosing a custom general-purpose component, check project, standard-library,
-and framework capabilities, then research suitable maintained libraries where the
-gap remains. Use current primary sources to compare required behavior, compatibility,
-and material dependency costs. Prefer suitable reuse; justify custom construction
-with a concrete gap or constraint. Carry this evidence into implementation so the
-same settled choice does not require another search.
+Before choosing an implementation for a general-purpose capability, research
+mainstream, maintained ecosystem libraries and frameworks, including standard-library,
+framework, and installed dependency capabilities. Compare them with affected custom
+code even when it works without reported maintenance problems. Use current primary
+sources to compare required behavior, clarity, reliability, compatibility, and material
+adoption costs. Default to a suitable mainstream solution and its supported conventions;
+justify retaining or adding custom mechanisms with a concrete unmet requirement,
+constraint, or disproportionate adoption cost. Working code and the absence of problems
+alone do not justify retention. Keep the comparison within the authorized change;
+it does not authorize unrelated framework migrations. Carry adequate current evidence
+into implementation so the same settled choice does not require another search.
 
 Treat improved readability and maintainability as sufficient benefits for adding a
 suitable dependency within project constraints; fewer dependencies are not inherently

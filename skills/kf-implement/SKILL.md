@@ -59,11 +59,15 @@ where it fits those obligations. If it does not, correct the affected ownership 
 revisit that design decision within scope; a smaller diff does not justify leaving
 the requested problem unresolved.
 
-Before implementing a feature, check reusable project code, installed dependencies,
-and standard-library or framework capabilities. Before writing a custom general-purpose
-mechanism, research suitable maintained libraries using current primary sources,
-unless adequate evidence already settles the choice. Prefer a suitable existing
-solution; explain the concrete gap or cost that justifies custom implementation.
+Before implementing each feature, identify its general-purpose capabilities and
+research mainstream, maintained libraries and frameworks in the relevant ecosystem,
+unless adequate current evidence already settles the choice. Include standard-library,
+framework, and installed dependency capabilities. Default to adopting a suitable
+mainstream solution and its supported conventions. Compare it with affected custom
+code even when that code works and has no reported maintenance problems; assess
+whether adoption makes the implementation clearer and more reliable. Retaining or
+adding a custom general-purpose implementation needs a concrete unmet requirement,
+constraint, or disproportionate adoption cost; existing code working is not enough.
 Improved readability and maintainability are sufficient reasons to add a suitable
 dependency within project constraints; minimizing dependency count is not a goal
 in itself. If multiple viable options remain uncertain after focused research,
