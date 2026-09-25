@@ -3,7 +3,7 @@
 Notable changes to K Fleet are recorded here.
 Earlier entries describe their versions. Use the README for current installation and operation.
 
-## [Unreleased]
+## [3.3.1] - 2026-09-25
 
 ### Changed
 
@@ -13,6 +13,23 @@ Earlier entries describe their versions. Use the README for current installation
 - Replaced mandatory restart instructions with conditional troubleshooting and
   corrected explicit skill invocation examples. Updated CLI completion messages
   and maintainer guidance to match current Codex documentation.
+
+### Update
+
+- Use `npx --yes github:KeterVM/k-fleet update` for the current GitHub CLI, or
+  `npx --yes k-fleet@3.3.1 update` after npm publication. Add `--all` to update
+  registered projects.
+- Codex detects skill changes automatically; restart it if updates do not appear.
+  Explicitly request `kf-setup` to refresh project reminders (CLI/IDE: `$kf-setup`).
+
+### Validation
+
+- Checked matching English and Chinese command examples, current skill catalogs,
+  local documentation links, and CLI syntax for the included changes.
+- Checked release package metadata and npm dry-run contents. No package archive
+  was generated; npm publication remains a separate maintainer action.
+- This release changes documentation and CLI messages; it does not establish new
+  evidence of skill effectiveness.
 
 ## [3.3.0] - 2026-09-25
 
