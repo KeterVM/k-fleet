@@ -13,8 +13,8 @@ Avoid style-only findings. Passing checks rebut a finding only when they exercis
 its claimed trigger and invariant; unrelated green tests do not disprove it.
 
 Within the requested scope, identify custom general-purpose mechanisms and check
-suitable mainstream, maintained libraries and frameworks, even when the code works
-without reported maintenance problems. Include standard-library, framework, and
+whether suitable mainstream, maintained libraries and frameworks would make them
+clearer or more reliable. Include standard-library, framework, and
 installed dependency capabilities. Reuse adequate current selection evidence or
 research official documentation, source, and package metadata for the relevant version.
 Compare required behavior, compatibility, maintenance status, licensing, and material

@@ -61,8 +61,8 @@ separate them from preferred spelling or layout. Neither separate files nor a pa
 suite establishes a sound structure. Keep inspection limited to the affected scope.
 
 In the requested review or verification scope, identify custom general-purpose
-mechanisms and compare suitable mainstream libraries and frameworks, even when the
-code works without reported maintenance problems. Reuse adequate current selection
+mechanisms and check whether a suitable mainstream library or framework would make
+them clearer or more reliable. Reuse adequate current selection
 evidence; otherwise research candidates using current primary sources. Report
 supported opportunities to reduce custom mechanisms separately from defects; no
 runtime failure is required. Check retained custom code has a concrete reason and

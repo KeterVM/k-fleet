@@ -53,9 +53,10 @@ accessible technical facts directly and keep unavailable facts unknown.
 Before dependent edits, check whether the request admits plausible interpretations
 that change the target, scope, observable behavior, data meaning, or compatibility
 obligations. If current instructions and established decisions do not settle that
-difference, ask the user a focused question and wait for the answer. A short request,
-a small diff, or an easy rollback does not make the intended change clear. Do not
-choose the easiest interpretation or announce an assumption and start modifying code.
+difference, ask the user a focused question and wait for the answer. Judge the
+difference by its consequence, not by the request's length, the diff's size, or how
+easily it rolls back. Several implementations of the same intended outcome are not
+an ambiguity of intent.
 
 Judge the resulting obligations by these criteria:
 

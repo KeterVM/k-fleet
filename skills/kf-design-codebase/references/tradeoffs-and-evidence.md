@@ -10,12 +10,11 @@ consequential; do not manufacture a fixed number of options for a settled decisi
 Explain what the selected approach improves, what it costs, and why that tradeoff
 fits the established priorities.
 
-Before choosing an implementation for a general-purpose capability, research
-mainstream, maintained ecosystem libraries and frameworks, including standard-library,
-framework, and installed dependency capabilities. Compare them with affected custom
-code even when it works without reported maintenance problems. Use current primary
-sources to compare required behavior, clarity, reliability, compatibility, and material
-adoption costs. Default to a suitable mainstream solution and its supported conventions;
+Before choosing an implementation for a general-purpose capability, check mainstream,
+maintained ecosystem libraries and frameworks, including standard-library, framework,
+and installed dependency capabilities, against the affected custom code. Use current
+primary sources to compare required behavior, clarity, reliability, compatibility, and
+material adoption costs. Prefer a suitable mainstream solution and its supported conventions;
 justify retaining or adding custom mechanisms with a concrete unmet requirement,
 constraint, or disproportionate adoption cost. Working code and the absence of problems
 alone do not justify retention. Keep the comparison within the authorized change;

@@ -51,9 +51,9 @@ fixtures, and environment. Choose the boundary by the claimed behavior, not the
 project's language or label. New tooling needs a concrete authorized purpose that
 justifies its maintenance cost.
 
-For general-purpose test infrastructure in scope, default to suitable mainstream
+For general-purpose test infrastructure in scope, prefer suitable mainstream
 testing libraries and framework facilities. Research options or reuse adequate
-current evidence before adding or retaining custom mechanisms, even when they work.
+current evidence before adding or retaining a custom mechanism.
 Keep project-specific cases and fixtures local; custom runners, assertion engines,
 or scheduling mechanisms need a concrete reason. This does not require changing an
 adequate established test framework for every test addition.

@@ -48,11 +48,11 @@ choices from assumptions. Trace affected entry points, rules, state, and depende
 to the outcome; reuse sufficient evidence rather than surveying the repository.
 Identify existing capabilities and the change needed.
 
-For general-purpose capabilities in the affected design, default to mainstream,
-maintained ecosystem libraries and frameworks and their supported conventions.
-Research suitable options before committing the design, or reuse adequate current
-selection evidence. Compare affected custom implementations even when they have no
-reported problems; retaining or adding one requires a concrete reason. Read
+When the affected design adds or reworks a general-purpose mechanism, check whether
+a maintained ecosystem library or framework capability fits before committing the
+design, or reuse adequate current selection evidence. Prefer it when it makes the
+design clearer or more reliable; keeping or adding a custom mechanism needs a
+concrete reason. Read
 [Tradeoffs and evidence](references/tradeoffs-and-evidence.md) for this choice.
 
 First establish which designs satisfy the requested outcome, responsibility

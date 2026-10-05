@@ -29,17 +29,17 @@ automatically the simplest implementation.
 
 ## Research mainstream libraries and frameworks before implementation
 
-Establish what each feature's general-purpose capabilities must do and check what
+Establish what the affected general-purpose capabilities must do and check what
 the project already provides. Research mainstream, maintained libraries and frameworks
-before implementation, including alternatives to affected custom mechanisms that
-already work without reported maintenance problems. Reuse adequate current selection
+before implementing or reworking such a mechanism, including alternatives to the
+affected custom code. Reuse adequate current selection
 evidence where applicable. Verify plausible candidates against their official
 documentation, source repository, and package metadata for the relevant version;
 remembered APIs, search snippets, and popularity alone do not establish suitability.
 
 Compare candidates against the actual requirements and project constraints: behavior
 and edge cases, runtime compatibility, maintenance and security status, licensing,
-and integration or operational cost where material. Default to adopting a suitable
+and integration or operational cost where material. Prefer adopting a suitable
 mainstream solution and its supported conventions over retaining or reimplementing
 its mechanism. Readability, reliability, and maintainability gains
 can justify a new dependency even when existing code could implement the behavior;

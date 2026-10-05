@@ -45,7 +45,7 @@ sources. Distinguish obligations and facts from assumptions; investigate technic
 unknowns that could invalidate the change, and ask only for missing material intent.
 If plausible readings would change the target, scope, behavior, data meaning, or
 compatibility obligations and existing decisions do not settle them, ask and wait
-before dependent edits. Stating an assumption is not clarification. Continue only
+before dependent edits rather than proceeding on a stated assumption. Continue only
 work valid regardless of the pending answer; do not encode a guessed requirement in
 code or tests. Apply this boundary even when implementing without a separate
 requirements method; routine means within an established goal remain your decision.
@@ -59,21 +59,18 @@ where it fits those obligations. If it does not, correct the affected ownership 
 revisit that design decision within scope; a smaller diff does not justify leaving
 the requested problem unresolved.
 
-Before implementing each feature, identify its general-purpose capabilities and
-research mainstream, maintained libraries and frameworks in the relevant ecosystem,
-unless adequate current evidence already settles the choice. Include standard-library,
-framework, and installed dependency capabilities. Default to adopting a suitable
-mainstream solution and its supported conventions. Compare it with affected custom
-code even when that code works and has no reported maintenance problems; assess
-whether adoption makes the implementation clearer and more reliable. Retaining or
-adding a custom general-purpose implementation needs a concrete unmet requirement,
-constraint, or disproportionate adoption cost; existing code working is not enough.
-Improved readability and maintainability are sufficient reasons to add a suitable
-dependency within project constraints; minimizing dependency count is not a goal
-in itself. Resolve routine technical tradeoffs from the evidence and explain the
-choice. Ask only when missing intent, material cost commitments, compatibility
-obligations, or authority prevent a sound choice; multiple viable options alone
-do not require user selection. Continue independent work while an answer is pending.
+When the change adds or substantially reworks a general-purpose mechanism, such as
+parsing, validation, retries, caching, or scheduling, check whether the standard
+library, the framework, an installed dependency, or a maintained mainstream library
+already provides it, unless adequate current evidence settles the choice. Use it
+when it makes the implementation clearer or more reliable within project constraints;
+readability and maintainability are sufficient reasons, and dependency count is not
+a goal in itself. Keep a custom mechanism only for a concrete unmet requirement,
+constraint, or disproportionate adoption cost. Resolve routine technical tradeoffs
+from the evidence and explain the choice. Ask only when missing intent, material
+cost commitments, compatibility obligations, or authority prevent a sound choice;
+multiple viable options alone do not require user selection. Continue independent
+work while an answer is pending.
 
 Before adding or substantially extending a component, connect its domain meaning or
 technical role to the rules and state it owns, its interface and allowed dependencies,
