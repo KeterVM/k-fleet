@@ -24,20 +24,10 @@ does not require every reference.
 
 ## Scope and authority
 
-Before substantive work, establish canonical repository/worktree scope, project
-instructions, authorization, and the stopping condition. Ground decisions in current
-conversation and repository evidence. Report material gaps and pause only work
-that depends on missing evidence or capabilities.
-
-Current instructions and repository sources are authoritative; contextual inferences
-grant no permission. Use context only within its authorized project/worktree scope.
-Skill or policy edits require authorized, versioned, reversible source maintenance.
-
-Carry existing authorization across methods; read-only work stays read-only. Within
-higher-priority constraints, explicit user instructions override skill guidance. If a skill rule
-halts work, link and quote it, distinguishing the rule from your interpretation.
-Continue independent authorized work whose prerequisites are met. Report only
-observed evidence and execution results.
+Before substantive work, establish the repository/worktree scope, project
+instructions, authorization, and stopping condition; read-only work stays read-only.
+Pause only work that depends on missing evidence, capabilities, or user intent, and
+continue independent authorized work. Report only observed evidence and results.
 
 ## Choose meaningful protection
 
@@ -52,11 +42,9 @@ project's language or label. New tooling needs a concrete authorized purpose tha
 justifies its maintenance cost.
 
 For general-purpose test infrastructure in scope, prefer suitable mainstream
-testing libraries and framework facilities. Research options or reuse adequate
-current evidence before adding or retaining a custom mechanism.
-Keep project-specific cases and fixtures local; custom runners, assertion engines,
-or scheduling mechanisms need a concrete reason. This does not require changing an
-adequate established test framework for every test addition.
+testing libraries and framework facilities over custom runners, assertion engines,
+or scheduling mechanisms; read [Isolation and execution](references/isolation-and-execution.md)
+for that choice. An adequate established test framework need not change for each addition.
 
 Judge the affected tests by these criteria:
 

@@ -25,20 +25,10 @@ Read only for decisions the assessment needs:
 
 ## Scope and authority
 
-Before substantive work, establish canonical repository/worktree scope, project
-instructions, authorization, and the stopping condition. Ground decisions in current
-conversation and repository evidence. Report material gaps and pause only work
-that depends on missing evidence or capabilities.
-
-Current instructions and repository sources are authoritative; contextual inferences
-grant no permission. Use context only within its authorized project/worktree scope.
-Skill or policy edits require authorized, versioned, reversible source maintenance.
-
-Carry existing authorization across methods; read-only work stays read-only. Within
-higher-priority constraints, explicit user instructions override skill guidance. If a skill rule
-halts work, link and quote it, distinguishing the rule from your interpretation.
-Continue independent authorized work whose prerequisites are met. Report only
-observed evidence and execution results.
+Before substantive work, establish the repository/worktree scope, project
+instructions, authorization, and stopping condition; read-only work stays read-only.
+Pause only work that depends on missing evidence, capabilities, or user intent, and
+continue independent authorized work. Report only observed evidence and results.
 
 ## Assess the delivered behavior
 
@@ -61,13 +51,9 @@ separate them from preferred spelling or layout. Neither separate files nor a pa
 suite establishes a sound structure. Keep inspection limited to the affected scope.
 
 In the requested review or verification scope, identify custom general-purpose
-mechanisms and check whether a suitable mainstream library or framework would make
-them clearer or more reliable. Reuse adequate current selection
-evidence; otherwise research candidates using current primary sources. Report
-supported opportunities to reduce custom mechanisms separately from defects; no
-runtime failure is required. Check retained custom code has a concrete reason and
-adopted libraries are actually integrated, not merely installed. Follow
-[Evidence and coverage](references/evidence-and-coverage.md) for comparison evidence.
+mechanisms that a suitable mainstream library or framework would make clearer or
+more reliable, following [Evidence and coverage](references/evidence-and-coverage.md).
+Report supported opportunities separately from defects; no runtime failure is required.
 
 Judge evidence and findings by these criteria:
 

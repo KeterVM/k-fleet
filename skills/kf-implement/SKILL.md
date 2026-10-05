@@ -23,35 +23,23 @@ behavior and boundaries needs no formal design or additional reading.
 
 ## Scope and authority
 
-Before substantive work, establish canonical repository/worktree scope, project
-instructions, authorization, and the stopping condition. Ground decisions in current
-conversation and repository evidence. Report material gaps and pause only work
-that depends on missing evidence or capabilities.
-
-Current instructions and repository sources are authoritative; contextual inferences
-grant no permission. Use context only within its authorized project/worktree scope.
-Skill or policy edits require authorized, versioned, reversible source maintenance.
-
-Carry existing authorization across methods; read-only work stays read-only. Within
-higher-priority constraints, explicit user instructions override skill guidance. If a skill rule
-halts work, link and quote it, distinguishing the rule from your interpretation.
-Continue independent authorized work whose prerequisites are met. Report only
-observed evidence and execution results.
+Before substantive work, establish the repository/worktree scope, project
+instructions, authorization, and stopping condition; read-only work stays read-only.
+Pause only work that depends on missing evidence, capabilities, or user intent, and
+continue independent authorized work. Report only observed evidence and results.
 
 ## Implement against the contract
 
 Derive the observable outcome and completion evidence from the request and current
 sources. Distinguish obligations and facts from assumptions; investigate technical
-unknowns that could invalidate the change, and ask only for missing material intent.
-If plausible readings would change the target, scope, behavior, data meaning, or
-compatibility obligations and existing decisions do not settle them, ask and wait
-before dependent edits rather than proceeding on a stated assumption. Continue only
-work valid regardless of the pending answer; do not encode a guessed requirement in
-code or tests. Apply this boundary even when implementing without a separate
-requirements method; routine means within an established goal remain your decision.
-Establish applicable instructions before writing. Inspect affected paths, nearby
-code, configuration, and tests as needed; reuse current evidence and intentional
-project conventions, without reproducing known defects for consistency.
+unknowns that could invalidate the change. If plausible readings would change the
+target, scope, behavior, data meaning, or compatibility obligations and existing
+decisions do not settle them, ask and wait before dependent edits; a stated
+assumption does not settle them, and a guessed requirement does not belong in code
+or tests. Routine means within an established goal remain your decision. Establish
+applicable instructions before writing. Inspect affected paths, nearby code,
+configuration, and tests as needed; reuse current evidence and intentional project
+conventions, without reproducing known defects for consistency.
 
 Choose implementations that satisfy the outcome, responsibility boundaries, and
 required constraints before minimizing edit size or effort. Reuse existing code
@@ -62,15 +50,8 @@ the requested problem unresolved.
 When the change adds or substantially reworks a general-purpose mechanism, such as
 parsing, validation, retries, caching, or scheduling, check whether the standard
 library, the framework, an installed dependency, or a maintained mainstream library
-already provides it, unless adequate current evidence settles the choice. Use it
-when it makes the implementation clearer or more reliable within project constraints;
-readability and maintainability are sufficient reasons, and dependency count is not
-a goal in itself. Keep a custom mechanism only for a concrete unmet requirement,
-constraint, or disproportionate adoption cost. Resolve routine technical tradeoffs
-from the evidence and explain the choice. Ask only when missing intent, material
-cost commitments, compatibility obligations, or authority prevent a sound choice;
-multiple viable options alone do not require user selection. Continue independent
-work while an answer is pending.
+already provides it, and read [Implementation judgment](references/implementation-judgment.md)
+for that choice. Keep a custom mechanism only for a concrete reason.
 
 Before adding or substantially extending a component, connect its domain meaning or
 technical role to the rules and state it owns, its interface and allowed dependencies,

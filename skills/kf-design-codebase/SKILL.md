@@ -26,20 +26,10 @@ Read only where decisions remain open:
 
 ## Scope and authority
 
-Before substantive work, establish canonical repository/worktree scope, project
-instructions, authorization, and the stopping condition. Ground decisions in current
-conversation and repository evidence. Report material gaps and pause only work
-that depends on missing evidence or capabilities.
-
-Current instructions and repository sources are authoritative; contextual inferences
-grant no permission. Use context only within its authorized project/worktree scope.
-Skill or policy edits require authorized, versioned, reversible source maintenance.
-
-Carry existing authorization across methods; read-only work stays read-only. Within
-higher-priority constraints, explicit user instructions override skill guidance. If a skill rule
-halts work, link and quote it, distinguishing the rule from your interpretation.
-Continue independent authorized work whose prerequisites are met. Report only
-observed evidence and execution results.
+Before substantive work, establish the repository/worktree scope, project
+instructions, authorization, and stopping condition; read-only work stays read-only.
+Pause only work that depends on missing evidence, capabilities, or user intent, and
+continue independent authorized work. Report only observed evidence and results.
 
 ## Choose a sufficient design
 
@@ -50,10 +40,8 @@ Identify existing capabilities and the change needed.
 
 When the affected design adds or reworks a general-purpose mechanism, check whether
 a maintained ecosystem library or framework capability fits before committing the
-design, or reuse adequate current selection evidence. Prefer it when it makes the
-design clearer or more reliable; keeping or adding a custom mechanism needs a
-concrete reason. Read
-[Tradeoffs and evidence](references/tradeoffs-and-evidence.md) for this choice.
+design, and read [Tradeoffs and evidence](references/tradeoffs-and-evidence.md)
+for that choice. Keep a custom mechanism only for a concrete reason.
 
 First establish which designs satisfy the requested outcome, responsibility
 boundaries, and required constraints; compare change and maintenance costs among
@@ -75,12 +63,10 @@ Judge the affected design by these criteria:
 Make consequential quality goals concrete through relevant load, failure, access, or
 maintenance conditions and acceptable outcomes. Use established requirements and
 measurements, not invented targets or an exhaustive quality checklist. Investigate
-answerable technical questions; ask for missing intent only when it changes the choice.
-When plausible interpretations change the target, scope, behavior, data meaning, or
-compatibility obligation and established decisions do not settle the difference,
-ask and wait before committing dependent design or code. Existing code establishes
-facts, not the user's choice between those outcomes. Continue only work independent
-of that answer; a declared assumption does not resolve missing intent.
+answerable technical questions. When plausible interpretations change the target,
+scope, behavior, data meaning, or compatibility obligation and established decisions
+do not settle the difference, ask and wait before committing dependent design or
+code; existing code and declared assumptions do not settle missing intent.
 
 Resolve assumptions that could invalidate dependent work before committing to it.
 Keep material decisions and blockers visible, without turning a local design into
