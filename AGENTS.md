@@ -175,9 +175,8 @@ capabilities out of the public catalog, CLI installation list, and consumer setu
 reminders.
 
 When creating or materially revising skills, consult the applicable guidance in
-[Skill authoring guidance](docs/skill-authoring.md), distilled from the user-supplied
-“Rethinking skills and prompts for GPT-6 Astra” and the OpenAI and Anthropic sources
-it lists. Keep discovery concise, disclose detail progressively, and favor decision
+[Skill authoring guidance](docs/skill-authoring.md), which records its sources and
+their check dates. Keep discovery concise, disclose detail progressively, and favor decision
 criteria over rigid itineraries. Teach a method's hardest boundaries with short,
 varied, illustrative examples and positive instructions. Preserve
 real constraints and authorized completion while removing redundant reads, tests,

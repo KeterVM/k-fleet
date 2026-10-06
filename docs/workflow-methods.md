@@ -163,14 +163,3 @@ instructions have not yet been assessed on actual product delivery. Observe whet
 their use improves consequential decisions about user needs, task completion,
 release recovery, service health, and product benefit. Revise or combine methods if
 actual use shows duplicated work, ineffective selection, or unjustified stops.
-
-## Optional memory
-
-Engineering methods use the current task and repository evidence independently of
-external memory. Users or projects choose whether to add Supermemory, a graph-based
-integration, another backend, or none. Memory can carry context and experience across
-tasks; its absence does not prevent current-task feedback or authorized skill revision.
-
-Public skills and managed reminders contain engineering guidance and general source,
-scope, and authority rules. Memory-provider setup, checks, and operations remain
-outside those instructions.

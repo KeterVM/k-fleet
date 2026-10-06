@@ -38,7 +38,7 @@ Keep earlier changelog entries as release history, not current usage instruction
 Check affected file links, skill names, references, and setup invocation policy.
 For CLI or package changes, check syntax and inspect `npm pack --dry-run` output.
 Include both READMEs, the changelog, the CLI, and the reviewer configuration in the package.
-Public skills are downloaded separately from GitHub; the repository's maintenance skill is not installed for users.
+Public skills are downloaded separately from GitHub; the repository's maintenance skills under `.agents/skills/` are not installed for users.
 
 Commit the release changes, tag that commit as `v<version>`, and push the commit and tag.
 Create the GitHub Release from that tag with changes, update instructions, and actual validation results.

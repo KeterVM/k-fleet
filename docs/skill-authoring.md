@@ -1,8 +1,8 @@
 # Skill authoring guidance
 
 This document combines the user's engineering foundations with applicable guidance
-from the sources below. The original sources were checked on 2026-09-10; the
-official Astra skill-authoring blog was added and checked on 2026-09-13:
+from the sources below. The OpenAI and practitioner sources were checked on
+2026-09-10 (the Astra skill-authoring blog on 2026-09-13); see below for the Anthropic sources:
 
 - OpenAI, Eric Provencher, [Rethinking skills and prompts for GPT-6 Astra](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra),
   published 2026-09-11: concise applicability, progressive disclosure, proportionate
