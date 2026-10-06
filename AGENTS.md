@@ -11,7 +11,7 @@ workflow behavior rather than framework-specific instructions.
 - `README.md`: architecture, prerequisites, installation, operation, maintenance.
 - `skills/`: the public catalog (setup, product discovery, requirements, experience
   design, codebase design, implementation, test writing, verification, release,
-  operation, product evaluation, skill improvement). Each skill owns its
+  operation, product evaluation, practice codification). Each skill owns its
   instructions and references.
 - `.codex/agents/kf-reviewer.toml`: the companion reviewer.
 - `.agents/skills/kf-research-skills/` and `.agents/skills/kf-skills-creator/`:
@@ -37,8 +37,8 @@ workflow behavior rather than framework-specific instructions.
   Reminders preserve explicit project requirements and pause only work that
   depends on missing evidence or capabilities.
 - **Method ownership.** Product and engineering skills own their methods. Product
-  evaluation assesses user or business outcomes; skill improvement assesses the
-  agent's methods. Release and operation carry existing authority without granting
+  evaluation assesses user or business outcomes; practice codification captures a
+  project's own recurring procedures as project skills or guidance. Release and operation carry existing authority without granting
   new production or external-action rights. Select methods as needed (including
   test-first work and returning to an affected decision); never require every
   method for every task.
@@ -52,14 +52,14 @@ workflow behavior rather than framework-specific instructions.
   respected. K Fleet supplies no backends or adapters. Keep provider names,
   backend configuration, connectivity checks, hooks, and memory operations out of
   public skills and managed reminders, and never let setup install them.
-- **Capability improvement** goes through `kf-evolve-skills`: diagnose the gap,
-  inspect available guidance, and assess actual use before claiming improvement.
-  Use `find-skills` and `skill-creator` when available, with a self-contained
-  fallback; never bundle copies or require them for all work. Inspect candidate
-  content and dependencies before installing, prefer project scope, and preserve
-  unrelated skills. Do not create a skill for every failure or treat installation
-  as closing the feedback loop. Ordinary implementation never silently rewrites
-  core skills; changes stay scoped, versioned, and reversible.
+- **Practice codification.** `kf-codify-practices` creates or refines a consumer
+  project's own skills and guidance for its recurring procedures and constraints,
+  only on explicit request (`policy.allow_implicit_invocation: false`). It derives
+  conventions from the project's current code, proposes before writing, and leaves
+  installed K Fleet and third-party skills unchanged; it neither searches for nor
+  installs third-party skills. `skill-creator` is used when available, with a
+  self-contained fallback, never bundled or required. Written guidance stays
+  unproven until actual use; ordinary work never silently rewrites skills.
 - **Reviewer.** `kf_reviewer` stays optional, read-only, model-neutral, and
   advisory: it reports findings and evidence, never fixes them or declares
   overall readiness.

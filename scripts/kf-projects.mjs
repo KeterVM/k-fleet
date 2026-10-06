@@ -29,9 +29,15 @@ const kFleetSkills = [
   "kf-release-product",
   "kf-operate-product",
   "kf-evaluate-product",
+  "kf-codify-practices",
+];
+const retiredSkills = [
+  "kf-orchestrate-work",
+  "kf-design",
+  "kf-investigate",
+  "skillopt-sleep",
   "kf-evolve-skills",
 ];
-const retiredSkills = ["kf-orchestrate-work", "kf-design", "kf-investigate", "skillopt-sleep"];
 const kFleetSource = process.env.KFLEET_SKILL_SOURCE || "KeterVM/k-fleet";
 const stateRoot = process.env.KFLEET_STATE_DIR || join(homedir(), ".k-fleet");
 const registryPath = join(stateRoot, "projects.json");

@@ -8,8 +8,7 @@ description: Assess whether a product or change delivers its intended user or bu
 Determine what a product is achieving and which next decision the evidence supports.
 Use for requested outcome assessment, unexplained adoption or task-completion
 problems, or evaluation of a product change. Passing acceptance tests establishes
-behavior, not product value; skill effectiveness is a separate subject owned by
-`kf-evolve-skills`.
+behavior, not product value; the agent's own skills are not the subject here.
 
 ## Select supporting guidance
 

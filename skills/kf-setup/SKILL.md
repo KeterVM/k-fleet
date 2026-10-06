@@ -68,8 +68,8 @@ Select methods as needed:
 - `kf-release-product`: prepare or execute authorized delivery and release checks.
 - `kf-operate-product`: establish operation or diagnose and recover live service.
 - `kf-evaluate-product`: assess user or business outcomes and guide iteration.
-- `kf-evolve-skills`: assess or improve guidance when requested, or address a
-  reusable capability gap; judge changes through actual use.
+- `kf-codify-practices`: on request, turn recurring project procedures and
+  constraints into project skills or guidance.
 
 Verify consequential premises using current sources, version-matched official docs,
 or runtime evidence; reuse sufficient evidence. Distinguish facts, inferences,
