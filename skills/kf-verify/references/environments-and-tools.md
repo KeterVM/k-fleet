@@ -1,5 +1,9 @@
 # Environments and tools
 
+Use when the surface being verified is unfamiliar, or a tool, runtime, or
+environment is uncertain or unavailable. The authority and completion rules in
+SKILL.md still apply.
+
 ## Identify the surface being verified
 
 Establish what is delivered and how it is used: an application, service, command,

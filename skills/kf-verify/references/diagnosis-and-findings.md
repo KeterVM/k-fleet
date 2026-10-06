@@ -1,5 +1,8 @@
 # Diagnosis and findings
 
+Use for a failure, conflicting results, or deciding what a finding establishes and
+how severe it is. The authority and completion rules in SKILL.md still apply.
+
 ## Separate observation from explanation
 
 Preserve the failing input, relevant state, actual result, and version before

@@ -1,5 +1,8 @@
 # Corrections and rechecks
 
+Use when correction is authorized, regression protection is missing, or a fix
+needs rechecks. The authority and completion rules in SKILL.md still apply.
+
 ## Close meaningful gaps within scope
 
 When durable regression protection or a missing behavior check warrants new tests,
