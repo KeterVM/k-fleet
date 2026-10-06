@@ -7,7 +7,8 @@ description: Verify delivered software against its request, or review scoped cod
 
 Establish whether delivery does what was asked, with conclusions limited to the
 evidence, actionable findings, and explicit gaps. Reuse applicable tests and results;
-a separate agent is optional.
+a separate agent is optional. When given a spec path, or the work has a spec, read it
+first: its decisions and acceptance conditions are part of what was asked.
 
 ## Method
 
@@ -21,11 +22,11 @@ because the implementation and its tests are what you are checking.
    authorized: verification and review report findings; authorized correction
    continues through fixes and rechecks.
 
-2. **Map the obligations** from the request, accepted scope, and project rules to
-   observable outcomes and the entry points that deliver them. Resolve consequential
-   ambiguity. Look for omitted behavior, incomplete wiring, narrowed assumptions, and
-   hidden manual steps, and note the affected callers, dependencies, permissions,
-   state, and available environments.
+2. **Map the obligations** from the request, the spec when there is one, accepted
+   scope, and project rules to observable outcomes and the entry points that
+   deliver them. Resolve consequential ambiguity. Look for omitted behavior,
+   incomplete wiring, narrowed assumptions, and hidden manual steps, and note the
+   affected callers, dependencies, permissions, state, and available environments.
 
 3. **Choose checks that could fail.** For each obligation, pick the narrowest check
    that would expose a plausible wrong behavior at the boundary at risk: an existing

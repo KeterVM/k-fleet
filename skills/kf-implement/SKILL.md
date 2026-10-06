@@ -6,16 +6,18 @@ description: Implement an understood software change as complete, maintainable c
 # Implement
 
 Turn an understood request into working behavior through its real entry points,
-with code a maintainer can follow. Reuse an existing brief or design when it
-answers the open questions; a bounded edit with settled behavior goes straight to
-code and needs no extra reading.
+with code a maintainer can follow. Reuse an existing brief, spec, or design when it
+answers the open questions; when given a spec path, read that spec first and treat
+its decisions and acceptance conditions as the contract. A bounded edit with settled
+behavior goes straight to code and needs no extra reading.
 
 ## Method
 
 These are the decisions to settle, in their usual order; skip any the request
-already answers. One ordering is fixed: meet the contract and put each rule with
-its owner before minimizing the diff, because a smaller diff cannot repair an
-unmet obligation or a misplaced rule.
+already answers. Apply them again to each new task or milestone in a session,
+including after the context is compacted. One ordering is fixed: meet the contract
+and put each rule with its owner before minimizing the diff, because a smaller
+diff cannot repair an unmet obligation or a misplaced rule.
 
 1. **Ground the change.** Name the observable outcome and the evidence that will
    show it works. Separate facts (code, config, data, docs, the user) from
@@ -28,7 +30,7 @@ unmet obligation or a misplaced rule.
 
    | Kind | Test | Action |
    | --- | --- | --- |
-   | Product intent | Plausible readings change the target, scope, behavior, data meaning, or a compatibility obligation, and established decisions do not settle it | Ask, then continue work that holds under every answer; keep the guessed reading out of code and tests |
+   | Product intent | Plausible readings change the target, scope, behavior, data meaning, or a compatibility obligation, and established decisions do not settle it | Ask the open ones together in one numbered round, each with your recommendation, then continue work that holds under every answer; keep the guessed reading out of code and tests |
    | Ownership or contract | The choice decides which module owns a rule or state, changes what other modules call or rely on, or changes which artifacts ship and who hosts or operates them | Decide it from a traced change and state it; when it reshapes cross-module contracts or delivery, revisit the design |
    | General-purpose mechanism | The change adds or reworks parsing, validation, retries, caching, scheduling, or similar | Check the standard library, framework, installed dependencies, then maintained mainstream libraries; keep custom code for a concrete reason |
    | Rename or replacement | A name, field, class, or entry point is superseded | Migrate every in-scope consumer and remove the old path; keep a bridge only for a named consumer or data that cannot move now |
@@ -36,7 +38,10 @@ unmet obligation or a misplaced rule.
 
    Judge by consequence, not size: a one-word field rename read by a separately
    released client is a compatibility question; a 400-line extraction with stable
-   callers is routine.
+   callers is routine. A framework or library default leaves a user-visible choice
+   open (a time limit, lockout, size limit, retention, or what users see on
+   failure): adopting it is your proposal, not a settled fact. A short instruction
+   to continue delegates no product choice; delegation names the choices it covers.
 
 3. **Build through the real entry points.** Put each rule and piece of state with
    its owner, reusing existing code where it fits. Choose the form, name, and
@@ -62,17 +67,28 @@ unmet obligation or a misplaced rule.
 5. **Finish** when required checks pass, material obligations have evidence, and no
    issue caused by the change remains. Report the change, decisive results, and
    limits in the conversation, with no fixed report format; name blockers and
-   unverified obligations as such. Speculative improvements and stylistic polish
-   wait for a request rather than delaying an adequate change.
+   unverified obligations as such, and list any user-visible behavior you chose
+   without the user's confirmation so they can review it. When the work has a spec,
+   record new decisions, answers, and unconfirmed choices in it. Speculative
+   improvements and stylistic polish wait for a request rather than delaying an
+   adequate change.
 
    When a check fails, separate a code defect from an environment or access
    problem before changing code. When repeated exceptions, mappings, or fragile
    coordination show up, revisit the ownership or design decision that produced
    them. When the user overrides any choice or recommendation of yours, list the
    decisions and code that assumed it, including packaging and deployment, and
-   re-run step 2 on each; remove what no longer serves a current need.
+   re-run step 2 on each; remove what no longer serves a current need, and update
+   the spec when there is one.
 
 ## Examples (illustrative)
+
+**Looks like continuing, holds product decisions.** "Keep building the comment
+moderation queue." The queue model and the moderator list are settled, but when to
+auto-hide a reported comment, whether its author is told, and how long hidden
+comments are kept change what users see. Ask the three in one numbered round with
+recommendations, build the queue and list meanwhile, and leave auto-hide unbuilt
+until the answers arrive.
 
 **Looks like a small swap, is a migration.** "Replace `LegacyMailer` with the new
 `NotificationClient`." Making `LegacyMailer` forward to the new client changes one

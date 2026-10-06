@@ -90,8 +90,9 @@ costly commitment; identify the event or evidence that would make the choice nec
 Distinguish required contracts and constraints from recommendations and choices left
 to implementation. Explain consequential decisions in terms of the need they serve,
 the cost accepted, and the evidence or assumption on which they depend. Carry forward
-only enough context to avoid reconstructing the reasoning; use the existing task or
-project artifact rather than requiring another document or approval round.
+only enough context to avoid reconstructing the reasoning; use the work's spec when
+it has one, or the existing task or project artifact, rather than requiring another
+document or approval round.
 
 When implementation friction or review feedback challenges the design, inspect the
 specific contract, constraint, or assumption it affects before sorting it as a

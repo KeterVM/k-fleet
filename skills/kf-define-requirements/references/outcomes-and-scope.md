@@ -52,5 +52,5 @@ unless the user fixed the mechanism. When a requirement does constrain the
 implementation, write down the reason so design can respect it.
 
 Record where each consequential requirement comes from (user statement, existing
-contract, regulation, project rule) in the task or an existing brief. A formal
-traceability matrix is needed only when the project asks for one.
+contract, regulation, project rule) in the task, an existing brief, or the spec. A
+formal traceability matrix is needed only when the project asks for one.

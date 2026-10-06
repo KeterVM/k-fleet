@@ -8,14 +8,17 @@ description: Decide ownership, contracts, placement, and library-versus-custom c
 Settle who owns each affected rule and state, what contracts promise, where code
 lives, and whether a maintained library already provides the mechanism; also assess
 existing design on request. A bounded edit inside sound boundaries goes straight to
-implementation; reuse an existing design when it already answers these questions.
+implementation; reuse an existing design when it already answers these questions,
+and when given a spec path, read that spec first and design within its decisions.
 
 ## Method
 
 These are the decisions to settle, in their usual order; skip any the request
-already answers. One ordering is fixed: establish which designs meet the required
-behavior, constraints, and ownership boundaries before comparing change cost,
-because a smaller diff cannot buy back an unmet obligation or a misplaced owner.
+already answers. Apply them again to each new task or milestone in a session,
+including after the context is compacted. One ordering is fixed: establish which
+designs meet the required behavior, constraints, and ownership boundaries before
+comparing change cost, because a smaller diff cannot buy back an unmet obligation
+or a misplaced owner.
 
 1. **Ground the change.** Separate the requested behavior and constraints from
    accepted choices and assumptions. Trace the affected entry points, rules, state,
@@ -64,15 +67,18 @@ because a smaller diff cannot buy back an unmet obligation or a misplaced owner.
 5. **Stop and hand off** when ownership, contracts, placement, and critical failure
    behavior are clear enough to implement and deferred choices cannot threaten the
    approach. Carry forward decisive reasons, affected paths, material assumptions,
-   checks for important contracts, and migration compatibility where needed, in the
-   conversation or an existing artifact.
+   checks for important contracts, and migration compatibility where needed. When
+   the work has a spec, record them in its Design and Decisions with each decision's
+   source and what it depends on; otherwise use the conversation or an existing
+   artifact.
 
    When friction, review, or new evidence challenges a decision, tell apart a
    misunderstood handoff (clarify it), an infeasible design (revise that decision
    and explain the consequences), and a local defect (fix the code). When the user
    overrides any choice or recommendation of yours, list the decisions that assumed
    it, including packaging and deployment, and re-run step 2 on each before
-   continuing; drop what no longer serves a current need.
+   continuing; drop what no longer serves a current need, and update the spec when
+   there is one.
 
 ## Examples (illustrative)
 

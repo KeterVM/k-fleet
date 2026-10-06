@@ -46,6 +46,12 @@ workflow behavior rather than framework-specific instructions.
   new production or external-action rights. Select methods as needed (including
   test-first work and returning to an affected decision); never require every
   method for every task.
+- **Spec handoff.** Requirements owns the spec: for a new project or feature, work
+  likely to span sessions or methods, or on request, it writes one file (default
+  `docs/specs/<feature>.md`) recording decisions with their source and
+  dependencies. Design, implementation, and verification read it when given its
+  path and keep it current. It stops at the spec: no tickets, trackers, backends,
+  or hooks, and bounded changes need none.
 - **Self-contained skills.** Required instructions and file references stay inside
   the skill's own directory. Refer to other methods by skill name; never link into
   another skill's files.
