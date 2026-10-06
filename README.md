@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-K Fleet provides Codex skills for product discovery, experience design, software
+K Fleet provides Codex and Claude Code skills for product discovery, experience design, software
 delivery, release, operation, and evaluation. Each skill contains focused instructions
 and supporting references. Use the methods that fit the task.
 
@@ -84,7 +84,8 @@ request does not itself permit production changes, publication, or user contact.
 No particular design, analytics, or hosting tool is required. Use specialist skills
 for tasks such as security assessment or platform-specific execution when needed.
 
-The optional [`kf_reviewer`](.codex/agents/kf-reviewer.toml) agent examines the code independently.
+The optional reviewer agent examines the code independently: [`kf_reviewer`](.codex/agents/kf-reviewer.toml)
+in Codex and [`kf-reviewer`](.claude/agents/kf-reviewer.md) in Claude Code.
 This agent has read-only access.
 Installation includes its configuration.
 Its output is advisory findings and supporting evidence.
@@ -115,9 +116,10 @@ npx --yes github:KeterVM/k-fleet install
 
 The command-line interface (CLI) does these tasks:
 
-- It installs the public skills in `.agents/skills/`.
+- It installs the public skills in `.agents/skills/` for Codex and links them from
+  `.claude/skills/` for Claude Code.
 - It records the skills in `skills-lock.json`.
-- It copies the reviewer configuration to `.codex/agents/`.
+- It copies the reviewer configuration to `.codex/agents/` and `.claude/agents/`.
 - It registers the project.
 
 Installation does not start setup or change `AGENTS.md`.
@@ -125,20 +127,34 @@ The CLI version determines which skill names it requests. Skill contents come fr
 this repository's default branch, so pinning the CLI version does not pin the skills.
 The reviewer configuration comes from the CLI package.
 
-Codex [detects skill changes automatically](https://learn.chatgpt.com/docs/build-skills#create-a-skill).
-If installed skills do not appear, restart Codex. To initialize project reminders,
-explicitly request `kf-setup` in Codex; in the CLI or IDE, you can
+Codex [detects skill changes automatically](https://learn.chatgpt.com/docs/build-skills#create-a-skill),
+and Claude Code [watches skill directories](https://code.claude.com/docs/en/skills).
+If installed skills do not appear, restart the agent. To initialize project reminders,
+explicitly request `kf-setup`. In Codex, you can
 [mention the skill](https://learn.chatgpt.com/docs/build-skills#how-chatgpt-and-codex-use-skills):
 
 ```text
 $kf-setup
 ```
 
+In Claude Code, run it as a slash command:
+
+```text
+/kf-setup
+```
+
+`kf-setup` and `kf-codify-practices` run only when you invoke them; agents do not
+start them on their own.
+
 Setup adds or replaces its section in the project root `AGENTS.md` file.
 It keeps other project instructions.
 Setup does not add duplicate sections when you run it again.
 Setup runs only when explicitly requested. It is not a prerequisite for using the
 other skills and can be run again to refresh the managed reminders.
+
+Claude Code [reads `AGENTS.md`](https://code.claude.com/docs/en/memory#agents-md) when
+the project has no `CLAUDE.md`. If it has one, add an `@AGENTS.md` line to that
+`CLAUDE.md` so the reminders load; setup reports this but leaves `CLAUDE.md` to you.
 
 ## Optional extensions
 
@@ -210,13 +226,14 @@ GitHub and update registered projects:
 npx --yes github:KeterVM/k-fleet update --all
 ```
 
-A GitHub Release does not publish to npm. If files are present but Codex has not
-detected them, restart Codex; refreshing discovery cannot fix missing files.
+A GitHub Release does not publish to npm. If files are present but the agent has not
+detected them, restart it; refreshing discovery cannot fix missing files.
 
 ## Maintenance
 
 The `skills/` directory has the skill source files.
-The `.codex/agents/` directory has the reviewer configuration.
+The `.codex/agents/` and `.claude/agents/` directories have the reviewer configuration,
+with the same instructions for each agent.
 The `scripts/kf-projects.mjs` file has the CLI code.
 The CLI has no declared npm dependencies; installation delegates to the external
 `skills` CLI through `npx`.

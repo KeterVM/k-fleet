@@ -4,10 +4,12 @@ import { spawnSync } from "node:child_process";
 import {
   copyFileSync,
   existsSync,
+  lstatSync,
   mkdirSync,
   readFileSync,
   realpathSync,
   renameSync,
+  readlinkSync,
   rmSync,
   statSync,
   writeFileSync,
@@ -30,6 +32,13 @@ const kFleetSkills = [
   "kf-operate-product",
   "kf-evaluate-product",
   "kf-codify-practices",
+];
+// The skills CLI installs into .agents/skills (Codex) and links each skill from
+// .claude/skills (Claude Code).
+const skillAgents = ["codex", "claude-code"];
+const reviewerFiles = [
+  join(".codex", "agents", "kf-reviewer.toml"),
+  join(".claude", "agents", "kf-reviewer.md"),
 ];
 const retiredSkills = [
   "kf-orchestrate-work",
@@ -137,24 +146,33 @@ function selectProjects(args, registry) {
 }
 
 function installReviewer(project) {
-  const source = join(repositoryRoot, ".codex", "agents", "kf-reviewer.toml");
-  const destination = join(project, ".codex", "agents", "kf-reviewer.toml");
-  if (!existsSync(source)) fail("Reviewer source not found: " + source);
-  mkdirSync(dirname(destination), { recursive: true });
-  if (
-    existsSync(destination) &&
-    readFileSync(destination, "utf8") !== readFileSync(source, "utf8")
-  ) {
-    copyFileSync(destination, destination + ".bak");
+  for (const file of reviewerFiles) {
+    const source = join(repositoryRoot, file);
+    const destination = join(project, file);
+    if (!existsSync(source)) fail("Reviewer source not found: " + source);
+    mkdirSync(dirname(destination), { recursive: true });
+    if (
+      existsSync(destination) &&
+      readFileSync(destination, "utf8") !== readFileSync(source, "utf8")
+    ) {
+      copyFileSync(destination, destination + ".bak");
+    }
+    copyFileSync(source, destination);
+    console.log("Installed reviewer: " + destination);
   }
-  copyFileSync(source, destination);
-  console.log("Installed reviewer: " + destination);
+}
+
+function skillPaths(project, skill) {
+  return [
+    join(project, ".agents", "skills", skill, "SKILL.md"),
+    join(project, ".claude", "skills", skill, "SKILL.md"),
+  ];
 }
 
 function addKFleetSkills(project, skills) {
   run(
     "npx",
-    ["--yes", "skills", "add", kFleetSource, "--agent", "codex", "--skill", ...skills, "--yes"],
+    ["--yes", "skills", "add", kFleetSource, "--agent", ...skillAgents, "--skill", ...skills, "--yes"],
     { cwd: project },
   );
 }
@@ -170,7 +188,16 @@ function removeRetiredSkills(project) {
   const lockPath = join(project, "skills-lock.json");
   const lock = readJson(lockPath, null);
   for (const skill of retiredSkills) {
-    rmSync(join(project, ".agents", "skills", skill), { recursive: true, force: true });
+    const canonical = join(project, ".agents", "skills", skill);
+    rmSync(canonical, { recursive: true, force: true });
+    // Remove only the Claude Code link that points at the canonical copy.
+    const link = join(project, ".claude", "skills", skill);
+    try {
+      if (lstatSync(link).isSymbolicLink() &&
+        resolve(dirname(link), readlinkSync(link)) === canonical) rmSync(link);
+    } catch (error) {
+      if (error.code !== "ENOENT") throw error;
+    }
   }
   if (lock?.skills && retiredSkills.some((skill) => Object.hasOwn(lock.skills, skill))) {
     for (const skill of retiredSkills) delete lock.skills[skill];
@@ -184,7 +211,7 @@ function installProject(project) {
   const migrating = installedRetiredSkills(project).length > 0 ||
     retiredSkills.some((skill) => Object.hasOwn(locked, skill));
   const missing = kFleetSkills.filter((skill) =>
-    !existsSync(join(project, ".agents", "skills", skill, "SKILL.md")));
+    !skillPaths(project, skill).every((path) => existsSync(path)));
   if (migrating || missing.length) addKFleetSkills(project, migrating ? kFleetSkills : missing);
   removeRetiredSkills(project);
   if (!migrating && missing.length < kFleetSkills.length) {
@@ -202,9 +229,9 @@ function upgradeProject(project) {
 
 function printStatus(project) {
   const checks = [
-    ...kFleetSkills.map((skill) => [skill, join(project, ".agents", "skills", skill, "SKILL.md")]),
+    ...kFleetSkills.flatMap((skill) => skillPaths(project, skill).map((path) => [skill, path])),
     ["skills lock", join(project, "skills-lock.json")],
-    ["reviewer", join(project, ".codex", "agents", "kf-reviewer.toml")],
+    ...reviewerFiles.map((file) => ["reviewer", join(project, file)]),
   ];
   console.log("\n" + project);
   for (const [label, path] of checks) {

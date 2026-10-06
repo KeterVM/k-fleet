@@ -1,13 +1,14 @@
 {
   "name": "k-fleet",
-  "version": "3.4.0",
-  "description": "Install and update K Fleet skills across Codex projects",
+  "version": "3.5.0",
+  "description": "Install and update K Fleet skills across Codex and Claude Code projects",
   "type": "module",
   "bin": {
     "k-fleet": "scripts/kf-projects.mjs"
   },
   "files": [
     ".codex/agents/kf-reviewer.toml",
+    ".claude/agents/kf-reviewer.md",
     "scripts/kf-projects.mjs",
     "LICENSE",
     "NOTICE",
@@ -28,6 +29,7 @@
   "homepage": "https://github.com/KeterVM/k-fleet#readme",
   "keywords": [
     "codex",
+    "claude-code",
     "agent-skills",
     "orchestration"
   ],

@@ -3,6 +3,48 @@
 Notable changes to K Fleet are recorded here.
 Earlier entries describe their versions. Use the README for current installation and operation.
 
+## [3.5.0] - 2026-10-06
+
+### Added
+
+- Claude Code support. The CLI installs the skills for both Codex and Claude Code:
+  files stay in `.agents/skills/`, and `.claude/skills/` links to them. Updates also
+  remove Claude Code links to retired skills, leaving user-owned entries alone.
+- A Claude Code reviewer, `.claude/agents/kf-reviewer.md`, with the same instructions
+  as the Codex reviewer and read-only tools (no shell commands).
+
+### Changed
+
+- `kf-setup` and `kf-codify-practices` set `disable-model-invocation: true`, so Claude
+  Code runs them only when invoked (`/kf-setup`). Codex ignores the field and keeps
+  using `agents/openai.yaml`.
+- `kf-setup` checks method availability in installed skill directories as well as
+  discovery, since user-invoked skills may not appear in discovery. When a
+  `CLAUDE.md` would keep Claude Code from reading `AGENTS.md`, it tells the user to
+  add an `@AGENTS.md` line and leaves `CLAUDE.md` unchanged.
+- READMEs, package metadata, and maintainer guidance describe both agents.
+
+### Update
+
+- Run `npx --yes k-fleet@3.5.0 update` after npm publication, or
+  `npx --yes github:KeterVM/k-fleet update`. Add `--all` for registered projects.
+- In projects with a `CLAUDE.md`, add `@AGENTS.md` to it if you want Claude Code to
+  load the K Fleet reminders.
+
+### Validation
+
+- Installed into scratch projects from the local source: a fresh install created
+  both skill layouts and both reviewers; a Codex-only layout with a retired skill and
+  its Claude Code link migrated, removing the link and keeping an unrelated
+  `.claude/skills/` entry; `status` reported nothing missing.
+- Checked Codex's skill parser (`codex-rs/skills/src/parser.rs`) does not reject
+  extra frontmatter fields, and `claude plugin validate` accepted the reviewer.
+- Compared `kf-setup` 3.4.0 and 3.5.0 on two Claude Code probes (a `CLAUDE.md`
+  without the import; one with it), Haiku and Sonnet, one clean headless run each,
+  blind Sonnet scoring: 9/20 vs 20/20. 3.4.0 refused to write in 3 of 4 runs because
+  discovery did not list the user-invoked skills. Probes were written after the
+  change. Not yet observed in a live Claude Code or Codex session.
+
 ## [3.4.0] - 2026-10-06
 
 ### Changed

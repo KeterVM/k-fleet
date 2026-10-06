@@ -1,6 +1,7 @@
 ---
 name: kf-codify-practices
 description: Create or refine a project's own skills and guidance for its recurring procedures, styles, and constraints. Use only when the user explicitly asks to codify a project practice or improve a project skill.
+disable-model-invocation: true
 ---
 
 # Codify practices

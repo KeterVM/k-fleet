@@ -1,6 +1,7 @@
 ---
 name: kf-setup
 description: Initialize or refresh the K Fleet reminder block in a project's root AGENTS.md. Use only when the user explicitly asks to set up or refresh K Fleet.
+disable-model-invocation: true
 ---
 
 # Set up K Fleet
@@ -22,8 +23,10 @@ leaves the project with competing or misleading instructions.
    K Fleet's own source repository, keep its maintainer contract and report that
    consumer setup does not apply.
 
-2. **Check the methods.** Confirm through supported skill discovery that every method
-   named in the block is available. When any is missing, report which ones and that
+2. **Check the methods.** Confirm that every method named in the block is available,
+   through supported skill discovery or the installed skill directories; a skill
+   that only the user can invoke may be absent from discovery while still installed.
+   When any is missing, report which ones and that
    K Fleet needs installing or updating, and write nothing: the installer is the
    user's step.
 
@@ -43,8 +46,12 @@ leaves the project with competing or misleading instructions.
 
 5. **Finish.** Inspect the resulting file for one complete block and intact
    surrounding guidance. Report the target, whether the file was created, updated, or
-   unchanged, and the observed method availability. Setup shows the reminders are in
-   place, not that the skills are effective. Setup ends here; continue only with
+   unchanged, and the observed method availability. When a `CLAUDE.md`,
+   `.claude/CLAUDE.md`, or `CLAUDE.local.md` exists in the target or above it and
+   neither imports `AGENTS.md` (an `@AGENTS.md` line) nor links to it, tell the user
+   that Claude Code then reads those files instead of `AGENTS.md`, and that adding
+   `@AGENTS.md` to their `CLAUDE.md` loads the reminders; leave that file to them.
+   Setup shows the reminders are in place, not that the skills are effective. Setup ends here; continue only with
    substantive work the user included separately in the same request.
 
 ## Managed block

@@ -2,7 +2,8 @@
 
 ## Purpose
 
-K Fleet is the source repository for portable Codex product and engineering skills.
+K Fleet is the source repository for portable product and engineering skills for
+Codex and Claude Code.
 Keep the package small, inspectable, language-independent, and based on observable
 workflow behavior rather than framework-specific instructions.
 
@@ -13,7 +14,8 @@ workflow behavior rather than framework-specific instructions.
   design, codebase design, implementation, test writing, verification, release,
   operation, product evaluation, practice codification). Each skill owns its
   instructions and references.
-- `.codex/agents/kf-reviewer.toml`: the companion reviewer.
+- `.codex/agents/kf-reviewer.toml` and `.claude/agents/kf-reviewer.md`: the companion
+  reviewer for each agent; keep their instructions identical.
 - `.agents/skills/kf-research-skills/` and `.agents/skills/kf-skills-creator/`:
   maintenance skills for this repository only, outside the public catalog and
   consumer installation. `.claude/skills/` holds relative symlinks to them; edit
@@ -27,7 +29,9 @@ workflow behavior rather than framework-specific instructions.
 
 - **Setup.** `kf-setup` only initializes or refreshes root `AGENTS.md` reminders on
   explicit user request and stays user-triggered
-  (`policy.allow_implicit_invocation: false` in its `agents/openai.yaml`). It
+  (`policy.allow_implicit_invocation: false` in its `agents/openai.yaml` for Codex,
+  `disable-model-invocation: true` in its frontmatter for Claude Code). It only
+  reports, never writes, a missing `@AGENTS.md` import in `CLAUDE.md`. It
   preserves unrelated guidance; reminders stay concise and keep method selection,
   source authority, and project/worktree isolation, while procedures live in the
   skills. CLI installation only installs files and reminds the user to request
@@ -54,20 +58,22 @@ workflow behavior rather than framework-specific instructions.
   public skills and managed reminders, and never let setup install them.
 - **Practice codification.** `kf-codify-practices` creates or refines a consumer
   project's own skills and guidance for its recurring procedures and constraints,
-  only on explicit request (`policy.allow_implicit_invocation: false`). It derives
+  only on explicit request (the same two invocation settings as setup). It derives
   conventions from the project's current code, proposes before writing, and leaves
   installed K Fleet and third-party skills unchanged; it neither searches for nor
   installs third-party skills. `skill-creator` is used when available, with a
   self-contained fallback, never bundled or required. Written guidance stays
   unproven until actual use; ordinary work never silently rewrites skills.
-- **Reviewer.** `kf_reviewer` stays optional, read-only, model-neutral, and
+- **Reviewer.** `kf_reviewer` (Codex) and `kf-reviewer` (Claude Code, read-only tools)
+  stay optional, read-only, model-neutral, and
   advisory: it reports findings and evidence, never fixes them or declares
   overall readiness.
 
 ## Skill conventions
 
 - Prefix directory and frontmatter `name` with `kf-` and keep them identical.
-- Use only `name` and `description` frontmatter unless a verified need requires more.
+- Use only `name` and `description` frontmatter unless a verified need requires more;
+  user-triggered skills add `disable-model-invocation: true` (Codex ignores it).
 - Keep descriptions discriminating.
 - `SKILL.md` holds applicability, authority, stopping, and reference-selection
   rules; substantial procedures and task-specific contracts go in

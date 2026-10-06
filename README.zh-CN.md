@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-K Fleet 为 Codex 提供产品发现、体验设计、软件交付、发布、运维和效果评估技能。
+K Fleet 为 Codex 和 Claude Code 提供产品发现、体验设计、软件交付、发布、运维和效果评估技能。
 每个技能包含聚焦于具体方法的指令和参考材料，按任务需要选用。
 
 CLI 负责跨项目安装和更新这些文件。项目提醒由明确请求执行的 `kf-setup` 管理。
@@ -78,7 +78,8 @@ K Fleet 以四个思想为基础。
 这些方法不依赖特定的设计、分析或托管工具。
 安全评估、特定平台操作等工作，可按需使用专项技能。
 
-可选的 [`kf_reviewer`](.codex/agents/kf-reviewer.toml) agent 负责独立审查代码。
+可选的审查 agent 负责独立审查代码：Codex 中为 [`kf_reviewer`](.codex/agents/kf-reviewer.toml)，
+Claude Code 中为 [`kf-reviewer`](.claude/agents/kf-reviewer.md)。
 它只有读取权限。
 安装时会包含它的配置。
 它提供审查建议和支持证据。
@@ -108,28 +109,40 @@ npx --yes github:KeterVM/k-fleet install
 
 命令行工具（CLI）会执行以下操作：
 
-- 将公开技能安装到 `.agents/skills/`。
+- 将公开技能安装到 `.agents/skills/` 供 Codex 使用，并在 `.claude/skills/` 中建立链接供 Claude Code 使用。
 - 将技能记录到 `skills-lock.json`。
-- 将审查 agent 的配置复制到 `.codex/agents/`。
+- 将审查 agent 的配置复制到 `.codex/agents/` 和 `.claude/agents/`。
 - 注册当前项目。
 
 安装不会启动初始化，也不会修改 `AGENTS.md`。
 CLI 版本决定请求安装哪些技能，技能内容来自本仓库默认分支。
 因此，固定 CLI 版本不会同时固定技能源码版本。审查 agent 的配置来自 CLI 包。
 
-Codex 会[自动发现技能变更](https://learn.chatgpt.com/docs/build-skills#create-a-skill)。
-如果已安装的技能没有出现，再重启 Codex。需要初始化项目提醒时，明确请求使用 `kf-setup`；
-在 CLI 或 IDE 中，可以[提及该技能](https://learn.chatgpt.com/docs/build-skills#how-chatgpt-and-codex-use-skills)：
+Codex 会[自动发现技能变更](https://learn.chatgpt.com/docs/build-skills#create-a-skill)，
+Claude Code 也会[监视技能目录](https://code.claude.com/docs/en/skills)。
+如果已安装的技能没有出现，再重启 agent。需要初始化项目提醒时，明确请求使用 `kf-setup`。
+在 Codex 中，可以[提及该技能](https://learn.chatgpt.com/docs/build-skills#how-chatgpt-and-codex-use-skills)：
 
 ```text
 $kf-setup
 ```
+
+在 Claude Code 中，以斜杠命令运行：
+
+```text
+/kf-setup
+```
+
+`kf-setup` 和 `kf-codify-practices` 只在你调用时运行，agent 不会自行启动它们。
 
 初始化会在项目根目录的 `AGENTS.md` 文件中添加或更新自己的区块。
 它会保留其他项目指令。
 再次运行不会重复添加区块。
 初始化只在明确请求时执行，不是使用其他技能的前置步骤。
 需要刷新提醒时，可以再次执行。
+
+项目没有 `CLAUDE.md` 时，Claude Code 会[读取 `AGENTS.md`](https://code.claude.com/docs/en/memory#agents-md)。
+如果项目已有 `CLAUDE.md`，请在其中加入一行 `@AGENTS.md` 来加载提醒；初始化会提示这一点，但不会修改 `CLAUDE.md`。
 
 ## 可选扩展
 
@@ -196,13 +209,13 @@ npm view k-fleet dist-tags --json
 npx --yes github:KeterVM/k-fleet update --all
 ```
 
-创建 GitHub Release 不会自动发布 npm 包。如果文件已安装但 Codex 尚未发现，再重启 Codex；
+创建 GitHub Release 不会自动发布 npm 包。如果文件已安装但 agent 尚未发现，再重启它；
 刷新技能发现不能补齐缺失的文件。
 
 ## 维护
 
 `skills/` 存放技能源文件。
-`.codex/agents/` 存放审查 agent 的配置。
+`.codex/agents/` 和 `.claude/agents/` 存放审查 agent 的配置，两者指令相同。
 `scripts/kf-projects.mjs` 存放 CLI 代码。
 CLI 没有声明 npm 依赖；安装时通过 `npx` 调用外部 `skills` CLI。
 
