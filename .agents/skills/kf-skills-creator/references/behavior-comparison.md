@@ -27,19 +27,45 @@ Example probe (illustrative):
 
 ## Running (step 7)
 
-1. **Snapshot both versions** into the scratch directory: the old version from
-   `git show HEAD:<path>` (or "no skill" for a new skill) and the working copy.
+1. **Snapshot both versions** into the scratch directory: the working copy, and as
+   the old version the skill at the last release tag
+   (`git show <tag>:<path>`, or "no skill" for a new skill). Comparing against the
+   release rather than `HEAD` also covers unverified edits made since the release.
+   Name the baseline commit in the report.
 2. **Pick models.** Run at least two, from different vendors when available. A
    smaller model shows more clearly how much the text steers it. Note which models
    were not covered.
-3. **Run each probe against each version and model** in parallel, read-only, with
-   the same prompt apart from the skill path. Ask for: open points with their
+3. **Run each probe against each version and model** in a clean context, with the
+   same prompt apart from the skill text. Ask for: open points with their
    classification, the exact message to the user, what the agent decides and does
    while waiting, and draft acceptance conditions.
 4. **Score blind.** Strip version names and skill paths from the outputs, label
    each pair A and B in a random order recorded only in the scratch directory, and
-   have a separate agent score against the saved rubric. Reveal the mapping after
-   scoring.
+   have a separate agent, also in a clean context, score against the saved rubric.
+   Reveal the mapping after scoring.
+
+### Clean context
+
+A probe run must see only the skill text and the probe. Subagents started from the
+maintainer's session can inherit what contaminates the result: the session's hooks,
+user and project instructions, the skill listing, and a working directory where
+`AGENTS.md`, the authoring guidance, git history, and the other version are
+readable. The prompt itself leaks too when it says "old", "new", or "restyled".
+
+- Run each probe as a separate headless session with customizations off, no file
+  tools, and everything inline on stdin, from an empty scratch directory. For
+  Claude Code:
+  `cat prompt.txt | claude -p --safe-mode --no-session-persistence --model <m> --tools ""`
+  (`--tools` takes a list, so pass the prompt on stdin). For another vendor's CLI,
+  find its equivalent switches and check them before relying on them.
+- Put the skill text and the probe facts in the prompt; label the skill only by its
+  `name`, never by version.
+- Before the first run with a new command or CLI, check the session's own record
+  of what it loaded rather than asking the model, which can describe tools and
+  files it does not have. For Claude Code, add
+  `--output-format stream-json --verbose --include-hook-events` to one run and
+  confirm that no hook events appear and the init event lists no tools and no MCP
+  servers. Keep the result with the scratch files.
 
 ## Reading results
 

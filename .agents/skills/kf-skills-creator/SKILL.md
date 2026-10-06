@@ -63,7 +63,8 @@ test what the draft already does well).
    change, or are listed for a later sync when the maintainer has deferred them. The
    checklist is in [Restyle and consistency](references/restyle-and-consistency.md).
 
-7. **Run the comparison** fixed in step 4, with blind scoring.
+7. **Run the comparison** fixed in step 4 against the last release, each run in a
+   clean context, with blind scoring.
 
 8. **Report and hand off.** Report what changed, the inventory outcome, check
    results, comparison results with their limits, deferred integration surfaces, and
