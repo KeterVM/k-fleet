@@ -3,184 +3,129 @@
 ## Purpose
 
 K Fleet is the source repository for portable Codex product and engineering skills.
-
 Keep the package small, inspectable, language-independent, and based on observable
 workflow behavior rather than framework-specific instructions.
 
 ## Repository map
 
-- `README.md` documents the architecture, runtime prerequisites, installation,
-  operation, and maintenance guidance.
-- `skills/` contains public skills for setup, product discovery, requirements,
-  experience design, codebase design, implementation, test writing, verification,
-  release, operation, product evaluation, and skill improvement. Each skill owns
-  its instructions and references; setup manages target-project reminders.
-- `.codex/agents/kf-reviewer.toml` defines the companion reviewer.
-- `.agents/skills/kf-research-skills/` and `.agents/skills/kf-skills-creator/`
-  contain this source repository's maintenance skills for skill research and for
-  creating or restyling kf-* skills. They are outside the public catalog and
-  consumer installation. `.claude/skills/` holds relative symlinks to them so
-  Claude Code discovers the same sources; edit them under `.agents/skills/`.
-- `scripts/kf-projects.mjs` implements the zero-dependency `k-fleet` npm CLI exposed
-  by `package.json`.
-- `docs/` records skill-authoring guidance and workflow composition.
-- `.github/`, `CONTRIBUTING.md`, and `SECURITY.md` define contribution and
-  vulnerability-reporting workflows.
+- `README.md`: architecture, prerequisites, installation, operation, maintenance.
+- `skills/`: the public catalog (setup, product discovery, requirements, experience
+  design, codebase design, implementation, test writing, verification, release,
+  operation, product evaluation, skill improvement). Each skill owns its
+  instructions and references.
+- `.codex/agents/kf-reviewer.toml`: the companion reviewer.
+- `.agents/skills/kf-research-skills/` and `.agents/skills/kf-skills-creator/`:
+  maintenance skills for this repository only, outside the public catalog and
+  consumer installation. `.claude/skills/` holds relative symlinks to them; edit
+  the sources under `.agents/skills/`.
+- `scripts/kf-projects.mjs`: the zero-dependency `k-fleet` npm CLI in `package.json`.
+- `docs/`: [skill authoring guidance](docs/skill-authoring.md) and
+  [workflow method composition](docs/workflow-methods.md).
+- `.github/`, `CONTRIBUTING.md`, `SECURITY.md`: contribution and vulnerability reporting.
 
-## Architecture responsibilities
+## Architecture boundaries
 
-- `kf-setup` only initializes or refreshes root `AGENTS.md` reminders on explicit
-  user request. Product and engineering
-  skills own their respective methods. Product evaluation assesses user or business
-  outcomes; skill improvement assesses the agent's methods. Release and operation
-  carry existing authority without granting new production or external-action rights.
-- Backend choice, source authority, isolation, and maintenance boundaries are
-  recorded in [Learned Rules](#learned-rules). External memory is optional and
-  supplies evidence, never permission. Users or projects choose their integration;
-  K Fleet does not implement backend operations or adapters.
-- Task feedback can trigger `kf-evolve-skills` for authorized skill discovery,
-  installation, or creation. It must diagnose the gap, inspect available guidance,
-  and assess actual use before claiming improvement. Ordinary implementation does
-  not silently rewrite core skills; changes remain scoped, versioned, and reversible.
+- **Setup.** `kf-setup` only initializes or refreshes root `AGENTS.md` reminders on
+  explicit user request and stays user-triggered
+  (`policy.allow_implicit_invocation: false` in its `agents/openai.yaml`). It
+  preserves unrelated guidance; reminders stay concise and keep method selection,
+  source authority, and project/worktree isolation, while procedures live in the
+  skills. CLI installation only installs files and reminds the user to request
+  `kf-setup`; it never invokes setup or edits root instructions.
+- **This file is not the bootstrap.** Keep it as the complete maintainer contract;
+  the minimal managed bootstrap goes only to repositories that install K Fleet.
+  Reminders preserve explicit project requirements and pause only work that
+  depends on missing evidence or capabilities.
+- **Method ownership.** Product and engineering skills own their methods. Product
+  evaluation assesses user or business outcomes; skill improvement assesses the
+  agent's methods. Release and operation carry existing authority without granting
+  new production or external-action rights. Select methods as needed (including
+  test-first work and returning to an affected decision); never require every
+  method for every task.
+- **Self-contained skills.** Required instructions and file references stay inside
+  the skill's own directory. Refer to other methods by skill name; never link into
+  another skill's files.
+- **External memory is optional.** Engineering methods work without it; users or
+  projects choose an integration or none. Memory supplies evidence, never
+  permission; recalled inferences stay unapproved; current sources stay
+  authoritative; canonical repository/worktree identity and authorized scope are
+  respected. K Fleet supplies no backends or adapters. Keep provider names,
+  backend configuration, connectivity checks, hooks, and memory operations out of
+  public skills and managed reminders, and never let setup install them.
+- **Capability improvement** goes through `kf-evolve-skills`: diagnose the gap,
+  inspect available guidance, and assess actual use before claiming improvement.
+  Use `find-skills` and `skill-creator` when available, with a self-contained
+  fallback; never bundle copies or require them for all work. Inspect candidate
+  content and dependencies before installing, prefer project scope, and preserve
+  unrelated skills. Do not create a skill for every failure or treat installation
+  as closing the feedback loop. Ordinary implementation never silently rewrites
+  core skills; changes stay scoped, versioned, and reversible.
+- **Reviewer.** `kf_reviewer` stays optional, read-only, model-neutral, and
+  advisory: it reports findings and evidence, never fixes them or declares
+  overall readiness.
 
-## Conventions
+## Skill conventions
+
+- Prefix directory and frontmatter `name` with `kf-` and keep them identical.
+- Use only `name` and `description` frontmatter unless a verified need requires more.
+- Keep descriptions discriminating.
+- `SKILL.md` holds applicability, authority, stopping, and reference-selection
+  rules; substantial procedures and task-specific contracts go in
+  purpose-labelled references linked at the relevant decision point.
+- Keep target-project facts in that project's guidance, not in portable skills.
+- Add dependencies, build tooling, generated files, or scripts only for a concrete
+  problem, and explain the benefit and maintenance cost.
+
+## Changes and evidence
 
 - Adding a public entry point or changing the installation contract or backend
-  responsibilities requires an explicit design decision. Claims of improved
-  behavior require observations that support them. Routine edits within those contracts do not require a new policy decision.
-- Prefix the skill directory and frontmatter name with `kf-`; keep directory and
-  frontmatter names identical.
-- Use only supported `name` and `description` frontmatter unless a verified need
-  requires optional metadata.
-- Keep method descriptions discriminating. Setup must remain user-triggered with
-  `policy.allow_implicit_invocation: false` in its `agents/openai.yaml`.
-- Put method applicability, authority, stopping, and reference-selection rules in
-  `SKILL.md`. Put substantial procedures and task-specific contracts in
-  purpose-labelled references, linked at the relevant decision point.
-- Setup must preserve unrelated guidance and must not install or configure memory
-  integrations or their hooks. Keep root reminders concise and method procedures
-  inside their skills. CLI installation only installs files and reminds the user
-  to explicitly request `kf-setup`; it never invokes setup or edits root instructions.
-- Memory integrations must respect canonical repository/worktree identity and
-  authorized scope; recalled inferences remain unapproved evidence.
-- Keep detailed target-project facts in that project's guidance or source documents,
-  not in the portable K Fleet skill.
-- Add dependencies, build tooling, generated files, or scripts only to solve a
-  concrete problem; explain the benefit and maintenance cost.
+  responsibilities requires an explicit design decision. Routine edits within
+  those contracts do not.
+- Judge instruction changes by the decisions and outcomes they should improve.
+  Claims of better behavior need actual task observations with stated scope and
+  limits; formatting, syntax, packaging, or scripted checks never establish skill
+  effectiveness, and historical scores do not transfer to changed instructions.
+- Maintenance checks: keep frontmatter, directory/name agreement, internal
+  reference routing, links, README accuracy, and installation behavior consistent
+  with the catalog. Review only affected surfaces and report what was checked.
+- Do not recreate test suites, validation scripts, evaluation corpora, example
+  projects, or test CI without an explicit request. The test-writing and
+  verification skills describe target-project work, not a harness for this repo.
+- Commit and push authorized changes directly to `main`; branch only on request.
 
-## Maintenance checks
+## Engineering principles
 
-Keep frontmatter, directory/name agreement, internal reference routing, links,
-README accuracy, and installation behavior consistent with the current catalog.
-Review only the affected surfaces and report what was actually checked. Syntax,
-file structure, and packaging checks do not establish that a skill makes good
-engineering decisions.
+Four complementary foundations, operating at different levels
+(detail in [skill authoring guidance](docs/skill-authoring.md)):
 
-Do not recreate repository test suites, validation scripts, evaluation corpora,
-example projects, or test CI without an explicit user request. Assess skill quality
-through actual task decisions and outcomes when relevant, stating the observed
-scope and limitations. Do not transfer historical scores to changed instructions.
-The test-writing and verification skills describe work in target projects; their
-presence does not require this repository to maintain a test harness.
+- **First principles:** separate the real goal, facts, constraints, and
+  assumptions; derive necessary capabilities and check that together they suffice.
+- **Methodology:** choose an explicit method suited to the task; following steps
+  does not by itself establish correctness or policy compliance.
+- **Control theory:** compare observed outcomes with the intended result, correct
+  from evidence, and define when to stop or change strategy.
+- **Double-loop learning:** distinguish fixing an implementation from revising the
+  assumptions, methods, or criteria behind it. One failure does not justify a new
+  rule; learning never grants authority to change user goals.
 
-<!-- self-reflect:start -->
+Before consequential decisions, verify premises that could change the conclusion
+using current source, version-matched docs, or runtime observation; separate
+facts, inferences, and preferences. Investigate answerable questions; ask only for
+missing intent or material choices. When challenged, recheck premises and explain
+any revision. These principles are a framework whose value must show in actual
+decisions; public capability boundaries remain explicit design choices.
 
-## Learned Rules
+## Skill authoring
 
-- Commit and push authorized repository changes directly to `main` by default;
-  create a feature branch only when the user explicitly requests one.
-- Keep K Fleet's source-repository `AGENTS.md` as a complete maintainer contract.
-  Retain the repository map, architecture invariants, conventions, and validation
-  contract; never replace this guide with the installation bootstrap.
-  Apply the minimal managed bootstrap only to repositories that install K Fleet,
-  through explicitly requested idempotent `kf-setup`. Keep method selection,
-  source authority, and project/worktree isolation in the reminders. Preserve
-  explicit project requirements; pause only work that depends on missing evidence
-  or capabilities.
-- Each skill must be self-contained: its required instructions and file references
-  stay inside its own directory. Refer to other methods by skill name; do not link
-  into another skill's files to complete a method. Capability improvement uses
-  `kf-evolve-skills`. Select methods as needed, including test-first work and returning
-  to an affected decision; never require every method for every task. See
-  [Workflow method composition](docs/workflow-methods.md) for the selection contract.
-- Keep engineering methods independent of external memory. Users or projects choose
-  their preferred integration or none. Keep provider names, backend configuration,
-  connectivity checks, hook handling, and memory-operation instructions out of public
-  skills and managed reminders. K Fleet supplies no backend implementations or
-  adapters. Current sources remain authoritative and project/worktree isolation is
-  required; optional integrations do not add prerequisites to ordinary methods.
-  Skill changes require authorized, versioned, reversible source maintenance.
-- Use `find-skills` and `skill-creator` when available for capability improvement;
-  keep a self-contained fallback rather than bundling copies or requiring them for
-  all work. Inspect candidate content and dependencies before installation. Prefer
-  project scope and preserve unrelated skills. Do not create new skills for every
-  failure or claim that installation alone closes the feedback loop.
-- Keep `kf_reviewer` optional, read-only, model-neutral, and advisory. It reports
-  findings and evidence without fixing them or declaring overall task readiness.
-- Judge instruction changes by the decisions and outcomes they are intended to
-  improve. Keep claims tied to actual observations; do not treat formatting or
-  scripted checks as evidence of skill effectiveness.
-
-### Foundational engineering principles
-
-Use four complementary intellectual foundations to guide engineering decisions.
-They operate at different levels, not as four equivalent formal theories:
-
-- **First principles:** distinguish the real goal, established facts, constraints,
-  and unverified assumptions. Derive necessary capabilities from those premises;
-  check that their composition is sufficient for the intended scenario. Challenge
-  assumptions without discarding relevant evidence or established engineering knowledge.
-- **Methodology:** select an explicit method suited to the task and its conditions.
-  Methods must guide reasoning and delivery; following their steps does not by itself
-  establish correctness or compliance with repository policy.
-- **Control theory:** compare observable outcomes with the intended result, use
-  evidence to correct deviations, and define when to stop or change strategy.
-  Feedback requires useful measurements and corrective actions; repeated attempts
-  alone do not establish a working control loop or guarantee convergence.
-- **Double-loop learning:** distinguish correcting an implementation from revising
-  the assumptions, methods, or evaluation criteria that produced it. Repeated or
-  otherwise sufficient evidence may justify a proposed revision; one failure does
-  not automatically justify another rule. Apply existing authority and maintenance
-  boundaries before adoption; learning never grants permission to change user goals.
-
-Before consequential decisions, verify factual premises that could change the
-conclusion; distinguish facts, inferences, and user preferences. Reuse sufficient
-evidence, using current source, version-matched official documentation, or runtime
-observations as appropriate. Investigate answerable factual questions directly;
-ask when missing user intent or a material choice requires user input. Make material
-uncertainty explicit. When challenged, recheck the relevant premises; revise
-conclusions for changed goals, new evidence, or identified reasoning errors, and
-explain the basis for the revision.
-
-For material decisions, be able to answer these questions using proportionate
-working evidence, without requiring a fixed report for every task:
-
-1. Which premises are established facts, and which remain assumptions?
-2. Why does this method fit the task, and under what conditions does it apply?
-3. What evidence could reveal an error, and when should execution stop or change?
-4. Does the evidence call for correcting the implementation, or is it sufficient
-   to propose revising the method or its assumptions?
-
-Treat these principles as a design framework whose value must be demonstrated in
-observable decisions and outcomes. Public capability boundaries are explicit design
-choices, not a consequence of these four foundations.
-
-### Skill authoring reference
-
-Use the project-local `kf-research-skills` when creating, assessing, or materially
-revising skills depends on unsettled engineering or agent-behavior premises. Reuse
-adequate evidence for routine changes. Use the project-local `kf-skills-creator`
-to create a kf-* skill or restyle an existing one. Keep these maintenance
-capabilities out of the public catalog, CLI installation list, and consumer setup
-reminders.
-
-When creating or materially revising skills, consult the applicable guidance in
-[Skill authoring guidance](docs/skill-authoring.md), which records its sources and
-their check dates. Keep discovery concise, disclose detail progressively, and favor decision
-criteria over rigid itineraries. Teach a method's hardest boundaries with short,
-varied, illustrative examples and positive instructions. Preserve
-real constraints and authorized completion while removing redundant reads, tests,
-and approval stops. Model-specific claims require evidence; they do not automatically
-apply to other models or justify weakening user rules.
-
-<!-- self-reflect:end -->
+- Use `kf-research-skills` when creating, assessing, or materially revising a
+  skill depends on unsettled engineering or agent-behavior premises; reuse
+  adequate evidence for routine changes.
+- Use `kf-skills-creator` to create or restyle a kf-* skill.
+- Keep both out of the public catalog, CLI installation list, and setup reminders.
+- Follow [skill authoring guidance](docs/skill-authoring.md), which records its
+  sources and their check dates: concise discovery,
+  progressive disclosure, decision criteria over itineraries, short varied
+  examples and positive instructions for the hardest boundaries. Preserve real
+  constraints and authorized completion while removing redundant reads, tests,
+  and approval stops. Model-specific claims need evidence on that model and never
+  justify weakening user rules.
