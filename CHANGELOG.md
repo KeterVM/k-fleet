@@ -3,6 +3,59 @@
 Notable changes to K Fleet are recorded here.
 Earlier entries describe their versions. Use the README for current installation and operation.
 
+## [3.6.0] - 2026-10-07
+
+### Added
+
+- Spec handoff. `kf-define-requirements` writes a spec (default
+  `docs/specs/<feature>.md`) for a new project or feature, work likely to span
+  sessions or methods, or on request, using its new `writing-the-spec.md`
+  reference. Each decision records its source (`user`, `delegated`, `evidence`,
+  `assumed`) and what it depends on. `kf-implement`, `kf-design-codebase`, and
+  `kf-verify` read the spec when given its path (`/kf-implement docs/specs/x.md`)
+  and keep it current. Bounded changes need no spec; there are no tickets,
+  trackers, backends, or hooks.
+
+### Changed
+
+- Any user override of the agent's choice or recommendation, classified or not,
+  triggers a list of the decisions that assumed it; each is revised, dropped, or
+  reclassified, and the spec is updated when there is one.
+- Each added structure, dependency, or deployment piece must trace to the user, the
+  requirements, or an external constraint; goals the agent set itself are
+  assumptions to confirm. Ownership and contract decisions include which artifacts
+  ship and who hosts or operates them, with a new delivery-shape example in
+  `kf-design-codebase`.
+- Product questions go out in numbered rounds with a recommendation each; what the
+  request states is settled. A short instruction to continue is not delegation, and
+  a framework default leaves a user-visible choice open. `kf-implement` reports
+  user-visible behavior it chose without confirmation.
+- Methods apply again to each new task or milestone, including after context
+  compaction.
+- References are routed by observable events (adding a package, layer, build
+  artifact, or deployment piece; a user override; a first design) as well as stuck
+  decisions.
+
+### Update
+
+- Run `npx --yes k-fleet@3.6.0 update` after npm publication, or
+  `npx --yes github:KeterVM/k-fleet update`. Add `--all` for registered projects.
+
+### Validation
+
+- Prompted by two field reports from one greenfield project on 3.5.0 (Go/Fiber, Vue,
+  Postgres, S3): no reference was read, an override left a self-set "single binary"
+  goal in place, and several user-visible defaults were chosen without asking.
+- Compared each change against its predecessor in clean headless Claude Code runs
+  (Sonnet and Haiku), blind Opus scoring. Override and need-source change: four
+  probes tied on three; a Haiku regression on requirements overrides was reworded
+  and rechecked. Spec change: six probes, 28/60 vs 38/60; a shared gap (framework
+  defaults treated as settled) and a Haiku regression (a spec written for a small
+  fix) were revised and rechecked with fresh probes, ending neutral or better.
+- Limits: Anthropic models only, few runs per cell, probes and rubrics by one
+  author, references inlined rather than read with tools. Not yet observed in a live
+  project or in Codex.
+
 ## [3.5.0] - 2026-10-06
 
 ### Added

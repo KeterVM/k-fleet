@@ -110,6 +110,14 @@ and intent already support a bounded task. Experience design resolves how users
 complete the task; codebase design resolves code responsibilities and contracts.
 They can inform each other without requiring a design document or separate agent.
 
+Requirements owns the spec: for a new project or feature, work likely to span
+sessions or methods, or on request, it writes one file (default
+`docs/specs/<feature>.md`) recording decisions with their source (user, delegated,
+evidence, assumed) and dependencies. Later methods start from its path and keep it
+current, so a new session continues from the spec rather than from memory. The
+spec stops at agreed behavior and design; it is not a ticket plan, and bounded
+changes need none.
+
 Verification assesses whether behavior satisfies the contract. Release establishes
 that a known artifact reached its intended environment or distribution channel and
 checks the resulting state. Operation addresses continuing service health and

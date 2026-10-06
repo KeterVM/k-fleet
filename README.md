@@ -51,7 +51,7 @@ Use decisions and results from actual tasks to examine skill quality.
 | --- | --- |
 | `kf-setup` | Add or replace root `AGENTS.md` reminders only when the user tells the agent to do setup. |
 | `kf-discover-product` | Investigate uncertain user problems, alternatives, and product value before committing to a solution. |
-| `kf-define-requirements` | Make the intended behavior, scope, and acceptance criteria clear. |
+| `kf-define-requirements` | Make the intended behavior, scope, and acceptance criteria clear; write a spec for a new feature or multi-session work. |
 | `kf-design-experience` | Design user journeys, interactions, content, and presentation; distinguish inspection from observed usability. |
 | `kf-design-codebase` | Design or assess code responsibilities, interfaces, structure, and mainstream library or framework choices. |
 | `kf-implement` | Make complete code changes with clear responsibilities, names, placement, and dependencies. Reuse suitable code and correct design problems exposed during implementation. |
@@ -78,6 +78,13 @@ Product discovery asks which problem is worth solving; requirements define the
 agreed behavior. Experience design addresses how people use the product; codebase
 design addresses how the code is organized. Verification, successful release, and
 evidence of product value are different outcomes. Select these methods as needed.
+
+For a new project or feature, or work that spans sessions, requirements writes a
+spec file (default `docs/specs/<feature>.md`) that records each decision with its
+source and dependencies. The spec is the handoff: start the next session with
+`/kf-implement docs/specs/<feature>.md` in Claude Code or
+`$kf-implement docs/specs/<feature>.md` in Codex. Design and verification read it
+the same way. Bounded changes need no spec.
 
 Release and operation reuse existing authorization. A preparation or assessment
 request does not itself permit production changes, publication, or user contact.
