@@ -24,8 +24,8 @@ Choose states through actual behavior, not a universal screen checklist. Clarify
   understood before commitment.
 - How completion is distinguished from accepted, queued, or incomplete work.
 
-Make feedback perceivable through the relevant interaction modes. Do not use color
-alone to communicate meaning. Plan logical focus movement, accessible names and
+Make feedback perceivable through the relevant interaction modes. Pair color with
+text, an icon, or shape so meaning survives without it. Plan logical focus movement, accessible names and
 errors, and keyboard paths for interactive controls. Check long content, localization,
 zoom, and narrow layouts where supported use makes them consequential.
 

@@ -32,6 +32,6 @@ Never manufacture research participants or simulated approval. Stop once the
 specific design uncertainty is resolved or cannot be answered with available evidence.
 
 Carry the supported changes and remaining uncertainty into implementation. When
-runtime behavior matters, check the implemented interaction on the relevant surface;
-prototype evidence does not prove that the delivered controls, states, or focus
-behavior match the design.
+runtime behavior matters, run an implementation check of the delivered interaction
+on the relevant surface; prototype evidence shows the concept works, while the
+implementation check shows the delivered controls, states, and focus behavior match it.

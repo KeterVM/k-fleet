@@ -1,75 +1,113 @@
 ---
 name: kf-design-experience
-description: Resolve user journeys, interactions, and interface design when how people will complete a product task is unsettled or needs improvement.
+description: Decide user journeys, interactions, states, and presentation so people can complete a product task. Use when that experience is new, materially changed, observed to fail, or the subject of the request.
 ---
 
 # Design experience
 
-Make the intended user outcome achievable through a coherent interaction and
-appropriate presentation. Use for new or materially changed experiences, observed
-usability problems, or requested design work. Reuse established patterns for routine
-edits; do not redesign an interface merely because implementation touches it.
+Make the intended user outcome achievable through a coherent journey, honest states,
+and presentation that fits the product. Code ownership and contracts belong to
+`kf-design-codebase`; uncertain product value belongs to `kf-discover-product`. A
+routine edit that an established pattern already covers goes straight to
+implementation with that pattern, even when the code around it changes.
 
-## Select supporting guidance
+## Method
 
-- For journeys, information organization, interaction, or missing states, read
-  [Flows and states](references/flows-and-states.md).
-- For design fidelity, prototypes, or usability evidence, read
-  [Prototype and evaluate](references/prototype-and-evaluate.md).
+These are the decisions to settle, in their usual order; skip any the request
+already answers. One ordering is fixed: make the journey completable, including its
+failure and recovery states, before refining presentation, because a polished screen
+cannot rescue a task the user is unable to finish.
 
-## Scope and authority
+1. **Ground the task.** Name the user, the trigger, what they know and may access
+   when they arrive, the intended outcome, and how they recognize completion. Collect
+   the constraints already set: requirements, brand, supported devices, design
+   system, and access needs. Existing screens show current behavior; the request may
+   want something different. Answer factual questions (what a field feeds, which
+   states the backend reports, which accessibility target applies) from the project
+   yourself rather than asking.
 
-Preserve established requirements, brand constraints, supported devices, and access
-needs. Ask when missing intent changes the audience, goal, behavior, or scope; wait
-before committing dependent design and continue independent work. Resolve accessible
-facts from current project evidence. Existing screens show current behavior, not
-necessarily the desired product decision.
+2. **Trace the journey and classify each open point.** Follow entry points,
+   prerequisite information, decisions, feedback, and recovery through to the
+   outcome, and note which states the system can actually reach (pending, empty,
+   partial, failed, permission lost, queued versus done).
 
-Use authorized project material and tools. Design work does not itself authorize
-publishing prototypes, contacting users, buying assets, or changing a live service.
-Carry existing authorization into implementation when it is part of the task;
-do not add routine approval stops between design and delivery.
+   | Kind | Test | Action |
+   | --- | --- | --- |
+   | Established pattern | The design system or an existing flow already covers this task shape, and the request is not about it | Reuse it; change it only on evidence that it blocks the outcome |
+   | Product intent | Plausible readings change the audience, goal, what users can do, or scope, and project evidence cannot settle it | Ask, then continue work that holds under every answer |
+   | Consequential interaction | The choice decides whether users can finish, recover, understand an irreversible effect, or operate it with keyboard and assistive technology | Decide it here from the traced journey and the system's real behavior; specify its states and wording |
+   | Uncertain usability | Candidate designs meet the obligations, and inspection cannot tell which people will complete | Gather evidence at the lowest fidelity that discriminates (step 4) |
+   | Routine presentation | The choice concerns layout, placement, labels, or how options are formatted, and you can judge it from the user's task within the design system | Choose, state the choice, and move on |
 
-Own the user-facing experience. Code responsibility and interface contracts belong
-to `kf-design-codebase`; validate uncertain product value through
-`kf-discover-product` when needed. Available visual-design or platform-specific
-skills can support execution but are not required dependencies of this method.
+   Judge by consequence, not visual size: a confirmation label that says "Done" while
+   work is still queued is consequential; a new page that copies an existing pattern
+   is routine. When the experience itself is the subject of the request, existing
+   patterns are candidates, not settled inputs.
 
-## Choose an experience that supports the task
+3. **Shape the interaction and presentation.** Choose navigation, grouping, terms,
+   and controls that follow the user's task and let them predict what happens next.
+   Use realistic content to expose layout and comprehension problems. Set hierarchy,
+   typography, spacing, and color by task priority and the product's character,
+   reusing the design system; visual-design or platform skills may help when
+   available. Cover focus, keyboard paths, contrast, readable content, and
+   responsive behavior wherever supported use reaches them.
 
-Identify the user, trigger, starting context, intended outcome, and how completion
-will be recognized. Trace the whole relevant journey, including entry, prerequisite
-information, decisions, feedback, and recovery. Address the interaction that blocks
-the outcome before polishing isolated screens.
+4. **Get evidence that fits the question.** Use the cheapest form that represents the
+   disputed behavior faithfully: a sketch for organization, working interaction for
+   focus, latency, or recovery. Walk representative tasks through the design, and
+   observe representative users when that is available and authorized. Label each
+   result by kind:
 
-Choose navigation, grouping, terminology, and controls that reflect the user's
-tasks and information needs. Make consequential choices and their effects clear.
-Use concrete content to expose layout and comprehension problems. Align typography,
-spacing, color, and visual hierarchy with the product's character and task priority;
-reuse a suitable design system rather than inventing competing conventions.
+   - *inspection*: your walkthrough, heuristic, or automated check;
+   - *observation*: what real users did with a prototype or product;
+   - *implementation check*: the delivered controls, states, and focus behavior on
+     the target surface.
 
-Account for relevant loading, empty, error, permission, success, and recovery states.
-Consider keyboard and assistive-technology use, focus, contrast, readable content,
-and responsive behavior where they affect the experience. Determine applicable
-accessibility targets from the project and current standards; do not claim compliance
-from a mockup, one automated scan, or visual inspection alone.
+5. **Stop and hand off** when the requested design decisions are supported, or a
+   material dependency is unavailable. Carry forward flows, content, states,
+   interaction details, tradeoffs, and what remains untested, in the project's
+   existing format and only as much as the next action needs. For an implementation
+   task, continue through integration and the relevant checks.
 
-Use the lowest fidelity that can resolve the material uncertainty. A sketch may
-resolve organization; a working interaction may be necessary to assess focus,
-latency, or recovery. Do not require polished assets before a structural decision,
-or present a static image as evidence of functional behavior.
+   When observation or implementation contradicts the design (people miss the
+   control, the backend reports a state the design lacks), revise the journey
+   decision that produced it rather than polishing the screen. When the user
+   overrides a choice you classified as routine or established, re-run step 2 for
+   related points.
 
-## Carry the design into delivery
+## Examples (illustrative)
 
-Provide enough flow, content, state, and interaction detail for the next action,
-using the project's existing format. Explain material tradeoffs and unresolved
-questions without prescribing a fixed number of screens or alternatives.
+**Looks like polish, is a consequential state.** "Make the order confirmation page
+look nicer." Tracing the journey shows that payment capture is asynchronous: the
+page says "Order confirmed" while capture can still fail, and nothing tells the
+customer afterwards. Correct the page's wording and states first ("Order received,
+payment processing"). Telling customers later about a failed capture reaches beyond
+this page, so ask about it, and do the visual refresh meanwhile.
 
-Check representative tasks against the design and, when available and authorized,
-observe representative users. Distinguish designer inspection, actual usability
-observations, and implementation checks. Revise the affected decision when evidence
-exposes a problem; a visually finished screen does not prove a usable journey.
+**Looks like open design, is an established pattern.** "Let people see archived
+projects in the project list." Where the control goes and how it looks seem worth
+exploring, but the list already filters by status with a chip row. Add "Archived"
+to that row, write the empty-state text ("No archived projects"), and state the
+choice; no prototype is needed.
 
-Stop when the requested design decisions are supported or a material dependency is
-unavailable. State what remains untested. For an implementation task, continue through
-integration and relevant checks rather than ending at a design handoff.
+## Supporting references
+
+Read a reference only for the decision that is stuck:
+
+- The journey, grouping, labels, or required states are unclear, or accessibility
+  affects the flow (steps 2–3): [Flows and states](references/flows-and-states.md).
+- Fidelity, a prototype, a usability session, or reading its results is in question
+  (step 4): [Prototype and evaluate](references/prototype-and-evaluate.md).
+
+## Boundaries
+
+- Work within the current project, its instructions, and existing authorization.
+  Publishing prototypes, contacting users, buying assets, and changing a live
+  service each need their own authority.
+- Existing screens and default options leave product intent open; leave the design
+  that depends on it until the user answers.
+- A design is not an approval gate: once dependent questions are answered, continue
+  the authorized implementation.
+- Report evidence by its kind. Accessibility conformance comes from the project's
+  targets checked on the working interface; a mockup, a single automated scan, or
+  visual inspection establishes only part of it.
