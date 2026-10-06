@@ -1,5 +1,9 @@
 # Isolation and execution
 
+Use for test tooling choices, state and timing control, instability, test-first or
+regression runs, and integration with the existing suite. The authority and
+completion rules in SKILL.md still apply.
+
 ## Choose ecosystem tooling for general-purpose test mechanisms
 
 Check the supported runner and framework facilities, then research suitable mainstream,

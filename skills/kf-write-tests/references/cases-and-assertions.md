@@ -1,5 +1,9 @@
 # Cases and assertions
 
+Use when choosing cases, deriving expectations, writing assertions or snapshots,
+or keeping tests readable. The authority and completion rules in SKILL.md still
+apply.
+
 ## Choose cases that distinguish behavior
 
 Select relevant normal, boundary, and failure cases from the contract. Include

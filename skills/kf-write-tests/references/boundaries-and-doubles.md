@@ -1,5 +1,8 @@
 # Boundaries and doubles
 
+Use when choosing the test boundary, the execution surface, or which dependencies
+stay real. The authority and completion rules in SKILL.md still apply.
+
 ## Select the boundary and project tools
 
 Use unit tests for isolated rules, integration tests for cooperating components and
