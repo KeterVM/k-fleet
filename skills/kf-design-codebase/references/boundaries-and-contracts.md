@@ -68,27 +68,25 @@ ownership. Keep private details within their owner and make supported cross-modu
 access explicit. Shared placement needs a shared responsibility and concrete owner;
 multiple callers alone do not justify moving code into a global common directory.
 
-Keep related internals together, supported import boundaries clear, and shared code
-under a concrete owner. Follow applicable naming, layout, build, test, and framework
-discovery conventions. Preserve existing organization where its ownership and
-dependencies fit the task, not merely because it is already in place. For disputed
-placement, trace a concrete change grounded in the task: which rules, owners, and
-callers would change, and what unrelated knowledge would they need? Use that evidence
-to retain or revise the boundary. Account for imports, exports, and tooling when
-moving code.
+Follow applicable naming, layout, build, test, and framework discovery conventions.
+Preserve existing organization where its ownership and dependencies fit the task,
+not merely because it is already in place. Account for imports, exports, and
+tooling when moving code.
 
-Make file boundaries reflect responsibility boundaries. Do not put independently
-changing responsibilities in one file merely because they support the same feature
-or entry point. For example, a screen or command may compose presentation, business
-operations, and persistence through interfaces; their implementations belong with
-their respective owners. Separate functions or classes in one file do not by
-themselves provide this separation.
+Make file boundaries reflect responsibility boundaries. Keep independently changing
+responsibilities in separate files even when they serve the same feature or entry
+point: a screen or command may compose presentation, business operations, and
+persistence through interfaces, while each implementation lives with its owner.
+Separate functions or classes in one file do not by themselves provide this
+separation. Keep cohesive private helpers, types, and invariants with their owner.
 
-Use a concrete change scenario to decide placement: if changing a storage mechanism
-requires navigating unrelated presentation or business implementation in the same
-file, separate those responsibilities. Keep cohesive private helpers, types, and
-invariants with their owner. File length is an inspection signal, not a split rule;
-neither one file per function nor a mandatory layer hierarchy follows from this.
+For disputed placement, trace a concrete change grounded in the task: which rules,
+owners, and callers would change, and what unrelated knowledge would they need? If
+changing a storage mechanism requires navigating presentation or business code in
+the same file, separate them; if one rule needs scattered edits, reconsider its
+owner. Use that evidence to retain or revise the boundary. File length is an
+inspection signal, not a split rule; neither one file per function nor a mandatory
+layer hierarchy follows from this.
 
 Show relevant paths when placement changes, explaining their responsibility and
 allowed dependencies. Carry forward enough vocabulary, public entry points, and

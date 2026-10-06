@@ -23,10 +23,14 @@ into implementation so the same settled choice does not require another search.
 
 Treat improved readability and maintainability as sufficient benefits for adding a
 suitable dependency within project constraints; fewer dependencies are not inherently
-better. Resolve routine technical tradeoffs from the evidence and explain the choice;
-multiple viable options alone do not require user selection. Ask only when missing
-intent, material cost commitments, compatibility obligations, or authority prevent
-a sound choice. Continue work independent of that answer.
+better. Multiple viable options alone are a routine choice to make and explain. A
+material cost commitment, such as a paid service or a license the project has not
+accepted, is a question for the user, like missing product intent.
+
+For example (illustrative), a request to "parse uploaded CSV invoices" in a project
+whose framework already bundles a CSV reader: compare the reader against the
+required quoting, encoding, and size limits from its current documentation, use it
+when it meets them, and record the one gap, if any, that justifies a custom step.
 
 Assess the affected whole: callers, state ownership, dependencies, integration,
 operation, and maintenance. For a proposed interface, layer, package, or extension
@@ -54,10 +58,9 @@ that depends on it. Limit a prototype to that question and report what it establ
 do not treat it as proof of unrelated behavior or permission to expand the task.
 
 Exercise the proposed design against relevant success and failure scenarios. When
-maintainability is uncertain, trace a plausible change grounded in the task: which
-owners, contracts, and callers must change, and why? Scattered edits to one rule or
-unrelated knowledge required of callers can expose a weak boundary. This reasoning
-helps compare designs; it does not measure future maintenance cost by itself.
+maintainability is uncertain, use the change trace described under placement in
+[Boundaries and contracts](boundaries-and-contracts.md). That reasoning helps
+compare designs; it does not measure future maintenance cost by itself.
 
 ## Account for the cost of changing course
 
@@ -90,9 +93,8 @@ the cost accepted, and the evidence or assumption on which they depend. Carry fo
 only enough context to avoid reconstructing the reasoning; use the existing task or
 project artifact rather than requiring another document or approval round.
 
-If implementation friction or review feedback challenges the design, inspect the
-specific contract, constraint, or assumption it affects. Separate a misunderstood
-handoff from an infeasible design or a local implementation defect. Clarify the first,
-revise the affected design for the second, or correct the implementation for the third.
-Explain material changes and their consequences to affected work. Neither a challenge
-alone nor effort already spent is a reason to change or retain a decision.
+When implementation friction or review feedback challenges the design, inspect the
+specific contract, constraint, or assumption it affects before sorting it as a
+misunderstood handoff, an infeasible design, or a local defect. Let the evidence
+decide: a challenge alone is no reason to change a decision, and effort already
+spent is no reason to keep one.

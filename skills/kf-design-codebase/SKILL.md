@@ -1,89 +1,112 @@
 ---
 name: kf-design-codebase
-description: Design or assess code responsibilities, interfaces, structure, and ecosystem reuse for an understood change or requested codebase assessment.
+description: Decide ownership, contracts, placement, and library-versus-custom choices for an understood change, or assess existing design on request. Use when those choices are still open for a change or are the subject of the request.
 ---
 
 # Design codebase
 
-Resolve how an understood change fits the codebase through implementable decisions
-about responsibility, contracts, dependencies, and placement. Also use for requested
-assessment of existing design, including opportunities to replace custom general-purpose
-mechanisms with mainstream libraries or frameworks. Reuse adequate design;
-a bounded edit within sound boundaries needs no design exercise. Accepted architecture,
-technology, and deployment choices remain inputs unless evidence warrants revisiting
-an affected premise. Leave line-level choices to implementation.
+Settle who owns each affected rule and state, what contracts promise, where code
+lives, and whether a maintained library already provides the mechanism; also assess
+existing design on request. A bounded edit inside sound boundaries goes straight to
+implementation; reuse an existing design when it already answers these questions.
 
-## Select supporting guidance
+## Method
 
-Read only where decisions remain open:
+These are the decisions to settle, in their usual order; skip any the request
+already answers. One ordering is fixed: establish which designs meet the required
+behavior, constraints, and ownership boundaries before comparing change cost,
+because a smaller diff cannot buy back an unmet obligation or a misplaced owner.
 
-- For domain modeling, responsibility splits, interfaces, or placement, read
+1. **Ground the change.** Separate the requested behavior and constraints from
+   accepted choices and assumptions. Trace the affected entry points, rules, state,
+   and dependencies far enough to see what exists and what must change; reuse
+   evidence already in hand rather than surveying the repository. A requested
+   mechanism ("add a queue") serves a goal unless the user fixed it deliberately;
+   when evidence points to a different cause, address that cause and say why.
+
+2. **Classify each open design point.**
+
+   | Kind | Test | Action |
+   | --- | --- | --- |
+   | Settled or local | An accepted choice or adequate existing design covers it, and the request is not about that structure | Build on it; revisit only on evidence that it fails a current obligation |
+   | Ownership or contract | The answer decides who owns a rule or state, what callers must know or coordinate, or who handles a failure | Decide it here from a concrete change or failure trace |
+   | General-purpose mechanism | The design adds or reworks something the ecosystem commonly provides (retries, caching, parsing, scheduling) | Check the standard library, framework, installed dependencies, then mainstream libraries; keep custom code for a concrete unmet requirement |
+   | Product intent | Plausible readings change the target, scope, behavior, data meaning, or a compatibility obligation, and established decisions do not settle it | Ask, then continue work that holds under every answer |
+   | Routine technical choice | Every option meets the same contracts at comparable cost | Choose, state the choice, and leave line-level form to implementation |
+
+   Judge by consequence, not size: one new field every service must check is an
+   ownership decision; a large split with stable exports is routine. When structure
+   is the subject of the request, existing boundaries are candidates, not settled
+   inputs. Investigate technical facts that code, docs, or a probe can answer.
+
+3. **Choose a sufficient design.** Among the designs that meet the obligations,
+   prefer the one where:
+
+   - the parts jointly deliver the important success and failure scenarios;
+   - each rule and piece of state has one clear owner, and interfaces spare callers
+     hidden coordination;
+   - domain terms, component roles, paths, and dependency directions express the
+     same ownership model, so implementation need not invent another;
+   - each added structure or dependency serves a current need (readability from a
+     suitable library counts);
+   - decisions can guide implementation and be challenged by observable evidence,
+     which a directory tree or architecture label alone cannot.
+
+   State consequential quality goals as load, failure, access, or maintenance
+   conditions from established requirements, and keep the design local to the change.
+
+4. **Test the premises that could invalidate dependent work** before committing to
+   it, with the smallest inquiry that discriminates between options: a caller trace,
+   a contract example, a targeted experiment, or a measurement.
+
+5. **Stop and hand off** when ownership, contracts, placement, and critical failure
+   behavior are clear enough to implement and deferred choices cannot threaten the
+   approach. Carry forward decisive reasons, affected paths, material assumptions,
+   checks for important contracts, and migration compatibility where needed, in the
+   conversation or an existing artifact.
+
+   When friction, review, or new evidence challenges a decision, tell apart a
+   misunderstood handoff (clarify it), an infeasible design (revise that decision
+   and explain the consequences), and a local defect (fix the code). When the user
+   overrides a choice you classified as routine or settled, re-run step 2 for
+   related points before continuing.
+
+## Examples (illustrative)
+
+**Looks local, is an ownership decision.** "Add a 'pause subscription' button."
+It looks like a button and a status value, but three services each check
+`status == "active"` to grant access, so a new status scatters the entitlement rule.
+Decide one owner for "is this customer entitled now" and have the others call it.
+Whether a paused customer keeps access until the period ends is product intent: ask,
+and keep building the owner, which every answer needs.
+
+**Looks like a new mechanism, is reuse.** "Add retries with backoff to outbound
+webhook calls." A retry loop looks quick to write, but the installed job framework
+already retries with backoff and dead-lettering: enqueue each delivery as a job and
+configure it. Add custom code only for a requirement it cannot meet, such as
+per-partner rate windows, and state that reason.
+
+## Supporting references
+
+Read a reference only for the decision that is stuck:
+
+- Domain meaning, what belongs together, contract shape, or placement is unclear
+  (steps 2–3):
   [Boundaries and contracts](references/boundaries-and-contracts.md).
-- For cross-module flows, consistency, failure propagation, or runtime diagnosis,
-  read [Interactions and operation](references/interactions-and-operation.md).
-- For competing designs, uncertain or challenged premises, costly changes, or
-  consequential handoffs, read [Tradeoffs and evidence](references/tradeoffs-and-evidence.md).
+- A flow spans modules, partial failure or consistency is in question, or failures
+  must stay diagnosable (steps 3–4):
+  [Interactions and operation](references/interactions-and-operation.md).
+- Designs or libraries compete, a premise is uncertain or challenged, a change is
+  costly to undo or needs migration, or the handoff needs shaping (steps 2–5):
+  [Tradeoffs and evidence](references/tradeoffs-and-evidence.md).
 
-## Scope and authority
+## Boundaries
 
-Before substantive work, establish the repository/worktree scope, project
-instructions, authorization, and stopping condition; read-only work stays read-only.
-Pause only work that depends on missing evidence, capabilities, or user intent, and
-continue independent authorized work. Report only observed evidence and results.
-
-## Choose a sufficient design
-
-Ground choices in requested behavior and constraints, separating facts and accepted
-choices from assumptions. Trace affected entry points, rules, state, and dependencies
-to the outcome; reuse sufficient evidence rather than surveying the repository.
-Identify existing capabilities and the change needed.
-
-When the affected design adds or reworks a general-purpose mechanism, check whether
-a maintained ecosystem library or framework capability fits before committing the
-design, and read [Tradeoffs and evidence](references/tradeoffs-and-evidence.md)
-for that choice. Keep a custom mechanism only for a concrete reason.
-
-First establish which designs satisfy the requested outcome, responsibility
-boundaries, and required constraints; compare change and maintenance costs among
-those designs. Fewer edits cannot compensate for unmet obligations or misplaced
-ownership. When structure is the subject of the request, assess existing boundaries
-as candidates rather than treating their preservation as an accepted constraint.
-
-Judge the affected design by these criteria:
-
-- The parts jointly deliver important success and failure scenarios.
-- Rules and state have clear owners; interfaces avoid hidden caller coordination.
-- Boundaries keep implementation knowledge local rather than scattering one rule.
-- Domain terms, component roles, paths, and allowed dependencies express the same
-  ownership model; implementation need not invent a conflicting one.
-- Structure earns its integration and maintenance cost through current needs.
-- Decisions and assumptions can guide implementation and be challenged by observable
-  evidence; a directory tree or architecture label alone is insufficient.
-
-Make consequential quality goals concrete through relevant load, failure, access, or
-maintenance conditions and acceptable outcomes. Use established requirements and
-measurements, not invented targets or an exhaustive quality checklist. Investigate
-answerable technical questions. When plausible interpretations change the target,
-scope, behavior, data meaning, or compatibility obligation and established decisions
-do not settle the difference, ask and wait before committing dependent design or
-code; existing code and declared assumptions do not settle missing intent.
-
-Resolve assumptions that could invalidate dependent work before committing to it.
-Keep material decisions and blockers visible, without turning a local design into
-an unrelated system redesign.
-
-## Carry decisions into implementation
-
-Stop designing when ownership, contracts, placement, and critical failure behavior
-are clear enough to implement. Bound deferred choices so they do not threaten the
-approach, and state what would require resolution.
-
-Carry forward decisive reasons, tradeoffs, affected paths, material assumptions, and
-checks for important contracts. Include compatibility during migration when needed.
-Use the conversation or an existing artifact unless a durable record helps delivery;
-do not prescribe every function or require a fixed report.
-
-Continue authorized implementation without a new approval gate; respect design-only
-requests. Revisit only decisions invalidated by changed goals, new evidence, or
-reasoning errors, explaining the basis. An approved design or successful prototype
-does not establish completed integration.
+- Work within the current repository/worktree, project instructions, and existing
+  authorization; design-only and read-only requests keep that form.
+- Existing code, a default option, or a declared assumption leaves product intent
+  open; leave design and code that depend on it until the user answers.
+- A design is not an approval gate: once dependent questions are answered, continue
+  the authorized implementation, keeping library comparison within that change.
+- Report only what you observed; an approved design or a successful prototype does
+  not establish completed integration.
