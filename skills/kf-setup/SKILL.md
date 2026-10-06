@@ -1,40 +1,53 @@
 ---
 name: kf-setup
-description: Initialize or refresh K Fleet reminders in a project's root AGENTS.md only when the user explicitly requests setup.
+description: Initialize or refresh the K Fleet reminder block in a project's root AGENTS.md. Use only when the user explicitly asks to set up or refresh K Fleet.
 ---
 
 # Set up K Fleet
 
-Run only on an explicit user setup request. Installation, missing guidance, a
-normal coding task, or a newly opened project must not trigger setup automatically.
-This skill configures project reminders.
+Write or refresh one managed reminder block in the target project's root
+`AGENTS.md`. Run it only on an explicit user setup request; installation, missing
+guidance, an ordinary coding task, or a newly opened project are not setup requests.
 
-Within higher-priority constraints, explicit user instructions override skill
-guidance. Preserve actual scope and authorization limits. If a skill rule causes
-you to pause or leave work unfinished, link to its file, quote the rule, and
-distinguish its requirement from your interpretation. Continue independent
-authorized work only where its prerequisites are met.
+## Method
 
-## Resolve the target and available methods
+These are the decisions to settle, in order. One ordering is fixed: settle the
+target, method availability, and marker state before writing anything, because a
+block in the wrong file, a list naming missing methods, or a guessed marker repair
+leaves the project with competing or misleading instructions.
 
-Resolve the active worktree's repository root, or the current directory when no
-repository exists. Use another target only when explicitly named. Inspect
-applicable guidance without treating ancestor files as writable.
+1. **Resolve the target.** Use the active worktree's repository root, or the current
+   directory when there is no repository; use another target only when the user names
+   it. Read applicable guidance, including ancestor files, without writing to it. In
+   K Fleet's own source repository, keep its maintainer contract and report that
+   consumer setup does not apply.
 
-Preserve explicit project requirements. Setup must not change global settings.
+2. **Check the methods.** Confirm through supported skill discovery that every method
+   named in the block is available. When any is missing, report which ones and that
+   K Fleet needs installing or updating, and write nothing: the installer is the
+   user's step.
 
-Check that the method skills named below are available through supported skill
-discovery. If a method is missing, report it and the need to install or update
-K Fleet, without automatically invoking an installer or writing incomplete guidance.
+3. **Classify the destination.**
 
-Edit only the root `AGENTS.md` (the standard filename, including on case-sensitive
-filesystems). If an existing case variant or symlink makes the destination or
-ownership ambiguous, resolve that ambiguity before writing; do not create competing
-instruction files or write through a link outside the target. When operating in
-K Fleet's own source repository, preserve its complete maintainer contract and
-report that consumer setup does not apply.
+   | State | Test | Action |
+   | --- | --- | --- |
+   | No root guide | No `AGENTS.md` and no case variant at the root | Create `AGENTS.md` with `# Repository Instructions` and the block |
+   | No markers | `AGENTS.md` exists without k-fleet markers | Append the block after a blank line, keeping all existing content |
+   | One well-formed pair | Exactly one start marker before exactly one end marker | Replace only that block, older reminders included; leave the file unchanged when it already matches |
+   | Malformed markers | Duplicated, reversed, nested, or incomplete markers | Write nothing; report the marker positions and let the user choose the repair |
+   | Ambiguous destination | A case variant such as `Agents.md`, or a symlink that makes the destination or ownership unclear, as one leading outside the target always does | Write nothing; report it and resolve it with the user rather than creating a competing file |
 
-## Write the managed reminder
+4. **Write the block** in [Managed block](#managed-block) exactly, with no added
+   indentation. Keep every byte outside it, including project rules, explicit project
+   requirements, and self-reflect blocks.
+
+5. **Finish.** Inspect the resulting file for one complete block and intact
+   surrounding guidance. Report the target, whether the file was created, updated, or
+   unchanged, and the observed method availability. Setup shows the reminders are in
+   place, not that the skills are effective. Setup ends here; continue only with
+   substantive work the user included separately in the same request.
+
+## Managed block
 
 Manage exactly one block between `<!-- k-fleet:start -->` and
 `<!-- k-fleet:end -->`:
@@ -79,25 +92,28 @@ Run `kf-setup` only on explicit user request.
 <!-- k-fleet:end -->
 ```
 
-If the file is absent, create it with `# Repository Instructions` and the block.
-If no markers exist, append the block with a blank-line boundary, preserving all
-existing content. If exactly one well-formed pair exists, replace only that block,
-including older managed reminders. Preserve
-explicit project requirements outside the managed block. If the block already
-matches, leave the file unchanged.
+## Examples (illustrative)
 
-For duplicated, reversed, nested, or incomplete markers, stop before writing and
-report the ambiguity. Preserve unrelated bytes, project rules, and self-reflect
-blocks; do not infer new conventions, create nested instruction files, or replace
-the whole guide with a template.
+**Looks like a routine refresh, needs a stop.** "Refresh the K Fleet reminders."
+The root `AGENTS.md` is a symlink to `../shared-guides/AGENTS.md`, outside the
+repository, used by several projects. Writing through it would change all of them.
+Report the link and its destination and ask where the reminders should live; write
+nothing.
 
-## Finish setup
+**Looks risky, is routine.** "Set up K Fleet." `AGENTS.md` has an older K Fleet
+block with a shorter method list, and a project rule right after the end marker.
+That is one well-formed pair: replace the block, keep the rule byte for byte, and
+report the file as updated.
 
-Inspect the resulting root file for one complete block and preservation of
-unrelated guidance. Report the target, whether it was created, updated, or
-unchanged, and the observed method availability. Do not claim that
-setup proves skill effectiveness.
+## Boundaries
 
-Setup ends here unless the user separately included substantive work in the
-request. Future tasks use the root reminders and selected methods directly;
-never invoke setup automatically to begin another phase.
+- Run only on an explicit user request; another skill or the start of a new phase
+  never invokes setup.
+- Write only the target's root `AGENTS.md`. Global settings, ancestor files, nested
+  instruction files, and installers stay untouched, and the rest of the guide keeps
+  its content rather than being replaced by a template or inferred conventions.
+- Current instructions and repository sources outrank recalled or inferred context,
+  which grants no permission. Within higher-priority constraints, explicit user
+  instructions override this skill; when one of its rules stops work, quote the rule
+  and separate it from your interpretation, and continue independent authorized work.
+- Report only what you observed.
