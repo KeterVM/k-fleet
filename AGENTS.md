@@ -19,7 +19,8 @@ workflow behavior rather than framework-specific instructions.
 - `.agents/skills/kf-research-skills/` and `.agents/skills/kf-skills-creator/`
   contain this source repository's maintenance skills for skill research and for
   creating or restyling kf-* skills. They are outside the public catalog and
-  consumer installation.
+  consumer installation. `.claude/skills/` holds relative symlinks to them so
+  Claude Code discovers the same sources; edit them under `.agents/skills/`.
 - `scripts/kf-projects.mjs` implements the zero-dependency `k-fleet` npm CLI exposed
   by `package.json`.
 - `docs/` records skill-authoring guidance and workflow composition.
