@@ -1,123 +1,113 @@
 ---
 name: kf-implement
-description: Implement sufficiently understood software changes as complete, maintainable code, including integration and relevant self-checks.
+description: Implement an understood software change as complete, maintainable code, including integration and relevant self-checks. Use when the intended behavior is settled enough to write code, including fixes, refactors, renames, and replacements.
 ---
 
 # Implement
 
-Turn an understood request into usable, maintainable behavior, including integration
-and relevant self-checks. Reuse sufficient requirements and design; resolve routine
-coding choices directly. Revisit decisions invalidated by evidence without changing
-product obligations or expanding scope.
+Turn an understood request into working behavior through its real entry points,
+with code a maintainer can follow. Reuse an existing brief or design when it
+answers the open questions; a bounded edit with settled behavior goes straight to
+code and needs no extra reading.
 
-## Select supporting guidance
+## Method
 
-Load a reference only for decisions the change needs; a bounded edit with settled
-behavior and boundaries needs no formal design or additional reading.
+These are the decisions to settle, in their usual order; skip any the request
+already answers. One ordering is fixed: meet the contract and put each rule with
+its owner before minimizing the diff, because a smaller diff cannot repair an
+unmet obligation or a misplaced rule.
 
-- For new or substantially changed components, unclear names or placement, library
-  selection, or nontrivial reuse, interface, integration, or restructuring choices,
-  read [Implementation judgment](references/implementation-judgment.md).
-- For material dependencies, failed attempts, blockers, or review feedback,
-  read [Execution and feedback](references/execution-and-feedback.md).
+1. **Ground the change.** Name the observable outcome and the evidence that will
+   show it works. Separate facts (code, config, data, docs, the user) from
+   assumptions, and investigate technical unknowns that could invalidate the
+   change. Read the applicable project instructions, then the affected paths,
+   nearby code, configuration, and tests. Follow intentional project conventions;
+   a known defect is not a convention.
 
-## Scope and authority
+2. **Classify each open point.**
 
-Before substantive work, establish the repository/worktree scope, project
-instructions, authorization, and stopping condition; read-only work stays read-only.
-Pause only work that depends on missing evidence, capabilities, or user intent, and
-continue independent authorized work. Report only observed evidence and results.
-Current instructions and repository sources outrank recalled or inferred context,
-which grants no permission. Within higher-priority constraints, explicit user
-instructions override this skill; when one of its rules stops work, quote the rule
-and separate it from your interpretation.
+   | Kind | Test | Action |
+   | --- | --- | --- |
+   | Product intent | Plausible readings change the target, scope, behavior, data meaning, or a compatibility obligation, and established decisions do not settle it | Ask, then continue work that holds under every answer; keep the guessed reading out of code and tests |
+   | Ownership or contract | The choice decides which module owns a rule or state, or changes what other modules call or rely on | Decide it from a traced change and state it; when it reshapes cross-module contracts, revisit the design |
+   | General-purpose mechanism | The change adds or reworks parsing, validation, retries, caching, scheduling, or similar | Check the standard library, framework, installed dependencies, then maintained mainstream libraries; keep custom code for a concrete reason |
+   | Rename or replacement | A name, field, class, or entry point is superseded | Migrate every in-scope consumer and remove the old path; keep a bridge only for a named consumer or data that cannot move now |
+   | Routine choice | Every option meets the same contracts at comparable cost | Choose and move on; mention it when a reviewer would ask |
 
-## Implement against the contract
+   Judge by consequence, not size: a one-word field rename read by a separately
+   released client is a compatibility question; a 400-line extraction with stable
+   callers is routine.
 
-Derive the observable outcome and completion evidence from the request and current
-sources. Distinguish obligations and facts from assumptions; investigate technical
-unknowns that could invalidate the change. If plausible readings would change the
-target, scope, behavior, data meaning, or compatibility obligations and existing
-decisions do not settle them, ask and wait before dependent edits; a stated
-assumption does not settle them, and a guessed requirement does not belong in code
-or tests. Routine means within an established goal remain your decision. Establish
-applicable instructions before writing. Inspect affected paths, nearby code,
-configuration, and tests as needed; reuse current evidence and intentional project
-conventions, without reproducing known defects for consistency.
+3. **Build through the real entry points.** Put each rule and piece of state with
+   its owner, reusing existing code where it fits. Choose the form, name, and
+   location from that responsibility, in project vocabulary. Complete callers,
+   wiring, configuration, failure handling, and cleanup, and keep authorization,
+   transaction, concurrency, resource-lifetime, and compatibility guarantees
+   intact. Update usage documentation when the change alters how the code is used
+   or operated. Keep the diff on the requested behavior and its necessary support.
 
-Choose implementations that satisfy the outcome, responsibility boundaries, and
-required constraints before minimizing edit size or effort. Reuse existing code
-where it fits those obligations. If it does not, correct the affected ownership or
-revisit that design decision within scope; a smaller diff does not justify leaving
-the requested problem unresolved.
+4. **Check the result.** Run the relevant tests and configured format, lint, and
+   type checks; exercise real boundaries for wiring and dependency claims, since
+   mocks and a build can pass while integration fails. Reuse results whose version,
+   environment, and scope still apply. Add tests where they protect meaningful
+   behavior; dedicated test-writing and verification methods are optional. Read the
+   final diff against the contract: names match
+   behavior, callers respect boundaries, no rule is mixed into an unrelated owner
+   or scattered across modules, and searches for superseded names come back clean.
+   Fix what the change caused and recheck only what that fix touches.
 
-When the change adds or substantially reworks a general-purpose mechanism, such as
-parsing, validation, retries, caching, or scheduling, check whether the standard
-library, the framework, an installed dependency, or a maintained mainstream library
-already provides it, and read [Implementation judgment](references/implementation-judgment.md)
-for that choice. Keep a custom mechanism only for a concrete reason.
+5. **Finish** when required checks pass, material obligations have evidence, and no
+   issue caused by the change remains. Report the change, decisive results, and
+   limits in the conversation, with no fixed report format; name blockers and
+   unverified obligations as such. Speculative improvements and stylistic polish
+   wait for a request rather than delaying an adequate change.
 
-Before adding or substantially extending a component, connect its domain meaning or
-technical role to the rules and state it owns, its interface and allowed dependencies,
-and then its implementation form, name, and location. Clear behavior does not settle
-these choices. Resolve them within implementation when local; revisit design when
-they change cross-module contracts or ownership. Neither path requires a routine
-approval gate.
+   When a check fails, separate a code defect from an environment or access
+   problem before changing code. When repeated exceptions, mappings, or fragile
+   coordination show up, revisit the ownership or design decision that produced
+   them. When the user overrides a choice you classified as routine, re-run step 2
+   for related points.
 
-Use project vocabulary and language/framework conventions. The name, public behavior,
-and directory ownership should agree; a class or folder label cannot supply a missing
-responsibility. Keep cohesive internals together and independently changing
-responsibilities behind clear file and module boundaries. Correct mixtures introduced
-or extended by the change. Be able to explain why the code belongs here and, for a
-new or changed boundary, trace a task-grounded change through its owners and callers.
-Use existing evidence for settled choices; no fixed report or directory template is
-required.
+## Examples (illustrative)
 
-For renames and replacements, complete the authorized migration through affected
-models, callers, and wiring, then remove obsolete names and entry points. Do not
-retain aliases, serialization workarounds, or forwarding classes merely to avoid
-updating consumers. Preserve a compatibility boundary only for an established
-contract or transition need; distinguish it from unfinished migration. Read
-[Implementation judgment](references/implementation-judgment.md) when making that
-choice, including when a field mapping or wrapper appears to be a small edit.
+**Looks like a small swap, is a migration.** "Replace `LegacyMailer` with the new
+`NotificationClient`." Making `LegacyMailer` forward to the new client changes one
+file and passes every test, but leaves two owners for sending mail. Move the six
+callers to `NotificationClient` and delete `LegacyMailer`. If a separately deployed
+worker still imports it, that worker is a named consumer: keep a bridge for it
+alone, state the removal condition, and report the migration as unfinished.
 
-Judge the affected change by these outcomes:
+**Looks like it needs a decision, is routine.** "Add a `--json` flag to the
+`report` command." Output format and naming look like questions for the user, but
+the command already builds a typed result and the CLI framework handles flags.
+Serialize that result with the standard library, keep its field names, add a test
+on the flag, and state the choice.
 
-- Requested behavior works through its real entry points, including necessary
-  integration and failure handling.
-- Relevant authorization, transaction, concurrency, resource-lifetime, and
-  compatibility guarantees hold.
-- Ownership, names, contracts, and control flow make use and modification
-  understandable without hidden coordination.
-- Structure serves current needs at justified complexity and maintenance cost.
-- The diff is cohesive, reviewable, and supported by relevant evidence.
+## Supporting references
 
-Apply these criteria to the change; do not turn them into a surrounding redesign,
-an exhaustive risk checklist, or a fixed report. Keep material decisions and blockers
-visible.
+Read a reference only for the decision that is stuck:
 
-## Self-check and finish
+- A new or extended component, unclear ownership, naming, placement, or an
+  extraction (steps 2–3): [Structure and naming](references/structure-and-naming.md).
+- A general-purpose mechanism or a new dependency (step 2):
+  [Libraries and dependencies](references/libraries-and-dependencies.md).
+- A rename, replacement, wrapper, alias, or compatibility bridge (steps 2–4):
+  [Migrations and compatibility](references/migrations-and-compatibility.md).
+- Material dependencies, failed attempts, blockers, or review feedback (steps 4–5):
+  [Execution and feedback](references/execution-and-feedback.md).
 
-Use relevant tests and configured formatting, linting, or type checks as appropriate.
-Exercise real boundaries for wiring and dependency claims; mocked tests or a build
-alone may be insufficient. Add tests for meaningful protection, not routine reversible
-edits with no such need. Dedicated test-writing and verification methods are optional.
+## Boundaries
 
-Reuse results whose version, environment, and scope still apply. Inspect the final
-diff against the contract and project rules, fix demonstrated problems within scope,
-and recheck affected behavior. Repeat or broaden checks only for changes, failures,
-environment differences, or uncovered risks.
-
-Inspect affected names, paths, public interfaces, and actual dependencies together.
-Check that names describe the implemented responsibility, placement follows a coherent
-local organization, and callers respect the intended boundaries. Use rules, state,
-and reasons to change to detect both mixed responsibilities and one responsibility
-scattered across nominally separate modules. Correct problems introduced or extended
-by the change; neither splitting files nor passing tests establishes sound structure.
-Judge cohesion and coupling directly, without file-count or line-count targets.
-
-Finish when required checks pass, material obligations have evidence, and no material
-issue caused by the change remains unresolved. Report changes, decisive results, and
-limits; state blockers or unverified obligations instead of claiming completion.
-Passing checks alone does not prove maintainability or production readiness.
-Speculative improvements and stylistic perfection must not delay an adequate change.
+- Work within the current repository/worktree, project instructions, and existing
+  authorization; read-only requests stay read-only. Pause only work that depends on
+  missing evidence, capabilities, or user intent, and continue the rest.
+- Current instructions and repository sources outrank recalled or inferred context,
+  which grants no permission. Within higher-priority constraints, explicit user
+  instructions override this skill; when one of its rules stops work, quote the
+  rule and separate it from your interpretation.
+- A stated assumption, a default option, or existing code leaves product intent
+  open; dependent code and tests wait for the answer.
+- Clarifying intent is a request for information, not an approval gate: once
+  answered, finish the authorized work.
+- Report only what you observed; passing checks alone do not establish
+  maintainability or production readiness.
