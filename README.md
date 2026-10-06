@@ -60,16 +60,16 @@ Use decisions and results from actual tasks to examine skill quality.
 | `kf-release-product` | Prepare or execute authorized delivery, including migration, recovery, and checks in the intended environment or channel. |
 | `kf-operate-product` | Establish live operation, diagnose incidents, and verify recovery using service and user-impact evidence. |
 | `kf-evaluate-product` | Assess whether the product delivers its intended benefit using trustworthy measurements and user feedback. |
-| `kf-evolve-skills` | Examine skill instructions at the user's request or when a task identifies a method problem. Examine changes in actual work. |
+| `kf-codify-practices` | When the user asks, turn a project's recurring procedures, styles, and constraints into project skills or guidance, from its current code. |
 
 Each skill has all the instructions and files necessary for its method.
 Use only the necessary methods; tests can come before code.
 New facts can make a different decision necessary.
 Choose code structure that satisfies the required behavior and responsibility boundaries.
 
-For general-purpose capabilities, default to suitable mainstream libraries and frameworks.
-Design, implementation, and review compare affected custom mechanisms even when they
-work without reported problems; retaining or adding them needs a concrete reason.
+When a change adds or reworks a general-purpose mechanism, check suitable mainstream
+libraries and frameworks first and prefer them when they make the code clearer or more
+reliable; keeping or adding a custom mechanism needs a concrete reason.
 Reuse current selection evidence and resolve routine technical choices directly.
 Reviews distinguish defects, supported improvements, and unverified leads; findings
 do not authorize unrelated migrations. Test writing applies this policy to tooling.
@@ -142,12 +142,12 @@ other skills and can be run again to refresh the managed reminders.
 
 ## Optional extensions
 
-Use other skills and plugins when the project needs them. `kf-evolve-skills` checks
-available guidance before proposing an addition or revision. When available, it can
-use [`find-skills`](https://github.com/vercel-labs/skills/tree/main/skills/find-skills)
-for discovery and [`skill-creator`](https://github.com/openai/skills/tree/main/skills/.system/skill-creator)
-for authoring; neither is installed or required by K Fleet. Authorized additions
-default to project scope, and effectiveness must be assessed through actual use.
+Use other skills and plugins when the project needs them. `kf-codify-practices` writes
+only the project's own skills and guidance; it proposes before writing and leaves
+installed K Fleet and third-party skills unchanged. When available, it uses
+[`skill-creator`](https://github.com/openai/skills/tree/main/skills/.system/skill-creator)
+for authoring; K Fleet neither installs nor requires it. Written guidance stays
+unproven until it is used on real tasks.
 
 External memory is optional and chosen by the project. K Fleet does not install,
 configure, or operate memory integrations. Documents and other supporting tools

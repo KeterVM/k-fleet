@@ -19,7 +19,7 @@ run it once; a later explicit setup request can refresh the same managed block.
 | Prepare or deliver a version to its users or environment | `kf-release-product` | Artifact and destination identity, migration and recovery conditions, observed release state |
 | Operational readiness, live reliability problems, or incidents | `kf-operate-product` | Service evidence, operational changes or verified recovery, remaining impact and ownership |
 | Uncertain user or business benefit from a product or change | `kf-evaluate-product` | Supported outcome assessment, measurement limits, and an evidence-based next action |
-| Requested skill assessment or improvement, or a reusable capability gap exposed by work | `kf-evolve-skills` | Evidence-backed assessment; for authorized changes, actual-use observations or an explicit unproven status |
+| User request to codify a project's recurring procedure or improve a project skill | `kf-codify-practices` | Confirmed project skills or guidance derived from current code, with their unproven status and what to observe in later use |
 
 Reuse sufficient inputs and evidence rather than recreating them at every step.
 A small understood fix can proceed directly to implementation and focused
@@ -55,21 +55,20 @@ as the sole source of truth. User corrections and implementation friction can
 expose a decision to revisit before
 verification; investigate the cause and keep corrections within the task's scope.
 
-Capability improvement closes a separate feedback loop: observed gap, diagnosis,
-existing-skill inspection, discovery or creation, actual use, and retention or
-correction. It can help the current task or a later authorized task; it is not a
-mandatory final phase. Missing tools, access, or product decisions should be
-resolved at their own source. Search or installation success alone does not prove
-that the new guidance improves the work.
+Practice codification runs only when the user asks: it turns a project's recurring
+procedures and constraints into the project's own skills or guidance, proposes
+before writing, and leaves installed skills unchanged. It is not a final phase of
+other methods. Missing tools, access, or product decisions are resolved at their
+own source. Writing guidance does not show that it improves the work; later use does.
 
 ## Ecosystem reuse across methods
 
-Default to suitable mainstream, maintained libraries and frameworks for general-purpose
-capabilities. This applies to new implementation and assessment of existing custom
-mechanisms, even when they work without reported problems. Retaining or adding custom
-mechanisms needs a concrete unmet requirement, constraint, or disproportionate adoption
-cost. This is the user's chosen engineering policy, not a claim that popularity proves
-suitability or that every existing framework must be replaced.
+When a change adds or reworks a general-purpose mechanism, check suitable mainstream,
+maintained libraries and frameworks first, and prefer them when they make the result
+clearer or more reliable. Keeping or adding a custom mechanism needs a concrete unmet
+requirement, constraint, or disproportionate adoption cost. This is the user's chosen
+engineering policy, not a claim that popularity proves suitability or that every
+existing framework must be replaced.
 
 Codebase design owns consequential selection and requested assessment; implementation
 owns local selection and integration even when no separate design method is used.
@@ -116,8 +115,7 @@ that a known artifact reached its intended environment or distribution channel a
 checks the resulting state. Operation addresses continuing service health and
 recovery. Product evaluation asks whether the delivered behavior produces the
 intended benefit; it can lead back to discovery, requirements, design, code, or
-operation. It does not assess or revise skill instructions, which remains the
-separate responsibility of `kf-evolve-skills`.
+operation. It does not assess or revise the agent's skills.
 
 The methods share applicable evidence and existing authorization. Preparing a
 release does not grant production authority; running an outcome assessment does

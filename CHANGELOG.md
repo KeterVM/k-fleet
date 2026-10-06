@@ -3,6 +3,60 @@
 Notable changes to K Fleet are recorded here.
 Earlier entries describe their versions. Use the README for current installation and operation.
 
+## [3.4.0] - 2026-10-06
+
+### Changed
+
+- Replaced `kf-evolve-skills` with `kf-codify-practices`. It runs only on explicit
+  request and turns a project's recurring procedures, styles, and constraints into
+  the project's own skills or guidance: it derives conventions from current code
+  with their sources, places always-applicable rules in root guidance and steps that
+  never vary in scripts, proposes before writing, uses `skill-creator` when
+  available, and leaves installed K Fleet and third-party skills unchanged.
+  Searching for and installing third-party skills is no longer part of K Fleet.
+- Restyled `kf-define-requirements`, `kf-design-experience`, `kf-design-codebase`,
+  `kf-implement`, `kf-write-tests`, `kf-verify`, and `kf-setup` around numbered
+  decisions with one fixed ordering, a core judgment table, two contrasting
+  examples, and references chosen by the decision that is stuck. Each skill keeps
+  one shared authority statement. `kf-implement`'s judgment reference is split into
+  structure and naming, libraries and dependencies, and migrations and
+  compatibility; `kf-verify` gains a structure-and-reuse reference.
+- Narrowed ecosystem reuse to changes that add or rework a general-purpose
+  mechanism: check suitable mainstream libraries and frameworks first and prefer
+  them when they make the result clearer or more reliable. Custom mechanisms still
+  need a concrete reason. The reviewer follows the same rule.
+- Judge requirement ambiguity by its consequence rather than request length, diff
+  size, or rollback ease; several implementations of one intended outcome are not
+  an ambiguity of intent.
+- `kf-setup` writes nothing while listed methods are missing, continues independent
+  requested work when markers are malformed, and stops on case-variant or symlinked
+  `AGENTS.md` targets. The managed reminder changes only its `kf-codify-practices`
+  line.
+
+### Update
+
+- Run `npx --yes k-fleet@3.4.0 update` after npm publication, or
+  `npx --yes github:KeterVM/k-fleet update`. Add `--all` for registered projects.
+  Updates remove `kf-evolve-skills` after `kf-codify-practices` installs.
+- Explicitly request `kf-setup` to refresh project reminders (CLI/IDE: `$kf-setup`),
+  and `kf-codify-practices` when you want a project practice codified.
+
+### Validation
+
+- Compared each restyled skill with v3.3.2 on fixed probes and rubrics, Haiku and
+  Sonnet, one run per cell, blind Sonnet scoring. From `kf-implement` on, every run
+  and scorer used a clean headless session with no tools, MCP servers, or hooks.
+  Old versus new: `kf-implement` 25/30 vs 28/30, `kf-verify` 28/30 vs 28/30 (rerun
+  plus a fresh probe 19/20 vs 20/20), `kf-write-tests` 24/30 vs 28/30, `kf-setup`
+  26/30 vs 30/30, `kf-codify-practices` 25/40 vs 35/40 (rerun plus a fresh probe
+  13/30 vs 24–27/30; its unproven-status note appeared in half of the new runs).
+  Earlier restyles were compared before clean sessions were adopted.
+- Limits: one run per cell, probes and rubrics written by the maintainer's agent,
+  Claude models only; `kf-codify-practices` was compared with a skill of different
+  purpose. Effectiveness on real projects remains unproven.
+- Checked skill metadata, internal links, setup and codify invocation policy, README
+  and workflow consistency, CLI syntax, and npm dry-run package contents.
+
 ## [3.3.2] - 2026-09-26
 
 ### Changed
