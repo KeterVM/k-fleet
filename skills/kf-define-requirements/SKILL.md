@@ -1,84 +1,99 @@
 ---
 name: kf-define-requirements
-description: Clarify ambiguous software requests, including fixes and refactors, into agreed behavior, scope, and acceptance criteria before dependent changes.
+description: Clarify a software request, including a fix or refactor, into agreed behavior, scope, and acceptance criteria. Use when the request leaves what should change or how success is recognized open before code or tests depend on it.
 ---
 
 # Define requirements
 
-Make the intended outcome, scope, constraints, and acceptance conditions usable for
-the next engineering decision. Reuse an adequate brief; clear, bounded changes need
-no requirements exercise or formal document. Preserve user goals and explicit
-choices without inventing product commitments.
+Turn a request into behavior, scope, and acceptance conditions that the next
+engineering decision can rely on. A clear, bounded change goes straight to design
+or implementation; reuse an existing brief when it already answers these questions.
 
-## Select supporting guidance
+## Method
 
-Read only for unresolved questions; leave routine design and implementation choices
-to those methods.
+These are the decisions to settle, in their usual order; skip any the request
+already answers. One ordering is fixed: ask about a live product decision before
+making edits that depend on it.
 
-- For unclear outcomes, actors, workflows, or scope, read
+1. **Separate the request** into its goal (what the actor can do, or what is true,
+   once the change works), facts (what code, data, docs, or the user establish),
+   constraints (explicit user or project choices), and assumptions (everything
+   else you rely on). For a tangled request, write these out as four short lists;
+   otherwise one sentence naming the goal and the open points is enough.
+   A requested mechanism ("add a cron job") is a constraint only when the user
+   chose it deliberately; otherwise trace it to the goal it serves. Existing code
+   is a fact about current behavior, and the user may want something different.
+
+2. **Classify each assumption.**
+
+   | Kind | Test | Action |
+   | --- | --- | --- |
+   | Product decision | Different answers change the target, scope, observable behavior, data meaning, or a compatibility obligation | Ask the user |
+   | Technical fact | Code, docs, data, or a permitted probe can answer it | Investigate it yourself |
+   | Routine means | Every option delivers the same outcome within the same contracts | Choose and state the choice |
+
+   Judge by consequence: a one-line change that deletes data is a product decision,
+   and a large refactor with one obvious outcome is routine. Ease of reversal leaves
+   the kind unchanged. When the user explicitly delegates a choice ("pick whatever
+   works"), it becomes yours within that delegation.
+
+3. **Ask one focused question per live product decision**, sending related
+   questions together in one message as soon as you can name them, because more
+   code reading will not reveal a preference. Name the concrete
+   difference, its consequence, and your recommendation with its reason. Keep
+   working on everything that holds under every answer and stays within current
+   authority; leave dependent code and tests untouched until the user answers.
+
+4. **Write acceptance conditions** as *actor + situation + observable result*, plus
+   effects that must stay absent. State behavior, leaving the mechanism to design
+   unless the user fixed it. Then check both directions: every condition traces to
+   the goal or a constraint, and passing every condition lets the actor complete the
+   scenario, including through alternate paths such as background jobs, imports,
+   and exports.
+
+5. **Stop and hand off** when no open question could invalidate the next action.
+   Carry the goal, sourced decisions, acceptance conditions, and non-blocking
+   questions forward in the conversation or an existing brief (a formal document
+   only when requested), then continue the authorized work.
+
+   When an answer surprises you, or the user overrides a choice you classified as
+   routine, your classification missed something: re-run step 2 for related
+   assumptions before continuing. When the goal itself changes, revise the
+   affected conditions and name the downstream work they invalidate.
+
+## Examples (illustrative)
+
+**Looks routine, is a product decision.** "Notify the approver when an expense report
+is submitted." In-app notifications are quick to build and easy to swap later, but
+an approver who is away from the app never sees them, and reach is part of the goal.
+
+> In-app notifications only reach approvers while they are in the app. Reports
+> could wait days for travelling managers. I recommend email plus an in-app badge.
+> Email, in-app, or both?
+
+**Looks open, is routine.** "Split the 900-line `billing.ts` into modules." How to
+split looks like a choice to ask about. Check first: if the public exports and
+behavior stay the same, the file layout changes nothing a caller can observe, so
+choose a split by responsibility and state it in the summary.
+
+## Supporting references
+
+Read a reference only for the decision that is stuck:
+
+- Actors, scenarios, or scope boundaries are unclear (step 1):
   [Outcomes and scope](references/outcomes-and-scope.md).
-- For assumptions, conflicting inputs, feasibility gaps, or missing user intent,
-  read [Uncertainty and decisions](references/uncertainty-and-decisions.md).
-- For acceptance conditions, missing failure behavior, or inconsistent obligations,
-  read [Acceptance and consistency](references/acceptance-and-consistency.md).
+- An assumption is hard to classify, inputs conflict, a question needs shaping
+  (steps 2–3), or you want a full worked walk-through:
+  [Uncertainty and decisions](references/uncertainty-and-decisions.md).
+- Acceptance conditions are vague or the set looks incomplete (step 4):
+  [Acceptance and consistency](references/acceptance-and-consistency.md).
 
-## Scope and authority
+## Boundaries
 
-Before substantive work, establish the repository/worktree scope, project
-instructions, authorization, and stopping condition; read-only work stays read-only.
-Pause only work that depends on missing evidence, capabilities, or user intent, and
-continue independent authorized work. Report only observed evidence and results.
-
-## Resolve consequential uncertainty
-
-Separate the desired outcome, accepted choices, source facts, and assumptions.
-Distinguish a suggested mechanism from the goal while preserving explicit technical
-constraints. Existing implementation explains current behavior, not necessarily
-what the user wants.
-
-Inspect relevant behavior, domain contracts, permissions, and entry points, including
-alternate paths that affect the same obligation. Reuse current evidence; investigate
-accessible technical facts directly and keep unavailable facts unknown.
-
-Before dependent edits, check whether the request admits plausible interpretations
-that change the target, scope, observable behavior, data meaning, or compatibility
-obligations. If current instructions and established decisions do not settle that
-difference, ask the user a focused question and wait for the answer. Judge the
-difference by its consequence, not by the request's length, the diff's size, or how
-easily it rolls back. Several implementations of the same intended outcome are not
-an ambiguity of intent.
-
-Judge the resulting obligations by these criteria:
-
-- They serve the intended outcome or an established constraint.
-- Actors, behavior, terms, and limits avoid consequential differences in interpretation.
-- Scenarios fit together without contradictions or missing steps needed for use.
-- Material feasibility premises have evidence or explicit uncertainty and consequences.
-- Acceptance conditions distinguish success from failure without an unjustified solution.
-
-Ask early once the missing decision is identifiable; explain the concrete difference
-between likely interpretations and recommend one when justified. Investigate facts
-that can settle the ambiguity, but do not keep reading code to guess a user preference.
-Resolve routine means within an established goal from evidence and preferences.
-While waiting, continue only work valid under the unresolved interpretations; do not
-modify dependent code or encode a guessed outcome in tests. Silence, a default option,
-or an unanswered question does not settle the decision.
-
-## Carry understanding forward
-
-Finish clarification when behavior, boundaries, and acceptance conditions support
-the next action without an unresolved question that could invalidate it. Deferred
-details may remain if they do not block that action; explain their limits and what
-would require resolution.
-
-Carry forward obligations, decisive reasons, and remaining uncertainty in the
-conversation or existing brief. Create a durable artifact only when requested or
-needed for delivery; no fixed question count, story format, or comprehensive
-specification is required.
-
-Once the needed answers are established, continue authorized design or implementation
-without a new approval checkpoint. Clarifying missing intent is not re-requesting
-permission for settled work.
-Respect analysis-only requests and step-by-step discussion. When goals, facts, or
-assumptions change, explain and update affected obligations and downstream decisions;
-preserve settled work that remains valid.
+- Work within the current repository/worktree, project instructions, and existing
+  authorization; analysis-only requests and step-by-step discussions keep that form.
+- An unanswered question, a default option, or a stated assumption leaves the
+  decision open.
+- Clarifying intent is a request for information, not a new approval gate: once
+  answered, continue the authorized work.
+- Report only what you observed and what the user decided.

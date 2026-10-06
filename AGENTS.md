@@ -16,8 +16,10 @@ workflow behavior rather than framework-specific instructions.
   release, operation, product evaluation, and skill improvement. Each skill owns
   its instructions and references; setup manages target-project reminders.
 - `.codex/agents/kf-reviewer.toml` defines the companion reviewer.
-- `.agents/skills/kf-research-skills/` contains this source repository's maintenance
-  research skill. It is outside the public catalog and consumer installation.
+- `.agents/skills/kf-research-skills/` and `.agents/skills/kf-skills-creator/`
+  contain this source repository's maintenance skills for skill research and for
+  creating or restyling kf-* skills. They are outside the public catalog and
+  consumer installation.
 - `scripts/kf-projects.mjs` implements the zero-dependency `k-fleet` npm CLI exposed
   by `package.json`.
 - `docs/` records skill-authoring guidance and workflow composition.
@@ -166,13 +168,17 @@ choices, not a consequence of these four foundations.
 
 Use the project-local `kf-research-skills` when creating, assessing, or materially
 revising skills depends on unsettled engineering or agent-behavior premises. Reuse
-adequate evidence for routine changes. Keep this maintenance capability out of the
-public catalog, CLI installation list, and consumer setup reminders.
+adequate evidence for routine changes. Use the project-local `kf-skills-creator`
+to create a kf-* skill or restyle an existing one. Keep these maintenance
+capabilities out of the public catalog, CLI installation list, and consumer setup
+reminders.
 
 When creating or materially revising skills, consult the applicable guidance in
 [Skill authoring guidance](docs/skill-authoring.md), distilled from the user-supplied
-“Rethinking skills and prompts for GPT-6 Astra”. Keep discovery concise, disclose
-detail progressively, and favor decision criteria over rigid itineraries. Preserve
+“Rethinking skills and prompts for GPT-6 Astra” and the OpenAI and Anthropic sources
+it lists. Keep discovery concise, disclose detail progressively, and favor decision
+criteria over rigid itineraries. Teach a method's hardest boundaries with short,
+varied, illustrative examples and positive instructions. Preserve
 real constraints and authorized completion while removing redundant reads, tests,
 and approval stops. Model-specific claims require evidence; they do not automatically
 apply to other models or justify weakening user rules.

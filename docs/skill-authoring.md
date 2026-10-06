@@ -16,6 +16,19 @@ official Astra skill-authoring blog was added and checked on 2026-09-13:
 - OpenAI, [skill loading](https://learn.chatgpt.com/docs/customization/overview#skills)
   and [skill-writing practices](https://learn.chatgpt.com/docs/build-skills#best-practices):
   metadata-based discovery, conditional loading, and focused applicability.
+- Anthropic, [Skill authoring best practices](https://docs.anthropic.com/en/docs/agents-and-tools/agent-skills/best-practices):
+  add only what the model lacks, match degrees of freedom to fragility, concrete
+  examples, validate-and-fix loops, and evaluation before authoring.
+- Anthropic, [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents),
+  published 2025-09-29: write at the altitude between brittle logic and vague
+  guidance; prefer a few diverse, canonical examples to lists of edge cases.
+- Anthropic, [Prompting best practices](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices):
+  say what to do rather than what to avoid, give the reason for a rule, and use
+  several relevant, varied examples.
+
+The Anthropic sources were checked on 2026-10-06. Where a source recommends
+evaluating before authoring, K Fleet applies that as observed runs of real requests
+against the old and new instructions, not as a maintained evaluation corpus.
 
 The authors' practice observations are distinct from official model guidance;
 neither establishes effectiveness on K Fleet tasks. Model-specific observations
@@ -26,8 +39,9 @@ documentation against the model and runtime in use when a decision depends on it
 
 Assume the agent can perform ordinary engineering work. Keep project-specific
 constraints, non-obvious methods, fragile operational requirements, and clear
-completion boundaries. Remove repeated encouragement, generic tutorials, and
-ceremonies that do not resolve a demonstrated failure or uncertainty.
+completion boundaries. Spend the words on the hard judgment calls the method
+exists for; remove repeated encouragement, generic tutorials, and ceremonies that
+resolve no demonstrated failure or uncertainty.
 
 Keep descriptions short and discriminating: name the capability and its actual
 trigger. Avoid broad keyword matches, exhaustive lists, and competing claims to
@@ -46,9 +60,28 @@ repository survey, a stack of references, or repeated reads before each edit whe
 the needed facts and constraints are already available.
 
 Describe outcomes, decision criteria, and applicability for open-ended engineering.
-Use fixed sequences only where order protects a concrete invariant. A routine edit
-does not need a design report, a fixed number of alternatives, or a new test merely
-to demonstrate process compliance. Preserve meaningful regression evidence.
+A skill's method may be a numbered list of the decisions to settle, in their usual
+order, with a way to skip what the request already answers; fix the order only
+where it protects a concrete invariant, and say which. Put the method's core
+judgment in a compact table (kind, test, action) when the skill has a real
+classification; leave it out where one would be invented. Each method names its
+stopping condition and what to re-examine when evidence contradicts an earlier
+decision. A routine edit needs no design report, fixed number of alternatives, or
+new test merely to demonstrate process compliance. Preserve meaningful regression
+evidence.
+
+## Teach with examples and positive instructions
+
+Show the method's hardest boundary with two or three short, contrasting cases,
+labelled illustrative: one that looks routine but is not, and one that looks
+uncertain but is routine. Agents copy an example's length, structure, and domain,
+so vary the domains, keep each case short, and move full walk-throughs into a
+reference. Every example must follow the skill's own rules; check it against them
+as carefully as the instructions. Keep each example in one place.
+
+State the behavior you want and its reason. Reserve prohibitions for real limits
+with a demonstrated failure or a policy behind them, group them in a short
+Boundaries section, and phrase them plainly.
 
 ## Preserve authority and completion
 

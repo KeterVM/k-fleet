@@ -1,57 +1,116 @@
 # Uncertainty and decisions
 
-## Identify what kind of answer is missing
+Use this when an assumption is hard to classify, inputs conflict, or a question
+needs shaping.
 
-- Product decisions set intended value or obligations: feature scope, recipients,
-  visibility, communication channels, retention, audit purpose, or required timeliness.
-  Use established intent; where it leaves a consequential choice open, present a
-  concrete proposal and ask a focused question.
-- Technical facts require evidence: data ownership, authorization behavior,
-  integration capabilities, transaction boundaries, or runtime constraints. Inspect
-  sources or identify the observation needed to settle the fact.
-- Routine implementation details may be chosen when alternatives satisfy the same
-  established outcome, scope, and contracts. Ease of revision alone does not make
-  an unresolved product or scope choice routine. Explicitly delegated discretion
-  permits choices within that delegation; it does not supply missing user goals.
+## Classify with worked cases (illustrative)
 
-Technical reversibility does not make a choice product-neutral. For example, in-app
-notifications may not meet a need to reach someone away from the application.
-Propose that scope rather than silently substituting it for unspecified notification
-behavior.
+| Request | Open point | Kind | Why |
+| --- | --- | --- | --- |
+| "Change the order status" | Which field, and what the new value means | Product decision | Different answers change data meaning for every consumer |
+| "Clean up old records" | Archive or delete | Product decision | Deletion removes data that reports or audits may need |
+| "Sync with the billing API" | Whether the API supports partial updates | Technical fact | The API docs or a sandbox call answer it |
+| "Sync with the billing API" | Which HTTP client to use | Routine means | Every client delivers the same sync |
+| "Rename `userId` to `accountId` in the API" | Whether external clients read the field | Technical fact | Check consumers; if external clients depend on it, keeping an alias or breaking the contract becomes a product decision |
+| "Make the export faster" | What counts as fast enough | Product decision when no target exists and the answer changes the design | A 2 s target and a 2 min target lead to different designs |
 
-## Resolve uncertainty where it affects work
+## Shape the question
 
-Compare plausible readings against the concrete change they would produce. Clarify
-when they differ over which entity or flow changes, which consumers are included,
-what behavior or data meaning changes, or which contracts remain stable. For example,
-"change status" may leave both the target field and the intended value semantics
-unclear; "clean up old records" may leave archiving versus deletion unresolved.
-Use the surrounding request and established requirements first; do not manufacture
-intent ambiguity merely because several implementations can satisfy the same goal.
+Use this structure:
 
-Prioritize unknowns that could change feasibility, acceptance, or the cost of a
-dependent decision. Ask the smallest question that separates the live alternatives,
-explaining their practical consequences and a grounded recommendation where possible.
-Avoid a vague request for more detail or a questionnaire whose answers would not
-change the next action. When only part of the answer arrives, preserve that decision
-and clarify only the remaining difference that blocks dependent work. Do not ask
-again for a decision already supported by the current task.
+1. The concrete difference: what changes under each reading.
+2. The consequence: who or what is affected.
+3. Your recommendation and its reason, when evidence supports one.
+4. A question the user can answer in one line.
 
-For a factual unknown, choose a targeted source check or permitted observation.
-Record what is established and what remains inferred. Evidence that an integration
-exists does not establish that the needed operation, permissions, or limits are
-available. An absent capability is a feasibility constraint, not permission to
-replace the requested outcome with a different one.
+Weak: "Can you give more details about the rename?"
 
-When inputs conflict, identify the specific obligations or assumptions in conflict
-and apply the task's source authority. If equally authoritative goals still cannot
-be reconciled, surface the tradeoff instead of silently picking the easier version.
-Offer feasible alternatives with their effects on the outcome, preserving the user's
-decision over material scope changes.
+Strong: "The mobile app v3 and two partner integrations read `userId`, so renaming
+it breaks them. I recommend returning both fields for one release, with `userId`
+marked deprecated. Keep the alias for a release, or break the contract now?"
 
-Continue inspection and work whose correctness does not depend on the missing answer.
-Do not implement a preferred branch while the question is pending, even if labeled
-provisional, or turn it into an acceptance test that makes the guess look confirmed.
-Elapsed time, lack of a reply, or a preselected option does not resolve the choice.
-If no answer is available, leave the dependent change pending and state the precise
-decision needed. Resume once it is answered without asking for approval again.
+Ask about the decisions that could change feasibility, acceptance, or the cost of
+dependent work, in that order, and combine related decisions into one message.
+When the user answers part of the question, keep that answer and ask only about the
+remaining difference. A decision already settled in the conversation stays settled.
+
+## Settle technical facts with the cheapest sufficient check
+
+Pick the check that directly answers the question: read the source, run a query on
+permitted data, read version-matched docs, or make a sandbox call. Record what is
+established and what remains inferred.
+
+An integration that exists may still lack the needed operation, permission, or rate
+limit; confirm the specific capability. When a capability is missing, report it as a
+feasibility constraint and offer alternatives with their effect on the goal; the user
+decides whether to change the outcome.
+
+## Resolve conflicting inputs
+
+Name the specific obligations in conflict and apply the task's source authority:
+current user instructions, then project rules, then existing behavior. When equally
+authoritative goals still conflict, present the tradeoff with feasible options and
+their effect on the outcome; the user picks.
+
+## While a question is pending
+
+Step 3 of SKILL.md sets the rule. Dependent work includes migrations and acceptance
+tests, and "provisional" versions
+of your preferred answer count as dependent work. If the conversation ends without
+an answer, report the exact decision needed and the work waiting on it. When the
+answer arrives, resume directly.
+
+## Full walk-through (illustrative)
+
+Request: "Clean up old records in the orders table, the order list is getting slow."
+
+**Separate the request.**
+
+- Goal: the order list loads within a target the user accepts.
+- Facts: `orders` holds 40M rows; `reports/annual.sql` reads orders back to 2019;
+  `EXPLAIN` on the list query shows a full scan on `status`; the list currently
+  takes about 4 s for the largest tenant.
+- Constraints: none stated.
+- Assumptions: "clean up" means delete; "old" means older than two years; row count
+  causes the slowness; there is an agreed speed target.
+
+**Classify.**
+
+- Delete versus archive: product decision, because deletion changes annual report
+  totals.
+- The two-year cutoff: product decision, because it sets which orders leave the
+  live table.
+- Speed target: product decision, because none exists and it decides whether an
+  index alone is enough.
+- Cause of the slowness: technical fact. The full scan on `status` points at a
+  missing index; measure it.
+- How to move rows in batches: routine, once archive or delete is decided.
+
+**Do the work that holds under every answer.** On a development copy, add the index
+and measure the list query. Prepare the migration without running it against
+production, since building an index on a 40M-row table may lock it.
+
+**Ask once, with the evidence.**
+
+> On a copy, an index on `status` brings the order list from about 4 s to 0.3 s
+> without touching data. Three decisions remain:
+> 1. Is under 1 s for the largest tenant the right target? (my proposal)
+> 2. You asked for a cleanup. Speed no longer requires it, so should old orders be
+>    archived to `orders_archive` (my recommendation, keeps annual reports intact),
+>    deleted, or left for later?
+> 3. If they move, is two years the right cutoff?
+>
+> If you choose a target the index cannot meet, the cleanup becomes part of the
+> speed fix and I will measure its effect too.
+
+**Acceptance conditions after the answers** (say: target under 1 s, archive now,
+two years):
+
+- For the largest tenant at current data volume, the order list loads in under 1 s
+  at p95.
+- Annual report totals for 2019 onward match their values before the change.
+- Orders newer than two years remain in the live order list; archived orders stay
+  retrievable for reports.
+
+The conditions describe what users and reports observe. Whether the index alone
+meets the target is a design question, settled by measurement.

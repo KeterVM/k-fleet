@@ -1,47 +1,61 @@
 # Acceptance and consistency
 
-## State outcomes that can be checked
+Use this when acceptance conditions are vague or the set may be incomplete.
 
-Express acceptance in terms of the relevant actor or caller, conditions, observable
-result, and constraints. Include required state changes and effects that must not
-occur where these matter. Avoid criteria that merely say a component exists, code
-was written, or tests pass without stating the behavior those artifacts must deliver.
+## Write checkable conditions
 
-Replace consequential vague terms such as fast, available, or easy to use with the
-relevant scenario and an assessable outcome. Use established targets, workloads,
-platforms, and tolerances when available; do not invent numerical precision or turn
-an illustrative target into an agreed commitment. Clarify unresolved quality goals
-when they could change the design or acceptance decision.
+Template: **actor + situation + observable result**, plus **effects that must stay
+absent** when they matter.
 
-Choose observations suited to the deliverable: a visible interaction outcome, a
-caller-visible response, persisted state, an output artifact, or behavior under a
-stated load or failure. A criterion need not dictate the test framework or require
-automation, but it must leave a credible way to distinguish satisfaction from failure.
+Illustrative pairs:
 
-## Challenge the scenarios proportionately
+| Weak | Checkable |
+| --- | --- |
+| "Export works" | "A manager exporting a filtered list of 10k rows receives a CSV with exactly the filtered rows and the visible columns, and it opens correctly in Excel" |
+| "Invoices are protected" | "A user without the `billing:write` role who edits an invoice receives 403, and the invoice stays unchanged" |
+| "The page is fast" | "The order list loads within the agreed target for the largest tenant" (use an established target; otherwise ask, and label any number you propose) |
+| "Use a queue for emails" | "A user who signs up receives the welcome email even when the mail provider is down for up to an hour" (behavior; the queue is a design choice) |
+| "Tests pass" | Name the behavior the tests must demonstrate |
 
-Use relevant counterexamples to expose missing obligations: invalid input, failed
-operations, retries, changed permissions, deleted objects, or unavailable dependencies.
-Identify what must remain true and what result the affected actor should observe.
-Resolve acceptable failure behavior from the existing contract or user intent.
+Pick the observation that fits the deliverable: a visible UI result, a caller-visible
+response, persisted state, an output file, or behavior under a stated load or
+failure. A condition does not need to name the test framework; it needs a credible
+way to tell success from failure.
 
-Examine only cases capable of changing the requirements or approach. A possible
-failure does not automatically justify a new feature or infrastructure component.
-Keep confirmed obligations separate from questions and candidate improvements.
+Use established targets, workloads, and tolerances. When a quality goal such as
+speed or availability has no target and the answer would change the design, ask
+for it; label any number you propose as a proposal.
 
-## Check the requirements as a set
+## Probe with counter-examples
 
-Trace material acceptance conditions back to the intended outcome or an established
-constraint. Check the reverse direction too: could every listed criterion pass while
-the user still cannot complete the important scenario? Look for missing handoffs,
-implicit manual steps, unaddressed actors, and necessary behavior on alternate paths.
+Run through the cases that could change the requirements:
 
-Check that scope, permissions, timing, lifecycle, and failure expectations do not
-contradict one another where they interact. Resolve incompatible uses of a domain term
-or conflicting obligations before they become separate implementation assumptions.
-Check feasibility against known dependencies and constraints, keeping remaining
-uncertainty explicit rather than claiming implementation or validation has occurred.
+- Invalid or missing input
+- The operation fails halfway, or is retried
+- Permissions change between steps
+- The target object is deleted or modified concurrently
+- A dependency is unavailable or slow
 
-Preserve adequate existing criteria. When a requirement changes, update affected
-scenarios and acceptance conditions with the reason for the change; do not weaken
-them solely because the current implementation or tests cannot satisfy them.
+For each relevant case, state what must remain true and what the actor observes.
+Take acceptable failure behavior from the existing contract or the user. Keep
+confirmed obligations, open questions, and candidate improvements in separate lists;
+a possible failure alone does not justify new infrastructure.
+
+## Check the set in both directions
+
+- **Downward:** each condition traces to the goal or an established constraint.
+  Remove or question conditions that trace to nothing.
+- **Upward:** imagine every condition passing. Can the actor complete the scenario?
+  Look for missing handoffs, manual steps, unaddressed actors, and alternate paths.
+
+Example: the conditions for a CSV customer import all pass, yet the nightly CRM sync
+overwrites the imported rows with stale data. Add a condition for the sync.
+
+Then check that scope, permissions, timing, lifecycle, and failure expectations agree
+where they meet, and that each domain term means one thing across conditions.
+
+## Change conditions deliberately
+
+Keep adequate existing conditions. When a requirement changes, update the affected
+scenarios and conditions and record the reason. The current implementation or test
+suite failing a condition is a finding to report; the condition stays as agreed.
