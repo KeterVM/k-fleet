@@ -120,7 +120,7 @@ decisions; public capability boundaries remain explicit design choices.
 - Use `kf-research-skills` when creating, assessing, or materially revising a
   skill depends on unsettled engineering or agent-behavior premises; reuse
   adequate evidence for routine changes.
-- Use `kf-skills-creator` to create or restyle a kf-* skill.
+- Use `kf-skills-creator` to create, restyle, trim, or rephrase a kf-* skill.
 - Keep both out of the public catalog, CLI installation list, and setup reminders.
 - Follow [skill authoring guidance](docs/skill-authoring.md), which records its
   sources and their check dates: concise discovery,

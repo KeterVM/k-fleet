@@ -27,6 +27,10 @@ Before substantive work, establish the repository/worktree scope, project
 instructions, authorization, and stopping condition; read-only work stays read-only.
 Pause only work that depends on missing evidence, capabilities, or user intent, and
 continue independent authorized work. Report only observed evidence and results.
+Current instructions and repository sources outrank recalled or inferred context,
+which grants no permission. Within higher-priority constraints, explicit user
+instructions override this skill; when one of its rules stops work, quote the rule
+and separate it from your interpretation.
 
 ## Implement against the contract
 

@@ -104,6 +104,10 @@ Read a reference only for the decision that is stuck:
 
 - Work within the current repository/worktree, project instructions, and existing
   authorization; design-only and read-only requests keep that form.
+- Current instructions and repository sources outrank recalled or inferred context,
+  which grants no permission. Within higher-priority constraints, explicit user
+  instructions override this skill; when one of its rules stops work, quote the
+  rule and separate it from your interpretation.
 - Existing code, a default option, or a declared assumption leaves product intent
   open; leave design and code that depend on it until the user answers.
 - A design is not an approval gate: once dependent questions are answered, continue

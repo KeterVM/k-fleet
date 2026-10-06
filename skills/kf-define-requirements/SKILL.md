@@ -92,6 +92,10 @@ Read a reference only for the decision that is stuck:
 
 - Work within the current repository/worktree, project instructions, and existing
   authorization; analysis-only requests and step-by-step discussions keep that form.
+- Current instructions and repository sources outrank recalled or inferred context,
+  which grants no permission. Within higher-priority constraints, explicit user
+  instructions override this skill; when one of its rules stops work, quote the
+  rule and separate it from your interpretation.
 - An unanswered question, a default option, or a stated assumption leaves the
   decision open.
 - Clarifying intent is a request for information, not a new approval gate: once
