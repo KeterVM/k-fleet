@@ -13,7 +13,7 @@ skeleton shows a filled shape.
 | Core table | The hard judgment | *Kind \| Test \| Action*, 3–5 rows. Only when the skill has a real classification. |
 | Stop and re-examine | Control and double loop | The stopping condition, and what to revisit when evidence contradicts an earlier decision (for example, a user overriding a "routine" choice). |
 | Examples | Teach the boundary | Two short cases labelled illustrative: one that looks routine but is not, one that looks uncertain but is routine. Different domains from each other and from the references. Full walk-throughs go to a reference. |
-| Supporting references | Progressive disclosure | One line per reference, routed by the decision that is stuck. One level deep, inside the skill directory. |
+| Supporting references | Progressive disclosure | One line per reference, routed by an observable event (adding a package or deployment piece, a user override, a first design) plus the decision that is stuck; the agent rarely notices when it is stuck. One level deep, inside the skill directory. |
 | Boundaries | Real limits | Up to five positive lines: scope and authority, decisions that stay open until answered, read-only modes, reporting honesty. |
 
 Body length is a cost paid on every load. Spend it on the core judgment and the
@@ -58,7 +58,7 @@ already answers. One ordering is fixed: <ordering and the invariant it protects>
 
 ## Supporting references
 
-- <Stuck decision>: [<Title>](references/<file>.md).
+- <Triggering event; stuck decision>: [<Title>](references/<file>.md).
 
 ## Boundaries
 

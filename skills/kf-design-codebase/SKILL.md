@@ -29,7 +29,7 @@ because a smaller diff cannot buy back an unmet obligation or a misplaced owner.
    | Kind | Test | Action |
    | --- | --- | --- |
    | Settled or local | An accepted choice or adequate existing design covers it, and the request is not about that structure | Build on it; revisit only on evidence that it fails a current obligation |
-   | Ownership or contract | The answer decides who owns a rule or state, what callers must know or coordinate, or who handles a failure | Decide it here from a concrete change or failure trace |
+   | Ownership or contract | The answer decides who owns a rule or state, what callers must know or coordinate, who handles a failure, or which artifacts ship and who hosts or operates them | Decide it here from a concrete change or failure trace |
    | General-purpose mechanism | The design adds or reworks something the ecosystem commonly provides (retries, caching, parsing, scheduling) | Check the standard library, framework, installed dependencies, then mainstream libraries; keep custom code for a concrete unmet requirement |
    | Product intent | Plausible readings change the target, scope, behavior, data meaning, or a compatibility obligation, and established decisions do not settle it | Ask, then continue work that holds under every answer |
    | Routine technical choice | Every option meets the same contracts at comparable cost | Choose, state the choice, and leave line-level form to implementation |
@@ -47,8 +47,10 @@ because a smaller diff cannot buy back an unmet obligation or a misplaced owner.
      hidden coordination;
    - domain terms, component roles, paths, and dependency directions express the
      same ownership model, so implementation need not invent another;
-   - each added structure or dependency serves a current need (readability from a
-     suitable library counts);
+   - each added structure, dependency, or deployment piece serves a current need
+     that traces to the user, the requirements, or an external constraint
+     (readability from a suitable library counts); a goal you introduced yourself is
+     an assumption to confirm before structure depends on it;
    - decisions can guide implementation and be challenged by observable evidence,
      which a directory tree or architecture label alone cannot.
 
@@ -68,8 +70,9 @@ because a smaller diff cannot buy back an unmet obligation or a misplaced owner.
    When friction, review, or new evidence challenges a decision, tell apart a
    misunderstood handoff (clarify it), an infeasible design (revise that decision
    and explain the consequences), and a local defect (fix the code). When the user
-   overrides a choice you classified as routine or settled, re-run step 2 for
-   related points before continuing.
+   overrides any choice or recommendation of yours, list the decisions that assumed
+   it, including packaging and deployment, and re-run step 2 on each before
+   continuing; drop what no longer serves a current need.
 
 ## Examples (illustrative)
 
@@ -86,19 +89,29 @@ already retries with backoff and dead-lettering: enqueue each delivery as a job 
 configure it. Add custom code only for a requirement it cannot meet, such as
 per-partner rate windows, and state that reason.
 
+**Looks like packaging, is an override cascade.** You planned server-rendered admin
+pages and, on that basis, one Go binary carrying its pages. The user switches the
+admin UI to a Vue single-page app. Embedding the built app still looks like a
+packaging detail, but it adds a `go:embed` package and a build step writing into
+the server tree, and it decides who serves the frontend. The single binary was your
+goal, not the user's: list what assumed server rendering, and confirm the delivery
+shape (embedded, or static files behind the operators' reverse proxy) before
+building for it.
+
 ## Supporting references
 
-Read a reference only for the decision that is stuck:
+Read a reference when its event occurs, as well as when a decision is stuck:
 
-- Domain meaning, what belongs together, contract shape, or placement is unclear
-  (steps 2–3):
+- The first overall design of a new project; domain meaning, what belongs together,
+  contract shape, or placement is unclear (steps 2–3):
   [Boundaries and contracts](references/boundaries-and-contracts.md).
 - A flow spans modules, partial failure or consistency is in question, or failures
   must stay diagnosable (steps 3–4):
   [Interactions and operation](references/interactions-and-operation.md).
-- Designs or libraries compete, a premise is uncertain or challenged, a change is
-  costly to undo or needs migration, or the handoff needs shaping (steps 2–5):
-  [Tradeoffs and evidence](references/tradeoffs-and-evidence.md).
+- You add a package, layer, build artifact, or deployment piece; the user overrides
+  a choice or recommendation; designs or libraries compete; a premise is uncertain;
+  a change is costly to undo or needs migration; or the handoff needs shaping
+  (steps 2–5): [Tradeoffs and evidence](references/tradeoffs-and-evidence.md).
 
 ## Boundaries
 

@@ -29,7 +29,7 @@ unmet obligation or a misplaced rule.
    | Kind | Test | Action |
    | --- | --- | --- |
    | Product intent | Plausible readings change the target, scope, behavior, data meaning, or a compatibility obligation, and established decisions do not settle it | Ask, then continue work that holds under every answer; keep the guessed reading out of code and tests |
-   | Ownership or contract | The choice decides which module owns a rule or state, or changes what other modules call or rely on | Decide it from a traced change and state it; when it reshapes cross-module contracts, revisit the design |
+   | Ownership or contract | The choice decides which module owns a rule or state, changes what other modules call or rely on, or changes which artifacts ship and who hosts or operates them | Decide it from a traced change and state it; when it reshapes cross-module contracts or delivery, revisit the design |
    | General-purpose mechanism | The change adds or reworks parsing, validation, retries, caching, scheduling, or similar | Check the standard library, framework, installed dependencies, then maintained mainstream libraries; keep custom code for a concrete reason |
    | Rename or replacement | A name, field, class, or entry point is superseded | Migrate every in-scope consumer and remove the old path; keep a bridge only for a named consumer or data that cannot move now |
    | Routine choice | Every option meets the same contracts at comparable cost | Choose and move on; mention it when a reviewer would ask |
@@ -44,7 +44,10 @@ unmet obligation or a misplaced rule.
    wiring, configuration, failure handling, and cleanup, and keep authorization,
    transaction, concurrency, resource-lifetime, and compatibility guarantees
    intact. Update usage documentation when the change alters how the code is used
-   or operated. Keep the diff on the requested behavior and its necessary support.
+   or operated. Keep the diff on the requested behavior and its necessary support:
+   each added package, layer, or build step serves a need that traces to the user,
+   the requirements, or an external constraint, and a goal you set yourself waits
+   for confirmation before code depends on it.
 
 4. **Check the result.** Run the relevant tests and configured format, lint, and
    type checks; exercise real boundaries for wiring and dependency claims, since
@@ -65,8 +68,9 @@ unmet obligation or a misplaced rule.
    When a check fails, separate a code defect from an environment or access
    problem before changing code. When repeated exceptions, mappings, or fragile
    coordination show up, revisit the ownership or design decision that produced
-   them. When the user overrides a choice you classified as routine, re-run step 2
-   for related points.
+   them. When the user overrides any choice or recommendation of yours, list the
+   decisions and code that assumed it, including packaging and deployment, and
+   re-run step 2 on each; remove what no longer serves a current need.
 
 ## Examples (illustrative)
 
@@ -85,15 +89,17 @@ on the flag, and state the choice.
 
 ## Supporting references
 
-Read a reference only for the decision that is stuck:
+Read a reference when its event occurs, as well as when a decision is stuck:
 
-- A new or extended component, unclear ownership, naming, placement, or an
-  extraction (steps 2–3): [Structure and naming](references/structure-and-naming.md).
+- You add a package, layer, component, or build artifact; or ownership, naming,
+  placement, or an extraction is unclear (steps 2–3):
+  [Structure and naming](references/structure-and-naming.md).
 - A general-purpose mechanism or a new dependency (step 2):
   [Libraries and dependencies](references/libraries-and-dependencies.md).
 - A rename, replacement, wrapper, alias, or compatibility bridge (steps 2–4):
   [Migrations and compatibility](references/migrations-and-compatibility.md).
-- Material dependencies, failed attempts, blockers, or review feedback (steps 4–5):
+- Material dependencies, failed attempts, blockers, review feedback, or a user
+  override of your choice (steps 4–5):
   [Execution and feedback](references/execution-and-feedback.md).
 
 ## Boundaries

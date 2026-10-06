@@ -53,9 +53,10 @@ test what the draft already does well).
 
 5. **Draft to the template.** Follow [Template](references/template.md): purpose
    and when to skip, the method as decisions with any named fixed ordering, the core
-   table, two short contrasting examples, references routed by the stuck decision,
-   and a Boundaries section of real limits. State behavior positively and give the
-   reason; keep prohibitions for demonstrated failures or policy.
+   table, two short contrasting examples, references routed by observable events
+   and the stuck decision, and a Boundaries section of real limits. State behavior
+   positively and give the reason; keep prohibitions for demonstrated failures or
+   policy.
 
 6. **Check the draft against itself and the repository.** Every example follows the
    skill's own rules; each fact lives in one place; links resolve inside the skill

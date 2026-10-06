@@ -56,10 +56,12 @@ making edits that depend on it.
    questions forward in the conversation or an existing brief (a formal document
    only when requested), then continue the authorized work.
 
-   When an answer surprises you, or the user overrides a choice you classified as
-   routine, your classification missed something: re-run step 2 for related
-   assumptions before continuing. When the goal itself changes, revise the
-   affected conditions and name the downstream work they invalidate.
+   When an answer surprises you, or the user overrides any choice or
+   recommendation of yours, treat the answer as settled and your classification as
+   having missed something: list the assumptions and conditions that relied on the
+   old choice, then revise or drop each one now and re-run step 2 only on what the
+   new choice opens. When the goal itself changes, revise the affected conditions
+   and name the downstream work they invalidate.
 
 ## Examples (illustrative)
 
@@ -78,12 +80,13 @@ choose a split by responsibility and state it in the summary.
 
 ## Supporting references
 
-Read a reference only for the decision that is stuck:
+Read a reference when its event occurs, as well as when a decision is stuck:
 
-- Actors, scenarios, or scope boundaries are unclear (step 1):
-  [Outcomes and scope](references/outcomes-and-scope.md).
-- An assumption is hard to classify, inputs conflict, a question needs shaping
-  (steps 2–3), or you want a full worked walk-through:
+- A new product or first requirements pass; actors, scenarios, or scope boundaries
+  are unclear (step 1): [Outcomes and scope](references/outcomes-and-scope.md).
+- The user overrides a choice or recommendation; an assumption is hard to
+  classify, inputs conflict, a question needs shaping (steps 2–3), or you want a
+  full worked walk-through:
   [Uncertainty and decisions](references/uncertainty-and-decisions.md).
 - Acceptance conditions are vague or the set looks incomplete (step 4):
   [Acceptance and consistency](references/acceptance-and-consistency.md).
