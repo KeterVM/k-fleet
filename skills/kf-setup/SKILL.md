@@ -63,7 +63,8 @@ Manage exactly one block between `<!-- k-fleet:start -->` and
 <!-- k-fleet:start -->
 ## K Fleet
 
-Select methods as needed:
+Select methods as needed. When work enters a method, load its skill before acting;
+the reminders below summarize the skills and do not replace them.
 
 - `kf-discover-product`: investigate uncertain user problems and product value.
 - `kf-define-requirements`: clarify intended behavior and acceptance criteria.
