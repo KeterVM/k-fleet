@@ -91,8 +91,8 @@ Claude Code 中为 [`kf-reviewer`](.claude/agents/kf-reviewer.md)。
 
 ## 安装
 
-需要 Node.js 20 或更高版本、可用的 `npm` 和 `npx`、Git，以及访问 npm 和 GitHub 的网络。
-CLI 会调用 `npx skills add` 安装技能文件，因此使用 Bun 启动 K Fleet 时也需要这些条件。
+需要 Node.js 20 或更高版本、可用的 `npx`（或 Bun 的 `bunx`），以及访问 npm 的网络。
+技能文件随 CLI 包一起发布，下载一次即可用于所有项目。
 
 在目标仓库中运行：
 
@@ -114,14 +114,13 @@ npx --yes github:KeterVM/k-fleet install
 
 命令行工具（CLI）会执行以下操作：
 
-- 将公开技能安装到 `.agents/skills/` 供 Codex 使用，并在 `.claude/skills/` 中建立链接供 Claude Code 使用。
-- 将技能记录到 `skills-lock.json`。
+- 将公开技能复制到 `.agents/skills/` 供 Codex 使用，并在 `.claude/skills/` 中建立链接供 Claude Code 使用。
 - 将审查 agent 的配置复制到 `.codex/agents/` 和 `.claude/agents/`。
 - 注册当前项目。
 
 安装不会启动初始化，也不会修改 `AGENTS.md`。
-CLI 版本决定请求安装哪些技能，技能内容来自本仓库默认分支。
-因此，固定 CLI 版本不会同时固定技能源码版本。审查 agent 的配置来自 CLI 包。
+技能和审查 agent 的配置都来自 CLI 包，因此固定 CLI 版本即同时固定两者。
+K Fleet 不使用 `skills` CLI 或 `skills-lock.json`；旧版本留在该文件中的 K Fleet 条目会被移除，其他条目保留。
 
 Codex 会[自动发现技能变更](https://learn.chatgpt.com/docs/build-skills#create-a-skill)，
 Claude Code 也会[监视技能目录](https://code.claude.com/docs/en/skills)。
@@ -207,8 +206,8 @@ bunx k-fleet@latest update --all
 npm view k-fleet dist-tags --json
 ```
 
-旧 CLI 可能只更新已有技能，而没有请求新增的技能名称。
-可以用 `k-fleet@<version>` 指定一个已发布版本，或直接获取 GitHub 当前 CLI 更新已注册项目：
+缓存中的旧 CLI 会安装该版本自带的技能。
+可以用 `k-fleet@<version>` 指定一个已发布版本，或直接获取 GitHub 当前的 CLI 和技能更新已注册项目：
 
 ```sh
 npx --yes github:KeterVM/k-fleet update --all
@@ -222,7 +221,7 @@ npx --yes github:KeterVM/k-fleet update --all
 `skills/` 存放技能源文件。
 `.codex/agents/` 和 `.claude/agents/` 存放审查 agent 的配置，两者指令相同。
 `scripts/kf-projects.mjs` 存放 CLI 代码。
-CLI 没有声明 npm 依赖；安装时通过 `npx` 调用外部 `skills` CLI。
+CLI 没有 npm 依赖，直接从自身包中复制技能。
 
 维护时请参阅：
 

@@ -9,6 +9,7 @@
   "files": [
     ".codex/agents/kf-reviewer.toml",
     ".claude/agents/kf-reviewer.md",
+    "skills",
     "scripts/kf-projects.mjs",
     "LICENSE",
     "NOTICE",

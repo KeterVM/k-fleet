@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import { spawnSync } from "node:child_process";
 import {
   copyFileSync,
+  cpSync,
   existsSync,
   lstatSync,
   mkdirSync,
@@ -12,6 +12,7 @@ import {
   readlinkSync,
   rmSync,
   statSync,
+  symlinkSync,
   writeFileSync,
 } from "node:fs";
 import { homedir } from "node:os";
@@ -33,9 +34,9 @@ const kFleetSkills = [
   "kf-evaluate-product",
   "kf-codify-practices",
 ];
-// The skills CLI installs into .agents/skills (Codex) and links each skill from
-// .claude/skills (Claude Code).
-const skillAgents = ["codex", "claude-code"];
+// Skills are copied from this package into .agents/skills (Codex) and linked
+// from .claude/skills (Claude Code).
+const skillSourceRoot = join(repositoryRoot, "skills");
 const reviewerFiles = [
   join(".codex", "agents", "kf-reviewer.toml"),
   join(".claude", "agents", "kf-reviewer.md"),
@@ -47,7 +48,6 @@ const retiredSkills = [
   "skillopt-sleep",
   "kf-evolve-skills",
 ];
-const kFleetSource = process.env.KFLEET_SKILL_SOURCE || "KeterVM/k-fleet";
 const stateRoot = process.env.KFLEET_STATE_DIR || join(homedir(), ".k-fleet");
 const registryPath = join(stateRoot, "projects.json");
 function usage() {
@@ -120,18 +120,6 @@ function saveRegistry(registry) {
   writeJson(registryPath, registry);
 }
 
-function run(command, args, options = {}) {
-  const workingDirectory = options.cwd || process.cwd();
-  console.log("\n> (" + workingDirectory + ") " + [command, ...args].join(" "));
-  const result = spawnSync(command, args, {
-    cwd: workingDirectory,
-    env: process.env,
-    stdio: "inherit",
-  });
-  if (result.error) fail(command + " failed to start: " + result.error.message);
-  if (result.status !== 0) fail(command + " exited with status " + result.status);
-}
-
 function selectProjects(args, registry) {
   const all = args.includes("--all");
   const paths = args.filter((arg) => arg !== "--all");
@@ -169,12 +157,48 @@ function skillPaths(project, skill) {
   ];
 }
 
+function checkSkillSources() {
+  for (const skill of kFleetSkills) {
+    const source = join(skillSourceRoot, skill, "SKILL.md");
+    if (!existsSync(source)) fail("Skill source not found: " + source);
+  }
+}
+
+function linksTo(link, target) {
+  try {
+    return lstatSync(link).isSymbolicLink() &&
+      resolve(dirname(link), readlinkSync(link)) === target;
+  } catch (error) {
+    if (error.code === "ENOENT") return false;
+    throw error;
+  }
+}
+
 function addKFleetSkills(project, skills) {
-  run(
-    "npx",
-    ["--yes", "skills", "add", kFleetSource, "--agent", ...skillAgents, "--skill", ...skills, "--yes"],
-    { cwd: project },
-  );
+  for (const skill of skills) {
+    // Stage the copy beside the destination so a failed copy leaves the old one.
+    const canonical = join(project, ".agents", "skills", skill);
+    const staging = canonical + ".tmp-" + process.pid;
+    mkdirSync(dirname(canonical), { recursive: true });
+    rmSync(staging, { recursive: true, force: true });
+    cpSync(join(skillSourceRoot, skill), staging, { recursive: true });
+    rmSync(canonical, { recursive: true, force: true });
+    renameSync(staging, canonical);
+
+    const link = join(project, ".claude", "skills", skill);
+    if (!linksTo(link, canonical)) {
+      rmSync(link, { recursive: true, force: true });
+      mkdirSync(dirname(link), { recursive: true });
+      try {
+        symlinkSync(relative(dirname(link), canonical), link, "dir");
+      } catch (error) {
+        // Windows without symlink permission: keep a copy instead.
+        if (error.code !== "EPERM") throw error;
+        cpSync(canonical, link, { recursive: true });
+      }
+    }
+    console.log("Installed skill: " + canonical);
+  }
 }
 
 function installedRetiredSkills(project) {
@@ -183,26 +207,29 @@ function installedRetiredSkills(project) {
 }
 
 function removeRetiredSkills(project) {
-  // Codex discovers these canonical directories directly. The upstream remove
-  // command can leave both canonical copies and local-source lock entries behind.
-  const lockPath = join(project, "skills-lock.json");
-  const lock = readJson(lockPath, null);
   for (const skill of retiredSkills) {
     const canonical = join(project, ".agents", "skills", skill);
     rmSync(canonical, { recursive: true, force: true });
     // Remove only the Claude Code link that points at the canonical copy.
     const link = join(project, ".claude", "skills", skill);
-    try {
-      if (lstatSync(link).isSymbolicLink() &&
-        resolve(dirname(link), readlinkSync(link)) === canonical) rmSync(link);
-    } catch (error) {
-      if (error.code !== "ENOENT") throw error;
-    }
+    if (linksTo(link, canonical)) rmSync(link);
   }
-  if (lock?.skills && retiredSkills.some((skill) => Object.hasOwn(lock.skills, skill))) {
-    for (const skill of retiredSkills) delete lock.skills[skill];
-    writeJson(lockPath, lock);
-  }
+}
+
+function releaseSkillsLock(project) {
+  // Earlier versions installed through the skills CLI. Drop its K Fleet entries
+  // so `skills update` does not replace the copies this CLI manages.
+  const lockPath = join(project, "skills-lock.json");
+  const lock = readJson(lockPath, null);
+  if (!lock?.skills) return;
+  const entries = [...kFleetSkills, ...retiredSkills]
+    .filter((skill) => Object.hasOwn(lock.skills, skill));
+  if (!entries.length) return;
+  for (const skill of entries) delete lock.skills[skill];
+  const onlyLockFields = Object.keys(lock).every((key) => ["version", "skills"].includes(key));
+  if (onlyLockFields && Object.keys(lock.skills).length === 0) rmSync(lockPath);
+  else writeJson(lockPath, lock);
+  console.log("Released K Fleet entries from " + lockPath);
 }
 
 function installProject(project) {
@@ -212,8 +239,9 @@ function installProject(project) {
     retiredSkills.some((skill) => Object.hasOwn(locked, skill));
   const missing = kFleetSkills.filter((skill) =>
     !skillPaths(project, skill).every((path) => existsSync(path)));
-  if (migrating || missing.length) addKFleetSkills(project, migrating ? kFleetSkills : missing);
+  addKFleetSkills(project, migrating ? kFleetSkills : missing);
   removeRetiredSkills(project);
+  releaseSkillsLock(project);
   if (!migrating && missing.length < kFleetSkills.length) {
     console.log("Existing K Fleet skills preserved; use update to refresh them: " + project);
   }
@@ -224,13 +252,13 @@ function upgradeProject(project) {
   // Install replacements successfully before removing exact retired names.
   addKFleetSkills(project, kFleetSkills);
   removeRetiredSkills(project);
+  releaseSkillsLock(project);
   installReviewer(project);
 }
 
 function printStatus(project) {
   const checks = [
     ...kFleetSkills.flatMap((skill) => skillPaths(project, skill).map((path) => [skill, path])),
-    ["skills lock", join(project, "skills-lock.json")],
     ...reviewerFiles.map((file) => ["reviewer", join(project, file)]),
   ];
   console.log("\n" + project);
@@ -286,6 +314,7 @@ function main(argv) {
   }
 
   const projects = selectProjects(args, registry);
+  if (command !== "status") checkSkillSources();
   if (command === "bootstrap" || command === "install") {
     for (const project of projects) installProject(project);
     registry.projects.push(...projects);

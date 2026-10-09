@@ -99,9 +99,8 @@ Its output is advisory findings and supporting evidence.
 
 ## Installation
 
-Use Node.js 20 or later, with `npm` and `npx` available, plus Git and network access
-to npm and GitHub. The CLI invokes `npx skills add` to install skill files; these
-requirements also apply when starting K Fleet with Bun.
+Use Node.js 20 or later, with `npx` (or Bun's `bunx`) and network access to npm.
+The skill files ship inside the CLI package, so one download serves every project.
 
 From the target repository, run this command:
 
@@ -123,16 +122,15 @@ npx --yes github:KeterVM/k-fleet install
 
 The command-line interface (CLI) does these tasks:
 
-- It installs the public skills in `.agents/skills/` for Codex and links them from
+- It copies the public skills to `.agents/skills/` for Codex and links them from
   `.claude/skills/` for Claude Code.
-- It records the skills in `skills-lock.json`.
 - It copies the reviewer configuration to `.codex/agents/` and `.claude/agents/`.
 - It registers the project.
 
 Installation does not start setup or change `AGENTS.md`.
-The CLI version determines which skill names it requests. Skill contents come from
-this repository's default branch, so pinning the CLI version does not pin the skills.
-The reviewer configuration comes from the CLI package.
+Skills and the reviewer configuration come from the CLI package, so the CLI version
+pins both. K Fleet does not use the `skills` CLI or `skills-lock.json`; it removes
+K Fleet entries left in that file by earlier versions and keeps other entries.
 
 Codex [detects skill changes automatically](https://learn.chatgpt.com/docs/build-skills#create-a-skill),
 and Claude Code [watches skill directories](https://code.claude.com/docs/en/skills).
@@ -225,9 +223,9 @@ Check what npm currently publishes:
 npm view k-fleet dist-tags --json
 ```
 
-An older CLI may update existing skills without requesting newly added names. Use
-an explicit published version as `k-fleet@<version>`, or obtain the current CLI from
-GitHub and update registered projects:
+A cached older CLI installs that version's skills. Use an explicit published version
+as `k-fleet@<version>`, or obtain the current CLI and skills from GitHub and update
+registered projects:
 
 ```sh
 npx --yes github:KeterVM/k-fleet update --all
@@ -242,8 +240,7 @@ The `skills/` directory has the skill source files.
 The `.codex/agents/` and `.claude/agents/` directories have the reviewer configuration,
 with the same instructions for each agent.
 The `scripts/kf-projects.mjs` file has the CLI code.
-The CLI has no declared npm dependencies; installation delegates to the external
-`skills` CLI through `npx`.
+The CLI has no npm dependencies and copies skills from its own package.
 
 For maintenance instructions, refer to these documents:
 
