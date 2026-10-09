@@ -3,6 +3,44 @@
 Notable changes to K Fleet are recorded here.
 Earlier entries describe their versions. Use the README for current installation and operation.
 
+## [3.7.0] - 2026-10-09
+
+### Changed
+
+- The CLI installs skills from its own package instead of running
+  `npx skills add` once per project. `update --all` downloads K Fleet once, copies
+  each skill to `.agents/skills/`, and links it from `.claude/skills/` as before.
+  Only Node.js 20 and npm access are required; Git and GitHub access are not.
+- Skill contents now follow the CLI version: pinning `k-fleet@<version>` pins the
+  skills too. To install the current default branch, use
+  `npx --yes github:KeterVM/k-fleet update`.
+- K Fleet no longer records skills in `skills-lock.json`. Install and update remove
+  K Fleet entries left there by earlier versions, keep other entries, and delete
+  the file only when nothing else remains. `status` no longer checks it.
+- The `KFLEET_SKILL_SOURCE` environment variable is removed.
+- The `kf-setup` managed block tells agents to load a method's skill before acting;
+  the reminders summarize the skills and do not replace them.
+
+### Update
+
+- Run `npx --yes k-fleet@3.7.0 update --all` (or `bunx k-fleet@3.7.0 update --all`)
+  after npm publication, or `npx --yes github:KeterVM/k-fleet update --all`.
+- Commit the resulting `skills-lock.json` change in each project. Run `kf-setup`
+  again to refresh the managed reminders.
+
+### Validation
+
+- `update` on a copy of an installed project (12 K Fleet skills, two third-party
+  skills, and a planted retired `kf-design`): installed skills matched the package
+  sources, Claude Code links pointed at the canonical copies, the retired skill and
+  its link were removed, and only the two third-party lock entries remained.
+- `install` in an empty directory created all skills and reviewer files (`status`:
+  26 OK); a second `install` preserved them. `node --check` passed, and
+  `npm pack --dry-run` lists 53 files including all skill directories.
+- Limits: macOS only; the Windows copy fallback for links was not exercised. The
+  `kf-setup` reminder change came from one Claude Code field report in which the
+  agent never invoked the listed skills; it has not yet been observed in use.
+
 ## [3.6.0] - 2026-10-07
 
 ### Added
